@@ -1,0 +1,50 @@
+﻿@model proera.communes
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>communes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.geom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.geom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.departements.nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.departements.nom)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.code_com }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

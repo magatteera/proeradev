@@ -1,0 +1,134 @@
+﻿@model IEnumerable<proera.villages>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Nouveau village", "Create")
+</p>
+<table class="table table-bordered table-striped table-sm" style="font-size:12px" id="villagestable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LOCALITE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.POPULATION)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MENAGE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ECOLE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.POSTE_SANTE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FORAGE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MOULIN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GSM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CODE_MT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AXE_MT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NEAR_DIST)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.idProgramme)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LONG)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LAT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.communes.nom)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LOCALITE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.POPULATION)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MENAGE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ECOLE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.POSTE_SANTE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FORAGE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MOULIN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GSM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CODE_MT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AXE_MT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NEAR_DIST)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.idProgramme)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LONG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LAT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.communes.nom)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.idLocalite }) |
+                @Html.ActionLink("Details", "Details", new { id = item.idLocalite }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.idLocalite })
+            </td>
+        </tr>
+        }
+    </tbody>
+
+</table>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#villagestable').dataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
+            }
+        });
+    });
+ </script>
+

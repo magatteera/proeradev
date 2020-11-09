@@ -1,0 +1,80 @@
+﻿@model proera.bordereaux
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>bordereaux</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.datecreation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datecreation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.montant)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.montant)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ouvert)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ouvert)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.utilisateur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.utilisateur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.datevalidation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datevalidation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.type)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

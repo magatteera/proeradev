@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "test";
+}
+
+
+@if (@ViewBag.erreur == 0)
+{
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div class="info-box mb-3">
+
+        <div class="info-box-content">
+            <h2>La periode <strong>@ViewBag.test</strong> a été créée</h2>
+        </div>
+        <!-- /.info-box-content -->
+    </div>
+
+    <div class="info-box mb-3">
+
+        <div class="info-box-content">
+
+
+            <h3>Votre fichier comprenait  <strong>@ViewBag.nbrdepart</strong>  Elements et   <strong>@ViewBag.nbrreleves</strong>  Clients ont été correctement Relevés.</h3>
+
+            <h3>il y'a eu <strong>@ViewBag.dupliques</strong> releves avec des clients deja relevés.</h3>
+            <h3>il y'a eu <strong>@ViewBag.inexistant</strong> releves avec des clients qui n'existent pas.</h3>
+            <h3>il y'a eu <strong>@ViewBag.nonenservice</strong> releves avec des clients non en service.</h3>
+        </div>
+        <!-- /.info-box-content -->
+    </div>
+}
+
+@if (@ViewBag.erreur == 1)
+{
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="info-box mb-3">
+
+        <div class="info-box-content">
+            <h3>Une erreur s'est produite. Soit votre fichier ne comprenait pas d'elements soit les entetes ne sont pas bonnes. <br /> Veuillez verifier la forme de votre fichier ou contacter votre support Technique.</h3>
+
+        </div>
+        <!-- /.info-box-content -->
+    </div>
+}
+
+@if (@ViewBag.erreur == 2)
+{
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="info-box mb-3">
+
+        <div class="info-box-content">
+            <h3>Une erreur fichier s'est produite. Soit votre fichier ne comprenait pas d'elements soit les entetes ne sont pas bonnes. <br /> Veuillez verifier la forme de votre fichier ou contacter votre support Technique.</h3>
+
+        </div>
+        <!-- /.info-box-content -->
+    </div>
+}

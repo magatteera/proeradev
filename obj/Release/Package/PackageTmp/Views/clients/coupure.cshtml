@@ -1,0 +1,218 @@
+﻿@model proera.SAV
+
+@{
+    ViewBag.Title = "Creation";
+}
+<br />
+<h2>Coupure d'un Client</h2>
+<div class="form-horizonal">
+    <div class="form-group">
+        <label class="control-label col">Selectionnez la Periode</label>
+        <div class="col-md-10">
+            @Html.DropDownList("periode", null, htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+</div>
+
+
+<table id="tablebody" class="table table-bordered table-striped table-sm">
+    <thead>
+        <tr>
+            <th>
+                Nom
+            </th>
+            <th>
+                Prenom
+            </th>
+            <th>
+                Village
+            </th>
+            <th>
+                Reference Contrat
+            </th>
+            <th>
+                Niveau de Puissance
+            </th>
+            <th>
+                Etat
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody id="tablebodyitems">
+        @*@foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prenom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Village)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reference_Contrat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Etat_Client)
+            </td>
+            <td>
+                <button class="btn btn-danger" ref=@item.Reference_Contrat id="btncouper">Couper</button>
+            </td>
+        </tr>
+        }*@
+    </tbody>
+
+
+</table>
+
+<div class="modal fade" id="modalcoupure" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Creation Bordereau</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <h4>Coupure</h4>
+                    <hr />
+
+                    <div class="form-group">
+                        <label class="control-label col">Reference Client</label>
+                        <div class="col-md-10">
+                            <input type="text" disabled name="reference" id="reference" class="form-control" />
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DATE, htmlAttributes: new { @class = "control-label col" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.DATE, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DATE, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MOTIF, htmlAttributes: new { @class = "control-label col" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.MOTIF, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MOTIF, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.REMARQUE, htmlAttributes: new { @class = "control-label col" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.REMARQUE, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.REMARQUE, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PERIODE, htmlAttributes: new { @class = "control-label col" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.PERIODE, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PERIODE, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.index, htmlAttributes: new { @class = "control-label col" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.index, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.index, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="couperclient" data-dismiss="modal" class="btn btn-danger">Couper</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+
+        $('#tablebody').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
+            }
+        });
+
+       
+
+        $("#periode").change(function () {
+            //alert($("#nivpuissance").val())
+            data = {
+                periode: $("#periode").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/changementPeriodeCoupure",
+                data: data,
+                success: function (data) {
+                    //alert(data)
+                    $('#tablebodyitems').empty()
+                        .append(data)
+                    $("button[id^='btncouper']").click(function () {
+                        @*alert("clicked!!")
+                        alert($("button[id^='btncouper']").attr("ref"))*@
+
+                        $("#reference").val($("button[id^='btncouper']").attr("ref"))
+                        $("#modalcoupure").modal('show')
+                    })
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        });
+
+
+        $("#couperclient").click(function () {
+            data = {
+                reference: $("#reference").val(),
+                date: $("#date").val(),
+                motif: $("#motif").val(),
+                remarque: $("#remarque").val(),
+                periode: $("#periode").val(),
+                index: $("#reference").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/validerCoupure",
+                data: data,
+                success: function (data) {
+                    //alert(data)
+                    if (data.ok)
+                        alert("Clients coupé avec succés!!")
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+
+
+    });
+
+    
+</script>
+

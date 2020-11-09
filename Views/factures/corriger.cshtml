@@ -1,0 +1,105 @@
+﻿@model IEnumerable<proera.factures>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Factures</h2>
+
+
+
+<div class="form-horizontal">
+    <h4>Modifier Facture</h4>
+    <hr />
+
+
+    <div class="form-group">
+        <label class="control-label col-md-2">ID de la Facture</label>
+        <div class="col-md-10">
+            <input value="" id="txtnumerofacture" type="text" class="form-control" />
+        </div>
+    </div>
+
+
+    <div id="divfacture">
+
+        @using (Html.BeginForm("validerModif", "factures", FormMethod.Post ))
+        {
+
+            <input type="hidden" name="id" id="id" />
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Ancien Index</label>
+                <div class="col-md-10">
+                    <input value="" id="txtancienindex" name="AncienIndex" type="text" class="form-control" />
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Nouvel Index</label>
+                <div class="col-md-10">
+                    <input value="" id="txtnouvelindex" name="NouvIndex" type="text" class="form-control" />
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Consommation</label>
+                <div class="col-md-10">
+                    <input value="" id="txtconsommation" name="conso" type="text" class="form-control" />
+                </div>
+            </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Modifier" class="btn btn-danger" />
+            </div>
+        </div>
+}
+
+
+
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+
+                $("#divfacture").attr("hidden", true)
+
+                $("#txtnumerofacture").change(function () {
+                    data = {
+                        id: $("#txtnumerofacture").val()
+                    }
+                    // alert($("#idfacture").val())
+                    $.ajax({
+                        type: "POST",
+                        url: "/factures/factureACorriger",
+                        data: data,
+                        success: function (data) {
+
+                            if (data.message == "OK") {
+                                $("#txtancienindex").val(data.ancienindex)
+                                $("#txtnouvelindex").val(data.nouvelindex)
+                                $("#txtconsommation").val(data.consom)
+                                $("#txtmontant").val(data.montant)
+                                $("#id").val($("#txtnumerofacture").val())
+                                
+                                $("#divfacture").attr("hidden", false)
+                            } else {
+
+                                $("#divfacture").attr("hidden", true)
+                                alert("Facture Introuvable!!")
+                            }
+                        },
+                        error: function () {
+                            alert("Error occured!!")
+                        }
+                    });
+                })
+
+            });
+        </script>

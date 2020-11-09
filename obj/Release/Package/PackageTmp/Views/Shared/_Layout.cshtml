@@ -1,0 +1,291 @@
+﻿<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>AdminLTE 3 | Starter</title>
+    
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition sidebar-mini" style="margin-top: 0px">
+    <div class="wrapper">
+
+        
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="/" class="brand-link">
+                <img src="~/App_Data/era.png" alt="Era Logo" class="brand-image img-circle elevation-3"
+                     style="opacity: .8">
+                <span class="brand-text font-weight-light">Pro Era</span>
+            </a>
+
+            @*@Html.ActionLink("Pro ERA", "Index", "Home", new { area = "" }, new { @class = "nav-link" })*@
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="info">
+                        <a href="#" class="d-block">@User.Identity.Name</a>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+    with font-awesome or any other icon font library -->
+
+
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Clients
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+                                    @Html.ActionLink("Rechercher", "", "clients/", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+
+
+                                <li class="nav-item">
+                                    @Html.ActionLink("creer client demestique", "", "clients/createdomestique", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("creer client productif", "", "clients/createproductif", new { area = "" }, new { @class = "nav-link" })
+                                </li>
+
+                                <li class="nav-item">
+                                    @Html.ActionLink("Clients en Attente", "", "clients/rechercheEnAttente", new { area = "" }, new { @class = "nav-link" })
+                                </li>
+
+                                <li class="nav-item">
+                                    @Html.ActionLink("Mise En Vigueur", "", "clients/mettreenvigueur", new { area = "" }, new { @class = "nav-link" })
+                                </li>
+
+                                <li class="nav-item">
+                                    @Html.ActionLink("Mise En Service", "", "clients/mettreEnService", new { area = "" }, new { @class = "nav-link" })
+                                </li>
+
+                            </ul>
+                        </li>
+
+
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-money-bill-alt"></i>
+                                <p>
+                                    Recouvrements
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    @Html.ActionLink("Ouvrir Periode", "", "recouvrements/ouvrirperioderecouvrement", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Reporting", "", "clients/rechercheEnAttente", new { area = "" }, new { @class = "nav-link" })
+                                </li>
+
+                                <li class="nav-item">
+                                    @Html.ActionLink("Cloture", "", "recouvrements/cloturer", new { area = "" }, new { @class = "nav-link" })
+                                </li>
+
+                            </ul>
+                        </li>
+
+
+
+
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-file-invoice"></i>
+                                <p>
+                                    Facturation
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    @Html.ActionLink("Facturer", "", "facturationtriggers/facturer", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+
+                                <li class="nav-item">
+                                    @Html.ActionLink("Correction Releve", "", "factures/corriger", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+
+                            </ul>
+                        </li>
+
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-money-bill-wave"></i>
+                                <p>
+                                    Encaissements
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    @Html.ActionLink("Nouveau Bordereau", "", "bordereaux/create", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Encaisser", "", "encaissements/create", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+
+                                <li class="nav-item">
+                                    @Html.ActionLink("Arreter Caisse", "", "encaissements/arretercaisse", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-taxi"></i>
+                                <p>
+                                    SAV
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    @Html.ActionLink("Bon de Coupure", "", "clients/bondecoupure", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Couper", "", "clients/couper", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+
+                                <li class="nav-item">
+                                    @Html.ActionLink("Retablir", "", "clients/retablir", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+
+                                <li class="nav-item">
+                                    @Html.ActionLink("Changer Interface", "", "clients/changerinterface", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+
+                                <li class="nav-item">
+                                    @Html.ActionLink("Reclamation", "", "reclamations1/create", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+
+                                <li class="nav-item">
+                                    @Html.ActionLink("Resiliation", "", "resiliations/create", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-stopwatch-20"></i>
+                                <p>
+                                    Compteurs
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    @Html.ActionLink("Importer Compteurs", "", "compteurs/create", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Compteur Disponibles", "", "compteurs/listedisponibles", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+
+                                <li class="nav-item">
+                                    @Html.ActionLink("Rechercher", "", "compteurs/index", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+
+                            </ul>
+                        </li>
+
+
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-search"></i>
+                                <p>
+                                    Localités
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    @Html.ActionLink("Regions", "", "regions/", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Departements", "", "departements/", new { area = "" }, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Communes", "", "communes/", new { area = "" }, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Villages", "", "villages/", new { area = "" }, new { @class = "nav-link" })
+                                </li>
+                            </ul>
+                        </li>
+
+
+
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- /.content-header -->
+            <!-- Main content -->
+            <div class="content">
+                 
+                <div class="container renderbody" id="" style="width: 85%;">
+                    @RenderBody()
+                    <hr />
+                    <footer>
+                        <p>&copy; @DateTime.Now.Year - Mon application ASP.NET</p>
+                    </footer>
+                </div>
+            </div>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+            <div class="p-3">
+                <h5>Title</h5>
+                <p>Sidebar content</p>
+            </div>
+        </aside>
+        <!-- /.control-sidebar -->
+        
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/adminlte/js")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+

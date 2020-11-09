@@ -1,0 +1,250 @@
+﻿@model proera.factures
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>factures</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.idreleve)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idreleve)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prenom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prenom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.village)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.village)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dateReleve)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateReleve)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.conso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.conso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RedTableau)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RedTableau)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PartEnergetique)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PartEnergetique)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Red_electRural)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Red_electRural)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.assTVA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.assTVA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TVA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TVA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.netPayer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.netPayer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TCO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TCO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.facturation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.facturation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AncienIndex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AncienIndex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NouvIndex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NouvIndex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReportArr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReportArr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdFacture)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdFacture)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.solde)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.solde)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.penalite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.penalite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idref)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idref)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RembInst)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RembInst)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RefClient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RefClient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Paiement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Paiement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NivServ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NivServ)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NivPuissance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NivPuissance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NbreJours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NbreJours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.reference)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.reference)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.recouvrements.utilisateur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.recouvrements.utilisateur)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

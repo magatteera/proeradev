@@ -1,0 +1,287 @@
+﻿@model proera.clients
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<br />
+<h2>Details Client</h2>
+
+<div>
+    <hr />
+    <dl class="container">
+
+        <hr />
+        <h4>Identification</h4>
+        <hr />
+
+        <div class="row">
+
+            <div class="col">
+                <dt>
+                    Nom
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Nom1)
+                </dd>
+            </div>
+
+            <div class="col">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Prenom)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Prenom)
+                </dd>
+            </div>
+
+            <div class="col">
+                <dt>
+                    Telephone
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Tel)
+                </dd>
+            </div>
+
+        </div>
+        <br />
+
+        <div class="row">
+
+            <div class="col">
+
+                <dt>
+                    Raison Sociale
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Raison_Social)
+                </dd>
+            </div>
+
+            <div class="col">
+                <dt>
+                    Date Abonnement
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Date_Abonnement)
+                </dd>
+            </div>
+
+            <div class="col">
+                <dt>
+                    Village
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Village)
+                </dd>
+            </div>
+
+        </div>
+        <br />
+
+
+        <hr />
+        <h4>Electrification</h4>
+        <hr />
+
+        <br />
+        <div class="row">
+
+            <div class="col">
+
+                <dt>
+                    Niveau de Service
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Niv_Service)
+                </dd>
+            </div>
+
+            <div class="col">
+                <dt>
+                    Type Electrification
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Type_Elect)
+                </dd>
+            </div>
+
+            <div class="col">
+                <dt>
+                    Calibre
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.calibre)
+                </dd>
+            </div>
+
+        </div>
+        <br />
+
+
+
+        <div class="row">
+
+            <div class="col">
+
+                <dt>
+                    Montant Encaissé
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Montant_Encaisse)
+                </dd>
+            </div>
+
+
+            <div class="col">
+                <dt>
+                    Date Mise en Service
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Date_Mise_en_Service)
+                </dd>
+            </div>
+
+        </div>
+        <br />
+
+
+
+
+
+        <div class="row">
+
+            <div class="col">
+
+                <dt>
+                   Date Resiliation
+                    </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Date_Resiliation)
+                </dd>
+            </div>
+
+            <div class="col">
+                <dt>
+                    Solde Total
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SoldeTotal)
+                </dd>
+            </div>
+
+            <div class="col">
+                <dt>
+                    Date Mise en Service
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.dateMeS)
+                </dd>
+            </div>
+
+        </div>
+        <br />
+
+
+
+
+
+
+
+        <div class="row">
+
+            <div class="col">
+
+                <dt>
+                    Niveau de Puissance
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NivPuissance)
+                </dd>
+            </div>
+
+            <div class="col">
+
+                <dt>
+                    Activite
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.activite)
+                </dd>
+            </div>
+
+            <div class="col">
+                <dt>
+                    Reference Client
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.refclient)
+                </dd>
+            </div>
+
+        </div>
+        <br />
+       
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Reference_Contrat }) |
+
+    @Html.ActionLink("Migrer", "MigrerClient", new { id = Model.Reference_Contrat }) 
+    @Html.ActionLink("Retour", "Index")
+    <br />
+    @*@if (Model.Etat_Client != 1)
+        {
+            <a onclick="return confirm('Attention!! Voulez-vous vraiment le mettre en service?')" href='@Url.Action("MettreEnService/"+Model.Reference_Contrat, "Clients")'>
+                <button class="btn btn-success">Mettre en Service</button>
+            </a>
+        }
+
+        @if (Model.Etat_Client != 2)
+        {
+            <a onclick="return confirm('Attention!! Voulez-vous vraiment le mettre en panne?')" href='@Url.Action("MettreEnPanne/"+Model.Reference_Contrat, "Clients")'>
+                <button class="btn btn-warning">Mettre en Panne</button>
+            </a>
+        }
+
+        @if (Model.Etat_Client != 3)
+        {
+            <a onclick="return confirm('Attention!! Voulez-vous vraiment resilier le contrat?')" href='@Url.Action("ResilierContrat/"+Model.Reference_Contrat, "Clients")'>
+                <button class="btn btn-danger">Resilier Contrat</button>
+            </a>
+        }
+
+        @if (Model.Etat_Client != 4)
+        {
+            <a onclick="return confirm('Attention!! Voulez-vous vraiment le couper?')" href='@Url.Action("CouperClient/"+Model.Reference_Contrat, "Clients")'>
+                <button class="btn btn-primary">Couper Client</button>
+            </a>
+        }
+
+
+        @if (Model.Etat_Client != 5)
+        {
+            <a onclick="return confirm('Attention!! Voulez-vous vraiment le mettre en attente?')" href='@Url.Action("MettreEnAttente/"+Model.Reference_Contrat, "Clients")'>
+                <button class="btn btn-secondary">Mettre En Attente</button>
+            </a>
+        }*@
+
+</p>

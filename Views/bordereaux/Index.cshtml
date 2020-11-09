@@ -1,0 +1,69 @@
+﻿@model IEnumerable<proera.bordereaux>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.numero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.datecreation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.montant)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ouvert)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.utilisateur)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.datevalidation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.type)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.numero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.datecreation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.montant)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ouvert)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.utilisateur)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.datevalidation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.type)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

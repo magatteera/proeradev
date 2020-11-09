@@ -1,0 +1,208 @@
+﻿@model IEnumerable<proera.clients>
+
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+<h2>Mise en Vigueur De Clients</h2>
+
+
+<p>Mise en Vigueur : </p>
+
+
+<div class="row">
+    <div class="col-5">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col">Selectionnez le Bordereau</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("bordereaux", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-5">
+        <p>Montant total Encaisse : <i style="font-weight: bold" id="totalencaisse"></i> Fcfa</p>
+        <p>Montant du Bordereau : <i style="font-weight: bold" id="montantbordereau"></i> Fcfa</p>
+        <p>especes : <i style="font-weight: bold" id="montantespeces"></i> Fcfa</p>
+        <p>cheques : <i style="font-weight: bold" id="montantcheques"></i> Fcfa</p>
+        <p>coupons : <i style="font-weight: bold" id="montantcoupons"></i> Fcfa</p>
+    </div>
+
+    <div class="col-2">
+        <button id="btnMiseEnVigueur" class="btn btn-success btn-block">Mettre en Vigueur</button>
+        <br />
+        @*@if (User.IsInRole("Administrateurs"))
+            {*@
+        <button id="btnForcerMiseEnVigueur1" class="btn btn-success btn-warning">Forcer Mise en Vigueur</button>
+        @*}*@
+    </div>
+</div>
+
+
+
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nom1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prenom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Village)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reference_Contrat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Montant_Encaisse)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody id="tablebody">
+    </tbody>
+
+</table>
+
+
+<div class="modal fade" id="modalforcer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Commentaire</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+
+
+                    <div class="form-group">
+                        <label class="control-label col">Commentaire</label>
+                        <div class="col-md-10">
+                            <textarea name="commentaire" id="commentaire" class="form-control" ></textarea>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="btnForcerMiseEnVigueur" data-dismiss="modal" class="btn btn-primary">Forcer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $("#bordereaux").prepend("<option selected value='0'>Selectionnez un borderau</option>")
+        if ($("#bordereaux").val() > 0) {
+
+        }
+            else {
+
+            $("#btnMiseEnVigueur").attr("disabled", true)
+            $("#btnForcerMiseEnVigueur1").attr("disabled", true)
+        }
+
+
+
+        $("#btnMiseEnVigueur").click(function () {
+            data = {
+                Bordereau: $("#bordereaux").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/appliquerMisEnVigueur",
+                data: data,
+                success: function (data) {
+                    alert(data)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+
+
+
+
+        $("#btnForcerMiseEnVigueur1").click(function () {
+            @*alert("forcer mise en vigueur")*@
+            $("#modalforcer").modal('show')
+        })
+
+        $("#btnForcerMiseEnVigueur").click(function () {
+            data = {
+                bordereau: $("#bordereaux").val(),
+                commentaire : $("#commentaire").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/appliquerMisEnVigueur",
+                data: data,
+                success: function (data) {
+                    alert(data)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+
+
+        $("#bordereaux").change(function () {
+            data = {
+                Bordereau: $("#bordereaux").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/getClientByBordereau",
+                data: data,
+                success: function (data) {
+                    @*alert(data.montantbordereau + "  " + data.totalencaisse)*@
+                    $("#tablebody").empty().
+                        append(data.selectclient)
+                    $("#montantbordereau").html(data.montantbordereau + "")
+
+                    $("#totalencaisse").html(data.totalencaisse + "")
+                    $("#montantespeces").html(data.montantespeces + "")
+                    $("#montantcheques").html(data.montantcheques + "")
+                    $("#montantcoupons").html(data.montantcoupons + "")
+
+                    if ($("#bordereaux").val() > 0 && data.nombreclients >= 1) {
+
+                        $("#btnMiseEnVigueur").removeAttr("disabled")
+                        $("#btnForcerMiseEnVigueur1").removeAttr("disabled")
+                    }
+                    else {
+
+                        $("#btnMiseEnVigueur").attr("disabled", true)
+                        $("#btnForcerMiseEnVigueur1").attr("disabled", true)
+                    }
+
+                    if (data.montantbordereau != data.totalencaisse)
+                        $("#btnMiseEnVigueur").attr("disabled", true)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+    });
+</script>

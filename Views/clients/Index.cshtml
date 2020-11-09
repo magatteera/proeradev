@@ -1,0 +1,185 @@
+﻿@model proera.clients
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div class="row">
+    <div class="col-md-4">
+
+        @using (Html.BeginForm("recherche", "clients", FormMethod.Get))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Reference_Contrat, "reference du client", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBox("reference", "", htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Rechercher" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        }
+
+
+    </div>
+
+<div class="col-md-8">
+    <p>Rechercher un client par son Village: </p>
+
+    @using (Html.BeginForm("rechercheParVillage", "clients", FormMethod.Post))
+    {
+
+        <div class="form-horizontal">
+
+            <div class="form-row">
+
+                <div class="col">
+                    <div class="form-group">
+                        @Html.Label("Region", htmlAttributes: new { @class = "control-label col" })
+                        <div class="col">
+                            @Html.DropDownList("regions", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="col">
+                    <div class="form-group">
+                        @Html.Label("Departement", htmlAttributes: new { @class = "control-label col" })
+                        <div class="col">
+                            @Html.DropDownList("departements", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <br />
+            <br />
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        @Html.Label("Commune", htmlAttributes: new { @class = "control-label col" })
+                        <div class="col">
+                            @Html.DropDownList("COMMUNE", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col">Selectionnez le Village</label>
+                            <div class="col">
+                                @Html.DropDownList("codevillage", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Rechercher" class="btn btn-success" />
+                </div>
+            </div>
+
+        </div>
+
+    }
+
+
+</div>
+</div>
+    <br />
+    <hr />
+    <br />
+
+    
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        $("#village").prepend("<option selected value=''>Selectionnez le Village</option>")
+        $("#regions").change(function () {
+            data = {
+                id: $("#regions").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/changementregionmes",
+                data: data,
+                success: function (data) {
+                    $("#departements").empty().
+                        append(data.departement)
+                    $("#COMMUNE").empty().
+                        append(data.commune)
+                    $("#codevillage").empty().
+                        append(data.village)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+        $("#departements").change(function () {
+            data = {
+                code_departement: $("#departements").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/changementdepartementmes",
+                data: data,
+                success: function (data) {
+                    $("#COMMUNE").empty().
+                        append(data.commune)
+                    $("#codevillage").empty().
+                        append(data.village)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+        $("#COMMUNE").change(function () {
+            data = {
+                code_com: $("#COMMUNE").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/changementcommuneindex",
+                data: data,
+                success: function (data) {
+                    @*alert(data)*@
+                    $("#codevillage").empty().
+                        append(data)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+        $("#RechercherParVillage").click(function () {
+        })
+    });
+    </script>

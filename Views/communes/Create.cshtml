@@ -1,0 +1,88 @@
+﻿@model proera.communes
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>communes</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.nom, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nom, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.nom, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Region", htmlAttributes: new { @class = "control-label col" })
+            <div class="col-md-10">
+                @Html.DropDownList("regions", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.iddepartement, "Departement", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="iddepartement" id="iddepartement" class="form-control">
+                    
+                </select>
+                @Html.ValidationMessageFor(model => model.iddepartement, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $("#regions").prepend('<option value="">Selectionnez la region</option>')
+
+        $("#regions").change(function () {
+            data = {
+                id: $("#regions").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/villages/changementregion",
+                data: data,
+                success: function (data) {
+                    $("#iddepartement").empty().
+                        append(data.departement)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+
+    });
+</script>

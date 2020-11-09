@@ -1,0 +1,128 @@
+﻿@model proera.encaissements
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Arrete de Caisse</h2>
+
+
+    <div class="col">
+        <div class="form-group">
+            <label class="control-label col">Selectionnez le Bordereau</label>
+            <div class="col-md-10">
+                @Html.DropDownList("bordereaux", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+    </div>
+
+    <button type="button" id="btnArreterCaisse" class="btn btn-warning">Fermer la Caisse</button> <br /><br />
+
+
+
+    @*<h3 id="facturespayees">payees</h3>
+    <h3 id="facturesimpayees">impayees</h3>*@
+    Montant du Bordereau : <h3 id="montant"></h3><br /><br />
+
+                           <table id="tablebody" class="table table-bordered table-striped table-sm">
+                               <thead>
+                                   <tr>
+                                       <th>
+                                           Ref Client
+                                       </th>
+                                       <th>
+                                           Nom
+                                       </th>
+                                       <th>
+                                          Prenom
+                                       </th>
+                                       <th>
+                                           Num Recu
+                                       </th>
+                                       <th>
+                                           Montant Encaissé
+                                       </th>
+                                       <th>
+                                           Solde Prepaiement
+                                       </th>
+                                       <th>
+                                           Solde PostPaiement
+                                       </th>
+                                       <th>
+                                           Date
+                                       </th>
+                                       <th>
+                                           ID Facture
+                                       </th>
+                                   </tr>
+                               </thead>
+
+                               <tbody id="bodytable">
+                               </tbody>
+
+
+
+                           </table>
+
+
+
+
+
+
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#bordereaux").prepend("<option selected value=''>Selectionnez la Periode</option>")
+            $("#bordereaux").change(function () {
+                @*alert($("#bordereaux").val())*@
+                data = {
+                    id: $("#bordereaux").val()
+                }
+
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/encaissements/changementbordereaux",
+                    data: data,
+                    success: function (data) {
+                        @*alert(data)*@
+                        $("#bodytable").empty().append(data.table)
+                        $("#montant").html(data.montant)
+                    },
+                    error: function () {
+                    }
+                });
+            });
+
+            $("#btnArreterCaisse").click(function () {
+                @* alert($("#bordereaux").val()) *@
+                data = {
+                    id: $("#bordereaux").val()
+                }
+
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/encaissements/validerCloture",
+                    data: data,
+                    success: function (data) {
+                        if (data.ok == 1) {
+                            alert(data.message)
+                            $("#bordereaux").empty().append(data.bordereaux)
+                        } else {
+                            alert(data.message)
+                        }
+                    },
+                    error: function () {
+                    }
+                });
+            });
+
+            
+        });
+    </script>

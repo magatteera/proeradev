@@ -1,0 +1,74 @@
+﻿@model IEnumerable<proera.migration>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table id="tablebody" class="table table-bordered table-striped table-sm">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.anciennivpui)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nouveaunivpui)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.frais)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.datemigration)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.anciennivpui)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nouveaunivpui)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.frais)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.datemigration)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                </td>
+            </tr>
+        }
+    </tbody>
+    
+
+    
+
+</table>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+
+        $('#tablebody').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
+            }
+        });
+    });
+</script>
+

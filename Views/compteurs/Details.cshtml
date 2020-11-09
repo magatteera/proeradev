@@ -1,0 +1,74 @@
+﻿@model proera.compteurs
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>compteurs</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.numerointerface)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numerointerface)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.datereception)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datereception)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.utilisateur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.utilisateur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.libre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.libre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.entrepot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.entrepot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fabricant)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fabricant)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

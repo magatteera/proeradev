@@ -1,0 +1,121 @@
+﻿@model proera.SAV
+
+@{
+    ViewBag.Title = "Creation";
+}
+<br />
+<h2>Retablissement d'un Client</h2>
+<div class="form-horizonal">
+    <div class="form-group">
+        <label class="control-label col">Entrez la Reference</label>
+        <div class="col-md-10">
+            <input type="number" id="refclient" class="form-control" />
+        </div>
+    </div>
+</div>
+
+
+<div id="detailsclient" hidden>
+    <div class="row">
+
+        <div class="col">
+            <dt>
+                Nom
+            </dt>
+
+            <dd id="ddNom">
+
+            </dd>
+        </div>
+
+        <div class="col">
+            <dt>
+                Prenom
+            </dt>
+
+            <dd id="ddPrenom">
+
+            </dd>
+        </div>
+
+        <div class="col">
+            <dt>
+                Telephone
+            </dt>
+
+            <dd id="ddTelephone">
+
+            </dd>
+        </div>
+
+    </div>
+    <br />
+    <button class="btn btn-success" id="btnRetablir">Retablir</button>
+</div>
+
+
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $("#refclient").change(function () {
+            //alert($("#nivpuissance").val())
+            data = {
+                Reference_Contrat: $("#refclient").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/changementRefRetablissement",
+                data: data,
+                success: function (data) {
+                    if (data.message == "trouve") {
+                        $("#ddNom").html(data.nom)
+                            $("#ddPrenom").html(data.prenom)
+                        $("#ddTelephone").html(data.tel)
+                        $("#detailsclient").attr("hidden", false)
+
+
+                    } else {
+
+                        $("#detailsclient").attr("hidden", true)
+
+                        alert("Reference du client incorrecte !!")
+                    }
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        });
+
+        
+
+        $("#btnRetablir").click(function () {
+            //alert($("#nivpuissance").val())
+            data = {
+                Reference_Contrat: $("#refclient").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/validerRetablissement",
+                data: data,
+                success: function (data) {
+                    alert(data.message)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        });
+
+
+
+    });
+
+    
+</script>
+

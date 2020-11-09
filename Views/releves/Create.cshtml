@@ -1,0 +1,132 @@
+﻿@model proera.releves
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>releves</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Reference_Contrat, "Reference Contrat", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" name="Reference_Contrat" id="Reference_Contrat" class="form-control" />
+                @Html.ValidationMessageFor(model => model.Reference_Contrat, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ancien_index, "Ancien Index", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="number" name="Ancien_index" id="Ancien_index" required class="form-control" />
+                @Html.ValidationMessageFor(model => model.Ancien_index, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nouvel_index, "Nouvel Index", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="number" name="Nouvel_index" id="Nouvel_index" required class="form-control" />
+                @Html.ValidationMessageFor(model => model.Nouvel_index, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.date_de_relève, "Date Releve", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="date" name="date_de_relève" id="date_de_relève" required class="form-control" />
+                @Html.ValidationMessageFor(model => model.date_de_relève, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.periode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("periode", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.periode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.prevbill, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.prevbill, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.prevbill, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.nbreJour, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="number" name="nbreJour" placeholder="nombre de jours" id="nbreJour" required class="form-control" />
+                @Html.ValidationMessageFor(model => model.nbreJour, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10"> 
+                <input type="submit" value="Enregistrer" id="Enregistrer" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#Reference_Contrat").change(function () {
+            data = {
+                Reference_Contrat: $("#Reference_Contrat").val()
+            }
+            // alert($("#idfacture").val())
+            $.ajax({
+                type: "POST",
+                url: "/releves/changementreference",
+                data: data,
+                success: function (data) {
+                    if (data.message == "inexistant") {
+                        $("#Reference_Contrat").addClass("is-invalid")
+                        alert("Vuillez verifier la reference du client il n'existe dans la base de donnees")
+                    } else {
+                        $("#idfacture").removeClass("is-invalid")
+                        $("#Ancien_index").val(data.ancienindex)
+                    }
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+
+        $("#Nouvel_index").change(function () {
+            if ($("#Nouvel_index").val() < $("#Ancien_index").val()) {
+                alert("Attention le nouvel index est inferieur a l'ancien!!")
+                $("#Nouvel_index").addClass("is-invalid")
+            } else
+                $("#Nouvel_index").removeClass("is-invalid")
+        })
+
+        
+    });
+</script>

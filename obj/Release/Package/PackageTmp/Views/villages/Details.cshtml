@@ -1,0 +1,138 @@
+﻿@model proera.villages
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>villages</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LOCALITE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LOCALITE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.POPULATION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.POPULATION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MENAGE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MENAGE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ECOLE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ECOLE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.POSTE_SANTE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.POSTE_SANTE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FORAGE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FORAGE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MOULIN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MOULIN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GSM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GSM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CODE_MT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CODE_MT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AXE_MT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AXE_MT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NEAR_DIST)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NEAR_DIST)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idProgramme)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idProgramme)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LONG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LONG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LAT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LAT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.communes.nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.communes.nom)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idLocalite }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

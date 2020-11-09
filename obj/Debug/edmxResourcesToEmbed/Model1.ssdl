@@ -1,0 +1,743 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ERADEVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="bordereaux">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="numero" Type="varchar" MaxLength="50" />
+    <Property Name="datecreation" Type="date" />
+    <Property Name="montant" Type="float" />
+    <Property Name="ouvert" Type="tinyint" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+    <Property Name="validateur" Type="nvarchar" MaxLength="50" />
+    <Property Name="datevalidation" Type="date" />
+    <Property Name="type" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="changementinterface">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="date" Type="date" />
+    <Property Name="oldinterface" Type="varchar" MaxLength="50" />
+    <Property Name="newinterface" Type="varchar" MaxLength="50" />
+    <Property Name="indexdepose" Type="int" />
+    <Property Name="indexpose" Type="int" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+    <Property Name="refclient" Type="int" />
+  </EntityType>
+  <EntityType Name="clients">
+    <Key>
+      <PropertyRef Name="Reference Contrat" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Nom1" Type="nvarchar" MaxLength="255" />
+    <Property Name="Prenom" Type="nvarchar" MaxLength="255" />
+    <Property Name="Num ID" Type="nvarchar" MaxLength="255" />
+    <Property Name="Tel" Type="nvarchar" MaxLength="255" />
+    <Property Name="Raison Social" Type="nvarchar" MaxLength="255" />
+    <Property Name="Date Abonnement" Type="varchar" MaxLength="255" />
+    <Property Name="Village" Type="nvarchar" MaxLength="255" />
+    <Property Name="Niv Service" Type="nvarchar" MaxLength="255" />
+    <Property Name="Type Elect" Type="nvarchar" MaxLength="255" />
+    <Property Name="calibre" Type="nvarchar" MaxLength="255" />
+    <Property Name="Reference Contrat" Type="int" Nullable="false" />
+    <Property Name="Montant Encaisse" Type="float" />
+    <Property Name="Etat Client" Type="int" />
+    <Property Name="Commentaire" Type="nvarchar" MaxLength="255" />
+    <Property Name="Date Mise en Service" Type="nvarchar" MaxLength="255" />
+    <Property Name="Date Resiliation" Type="nvarchar" MaxLength="255" />
+    <Property Name="X_GPS" Type="nvarchar" MaxLength="255" />
+    <Property Name="Y_GPS" Type="nvarchar" MaxLength="255" />
+    <Property Name="Bordereau" Type="int" />
+    <Property Name="Contrat" Type="int" />
+    <Property Name="numcompteur" Type="nvarchar" MaxLength="255" />
+    <Property Name="Ancien indexe" Type="nvarchar" MaxLength="255" />
+    <Property Name="SoldeTotal" Type="float" />
+    <Property Name="IDPayment" Type="nvarchar" MaxLength="255" />
+    <Property Name="Prev_Bill" Type="nvarchar" MaxLength="255" />
+    <Property Name="Last_Bill" Type="nvarchar" MaxLength="255" />
+    <Property Name="NbrEP" Type="nvarchar" MaxLength="255" />
+    <Property Name="Modifié" Type="nvarchar" MaxLength="255" />
+    <Property Name="Créé" Type="nvarchar" MaxLength="255" />
+    <Property Name="Créé par" Type="nvarchar" MaxLength="255" />
+    <Property Name="periodeFacturee" Type="nvarchar" MaxLength="255" />
+    <Property Name="dateCoupure" Type="nvarchar" MaxLength="255" />
+    <Property Name="dateAbonn" Type="nvarchar" MaxLength="255" />
+    <Property Name="dateMeS" Type="nvarchar" MaxLength="255" />
+    <Property Name="idlastbill" Type="nvarchar" MaxLength="255" />
+    <Property Name="NivPuissance" Type="int" />
+    <Property Name="activite" Type="nvarchar" MaxLength="255" />
+    <Property Name="sqlstate" Type="nvarchar" MaxLength="255" />
+    <Property Name="refclient" Type="nvarchar" MaxLength="255" />
+    <Property Name="codevillage" Type="int" />
+    <Property Name="modePaiement" Type="int" />
+    <Property Name="numeropaiement" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="communes">
+    <Key>
+      <PropertyRef Name="code_com" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom" Type="varchar" MaxLength="50" />
+    <Property Name="code_com" Type="int" Nullable="false" />
+    <Property Name="geom" Type="geography" />
+    <Property Name="iddepartement" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="compteurs">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="numerointerface" Type="varchar" MaxLength="50" />
+    <Property Name="datereception" Type="date" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+    <Property Name="libre" Type="tinyint" />
+    <Property Name="type" Type="varchar" MaxLength="50" />
+    <Property Name="entrepot" Type="int" />
+    <Property Name="fabricant" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="contrats">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="contrat" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="departements">
+    <Key>
+      <PropertyRef Name="code_departement" />
+    </Key>
+    <Property Name="nom" Type="varchar" MaxLength="25" />
+    <Property Name="code_departement" Type="int" Nullable="false" />
+    <Property Name="geom" Type="geography" />
+    <Property Name="idregion" Type="int" />
+  </EntityType>
+  <EntityType Name="encaissements">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idfacture" Type="int" />
+    <Property Name="refclient" Type="int" />
+    <Property Name="montantencaisee" Type="float" />
+    <Property Name="soldeprepaiement" Type="float" />
+    <Property Name="soldepostpaiement" Type="float" />
+    <Property Name="dateencaissement" Type="date" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+    <Property Name="commentaire" Type="varchar" MaxLength="100" />
+    <Property Name="idbordereau" Type="int" />
+    <Property Name="numerorecue" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="etatclient">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="etat" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="facturationtrigger">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="datefacturation" Type="varchar" MaxLength="50" />
+    <Property Name="periode" Type="varchar" MaxLength="50" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="factures">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idreleve" Type="int" Nullable="false" />
+    <Property Name="dateReleve" Type="nvarchar" MaxLength="23" />
+    <Property Name="conso" Type="float" />
+    <Property Name="RedTableau" Type="float" />
+    <Property Name="PartEnergetique" Type="float" />
+    <Property Name="Red_electRural" Type="float" />
+    <Property Name="assTVA" Type="float" />
+    <Property Name="TVA" Type="float" />
+    <Property Name="netPayer" Type="int" />
+    <Property Name="TCO" Type="float" />
+    <Property Name="AncienIndex" Type="float" />
+    <Property Name="NouvIndex" Type="float" />
+    <Property Name="PeriodeFacturee" Type="varchar" MaxLength="50" />
+    <Property Name="ReportArr" Type="float" />
+    <Property Name="IdFacture" Type="varchar" MaxLength="80" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="solde" Type="float" />
+    <Property Name="penalite" Type="float" />
+    <Property Name="RefClient" Type="int" />
+    <Property Name="Paiement" Type="tinyint" Nullable="false" />
+    <Property Name="NbreJours" Type="int" />
+    <Property Name="fraiscoupure" Type="float" />
+  </EntityType>
+  <EntityType Name="forcermiseenvigueur">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="bordereau" Type="int" />
+    <Property Name="date" Type="date" />
+    <Property Name="commentaire" Type="varchar" MaxLength="200" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+    <Property Name="montantencaisse" Type="float" />
+    <Property Name="montantbordereau" Type="float" />
+  </EntityType>
+  <EntityType Name="hbaremes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Puissance" Type="float" />
+    <Property Name="Montant" Type="float" />
+    <Property Name="NiveauPuissance" Type="int" />
+    <Property Name="Calibre2" Type="int" />
+    <Property Name="branch" Type="int" />
+    <Property Name="Usage" Type="int" />
+  </EntityType>
+  <EntityType Name="hbranches">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Branch" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="hcalibres">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Calibre" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="hnivpuissances">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="NivPuissance" Type="nvarchar" MaxLength="255" />
+    <Property Name="Usage" Type="int" />
+  </EntityType>
+  <EntityType Name="migration">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="anciennivpui" Type="int" />
+    <Property Name="nouveaunivpui" Type="int" />
+    <Property Name="frais" Type="float" />
+    <Property Name="referenceclient" Type="int" />
+    <Property Name="datemigration" Type="date" />
+    <Property Name="interface" Type="nchar" MaxLength="10" />
+    <Property Name="index" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="miseenserviceclient">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="numcompteur" Type="varchar" MaxLength="50" />
+    <Property Name="indexDePose" Type="float" />
+    <Property Name="dateMiseEnService" Type="date" />
+    <Property Name="referenceClient" Type="int" />
+    <Property Name="statut" Type="varchar" MaxLength="50" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="modifencaissement">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+    <Property Name="ancienmontant" Type="float" />
+    <Property Name="nouveaumontant" Type="float" />
+    <Property Name="idfacture" Type="int" />
+    <Property Name="numerobordereau" Type="int" />
+    <Property Name="date" Type="date" />
+    <Property Name="idenc" Type="int" />
+  </EntityType>
+  <EntityType Name="modiffacture">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idfacture" Type="int" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+    <Property Name="date" Type="date" />
+    <Property Name="ancienneconso" Type="int" />
+    <Property Name="nouvelleconso" Type="int" />
+  </EntityType>
+  <EntityType Name="motifresiliation">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="motif" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="raisonsociale">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="raison" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="reclamation">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="refclient" Type="int" />
+    <Property Name="date" Type="date" />
+    <Property Name="type" Type="int" />
+    <Property Name="priorite" Type="int" />
+    <Property Name="commentaire" Type="varchar" MaxLength="50" />
+    <Property Name="nivintervention" Type="int" />
+    <Property Name="telephone" Type="varchar" MaxLength="50" />
+    <Property Name="localite" Type="varchar" MaxLength="50" />
+    <Property Name="statut" Type="varchar" MaxLength="50" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="recouvrements">
+    <Key>
+      <PropertyRef Name="periode" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="opendate" Type="date" />
+    <Property Name="closedate" Type="date" />
+    <Property Name="periode" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+    <Property Name="montantRecouvre" Type="float" />
+    <Property Name="nbrFactures" Type="nchar" MaxLength="10" />
+    <Property Name="nbrFacturesPayees" Type="nchar" MaxLength="10" />
+    <Property Name="active" Type="tinyint" />
+    <Property Name="facturee" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="regions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom_region" Type="varchar" MaxLength="25" />
+    <Property Name="geom" Type="geography" />
+  </EntityType>
+  <EntityType Name="releves">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Reference Contrat" Type="int" />
+    <Property Name="numcompteur" Type="nvarchar" MaxLength="255" />
+    <Property Name="Ancien index" Type="int" />
+    <Property Name="Nouvel index" Type="int" />
+    <Property Name="consommation" Type="float" />
+    <Property Name="date de relève" Type="nvarchar" MaxLength="23" />
+    <Property Name="nom1" Type="nvarchar" MaxLength="255" />
+    <Property Name="prenom" Type="nvarchar" MaxLength="255" />
+    <Property Name="village" Type="nvarchar" MaxLength="255" />
+    <Property Name="commune" Type="nvarchar" MaxLength="255" />
+    <Property Name="periode" Type="varchar" MaxLength="50" />
+    <Property Name="prevbill" Type="nvarchar" MaxLength="255" />
+    <Property Name="nivpuissance" Type="nvarchar" MaxLength="220" />
+    <Property Name="nbreJour" Type="int" />
+    <Property Name="departement" Type="nvarchar" MaxLength="220" />
+    <Property Name="region" Type="nvarchar" MaxLength="220" />
+    <Property Name="categorie" Type="nvarchar" MaxLength="220" />
+    <Property Name="nivservice" Type="nvarchar" MaxLength="220" />
+    <Property Name="facturee" Type="tinyint" />
+    <Property Name="remarque" Type="varbinary" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="resiliation">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="refclient" Type="int" />
+    <Property Name="date" Type="date" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+    <Property Name="commentaire" Type="varchar" MaxLength="100" />
+    <Property Name="motif" Type="int" />
+    <Property Name="netapayer" Type="float" />
+    <Property Name="indexdepose" Type="int" />
+    <Property Name="interface" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="SAV">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="REFERENCE" Type="int" />
+    <Property Name="NOM" Type="varchar" MaxLength="50" />
+    <Property Name="PRENOM" Type="varchar" MaxLength="50" />
+    <Property Name="VILLAGE" Type="varchar" MaxLength="50" />
+    <Property Name="OLDETAT" Type="varchar" MaxLength="50" />
+    <Property Name="NEWETAT" Type="varchar" MaxLength="50" />
+    <Property Name="DATE" Type="date" />
+    <Property Name="ACTION" Type="varchar" MaxLength="50" />
+    <Property Name="MOTIF" Type="varchar" MaxLength="50" />
+    <Property Name="REMARQUE" Type="varchar" MaxLength="100" />
+    <Property Name="PERIODE" Type="varchar" MaxLength="50" />
+    <Property Name="createby" Type="varchar" MaxLength="50" />
+    <Property Name="createdate" Type="datetime" />
+    <Property Name="index" Type="int" />
+    <Property Name="periodedue" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tempReleves">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReferenceContrat" Type="int" />
+    <Property Name="numcompteur" Type="varchar" MaxLength="50" />
+    <Property Name="Ancienindex" Type="int" />
+    <Property Name="Nouvelindex" Type="int" />
+    <Property Name="consommation" Type="int" />
+    <Property Name="datereleve" Type="date" />
+    <Property Name="periode" Type="varchar" MaxLength="50" />
+    <Property Name="nombrejours" Type="int" />
+    <Property Name="type" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="typeelec">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="typepaiement">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="50" />
+    <Property Name="date" Type="date" />
+  </EntityType>
+  <EntityType Name="typereclamation">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="usages">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="usage" Type="nchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="villages">
+    <Key>
+      <PropertyRef Name="code_village" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="region" Type="varchar" MaxLength="50" />
+    <Property Name="departement" Type="varchar" MaxLength="50" />
+    <Property Name="commune" Type="varchar" MaxLength="50" />
+    <Property Name="village" Type="varchar" MaxLength="50" />
+    <Property Name="population" Type="int" />
+    <Property Name="menage" Type="float" />
+    <Property Name="education" Type="tinyint" />
+    <Property Name="sante" Type="tinyint" />
+    <Property Name="forage" Type="tinyint" />
+    <Property Name="antenne_bts" Type="tinyint" />
+    <Property Name="moulin" Type="tinyint" />
+    <Property Name="long" Type="float" />
+    <Property Name="lat" Type="float" />
+    <Property Name="code_village" Type="int" Nullable="false" />
+    <Property Name="code_prog" Type="int" />
+    <Property Name="idLocalite" Type="int" />
+  </EntityType>
+  <Association Name="FK_clients_typepaiement">
+    <End Role="typepaiement" Type="Self.typepaiement" Multiplicity="0..1" />
+    <End Role="clients" Type="Self.clients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="typepaiement">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="clients">
+        <PropertyRef Name="modePaiement" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_communes_departements">
+    <End Role="departements" Type="Self.departements" Multiplicity="1" />
+    <End Role="communes" Type="Self.communes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="departements">
+        <PropertyRef Name="code_departement" />
+      </Principal>
+      <Dependent Role="communes">
+        <PropertyRef Name="iddepartement" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_db_encaissement_bordereau">
+    <End Role="bordereaux" Type="Self.bordereaux" Multiplicity="0..1" />
+    <End Role="encaissements" Type="Self.encaissements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="bordereaux">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="encaissements">
+        <PropertyRef Name="idbordereau" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_departements_regions">
+    <End Role="regions" Type="Self.regions" Multiplicity="0..1" />
+    <End Role="departements" Type="Self.departements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="regions">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="departements">
+        <PropertyRef Name="idregion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HBareme_HBranch">
+    <End Role="hbranches" Type="Self.hbranches" Multiplicity="0..1" />
+    <End Role="hbaremes" Type="Self.hbaremes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hbranches">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="hbaremes">
+        <PropertyRef Name="branch" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HBareme_HCalibre">
+    <End Role="hcalibres" Type="Self.hcalibres" Multiplicity="0..1" />
+    <End Role="hbaremes" Type="Self.hbaremes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hcalibres">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="hbaremes">
+        <PropertyRef Name="Calibre2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HBareme_HNivPuissance">
+    <End Role="hnivpuissances" Type="Self.hnivpuissances" Multiplicity="0..1" />
+    <End Role="hbaremes" Type="Self.hbaremes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hnivpuissances">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="hbaremes">
+        <PropertyRef Name="NiveauPuissance" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_hbaremes_usages">
+    <End Role="usages" Type="Self.usages" Multiplicity="0..1" />
+    <End Role="hbaremes" Type="Self.hbaremes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usages">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="hbaremes">
+        <PropertyRef Name="Usage" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HNivPuissance_Usage">
+    <End Role="usages" Type="Self.usages" Multiplicity="0..1" />
+    <End Role="hnivpuissances" Type="Self.hnivpuissances" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usages">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="hnivpuissances">
+        <PropertyRef Name="Usage" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_migration_clients">
+    <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
+    <End Role="migration" Type="Self.migration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clients">
+        <PropertyRef Name="Reference Contrat" />
+      </Principal>
+      <Dependent Role="migration">
+        <PropertyRef Name="referenceclient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_miseenserviceclient_clients">
+    <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
+    <End Role="miseenserviceclient" Type="Self.miseenserviceclient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clients">
+        <PropertyRef Name="Reference Contrat" />
+      </Principal>
+      <Dependent Role="miseenserviceclient">
+        <PropertyRef Name="referenceClient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reclamation_clients">
+    <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
+    <End Role="reclamation" Type="Self.reclamation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clients">
+        <PropertyRef Name="Reference Contrat" />
+      </Principal>
+      <Dependent Role="reclamation">
+        <PropertyRef Name="refclient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reclamation_typereclamation">
+    <End Role="typereclamation" Type="Self.typereclamation" Multiplicity="0..1" />
+    <End Role="reclamation" Type="Self.reclamation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="typereclamation">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="reclamation">
+        <PropertyRef Name="type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_releves_clients2">
+    <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
+    <End Role="releves" Type="Self.releves" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clients">
+        <PropertyRef Name="Reference Contrat" />
+      </Principal>
+      <Dependent Role="releves">
+        <PropertyRef Name="Reference Contrat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_resiliation_clients">
+    <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
+    <End Role="resiliation" Type="Self.resiliation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clients">
+        <PropertyRef Name="Reference Contrat" />
+      </Principal>
+      <Dependent Role="resiliation">
+        <PropertyRef Name="refclient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_resiliation_motifresiliation">
+    <End Role="motifresiliation" Type="Self.motifresiliation" Multiplicity="0..1" />
+    <End Role="resiliation" Type="Self.resiliation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="motifresiliation">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="resiliation">
+        <PropertyRef Name="motif" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ERADEVModelStoreContainer">
+    <EntitySet Name="bordereaux" EntityType="Self.bordereaux" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="changementinterface" EntityType="Self.changementinterface" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="clients" EntityType="Self.clients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="communes" EntityType="Self.communes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="compteurs" EntityType="Self.compteurs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="contrats" EntityType="Self.contrats" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="departements" EntityType="Self.departements" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="encaissements" EntityType="Self.encaissements" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="etatclient" EntityType="Self.etatclient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="facturationtrigger" EntityType="Self.facturationtrigger" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="factures" EntityType="Self.factures" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="forcermiseenvigueur" EntityType="Self.forcermiseenvigueur" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="hbaremes" EntityType="Self.hbaremes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="hbranches" EntityType="Self.hbranches" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="hcalibres" EntityType="Self.hcalibres" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="hnivpuissances" EntityType="Self.hnivpuissances" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="migration" EntityType="Self.migration" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="miseenserviceclient" EntityType="Self.miseenserviceclient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="modifencaissement" EntityType="Self.modifencaissement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="modiffacture" EntityType="Self.modiffacture" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="motifresiliation" EntityType="Self.motifresiliation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="raisonsociale" EntityType="Self.raisonsociale" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="reclamation" EntityType="Self.reclamation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="recouvrements" EntityType="Self.recouvrements" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="regions" EntityType="Self.regions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="releves" EntityType="Self.releves" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="resiliation" EntityType="Self.resiliation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SAV" EntityType="Self.SAV" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tempReleves" EntityType="Self.tempReleves" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="typeelec" EntityType="Self.typeelec" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="typepaiement" EntityType="Self.typepaiement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="typereclamation" EntityType="Self.typereclamation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="usages" EntityType="Self.usages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="villages" EntityType="Self.villages" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_clients_typepaiement" Association="Self.FK_clients_typepaiement">
+      <End Role="typepaiement" EntitySet="typepaiement" />
+      <End Role="clients" EntitySet="clients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_communes_departements" Association="Self.FK_communes_departements">
+      <End Role="departements" EntitySet="departements" />
+      <End Role="communes" EntitySet="communes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_db_encaissement_bordereau" Association="Self.FK_db_encaissement_bordereau">
+      <End Role="bordereaux" EntitySet="bordereaux" />
+      <End Role="encaissements" EntitySet="encaissements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_departements_regions" Association="Self.FK_departements_regions">
+      <End Role="regions" EntitySet="regions" />
+      <End Role="departements" EntitySet="departements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HBareme_HBranch" Association="Self.FK_HBareme_HBranch">
+      <End Role="hbranches" EntitySet="hbranches" />
+      <End Role="hbaremes" EntitySet="hbaremes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HBareme_HCalibre" Association="Self.FK_HBareme_HCalibre">
+      <End Role="hcalibres" EntitySet="hcalibres" />
+      <End Role="hbaremes" EntitySet="hbaremes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HBareme_HNivPuissance" Association="Self.FK_HBareme_HNivPuissance">
+      <End Role="hnivpuissances" EntitySet="hnivpuissances" />
+      <End Role="hbaremes" EntitySet="hbaremes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_hbaremes_usages" Association="Self.FK_hbaremes_usages">
+      <End Role="usages" EntitySet="usages" />
+      <End Role="hbaremes" EntitySet="hbaremes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HNivPuissance_Usage" Association="Self.FK_HNivPuissance_Usage">
+      <End Role="usages" EntitySet="usages" />
+      <End Role="hnivpuissances" EntitySet="hnivpuissances" />
+    </AssociationSet>
+    <AssociationSet Name="FK_migration_clients" Association="Self.FK_migration_clients">
+      <End Role="clients" EntitySet="clients" />
+      <End Role="migration" EntitySet="migration" />
+    </AssociationSet>
+    <AssociationSet Name="FK_miseenserviceclient_clients" Association="Self.FK_miseenserviceclient_clients">
+      <End Role="clients" EntitySet="clients" />
+      <End Role="miseenserviceclient" EntitySet="miseenserviceclient" />
+    </AssociationSet>
+    <AssociationSet Name="FK_reclamation_clients" Association="Self.FK_reclamation_clients">
+      <End Role="clients" EntitySet="clients" />
+      <End Role="reclamation" EntitySet="reclamation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_reclamation_typereclamation" Association="Self.FK_reclamation_typereclamation">
+      <End Role="typereclamation" EntitySet="typereclamation" />
+      <End Role="reclamation" EntitySet="reclamation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_releves_clients2" Association="Self.FK_releves_clients2">
+      <End Role="clients" EntitySet="clients" />
+      <End Role="releves" EntitySet="releves" />
+    </AssociationSet>
+    <AssociationSet Name="FK_resiliation_clients" Association="Self.FK_resiliation_clients">
+      <End Role="clients" EntitySet="clients" />
+      <End Role="resiliation" EntitySet="resiliation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_resiliation_motifresiliation" Association="Self.FK_resiliation_motifresiliation">
+      <End Role="motifresiliation" EntitySet="motifresiliation" />
+      <End Role="resiliation" EntitySet="resiliation" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

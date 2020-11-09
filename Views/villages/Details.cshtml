@@ -1,0 +1,146 @@
+﻿@model proera.villages
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>villages</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.region)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.region)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.departement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.departement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.commune)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.commune)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.village)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.village)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.population)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.population)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.menage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.menage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.education)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.education)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.forage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.forage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.antenne_bts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.antenne_bts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.moulin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.moulin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.long)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.long)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code_prog)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code_prog)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idLocalite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idLocalite)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.code_village }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

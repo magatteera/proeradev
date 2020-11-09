@@ -1,0 +1,117 @@
+﻿@model IEnumerable<proera.recouvrements>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Cloture Recouvrement</h2>
+
+@using (Html.BeginForm("validerCloture", "recouvrements", FormMethod.Post))
+{
+
+    <div class="col">
+        <div class="form-group">
+            <label class="control-label col">Selectionnez le recouvrement</label>
+            <div class="col-md-10">
+                @Html.DropDownList("periode", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-warning">Cloturer</button>
+}
+
+
+    @*<h3 id="facturespayees">payees</h3>
+    <h3 id="facturesimpayees">impayees</h3>*@
+    Montant Ecaissé : <h3 id="montant"></h3>
+
+
+    <div class="col-md-4">
+        <p class="text-center">
+            <strong>Goal Completion</strong>
+        </p>
+
+        <div class="progress-group">
+            Factures payees
+            <span class="float-right"><b><i id="facturespayees"></i></b>/<i id="factures3"></i></span>
+            <div class="progress progress-sm">
+                <div class="progress-bar bg-primary" id="progresspayees"></div>
+            </div>
+        </div>
+        <!-- /.progress-group -->
+
+        <div class="progress-group">
+            Factures Impayees
+            <span class="float-right"><b><i id="facturesimpayees"></i></b>/<i id="factures2"></i></span>
+            <div class="progress progress-sm">
+                <div class="progress-bar bg-danger" id="progressimpayees"></div>
+            </div>
+        </div>
+
+        <!-- /.progress-group -->
+        <!--<div class="progress-group">
+            <span class="progress-text">Visit Premium Page</span>
+            <span class="float-right"><b>480</b>/800</span>
+            <div class="progress progress-sm">
+                <div class="progress-bar bg-success" style="width: 60%"></div>
+            </div>
+        </div>-->
+
+        <!-- /.progress-group -->
+        <!--<div class="progress-group">
+            Send Inquiries
+            <span class="float-right"><b>250</b>/500</span>
+            <div class="progress progress-sm">
+                <div class="progress-bar bg-warning" style="width: 50%"></div>
+            </div>
+        </div>-->
+        <!-- /.progress-group -->
+    </div>
+
+
+
+
+
+
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#periode").prepend("<option selected value=''>Selectionnez la Periode</option>")
+            $("#periode").change(function () {
+
+                data = {
+                    periode: $("#periode").val()
+                }
+
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/recouvrements/changementrecouvrements",
+                    data: data,
+                    success: function (data) {
+                        $("#facturespayees").empty()
+                            .append(data.facturespayee)
+                        $("#facturesimpayees").empty()
+                            .append(data.facturesimpayee)
+                        $("#factures3").empty()
+                            .append(data.factures)
+
+                        $("#factures2").empty()
+                            .append(data.factures)
+                        $("#montant").empty()
+                            .append(data.montants)
+
+                        $("#progresspayees").css("width", data.progresspayees)
+                        $("#progressimpayees").css("width", data.progressimpayees)
+                    },
+                    error: function () {
+                    }
+                });
+            });
+        });
+    </script>

@@ -1,0 +1,101 @@
+﻿@model IEnumerable<proera.encaissements>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table id="tablebody" class="table table-bordered table-striped table-sm">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.refclient)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.montantencaisee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.soldeprepaiement)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.soldepostpaiement)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dateencaissement)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.utilisateur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.commentaire)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.bordereaux.numero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.idfacture)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+   
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.refclient)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.montantencaisee)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.soldeprepaiement)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.soldepostpaiement)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dateencaissement)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.utilisateur)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.commentaire)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.bordereaux.numero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.idfacture)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+   
+
+</table>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+
+        $('#tablebody').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
+            }
+        });
+    });
+</script>
