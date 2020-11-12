@@ -46,8 +46,7 @@
             @Html.LabelFor(model => model.type, "Type", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <select name="type" id="type" class="form-control">
-                    <option value="abonnement">abonnement</option>
-                    <option value="recouvrement">recouvrement</option>
+                    <option value="encaissement">encaissement</option>
                 </select>
                 @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" }) 
             </div>

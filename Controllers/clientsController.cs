@@ -173,7 +173,7 @@ namespace proera.Controllers
 
 
 		// GET: clients/CreateProductif
-		//[Authorize(Roles = "Proera_COM")]
+		[Authorize(Roles = "Proera_COM")]
 		public ActionResult CreateProductif(string id)
 		{
 			var baremes = db.hbaremes.Where(n => (n.Usage == 2) || (n.Usage == 3)).ToList();
@@ -477,8 +477,8 @@ namespace proera.Controllers
 			db.forcermiseenvigueur.Add(force);
 			db.SaveChanges();
 			//string role = User.IsInRole("Administrateurs");
-
-			return force.bordereau + "";
+			 
+			return "Mise en vigueur sur le bordereau "+force.bordereau + " faite avec succés!";
 		}
 
 

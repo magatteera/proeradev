@@ -73,7 +73,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Creation Bordereau</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Coupre d'un Client</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -91,10 +91,35 @@
                     </div>
 
 
+
+                    <div class="form-group">
+                        <label class="control-label col">Nom</label>
+                        <div class="col-md-10">
+                            <input type="text" disabled name="nom" id="nom" class="form-control" />
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label col">Prenom</label>
+                        <div class="col-md-10">
+                            <input type="text" disabled name="prenom" id="prenom" class="form-control" />
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label col">Village</label>
+                        <div class="col-md-10">
+                            <input type="text" disabled name="village" id="village" class="form-control" />
+                        </div>
+                    </div>
+
+
                     <div class="form-group">
                         @Html.LabelFor(model => model.DATE, htmlAttributes: new { @class = "control-label col" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.DATE, new { htmlAttributes = new { @class = "form-control" } })
+                            <input type="date" name="DATE" id="DATE" class="form-control" />
                             @Html.ValidationMessageFor(model => model.DATE, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -127,7 +152,7 @@
 
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.index, htmlAttributes: new { @class = "control-label col" })
+                        @Html.LabelFor(model => model.index, "Index de Coupure", htmlAttributes: new { @class = "control-label col" })
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.index, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.index, "", new { @class = "text-danger" })
@@ -149,12 +174,7 @@
 <script>
     $(document).ready(function () {
 
-
-        $('#tablebody').DataTable({
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
-            }
-        });
+        $("#periode").prepend("<option selected value='0'>Selectionner la periode</option>")
 
        
 
@@ -171,11 +191,23 @@
                     //alert(data)
                     $('#tablebodyitems').empty()
                         .append(data)
+
+
+                    $('#tablebody').DataTable({
+                        "language": {
+                            "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
+                        }
+                    });
+
+
                     $("button[id^='btncouper']").click(function () {
                         @*alert("clicked!!")
                         alert($("button[id^='btncouper']").attr("ref"))*@
 
                         $("#reference").val($("button[id^='btncouper']").attr("ref"))
+                        $("#nom").val($("button[id^='btncouper']").attr("nom"))
+                        $("#prenom").val($("button[id^='btncouper']").attr("prenom"))
+                        $("#village").val($("button[id^='btncouper']").attr("village"))
                         $("#modalcoupure").modal('show')
                     })
                 },
@@ -188,12 +220,12 @@
 
         $("#couperclient").click(function () {
             data = {
-                reference: $("#reference").val(),
-                date: $("#date").val(),
-                motif: $("#motif").val(),
-                remarque: $("#remarque").val(),
-                periode: $("#periode").val(),
-                index: $("#reference").val()
+                REFERENCE: $("#reference").val(),
+                DATE: $("#DATE").val(),
+                MOTIF: $("#MOTIF").val(),
+                REMARQUE: $("#REMARQUE").val(),
+                PERIODE: $("#PERIODE").val(),
+                index: $("#index").val()
             }
             $.ajax({
                 type: "POST",
@@ -201,8 +233,13 @@
                 data: data,
                 success: function (data) {
                     //alert(data)
-                    if (data.ok)
+                    if (data.ok) {
                         alert("Clients coupé avec succés!!")
+                        $('#tablebodyitems').empty()
+                            .append(data.cli)
+                    }
+                        else 
+                        alert("une erreur est survenue")
                 },
                 error: function () {
                     alert("Error occured!!")

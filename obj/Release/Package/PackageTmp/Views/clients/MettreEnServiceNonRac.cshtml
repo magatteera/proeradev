@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 <br />
-<h2>Mise en Service De Clients</h2>
+<h2>Mise en Service De Clients Non Raccordables</h2>
 
 
 @*<p>Mise en Service : </p>
@@ -66,13 +66,13 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label>Regions</label>
+                <label>Departements</label>
               
                 @Html.DropDownList("regions", null, htmlAttributes: new { @class = "form-control select2bs4 select2-hidden-accessible" })
             </div>
             <!-- /.form-group -->
             <div class="form-group">
-                <label>Departements</label>
+                <label>Disabled</label>
 
                 @Html.DropDownList("departements", null, htmlAttributes: new { @class = "form-control select2bs4 select2-hidden-accessible" })
             </div>
@@ -107,17 +107,17 @@
 
 
 
-<table class="table table-bordered table-striped"  id="serviceTable">
+<table class="table" >
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Nom1)
-            </th>   
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Prenom)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Tel)
+                @Html.DisplayNameFor(model => model.Village)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Reference_Contrat)
@@ -168,7 +168,7 @@
                     <div class="form-group">
                         <label class="control-label col">Interface</label>
                         <div class="col">
-                            <input type="text" required class="form-control" name="numcompteur" id="interface" />
+                            <input type="text" required class="form-control" name="interface" id="interface" />
                         </div>
                     </div>
 
@@ -219,11 +219,11 @@
 
         $("#villages").prepend("<option selected value=''>Selectionnez le Village</option>")
 
-        @*$('#tablebody').DataTable({
+        $('#tablebody').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
             }
-        });*@
+        });
 
 
         
@@ -298,16 +298,12 @@
             }
             $.ajax({
                 type: "POST",
-                url: "/clients/changementvillagemes",
+                url: "/clients/changementvillagemesNonRac",
                 data: data,
                 success: function (data) {
                     $("#tablebody").empty().
                         append(data)
-                    @*$("#serviceTable").DataTable({
-                        "language": {
-                            "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
-                        }
-                    });*@
+
                    
 
                     $('[id^=btnmettreenService]').click(function () {
@@ -325,7 +321,7 @@
 
         $("#savemiseenservice").click(function () {
             data = {
-                numcompteur: $("#interface").val(),
+                interface: $("#interface").val(),
                 indexDePose: $("#indexDePose").val(),
                 dateMiseEnService: $("#dateMiseEnService").val(),
                 referenceClient: $("#referenceClient").val(),
@@ -346,7 +342,7 @@
                     $("#referenceClient").val("")
 
                     data2 = {
-                        code_village: $("#villages").val()
+                        LOCALITE: $("#villages").val()
                     }
                     $.ajax({
                         type: "POST",

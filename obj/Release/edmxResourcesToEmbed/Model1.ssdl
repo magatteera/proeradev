@@ -31,7 +31,7 @@
     <Key>
       <PropertyRef Name="Reference Contrat" />
     </Key>
-    <Property Name="ID" Type="int" />
+    <Property Name="ID" Type="int" Nullable="false" />
     <Property Name="Nom1" Type="nvarchar" MaxLength="255" />
     <Property Name="Prenom" Type="nvarchar" MaxLength="255" />
     <Property Name="Num ID" Type="nvarchar" MaxLength="255" />
@@ -52,9 +52,9 @@
     <Property Name="Y_GPS" Type="nvarchar" MaxLength="255" />
     <Property Name="Bordereau" Type="int" />
     <Property Name="Contrat" Type="int" />
-    <Property Name="interface" Type="nvarchar" MaxLength="255" />
+    <Property Name="numcompteur" Type="nvarchar" MaxLength="255" />
     <Property Name="Ancien indexe" Type="nvarchar" MaxLength="255" />
-    <Property Name="SoldeTotal" Type="nvarchar" MaxLength="255" />
+    <Property Name="SoldeTotal" Type="float" />
     <Property Name="IDPayment" Type="nvarchar" MaxLength="255" />
     <Property Name="Prev_Bill" Type="nvarchar" MaxLength="255" />
     <Property Name="Last_Bill" Type="nvarchar" MaxLength="255" />
@@ -67,12 +67,13 @@
     <Property Name="dateAbonn" Type="nvarchar" MaxLength="255" />
     <Property Name="dateMeS" Type="nvarchar" MaxLength="255" />
     <Property Name="idlastbill" Type="nvarchar" MaxLength="255" />
-    <Property Name="NivPuissance" Type="nvarchar" MaxLength="255" />
+    <Property Name="NivPuissance" Type="int" />
     <Property Name="activite" Type="nvarchar" MaxLength="255" />
     <Property Name="sqlstate" Type="nvarchar" MaxLength="255" />
     <Property Name="refclient" Type="nvarchar" MaxLength="255" />
     <Property Name="codevillage" Type="int" />
     <Property Name="modePaiement" Type="int" />
+    <Property Name="numeropaiement" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="communes">
     <Key>
@@ -119,7 +120,7 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="idfacture" Type="int" />
-    <Property Name="refclient" Type="nchar" MaxLength="10" />
+    <Property Name="refclient" Type="int" />
     <Property Name="montantencaisee" Type="float" />
     <Property Name="soldeprepaiement" Type="float" />
     <Property Name="soldepostpaiement" Type="float" />
@@ -127,6 +128,7 @@
     <Property Name="utilisateur" Type="varchar" MaxLength="50" />
     <Property Name="commentaire" Type="varchar" MaxLength="100" />
     <Property Name="idbordereau" Type="int" />
+    <Property Name="numerorecue" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="etatclient">
     <Key>
@@ -167,9 +169,8 @@
     <Property Name="solde" Type="float" />
     <Property Name="penalite" Type="float" />
     <Property Name="RefClient" Type="int" />
-    <Property Name="Paiement" Type="bit" Nullable="false" />
+    <Property Name="Paiement" Type="tinyint" Nullable="false" />
     <Property Name="NbreJours" Type="int" />
-    <Property Name="reference" Type="varchar" MaxLength="80" StoreGeneratedPattern="Computed" Nullable="false" />
     <Property Name="fraiscoupure" Type="float" />
   </EntityType>
   <EntityType Name="forcermiseenvigueur">
@@ -236,12 +237,25 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="interface" Type="varchar" MaxLength="50" />
+    <Property Name="numcompteur" Type="varchar" MaxLength="50" />
     <Property Name="indexDePose" Type="float" />
     <Property Name="dateMiseEnService" Type="date" />
     <Property Name="referenceClient" Type="int" />
     <Property Name="statut" Type="varchar" MaxLength="50" />
     <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="modifencaissement">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+    <Property Name="ancienmontant" Type="float" />
+    <Property Name="nouveaumontant" Type="float" />
+    <Property Name="idfacture" Type="int" />
+    <Property Name="numerobordereau" Type="int" />
+    <Property Name="date" Type="date" />
+    <Property Name="idenc" Type="int" />
   </EntityType>
   <EntityType Name="modiffacture">
     <Key>
@@ -260,6 +274,13 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="motif" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="raisonsociale">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="raison" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="reclamation">
     <Key>
@@ -296,7 +317,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nom_region" Type="varchar" MaxLength="25" />
     <Property Name="geom" Type="geography" />
   </EntityType>
@@ -305,7 +326,6 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="id2" Type="varchar" MaxLength="80" StoreGeneratedPattern="Computed" Nullable="false" />
     <Property Name="Reference Contrat" Type="int" />
     <Property Name="numcompteur" Type="nvarchar" MaxLength="255" />
     <Property Name="Ancien index" Type="int" />
@@ -347,20 +367,35 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="REFERENCE" Type="int" />
-    <Property Name="NOM" Type="nchar" MaxLength="50" />
-    <Property Name="PRENOM" Type="nchar" MaxLength="50" />
-    <Property Name="VILLAGE" Type="nchar" MaxLength="50" />
-    <Property Name="OLDETAT" Type="nchar" MaxLength="50" />
-    <Property Name="NEWETAT" Type="nchar" MaxLength="50" />
+    <Property Name="NOM" Type="varchar" MaxLength="50" />
+    <Property Name="PRENOM" Type="varchar" MaxLength="50" />
+    <Property Name="VILLAGE" Type="varchar" MaxLength="50" />
+    <Property Name="OLDETAT" Type="varchar" MaxLength="50" />
+    <Property Name="NEWETAT" Type="varchar" MaxLength="50" />
     <Property Name="DATE" Type="date" />
-    <Property Name="ACTION" Type="nchar" MaxLength="10" />
-    <Property Name="MOTIF" Type="nchar" MaxLength="50" />
-    <Property Name="REMARQUE" Type="nchar" MaxLength="100" />
-    <Property Name="PERIODE" Type="nchar" MaxLength="10" />
-    <Property Name="createby" Type="nchar" MaxLength="100" />
+    <Property Name="ACTION" Type="varchar" MaxLength="50" />
+    <Property Name="MOTIF" Type="varchar" MaxLength="50" />
+    <Property Name="REMARQUE" Type="varchar" MaxLength="100" />
+    <Property Name="PERIODE" Type="varchar" MaxLength="50" />
+    <Property Name="createby" Type="varchar" MaxLength="50" />
     <Property Name="createdate" Type="datetime" />
     <Property Name="index" Type="int" />
     <Property Name="periodedue" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tempReleves">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReferenceContrat" Type="int" />
+    <Property Name="numcompteur" Type="varchar" MaxLength="50" />
+    <Property Name="Ancienindex" Type="int" />
+    <Property Name="Nouvelindex" Type="int" />
+    <Property Name="consommation" Type="int" />
+    <Property Name="datereleve" Type="date" />
+    <Property Name="periode" Type="varchar" MaxLength="50" />
+    <Property Name="nombrejours" Type="int" />
+    <Property Name="type" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="typeelec">
     <Key>
@@ -393,38 +428,27 @@
   </EntityType>
   <EntityType Name="villages">
     <Key>
-      <PropertyRef Name="idLocalite" />
+      <PropertyRef Name="code_village" />
     </Key>
-    <Property Name="COMMUNE" Type="int" />
-    <Property Name="LOCALITE" Type="nvarchar" MaxLength="255" />
-    <Property Name="POPULATION" Type="int" />
-    <Property Name="MENAGE" Type="int" />
-    <Property Name="ECOLE" Type="tinyint" />
-    <Property Name="POSTE_SANTE" Type="float" />
-    <Property Name="FORAGE" Type="tinyint" />
-    <Property Name="MOULIN" Type="tinyint" />
-    <Property Name="GSM" Type="tinyint" />
-    <Property Name="CODE_MT" Type="nvarchar" MaxLength="255" />
-    <Property Name="AXE_MT" Type="nvarchar" MaxLength="255" />
-    <Property Name="NEAR_DIST" Type="nvarchar" MaxLength="255" />
-    <Property Name="idProgramme" Type="nvarchar" MaxLength="255" />
-    <Property Name="LONG" Type="float" />
-    <Property Name="LAT" Type="float" />
-    <Property Name="idLocalite" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="region" Type="varchar" MaxLength="50" />
+    <Property Name="departement" Type="varchar" MaxLength="50" />
+    <Property Name="commune" Type="varchar" MaxLength="50" />
+    <Property Name="village" Type="varchar" MaxLength="50" />
+    <Property Name="population" Type="int" />
+    <Property Name="menage" Type="float" />
+    <Property Name="education" Type="tinyint" />
+    <Property Name="sante" Type="tinyint" />
+    <Property Name="forage" Type="tinyint" />
+    <Property Name="antenne_bts" Type="tinyint" />
+    <Property Name="moulin" Type="tinyint" />
+    <Property Name="long" Type="float" />
+    <Property Name="lat" Type="float" />
+    <Property Name="code_village" Type="int" Nullable="false" />
+    <Property Name="code_prog" Type="int" />
+    <Property Name="idLocalite" Type="int" />
   </EntityType>
   <Association Name="FK_clients_typepaiement">
-    <End Role="typepaiement" Type="Self.typepaiement" Multiplicity="0..1" />
-    <End Role="clients" Type="Self.clients" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="typepaiement">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="clients">
-        <PropertyRef Name="modePaiement" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_clients_typepaiement1">
     <End Role="typepaiement" Type="Self.typepaiement" Multiplicity="0..1" />
     <End Role="clients" Type="Self.clients" Multiplicity="*" />
     <ReferentialConstraint>
@@ -616,18 +640,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_villages_communes">
-    <End Role="communes" Type="Self.communes" Multiplicity="0..1" />
-    <End Role="villages" Type="Self.villages" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="communes">
-        <PropertyRef Name="code_com" />
-      </Principal>
-      <Dependent Role="villages">
-        <PropertyRef Name="COMMUNE" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="ERADEVModelStoreContainer">
     <EntitySet Name="bordereaux" EntityType="Self.bordereaux" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="changementinterface" EntityType="Self.changementinterface" Schema="dbo" store:Type="Tables" />
@@ -647,24 +659,23 @@
     <EntitySet Name="hnivpuissances" EntityType="Self.hnivpuissances" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="migration" EntityType="Self.migration" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="miseenserviceclient" EntityType="Self.miseenserviceclient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="modifencaissement" EntityType="Self.modifencaissement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="modiffacture" EntityType="Self.modiffacture" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="motifresiliation" EntityType="Self.motifresiliation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="raisonsociale" EntityType="Self.raisonsociale" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="reclamation" EntityType="Self.reclamation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="recouvrements" EntityType="Self.recouvrements" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="regions" EntityType="Self.regions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="releves" EntityType="Self.releves" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="resiliation" EntityType="Self.resiliation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SAV" EntityType="Self.SAV" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tempReleves" EntityType="Self.tempReleves" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="typeelec" EntityType="Self.typeelec" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="typepaiement" EntityType="Self.typepaiement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="typereclamation" EntityType="Self.typereclamation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="usages" EntityType="Self.usages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="villages" EntityType="Self.villages" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_clients_typepaiement" Association="Self.FK_clients_typepaiement">
-      <End Role="typepaiement" EntitySet="typepaiement" />
-      <End Role="clients" EntitySet="clients" />
-    </AssociationSet>
-    <AssociationSet Name="FK_clients_typepaiement1" Association="Self.FK_clients_typepaiement1">
       <End Role="typepaiement" EntitySet="typepaiement" />
       <End Role="clients" EntitySet="clients" />
     </AssociationSet>
@@ -727,10 +738,6 @@
     <AssociationSet Name="FK_resiliation_motifresiliation" Association="Self.FK_resiliation_motifresiliation">
       <End Role="motifresiliation" EntitySet="motifresiliation" />
       <End Role="resiliation" EntitySet="resiliation" />
-    </AssociationSet>
-    <AssociationSet Name="FK_villages_communes" Association="Self.FK_villages_communes">
-      <End Role="communes" EntitySet="communes" />
-      <End Role="villages" EntitySet="villages" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -8,14 +8,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
-    <title>AdminLTE 3 | Starter</title>
-    
+    <title>ProEra</title>
+
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-</head>
+
+</head> 
 <body class="hold-transition sidebar-mini" style="margin-top: 0px">
     <div class="wrapper">
 
@@ -48,31 +50,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
     with font-awesome or any other icon font library -->
 
 
+                        @*@if (Roles.IsUserInRole("Proera_COM")(!UserManager.IsInRole(User.Identity.GetUserId(), "User.Test")))
+                        {*@
+
 
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
-                                    Clients
+                                    Gestion Clients
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
 
                                 <li class="nav-item">
-                                    @Html.ActionLink("Rechercher", "", "clients/", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                    @Html.ActionLink("Recherche Client", "", "clients/", new { area = "" }, new { @class = "nav-link nav-dark" })
                                 </li>
 
 
                                 <li class="nav-item">
-                                    @Html.ActionLink("creer client demestique", "", "clients/createdomestique", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                    @Html.ActionLink("Creation Domestique", "", "clients/createdomestique", new { area = "" }, new { @class = "nav-link nav-dark" })
                                 </li>
                                 <li class="nav-item">
-                                    @Html.ActionLink("creer client productif", "", "clients/createproductif", new { area = "" }, new { @class = "nav-link" })
+                                    @Html.ActionLink("Creation Productif", "", "clients/createproductif", new { area = "" }, new { @class = "nav-link" })
                                 </li>
 
                                 <li class="nav-item">
-                                    @Html.ActionLink("Clients en Attente", "", "clients/rechercheEnAttente", new { area = "" }, new { @class = "nav-link" })
+                                    @Html.ActionLink("Liste Clients en Attente", "", "clients/rechercheEnAttente", new { area = "" }, new { @class = "nav-link" })
                                 </li>
 
                                 <li class="nav-item">
@@ -83,8 +88,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     @Html.ActionLink("Mise En Service", "", "clients/mettreEnService", new { area = "" }, new { @class = "nav-link" })
                                 </li>
 
+                                <li class="nav-item">
+                                    @Html.ActionLink("Mise En Service Non Racc", "", "clients/mettreEnServiceNonRac", new { area = "" }, new { @class = "nav-link" })
+                                </li>
+
                             </ul>
                         </li>
+                        @*}*@
 
 
 
@@ -98,15 +108,48 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    @Html.ActionLink("Ouvrir Periode", "", "recouvrements/ouvrirperioderecouvrement", new { area = "" }, new { @class = "nav-link nav-dark" })
-                                </li>
-                                <li class="nav-item">
-                                    @Html.ActionLink("Reporting", "", "clients/rechercheEnAttente", new { area = "" }, new { @class = "nav-link" })
+                                    @Html.ActionLink("Ouverture Periode", "", "recouvrements/ouvrirperioderecouvrement", new { area = "" }, new { @class = "nav-link nav-dark" })
                                 </li>
 
+
                                 <li class="nav-item">
-                                    @Html.ActionLink("Cloture", "", "recouvrements/cloturer", new { area = "" }, new { @class = "nav-link" })
+                                    @Html.ActionLink("Cloture Periode", "", "recouvrements/cloturer", new { area = "" }, new { @class = "nav-link" })
                                 </li>
+
+
+                                <li class="nav-item">
+                                    @Html.ActionLink("Bon de Coupure", "", "clients/bondecoupure", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+
+
+                                <li class="nav-item">
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-money-bill-alt"></i>
+                                        <p>
+                                            Rapports
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            @Html.ActionLink("Clients a Couper", "", "clients/clientsacouper", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                        </li>
+                                        <li class="nav-item">
+                                            @Html.ActionLink("Clients a Retablir", "", "clients/rechercheEnAttente", new { area = "" }, new { @class = "nav-link" })
+                                        </li>
+
+                                        <li class="nav-item">
+                                            @Html.ActionLink("Clients Coupes", "", "recouvrements/cloturer", new { area = "" }, new { @class = "nav-link" })
+                                        </li>
+
+                                        <li class="nav-item">
+                                            @Html.ActionLink("Clients Retablis", "", "recouvrements/cloturer", new { area = "" }, new { @class = "nav-link" })
+                                        </li>
+
+                                    </ul>
+                                </li>
+</li>
 
                             </ul>
                         </li>
@@ -125,11 +168,39 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    @Html.ActionLink("Facturer", "", "facturationtriggers/facturer", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                    @Html.ActionLink("Facturation", "", "facturationtriggers/facturer", new { area = "" }, new { @class = "nav-link nav-dark" })
                                 </li>
 
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-money-bill-alt"></i>
+                                        <p>
+                                            JPE
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            @Html.ActionLink("Clients a Couper", "", "recouvrements/ouvrirperioderecouvrement", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                        </li>
+                                        <li class="nav-item">
+                                            @Html.ActionLink("Clients a Retablir", "", "clients/rechercheEnAttente", new { area = "" }, new { @class = "nav-link" })
+                                        </li>
+
+                                        <li class="nav-item">
+                                            @Html.ActionLink("Clients Coupes", "", "recouvrements/cloturer", new { area = "" }, new { @class = "nav-link" })
+                                        </li>
+
+                                        <li class="nav-item">
+                                            @Html.ActionLink("Clients Retablis", "", "recouvrements/cloturer", new { area = "" }, new { @class = "nav-link" })
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+
                                 <li class="nav-item">
-                                    @Html.ActionLink("Correction Releve", "", "factures/corriger", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                    @Html.ActionLink("Correction Facture", "", "factures/corriger", new { area = "" }, new { @class = "nav-link nav-dark" })
                                 </li>
 
                             </ul>
@@ -146,14 +217,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    @Html.ActionLink("Nouveau Bordereau", "", "bordereaux/create", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                    @Html.ActionLink("Bordereau d'encaissement", "", "bordereaux/create", new { area = "" }, new { @class = "nav-link nav-dark" })
                                 </li>
                                 <li class="nav-item">
-                                    @Html.ActionLink("Encaisser", "", "encaissements/create", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                    @Html.ActionLink("Caisse", "", "encaissements/create", new { area = "" }, new { @class = "nav-link nav-dark" })
                                 </li>
 
                                 <li class="nav-item">
-                                    @Html.ActionLink("Arreter Caisse", "", "encaissements/arretercaisse", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                    @Html.ActionLink("Arreté de Caisse", "", "encaissements/arretercaisse", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+
+                                <li class="nav-item">
+                                    @Html.ActionLink("Corriger Encaissement", "", "encaissements/index", new { area = "" }, new { @class = "nav-link nav-dark" })
                                 </li>
 
                             </ul>
@@ -169,14 +244,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    @Html.ActionLink("Bon de Coupure", "", "clients/bondecoupure", new { area = "" }, new { @class = "nav-link nav-dark" })
-                                </li>
-                                <li class="nav-item">
-                                    @Html.ActionLink("Couper", "", "clients/couper", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                    @Html.ActionLink("Couper Client", "", "clients/couper", new { area = "" }, new { @class = "nav-link nav-dark" })
                                 </li>
 
                                 <li class="nav-item">
-                                    @Html.ActionLink("Retablir", "", "clients/retablir", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                    @Html.ActionLink("Retablir Client", "", "clients/retablir", new { area = "" }, new { @class = "nav-link nav-dark" })
                                 </li>
 
                                 <li class="nav-item">
@@ -198,7 +270,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-stopwatch-20"></i>
                                 <p>
-                                    Compteurs
+                                    Getion Compteurs
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -207,11 +279,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     @Html.ActionLink("Importer Compteurs", "", "compteurs/create", new { area = "" }, new { @class = "nav-link nav-dark" })
                                 </li>
                                 <li class="nav-item">
-                                    @Html.ActionLink("Compteur Disponibles", "", "compteurs/listedisponibles", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                    @Html.ActionLink("Liste Compteur Dispo", "", "compteurs/listedisponibles", new { area = "" }, new { @class = "nav-link nav-dark" })
                                 </li>
 
                                 <li class="nav-item">
-                                    @Html.ActionLink("Rechercher", "", "compteurs/index", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                    @Html.ActionLink("Rechercher Compteur", "", "compteurs/index", new { area = "" }, new { @class = "nav-link nav-dark" })
                                 </li>
 
                             </ul>
@@ -223,7 +295,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-search"></i>
                                 <p>
-                                    Localités
+                                    Gestion Localités
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>

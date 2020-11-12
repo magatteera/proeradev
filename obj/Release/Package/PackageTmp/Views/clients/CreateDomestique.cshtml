@@ -7,7 +7,7 @@
 <h2>Creation d'un client domestique</h2>
 
 
-@using (Html.BeginForm("Create", "Clients", FormMethod.Post))
+@using (Html.BeginForm("Create", "clients", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -59,17 +59,20 @@
             </div>
         </div>
 
+
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Date_Abonnement, "Date Abonnement", htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-10">
+                    <input type="date" name="Date_Abonnement" required id="Date_Abonnement" class="form-control" />
+                </div>
+            </div>
+        </div>
+
         <input type="hidden" name="Raison_Social" id="Raison_Social" value="PARTICULIER" />
 
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Commentaire, htmlAttributes: new { @class = "control-label col" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Commentaire, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Commentaire, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
 
 
@@ -235,25 +238,49 @@
 
     </div>
 
-    <div class="col-sm-6">
-        <div class="form-group">
-            @Html.Label("mode de paiement", htmlAttributes: new { @class = "control-label col" })
-            <div class="col-md-10">
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" value="1" type="radio" name="modepaiement" checked>
-                        <label class="form-check-label">Especes</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" value="2" type="radio" name="modepaiement">
-                        <label class="form-check-label">Coupon</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" value="3" type="radio" name="modepaiement">
-                        <label class="form-check-label">Cheque</label>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                @Html.Label("mode de paiement", htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" id="paiementespeces" value="1" type="radio" name="modepaiement" checked>
+                            <label class="form-check-label">Especes</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" id="paiementcoupon" value="2" type="radio" name="modepaiement">
+                            <label class="form-check-label">Coupon</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" value="3" id="paiementcheque" type="radio" name="modepaiement">
+                            <label class="form-check-label">Cheque</label>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col-sm-6" id="txtnumpaiement">
+            <div class="form-group">
+                @Html.LabelFor(model => model.numeropaiement, "Numero Paiement", htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-10">
+                    <input type="text" name="numeropaiement" id="numeropaiement" class="form-control" />
+                    @Html.ValidationMessageFor(model => model.numeropaiement, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <input type="hidden" name="activite" value="38" />
+  
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Commentaire, htmlAttributes: new { @class = "control-label col" })
+        <div class="col-md-10">
+            <textarea name="Commentaire" id="Commentaire" class="form-control"></textarea>
+            @Html.ValidationMessageFor(model => model.Commentaire, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -294,14 +321,8 @@
 
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col">Type</label>
-                        <div class="col-md-10">
-                            <select name="type" id="typebordereau" class="form-control">
-                                <option value="abonnement">abonnement</option>
-                            </select>
-                        </div>
-                    </div>
+
+                    <input type="hidden" name="type" id="typebordereau" value="abonnement" />
 
                 </div>
             </div>
@@ -326,6 +347,23 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
+
+        $("#txtnumpaiement").attr("hidden", true)
+
+        $('#paiementcoupon').click(function () {
+            $("#txtnumpaiement").removeAttr("hidden")
+        })
+
+        $('#paiementespeces').click(function () {
+            $("#txtnumpaiement").attr("hidden", true)
+
+            $("#numeropaiement").val("")
+            
+        })
+        
+        $('#paiementcheque').click(function () {
+            $("#txtnumpaiement").removeAttr("hidden")
+        })
 
         data = {
             nivpuissance: $("#nivpuissance").val(),
@@ -406,10 +444,7 @@
             //alert($("#nivpuissance").val())
             data = {
                 numero: $("#numerobordereau").val(),
-                datecreation: $("#datecreationbordereau").val(),
                 montant: $("#montantbordereau").val(),
-                ouvert: $("#ouvert").val(),
-                datevalidation: $("#datevalidationbordereau").val(),
                 type: $("#typebordereau").val()
             }
 
@@ -432,6 +467,8 @@
 
 
         });
+
+
         $("#nivpuissance").change(function () {
             //alert($("#nivpuissance").val())
             data = {

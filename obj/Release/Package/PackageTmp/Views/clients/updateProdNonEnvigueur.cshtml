@@ -4,20 +4,21 @@
     ViewBag.Title = "Creation";
 }
 <br />
-<h2>Creation d'un client domestique</h2>
+<h2>Modification d'un client Productif</h2>
 
 
-@using (Html.BeginForm("Create", "clients", FormMethod.Post))
+@using (Html.BeginForm("Edit", "Clients", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
 <div class="form" style="width:60%">
+    <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <hr />
+
 
     <div class="form-row">
-        <div class="col-sm-6">
+        <div class="col">
             <div class="form-group">
                 @Html.LabelFor(model => model.Nom1, "Nom", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
@@ -27,7 +28,7 @@
             </div>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col">
             <div class="form-group">
                 @Html.LabelFor(model => model.Prenom, htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
@@ -39,7 +40,7 @@
     </div>
 
     <div class="form-row">
-        <div class="col-sm-6">
+        <div class="col">
             <div class="form-group">
                 @Html.LabelFor(model => model.Tel, "Telephone", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
@@ -49,7 +50,20 @@
             </div>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Raison_Social, "Raison Sociale", htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-10">
+                    @Html.DropDownList("Raison_Social", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Raison_Social, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-row">
+        <div class="col">
             <div class="form-group">
                 @Html.LabelFor(model => model.Num_ID, "Numero de CNI", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
@@ -60,20 +74,35 @@
         </div>
 
 
+
         <div class="col">
             <div class="form-group">
                 @Html.LabelFor(model => model.Date_Abonnement, "Date Abonnement", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
-                    <input type="date" name="Date_Abonnement" required id="Date_Abonnement" class="form-control" />
+                    @Html.TextBoxFor(model => model.Date_Abonnement, new { @type = "date", @class = "form-control" })
                 </div>
             </div>
         </div>
 
-        <input type="hidden" name="Raison_Social" id="Raison_Social" value="PARTICULIER" />
 
     </div>
 
 
+
+    <div class="form-row">
+
+
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(model => model.activite, htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.activite, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.activite, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 
 
@@ -82,7 +111,7 @@
 
     <div class="form-row">
 
-        <div class="col-sm-6">
+        <div class="col">
             <div class="form-group">
                 @Html.Label("Region", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
@@ -92,7 +121,7 @@
         </div>
 
 
-        <div class="col-sm-6">
+        <div class="col">
             <div class="form-group">
                 @Html.Label("Departement", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
@@ -108,7 +137,7 @@
 
     <div class="form-row">
 
-        <div class="col-sm-6">
+        <div class="col">
             <div class="form-group">
                 @Html.Label("Commune", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
@@ -117,7 +146,7 @@
             </div>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col">
             <div class="form-group">
                 @Html.LabelFor(model => model.codevillage, "Village", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
@@ -128,13 +157,12 @@
         </div>
     </div>
 
-
     <hr />
 
 
     <div class="form-row">
 
-        <div class="col-sm-6">
+        <div class="col">
             <div class="form-group">
                 @Html.LabelFor(model => model.Type_Elect, "Type Electrification", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
@@ -146,7 +174,7 @@
         </div>
 
 
-        <div class="col-sm-6">
+        <div class="col">
             <div class="form-group">
                 @Html.LabelFor(model => model.calibre, "Calibre", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
@@ -159,7 +187,7 @@
 
 
     <div class="form-row">
-        <div class="col-sm-6">
+        <div class="col">
             <div class="form-group">
                 @Html.LabelFor(model => model.NivPuissance, "Niveau de Puissance", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
@@ -170,7 +198,7 @@
         </div>
 
 
-        <div class="col-sm-6">
+        <div class="col">
             <div class="form-group">
                 @Html.LabelFor(model => model.NivPuissance, "Type Branchement", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
@@ -182,12 +210,8 @@
     </div>
 
 
-
-
-
-
     <div class="form-row">
-        <div class="col-sm-6">
+        <div class="col">
             <div class="form-group">
                 @Html.LabelFor(model => model.NivPuissance, "Frais Abonnement", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
@@ -199,7 +223,7 @@
         </div>
 
 
-        <div class="col-sm-6">
+        <div class="col">
             <div class="form-group">
                 @Html.LabelFor(model => model.Montant_Encaisse, "Montant Ecaissé", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
@@ -210,9 +234,13 @@
         </div>
     </div>
 
+
+
+
+
     <div class="form-row">
 
-        <div class="col-sm-6">
+        <div class="col">
             <div class="form-group">
                 @Html.LabelFor(model => model.Bordereau, htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
@@ -229,7 +257,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.SoldeTotal, "Solde Total", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
-                    <input type="number" readonly name="SoldeTotal" id="SoldeTotal" class="form-control" />
+                    @Html.EditorFor(model => model.SoldeTotal, new { htmlAttributes = new { @readonly = true, @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.SoldeTotal, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -237,6 +265,7 @@
 
 
     </div>
+
 
     <div class="row">
         <div class="col-sm-6">
@@ -260,29 +289,32 @@
                 </div>
             </div>
         </div>
+
         <div class="col-sm-6" id="txtnumpaiement">
             <div class="form-group">
                 @Html.LabelFor(model => model.numeropaiement, "Numero Paiement", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
-                    <input type="text" name="numeropaiement" id="numeropaiement" class="form-control" />
+                    @Html.EditorFor(model => model.numeropaiement, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.numeropaiement, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-    </div>
+    </div>  
 
 
-    <input type="hidden" name="activite" value="38" />
-  
+    @Html.HiddenFor(m => m.modePaiement)
+    @Html.HiddenFor(m => m.Reference_Contrat)
 
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Commentaire, htmlAttributes: new { @class = "control-label col" })
-        <div class="col-md-10">
-            <textarea name="Commentaire" id="Commentaire" class="form-control"></textarea>
-            @Html.ValidationMessageFor(model => model.Commentaire, "", new { @class = "text-danger" })
+    <div class="col">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Commentaire, htmlAttributes: new { @class = "control-label col" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Commentaire, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Commentaire, "", new { @class = "text-danger" })
+            </div>
         </div>
     </div>
+
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -348,7 +380,21 @@
 <script>
     $(document).ready(function () {
 
-        $("#txtnumpaiement").attr("hidden", true)
+
+
+
+
+
+        if ($("#modePaiement").val() == 1) {
+            $("#txtnumpaiement").attr("hidden", true)
+        } else {
+            if ($("#modePaiement").val() == 2) {
+                $('#paiementcoupon').attr("checked", true)
+            } else {
+                ('#paiementcheque').attr("checked", true)
+            }
+        }
+
 
         $('#paiementcoupon').click(function () {
             $("#txtnumpaiement").removeAttr("hidden")
@@ -358,9 +404,9 @@
             $("#txtnumpaiement").attr("hidden", true)
 
             $("#numeropaiement").val("")
-            
+
         })
-        
+
         $('#paiementcheque').click(function () {
             $("#txtnumpaiement").removeAttr("hidden")
         })
@@ -376,7 +422,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/clients/changement",
+            url: "/clients/changementProductif",
             data: data,
             success: function (data) {
                 // alert(data)
@@ -397,48 +443,6 @@
                 alert("Error occured!!")
             }
         });
-
-        $("#calibres").change(function () {
-            data = {
-                nivpuissance: $("#nivpuissance").val(),
-                calibre: $("#calibres").val(),
-                typeelec: $("#typeelec").val(),
-                typebranchement: $("#branchements").val()
-            }
-
-
-
-            $.ajax({
-                type: "POST",
-                url: "/clients/changementnivpuissance",
-                data: data,
-                success: function (data) {
-                    //alert(data)
-                    $('#fraisabonnement').empty()
-                        .append(data.baremes)
-
-                    $('#branchements').empty()
-                        .append(data.branches)
-
-                    $('#calibres').empty()
-                        .append(data.calibres)
-
-                    if ($('#fraisabonnement').val > 0) {
-
-                        $("#Montant_Encaisse").prop("disabled", false)
-                        $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
-
-                    } else {
-                        $("#SoldeTotal").val("")
-                        $("#Montant_Encaisse").val("")
-                    }
-                },
-                error: function () {
-                    alert("Error occured!!")
-                }
-            });
-        })
-
 
         $("#savebordereau").click(function () {
             //alert($("#nivpuissance").val())
@@ -468,7 +472,6 @@
 
         });
 
-
         $("#nivpuissance").change(function () {
             //alert($("#nivpuissance").val())
             data = {
@@ -478,11 +481,9 @@
                 typebranchement: $("#branchements").val()
             }
 
-
-
             $.ajax({
                 type: "POST",
-                url: "/clients/changementnivpuissance",
+                url: "/clients/changementnivpuissanceProductif",
                 data: data,
                 success: function (data) {
                     //alert(data)
@@ -509,10 +510,8 @@
                     alert("Error occured!!")
                 }
             });
-
-
-
         });
+
         $("#calibres").change(function () {
             //alert($("#nivpuissance").val())
             data = {
@@ -526,7 +525,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/clients/changement",
+                url: "/clients/changementnivpuissanceProductif",
                 data: data,
                 success: function (data) {
                     //alert(data)
@@ -565,7 +564,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/clients/changement",
+                url: "/clients/changementProductif",
                 data: data,
                 success: function (data) {
                     //alert(data)
@@ -604,7 +603,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/clients/changement",
+                url: "/clients/changementProductif",
                 data: data,
                 success: function (data) {
                     //alert(data)

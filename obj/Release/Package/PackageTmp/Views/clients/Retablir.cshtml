@@ -49,6 +49,28 @@
         </div>
 
     </div>
+    <div class="row">
+        <h4>Liste des Factures impayees du client</h4>
+
+        <table id="tablebodycli" class="table table-bordered table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>
+                        date
+                    </th>
+                    <th>
+                        Montant
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody id="bodytablecli">
+            </tbody>
+
+
+
+        </table>
+    </div>
     <br />
     <button class="btn btn-success" id="btnRetablir">Retablir</button>
 </div>
@@ -76,6 +98,7 @@
                         $("#ddNom").html(data.nom)
                             $("#ddPrenom").html(data.prenom)
                         $("#ddTelephone").html(data.tel)
+                        $("#bodytablecli").empty().append(data.factures)
                         $("#detailsclient").attr("hidden", false)
 
 

@@ -6,6 +6,8 @@
 <br />
 <h2>Resultat Recherche</h2>
 
+<h2>@ViewBag.message</h2>
+
 
 
 
@@ -34,12 +36,15 @@
                                 @Html.DisplayNameFor(model => model.Reference_Contrat)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Montant_Encaisse)
+                                Telephone
+                            </th>
+                            <th>
+                                Etat Client
                             </th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody >
+                    <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
@@ -56,7 +61,10 @@
                                     @Html.DisplayFor(modelItem => item.Reference_Contrat)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Montant_Encaisse)
+                                    @Html.DisplayFor(modelItem => item.Tel)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.etatclient.etat)
                                 </td>
                                 <td>
                                     @Html.ActionLink("Details", "Details", new { id = item.Reference_Contrat }) |

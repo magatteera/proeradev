@@ -5,6 +5,10 @@
 }
 
 <h2>Create</h2>
+@if (@ViewBag.fait == 1)
+{
+<p class="alert alert-success">Facturation faite avec succes</p>
+}
 
 
 @using (Html.BeginForm("veliderFacturation", "facturationtriggers", FormMethod.Post))

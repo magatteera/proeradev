@@ -4,428 +4,152 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Creation Village SigEra</h2>
+<h2>Create</h2>
 
-
-@using (Html.BeginForm())
+@using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-
-<div class="form-horizontal">
-    <h4>villages</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-    <div class="form-row">
-
-        <div class="col">
-            <div class="form-group">
-                @Html.Label("Region", htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-                    @Html.DropDownList("regions", null, htmlAttributes: new { @class = "form-control" })
-                </div>
-            </div>
-
-            <button class="btn btn-info btn-round" type="button" data-toggle="modal" data-target="#createregion">Nouvelle Region</button>
-        </div>
-
-
-        <div class="col">
-            <div class="form-group">
-                @Html.Label("Departement", htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-                    @Html.DropDownList("departements", null, htmlAttributes: new { @class = "form-control" })
-                </div>
-            </div>
-
-            <button id="btncreatedepartement" class="btn btn-info btn-round" type="button">Nouveau Departement</button>
-        </div>
-
-
-    </div>
-    <br />
-    <div class="form-row">
-        <div class="col">
-            <div class="form-group">
-                @Html.Label("Commune", htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-                    @Html.DropDownList("COMMUNE", null, htmlAttributes: new { @class = "form-control" })
-                </div>
-            </div>
-
-            <button class="btn btn-info btn-round" id="btncreatecommune" type="button">Nouvelle Commune</button>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                @Html.LabelFor(model => model.LOCALITE, "Nom du village", htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.LOCALITE, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.LOCALITE, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-    </div>
-    <br />
-
-    <div class="form-row">
-        <div class="col">
-            <div class="form-group">
-                @Html.LabelFor(model => model.POPULATION, htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.POPULATION, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.POPULATION, "", new { @class = "text-danger" })
-                </div>
+    
+    <div class="form-horizontal">
+        <h4>villages</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.region, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.region, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.region, "", new { @class = "text-danger" })
             </div>
         </div>
 
-
-        <div class="col">
-            <div class="form-group">
-                @Html.LabelFor(model => model.MENAGE, htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.MENAGE, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MENAGE, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-    </div>
-    <br />
-
-    <div class="form-row">
-        <div class="col">
-            <div class="form-group">
-                @Html.LabelFor(model => model.ECOLE, htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-                    Oui:   @Html.RadioButtonFor(model => model.ECOLE, 1, new { @checked = true }) <br />
-                    Non:   @Html.RadioButtonFor(model => model.ECOLE, 0)
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.departement, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.departement, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.departement, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="col">
-            <div class="form-group">
-                @Html.LabelFor(model => model.POSTE_SANTE, htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-
-                    Oui:   @Html.RadioButtonFor(model => model.POSTE_SANTE, 1, new { @checked = true })<br />
-                    Non:   @Html.RadioButtonFor(model => model.POSTE_SANTE, 0)
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.commune, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.commune, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.commune, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="col">
-            <div class="form-group">
-                @Html.LabelFor(model => model.FORAGE, htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-
-                    Oui:   @Html.RadioButtonFor(model => model.FORAGE, 1, new { @checked = true })<br />
-                    Non:   @Html.RadioButtonFor(model => model.FORAGE, 0)
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.village, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.village, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.village, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="col">
-            <div class="form-group">
-                @Html.LabelFor(model => model.MOULIN, htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-
-                    Oui:   @Html.RadioButtonFor(model => model.MOULIN, 1, new { @checked = true })<br />
-                    Non:   @Html.RadioButtonFor(model => model.MOULIN, 0)
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.population, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.population, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.population, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="col">
-            <div class="form-group">
-                @Html.LabelFor(model => model.GSM, htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-
-                    Oui:   @Html.RadioButtonFor(model => model.GSM, 1, new { @checked = true })<br />
-                    Non:   @Html.RadioButtonFor(model => model.GSM, 0)
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <br />
-
-    <div class="form-row">
-        <div class="col">
-            <div class="form-group">
-                @Html.LabelFor(model => model.CODE_MT, htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CODE_MT, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CODE_MT, "", new { @class = "text-danger" })
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.menage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.menage, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.menage, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.education, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.education, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.education, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-        <div class="col">
-            <div class="form-group">
-                @Html.LabelFor(model => model.NEAR_DIST, htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.NEAR_DIST, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NEAR_DIST, "", new { @class = "text-danger" })
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.sante, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.sante, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.sante, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.forage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.forage, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.forage, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.antenne_bts, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.antenne_bts, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.antenne_bts, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.moulin, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.moulin, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.moulin, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.long, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.long, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.long, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.lat, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.lat, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.lat, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.code_village, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.code_village, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.code_village, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.code_prog, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.code_prog, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.code_prog, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.idLocalite, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.idLocalite, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.idLocalite, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
+}
 
-    <br />
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.idProgramme, "Programme", htmlAttributes: new { @class = "control-label col" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.idProgramme, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.idProgramme, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
-    <br />
-
-    <div class="form-row">
-        <div class="col">
-            <div class="form-group">
-                @Html.LabelFor(model => model.LONG, htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.LONG, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.LONG, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-
-        </div>
-
-        <div class="col">
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.LAT, htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.LAT, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.LAT, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-    </div>
-    <br />
-
-
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Enregistrer" class="btn btn-success" />
-        </div>
-    </div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
 </div>
-    }
-
-
-    <div class="modal fade" id="createregion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Creation Bordereau</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-horizontal">
-                        <h4>region</h4>
-                        <hr />
-                        <div class="form-group">
-                            <label class="control-label">Nom Region</label>
-                            <div class="col-md-10">
-                                <input type="text" nom="regioncreate" id="regioncreate" class="form-control" />
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" id="saveregion" data-dismiss="modal" class="btn btn-primary">Enregistrer</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="modal fade" id="createdepartement" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Creation Bordereau</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-horizontal">
-                        <h4>Departement</h4>
-                        <hr />
-
-                        <div class="form-group">
-                            <label class="control-label">Nom Departement</label>
-                            <div class="col-md-10">
-                                <input type="text" nom="departementcreate" id="departementcreate" class="form-control" />
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" id="savedepartement" data-dismiss="modal" class="btn btn-primary">Enregistrer</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="modal fade" id="createcommune" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Creation Bordereau</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-horizontal">
-                        <h4>communes</h4>
-                        <hr />
-                        <div class="form-group">
-                            <label class="control-label">Nom Commune</label>
-                            <div class="col-md-10">
-                                <input type="text" nom="communecreate" id="communecreate" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" id="savecommune" data-dismiss="modal" class="btn btn-primary">Enregistrer</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <div>
-        @Html.ActionLink("Retour a la liste", "Index")
-    </div>
-
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
-
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script>
-    $(document).ready(function () {
-
-        data = {
-            nivpuissance: $("#nivpuissance").val(),
-            calibre: $("#calibres").val(),
-            typeelec: $("#typeelec").val(),
-            typebranchement: $("#branchements").val()
-        }
-
-
-        $("#btncreatedepartement").click(function () {
-            if (parseInt($("#regions").val()) > 0)
-                $('#createdepartement').modal('show')
-            else
-                alert("Choisissez une region SVP ou creez en une.")
-        })
-
-
-        $("#btncreatecommune").click(function () {
-            if (parseInt($("#departements").val()) > 0)
-                $('#createcommune').modal('show')
-            else
-                alert("Choisissez un departement SVP ou creez en un.")
-        })
-
-
-        $("#savecommune").click(function () {
-
-            data = {
-                nom: $("#communecreate").val(),
-                iddepartement: $("#departements").val()
-            }
-            @*alert(data.nom)
-            alert(data.iddepartement)*@
-
-            $.ajax({
-                type: "POST",
-                url: "/villages/nouvellecommune",
-                data: data,
-                success: function (data) {
-                    alert(data)
-                    $("#COMMUNE").empty().
-                        append(data)
-                },
-                error: function () {
-                    alert("Error occured!!")
-                }
-            });
-
-        })
-
-
-
-
-
-
-        $("#regions").change(function () {
-            data = {
-                id: $("#regions").val()
-            }
-            $.ajax({
-                type: "POST",
-                url: "/villages/changementregion",
-                data: data,
-                success: function (data) {
-                    $("#departements").empty().
-                        append(data.departement)
-                    $("#COMMUNE").empty().
-                        append(data.commune)
-                    $("#codevillage").empty().
-                        append(data.village)
-                },
-                error: function () {
-                    alert("Error occured!!")
-                }
-            });
-        })
-
-
-        $("#departements").change(function () {
-            data = {
-                code_departement: $("#departements").val()
-            }
-            $.ajax({
-                type: "POST",
-                url: "/villages/changementdepartement",
-                data: data,
-                success: function (data) {
-                    $("#COMMUNE").empty().
-                        append(data.commune)
-                    $("#codevillage").empty().
-                        append(data.village)
-                },
-                error: function () {
-                    alert("Error occured!!")
-                }
-            });
-        })
-    });
-    </script>

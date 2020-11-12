@@ -14,7 +14,7 @@
 
 
     <div class="form-group">
-        <label class="control-label col-md-2">Numero de Facture</label>
+        <label class="control-label col-md-2">ID de la Facture</label>
         <div class="col-md-10">
             <input value="" id="txtnumerofacture" type="text" class="form-control" />
         </div>
@@ -26,7 +26,7 @@
         @using (Html.BeginForm("validerModif", "factures", FormMethod.Post ))
         {
 
-            <input type="hidden" name="idFacture" id="idFacture" />
+            <input type="hidden" name="id" id="id" />
 
             <div class="form-group">
                 <label class="control-label col-md-2">Ancien Index</label>
@@ -53,12 +53,6 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="control-label col-md-2">Montant</label>
-                <div class="col-md-10">
-                    <input value="" id="txtmontant" name="netPayer" type="text" class="form-control" />
-                </div>
-            </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Modifier" class="btn btn-danger" />
@@ -78,7 +72,7 @@
 
                 $("#txtnumerofacture").change(function () {
                     data = {
-                        idFacture: $("#txtnumerofacture").val()
+                        id: $("#txtnumerofacture").val()
                     }
                     // alert($("#idfacture").val())
                     $.ajax({
@@ -92,7 +86,7 @@
                                 $("#txtnouvelindex").val(data.nouvelindex)
                                 $("#txtconsommation").val(data.consom)
                                 $("#txtmontant").val(data.montant)
-                                $("#idFacture").val($("#txtnumerofacture").val())
+                                $("#id").val($("#txtnumerofacture").val())
                                 
                                 $("#divfacture").attr("hidden", false)
                             } else {
