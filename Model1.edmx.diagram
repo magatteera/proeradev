@@ -21,9 +21,7 @@
         <EntityTypeShape EntityType="ERADEVModel.typeelec" Width="1.5" PointX="3.375" PointY="0.75" />
         <AssociationConnector Association="ERADEVModel.FK_hbaremes_usages" />
         <EntityTypeShape EntityType="ERADEVModel.bordereaux" Width="1.5" PointX="7.5" PointY="11.625" />
-        <EntityTypeShape EntityType="ERADEVModel.migration" Width="1.5" PointX="12" PointY="18" />
         <EntityTypeShape EntityType="ERADEVModel.facturationtrigger" Width="1.5" PointX="3.375" PointY="3.75" />
-        <EntityTypeShape EntityType="ERADEVModel.recouvrements" Width="1.5" PointX="14.375" PointY="0.75" />
         <EntityTypeShape EntityType="ERADEVModel.forcermiseenvigueur" Width="1.5" PointX="14.375" PointY="9.75" />
         <EntityTypeShape EntityType="ERADEVModel.compteurs" Width="1.5" PointX="14.375" PointY="13.75" />
         <EntityTypeShape EntityType="ERADEVModel.reclamation" Width="1.5" PointX="12" PointY="22.125" />
@@ -36,9 +34,6 @@
         <EntityTypeShape EntityType="ERADEVModel.SAV" Width="1.5" PointX="16.375" PointY="7.75" />
         <EntityTypeShape EntityType="ERADEVModel.raisonsociale" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="ERADEVModel.tempReleves" Width="1.5" PointX="16.375" PointY="12.75" />
-        <EntityTypeShape EntityType="ERADEVModel.releves" Width="1.5" PointX="12" PointY="11.25" />
-        <EntityTypeShape EntityType="ERADEVModel.encaissements" Width="1.5" PointX="9.75" PointY="11.375" />
-        <AssociationConnector Association="ERADEVModel.FK_db_encaissement_bordereau" />
         <EntityTypeShape EntityType="ERADEVModel.modifencaissement" Width="1.5" PointX="10.375" PointY="5.75" />
         <EntityTypeShape EntityType="ERADEVModel.factures" Width="1.5" PointX="5.375" PointY="16.75" />
         <EntityTypeShape EntityType="ERADEVModel.etatclient" Width="1.5" PointX="7.5" PointY="27.125" />
@@ -47,14 +42,18 @@
         <EntityTypeShape EntityType="ERADEVModel.villages" Width="1.5" PointX="7.375" PointY="3.75" />
         <AssociationConnector Association="ERADEVModel.FK_communes_departements" />
         <EntityTypeShape EntityType="ERADEVModel.miseenserviceclient" Width="1.5" PointX="12" PointY="29.625" />
-        <EntityTypeShape EntityType="ERADEVModel.clients" Width="1.5" PointX="9.75" PointY="16.5" />
         <EntityTypeShape EntityType="ERADEVModel.typepaiement" Width="1.5" PointX="7.5" PointY="22.875" />
+        <EntityTypeShape EntityType="ERADEVModel.clients" Width="1.5" PointX="9.75" PointY="18.375" />
         <AssociationConnector Association="ERADEVModel.FK_clients_typepaiement" />
-        <AssociationConnector Association="ERADEVModel.FK_migration_clients" />
         <AssociationConnector Association="ERADEVModel.FK_miseenserviceclient_clients" />
         <AssociationConnector Association="ERADEVModel.FK_reclamation_clients" />
-        <AssociationConnector Association="ERADEVModel.FK_releves_clients2" />
         <AssociationConnector Association="ERADEVModel.FK_resiliation_clients" />
+        <EntityTypeShape EntityType="ERADEVModel.migration" Width="1.5" PointX="12" PointY="18.25" />
+        <AssociationConnector Association="ERADEVModel.FK_migration_clients" />
+        <EntityTypeShape EntityType="ERADEVModel.releves" Width="1.5" PointX="12" PointY="12.125" />
+        <AssociationConnector Association="ERADEVModel.FK_releves_clients2" />
+        <EntityTypeShape EntityType="ERADEVModel.recouvrements" Width="1.5" PointX="12.375" PointY="5.75" />
+        <EntityTypeShape EntityType="ERADEVModel.encaissements" Width="1.5" PointX="11.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

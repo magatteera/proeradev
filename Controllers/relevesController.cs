@@ -50,7 +50,7 @@ namespace proera.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,id2,Reference_Contrat,N__COMPTEUR,Ancien_index,Nouvel_index,consommation,date_de_relève,nom1,prenom,village,commune,periode,prevbill,nivpuissance,nbreJour,departement,region,categorie,nivservice")] releves releves)
+        public ActionResult Create([Bind(Include = "ID,Reference_Contrat,N__COMPTEUR,Ancien_index,Nouvel_index,consommation,date_de_relève,nom1,prenom,village,commune,periode,prevbill,nivpuissance,nbreJour,departement,region,categorie,nivservice")] releves releves)
         {
             if (ModelState.IsValid)
             {

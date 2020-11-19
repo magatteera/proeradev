@@ -173,7 +173,7 @@ namespace proera.Controllers
 
 
 		// GET: clients/CreateProductif
-		[Authorize(Roles = "Proera_COM")]
+		[Authorize(Roles = "Proera_COM, Proera_Admin")]
 		public ActionResult CreateProductif(string id)
 		{
 			var baremes = db.hbaremes.Where(n => (n.Usage == 2) || (n.Usage == 3)).ToList();
@@ -210,9 +210,9 @@ namespace proera.Controllers
 			var bord = db.bordereaux.Where(b => b.ouvert == 1).ToList();
 			ViewBag.NivPuissance = new SelectList(nivpui, "Id", "NivPuissance");
 			ViewBag.activite = new SelectList(db.raisonsociale.ToList(), "id", "raison");
-			ViewBag.calibres = new SelectList(calibresfilt, "calibre", "calibre");
-			ViewBag.typeelec = new SelectList(typeelec, "type", "type");
-			ViewBag.branchements = new SelectList(branchesfilt, "id", "branch");
+			ViewBag.calibre = new SelectList(calibresfilt, "calibre", "calibre");
+			ViewBag.Type_Elect = new SelectList(typeelec, "type", "type");
+			ViewBag.TypeBranch = new SelectList(branchesfilt, "id", "branch");
 			IEnumerable<SelectListItem> selectListbord = from s in bord
 														 select new SelectListItem
 														 {
@@ -258,10 +258,12 @@ namespace proera.Controllers
 		}
 
 		// GET: clients/CreateDomestique
-		
-	  //<roleManager enabled = "true" />
+
+		//<roleManager enabled = "true" />
 		//[Authorize(Roles = "Proera_COM, Administrateurs")]
 		//[Authorize(Users = "administrateur")]
+
+		[Authorize(Roles = "Proera_COM, Proera_Admin")]
 		public ActionResult CreateDomestique(string id)
 		{
 			var baremes = db.hbaremes.Where(b => b.Usage == 1).ToList();
@@ -294,11 +296,12 @@ namespace proera.Controllers
 				if (existe)
 					branchesfilt.Add(br);
 			}
+			
 			var bord = db.bordereaux.Where(b => (b.ouvert == 1) && (b.utilisateur == User.Identity.Name)).ToList();
 			ViewBag.NivPuissance = new SelectList(nivpui, "Id", "NivPuissance");
-			ViewBag.calibres = new SelectList(calibresfilt, "calibre", "calibre");
-			ViewBag.typeelec = new SelectList(typeelec, "type", "type");
-			ViewBag.branchements = new SelectList(branchesfilt, "id", "branch");
+			ViewBag.calibre = new SelectList(calibresfilt, "calibre", "calibre");
+			ViewBag.Type_Elect = new SelectList(typeelec, "type", "type");
+			ViewBag.TypeBranch = new SelectList(branchesfilt, "id", "branch");
 			IEnumerable<SelectListItem> selectListbord = from s in bord
 														 select new SelectListItem
 														 {
@@ -424,7 +427,7 @@ namespace proera.Controllers
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 
-		public ActionResult Create([Bind(Include = "numeropaiement,ID,Nom1,Prenom,Num_ID,Tel,Raison_Social,Date_Abonnement,Village,Niv_Service,Type_Elect,calibre,Reference_Contrat,Montant_Encaisse,Etat_Client,Commentaire,Date_Mise_en_Service,Date_Resiliation,X_GPS,Y_GPS,Bordereau,Contrat,interface,Ancien_indexe,SoldeTotal,IDPayment,Prev_Bill,Last_Bill,NbrEP,Modifié,Créé,Créé_par,periodeFacturee,dateCoupure,dateAbonn,dateMeS,idlastbill,NivPuissance,activite,sqlstate,refclient,codevillage,modePaiement")] clients clients)
+		public ActionResult Create([Bind(Include = "ID,Nom1,Prenom,Num_ID,Tel,Raison_Social,Date_Abonnement,Village,Niv_Service,Type_Elect,calibre,Reference_Contrat,Montant_Encaisse,Etat_Client,Commentaire,Date_Mise_en_Service,Date_Resiliation,X_GPS,Y_GPS,Bordereau,Contrat,numcompteur,Ancien_indexe,SoldeTotal,IDPayment,Prev_Bill,Last_Bill,NbrEP,Modifié,Créé,Créé_par,periodeFacturee,dateCoupure,dateAbonn,dateMeS,idlastbill,NivPuissance,activite,sqlstate,refclient,codevillage,modePaiement,numeropaiement,TypeBranch,etat")] clients clients)
 		{
 			if (ModelState.IsValid)
 			{
@@ -489,6 +492,8 @@ namespace proera.Controllers
 			var clientss = db.clients.Where(c => c.Bordereau == clients.Bordereau).ToList();
 
 			string selectclients = "";
+
+
 			double montant = 0;
 
 			double especes = 0;
@@ -550,9 +555,11 @@ namespace proera.Controllers
 			var clis = db.clients.Where(c => c.codevillage == clients.codevillage).ToList();
 			List<clients> cliss = new List<clients>();
 			var villages = db.villages.ToList();
+			var etats = db.etatclient.ToList();
 			foreach(var cl in clis)
 			{
 				cl.Village = villages[villages.FindIndex(v => v.code_village == cl.codevillage)].village;
+				cl.etat = etats[etats.FindIndex(v => v.id == cl.Etat_Client)].etat;
 				cliss.Add(cl);
 			}
 
@@ -566,6 +573,7 @@ namespace proera.Controllers
 
 			return View("ResultatRecherche");
 		}
+
 
 		public ActionResult couper()
 		{
@@ -808,14 +816,14 @@ namespace proera.Controllers
 		public ActionResult changementRefInterface([Bind(Include = "Reference_Contrat")] clients clients)
 		{
 			//clients
-			var cli = db.clients.Find(clients.Reference_Contrat);
+			var cli = db.clients.Where(c => c.Reference_Contrat == clients.Reference_Contrat).ToList()[0];
 			if (cli != null)
 			{
 				return Json(new
 				{
 					message = "trouve",
 					nom = cli.Nom1,
-					oldInterface = cli.numcompteur,
+					oldInterface = cli.numcompteur
 				});
 			}
 
@@ -823,7 +831,7 @@ namespace proera.Controllers
 		}
 
 
-		public ActionResult validerChangementInterface([Bind(Include = "oldinterface, newinterface, indexdepose, indexpose, refclient")] changementinterface changementinterface)
+		public ActionResult validerChangementInterface([Bind(Include = "oldinterface, newinterface, indexdepose, indexpose, refclient, date, motif")] changementinterface changementinterface)
 		{
 			try
 			{
@@ -901,9 +909,9 @@ namespace proera.Controllers
 			}
 			var bord = db.bordereaux.Where(b => b.ouvert == 1).ToList();
 			ViewBag.NivPuissance = new SelectList(nivpui, "NivPuissance", "NivPuissance");
-			ViewBag.calibres = new SelectList(calibresfilt, "calibre", "calibre");
-			ViewBag.typeelec = new SelectList(typeelec, "type", "type");
-			ViewBag.branchements = new SelectList(branchesfilt, "id", "branch");
+			ViewBag.calibre = new SelectList(calibresfilt, "calibre", "calibre");
+			ViewBag.Type_Elect = new SelectList(typeelec, "type", "type");
+			ViewBag.TypeBranch = new SelectList(branchesfilt, "id", "branch");
 			IEnumerable<SelectListItem> selectListbord = from s in bord
 														 select new SelectListItem
 														 {
@@ -973,9 +981,9 @@ namespace proera.Controllers
 					}
 					var bord = db.bordereaux.Where(b => (b.ouvert == 1) && (b.utilisateur == User.Identity.Name)).ToList();
 					ViewBag.NivPuissance = new SelectList(nivpui, "Id", "NivPuissance");
-					ViewBag.calibres = new SelectList(calibresfilt, "calibre", "calibre");
-					ViewBag.typeelec = new SelectList(typeelec, "type", "type");
-					ViewBag.branchements = new SelectList(branchesfilt, "id", "branch");
+					ViewBag.calibre = new SelectList(calibresfilt, "calibre", "calibre");
+					ViewBag.Type_Elect = new SelectList(typeelec, "type", "type");
+					ViewBag.TypeBranch = new SelectList(branchesfilt, "id", "branch");
 					IEnumerable<SelectListItem> selectListbord = from s in bord
 																 select new SelectListItem
 																 {
@@ -1054,9 +1062,9 @@ namespace proera.Controllers
 					var bord = db.bordereaux.Where(b => b.ouvert == 1).ToList();
 					ViewBag.NivPuissance = new SelectList(nivpui, "Id", "NivPuissance");
 					ViewBag.Raison_Social = new SelectList(db.raisonsociale.ToList(), "id", "raison");
-					ViewBag.calibres = new SelectList(calibresfilt, "calibre", "calibre");
-					ViewBag.typeelec = new SelectList(typeelec, "type", "type");
-					ViewBag.branchements = new SelectList(branchesfilt, "id", "branch");
+					ViewBag.calibre = new SelectList(calibresfilt, "calibre", "calibre");
+					ViewBag.Type_Elect = new SelectList(typeelec, "type", "type");
+					ViewBag.TypeBranch = new SelectList(branchesfilt, "id", "branch");
 					IEnumerable<SelectListItem> selectListbord = from s in bord
 																 select new SelectListItem
 																 {
@@ -1137,6 +1145,8 @@ namespace proera.Controllers
 		}
 
 		//[Authorize(Roles = "COM")]
+
+		[Authorize(Roles = "Proera_TECH, Proera_Admin")]
 		public ActionResult mettreEnVigueur()
 		{
 
@@ -1146,6 +1156,8 @@ namespace proera.Controllers
 		}
 
 		//[Authorize(Roles = "TECH")]
+
+		[Authorize(Roles = "Proera_TECH, Proera_Admin")]
 		public ActionResult mettreEnService()
 		{
 			var region = db.regions.ToList();

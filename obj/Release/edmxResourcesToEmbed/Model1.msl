@@ -97,42 +97,12 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="migration">
-      <EntityTypeMapping TypeName="ERADEVModel.migration">
-        <MappingFragment StoreEntitySet="migration">
-          <ScalarProperty Name="index" ColumnName="index" />
-          <ScalarProperty Name="interface" ColumnName="interface" />
-          <ScalarProperty Name="datemigration" ColumnName="datemigration" />
-          <ScalarProperty Name="referenceclient" ColumnName="referenceclient" />
-          <ScalarProperty Name="frais" ColumnName="frais" />
-          <ScalarProperty Name="nouveaunivpui" ColumnName="nouveaunivpui" />
-          <ScalarProperty Name="anciennivpui" ColumnName="anciennivpui" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="facturationtrigger">
       <EntityTypeMapping TypeName="ERADEVModel.facturationtrigger">
         <MappingFragment StoreEntitySet="facturationtrigger">
           <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
           <ScalarProperty Name="periode" ColumnName="periode" />
           <ScalarProperty Name="datefacturation" ColumnName="datefacturation" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="recouvrements">
-      <EntityTypeMapping TypeName="ERADEVModel.recouvrements">
-        <MappingFragment StoreEntitySet="recouvrements">
-          <ScalarProperty Name="facturee" ColumnName="facturee" />
-          <ScalarProperty Name="active" ColumnName="active" />
-          <ScalarProperty Name="nbrFacturesPayees" ColumnName="nbrFacturesPayees" />
-          <ScalarProperty Name="nbrFactures" ColumnName="nbrFactures" />
-          <ScalarProperty Name="montantRecouvre" ColumnName="montantRecouvre" />
-          <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
-          <ScalarProperty Name="periode" ColumnName="periode" />
-          <ScalarProperty Name="closedate" ColumnName="closedate" />
-          <ScalarProperty Name="opendate" ColumnName="opendate" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -272,50 +242,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="releves">
-      <EntityTypeMapping TypeName="ERADEVModel.releves">
-        <MappingFragment StoreEntitySet="releves">
-          <ScalarProperty Name="remarque" ColumnName="remarque" />
-          <ScalarProperty Name="facturee" ColumnName="facturee" />
-          <ScalarProperty Name="nivservice" ColumnName="nivservice" />
-          <ScalarProperty Name="categorie" ColumnName="categorie" />
-          <ScalarProperty Name="region" ColumnName="region" />
-          <ScalarProperty Name="departement" ColumnName="departement" />
-          <ScalarProperty Name="nbreJour" ColumnName="nbreJour" />
-          <ScalarProperty Name="nivpuissance" ColumnName="nivpuissance" />
-          <ScalarProperty Name="prevbill" ColumnName="prevbill" />
-          <ScalarProperty Name="periode" ColumnName="periode" />
-          <ScalarProperty Name="commune" ColumnName="commune" />
-          <ScalarProperty Name="village" ColumnName="village" />
-          <ScalarProperty Name="prenom" ColumnName="prenom" />
-          <ScalarProperty Name="nom1" ColumnName="nom1" />
-          <ScalarProperty Name="date_de_relève" ColumnName="date de relève" />
-          <ScalarProperty Name="consommation" ColumnName="consommation" />
-          <ScalarProperty Name="Nouvel_index" ColumnName="Nouvel index" />
-          <ScalarProperty Name="Ancien_index" ColumnName="Ancien index" />
-          <ScalarProperty Name="numcompteur" ColumnName="numcompteur" />
-          <ScalarProperty Name="Reference_Contrat" ColumnName="Reference Contrat" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="encaissements">
-      <EntityTypeMapping TypeName="ERADEVModel.encaissements">
-        <MappingFragment StoreEntitySet="encaissements">
-          <ScalarProperty Name="numerorecue" ColumnName="numerorecue" />
-          <ScalarProperty Name="idbordereau" ColumnName="idbordereau" />
-          <ScalarProperty Name="commentaire" ColumnName="commentaire" />
-          <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
-          <ScalarProperty Name="dateencaissement" ColumnName="dateencaissement" />
-          <ScalarProperty Name="soldepostpaiement" ColumnName="soldepostpaiement" />
-          <ScalarProperty Name="soldeprepaiement" ColumnName="soldeprepaiement" />
-          <ScalarProperty Name="montantencaisee" ColumnName="montantencaisee" />
-          <ScalarProperty Name="refclient" ColumnName="refclient" />
-          <ScalarProperty Name="idfacture" ColumnName="idfacture" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="modifencaissement">
       <EntityTypeMapping TypeName="ERADEVModel.modifencaissement">
         <MappingFragment StoreEntitySet="modifencaissement">
@@ -425,9 +351,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="typepaiement">
+      <EntityTypeMapping TypeName="ERADEVModel.typepaiement">
+        <MappingFragment StoreEntitySet="typepaiement">
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="clients">
       <EntityTypeMapping TypeName="ERADEVModel.clients">
         <MappingFragment StoreEntitySet="clients">
+          <ScalarProperty Name="etat" ColumnName="etat" />
+          <ScalarProperty Name="TypeBranch" ColumnName="TypeBranch" />
           <ScalarProperty Name="numeropaiement" ColumnName="numeropaiement" />
           <ScalarProperty Name="modePaiement" ColumnName="modePaiement" />
           <ScalarProperty Name="codevillage" ColumnName="codevillage" />
@@ -474,11 +411,80 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="typepaiement">
-      <EntityTypeMapping TypeName="ERADEVModel.typepaiement">
-        <MappingFragment StoreEntitySet="typepaiement">
+    <EntitySetMapping Name="migration">
+      <EntityTypeMapping TypeName="ERADEVModel.migration">
+        <MappingFragment StoreEntitySet="migration">
           <ScalarProperty Name="date" ColumnName="date" />
-          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="motif" ColumnName="motif" />
+          <ScalarProperty Name="index" ColumnName="index" />
+          <ScalarProperty Name="interface" ColumnName="interface" />
+          <ScalarProperty Name="datemigration" ColumnName="datemigration" />
+          <ScalarProperty Name="referenceclient" ColumnName="referenceclient" />
+          <ScalarProperty Name="frais" ColumnName="frais" />
+          <ScalarProperty Name="nouveaunivpui" ColumnName="nouveaunivpui" />
+          <ScalarProperty Name="anciennivpui" ColumnName="anciennivpui" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="releves">
+      <EntityTypeMapping TypeName="ERADEVModel.releves">
+        <MappingFragment StoreEntitySet="releves">
+          <ScalarProperty Name="remarque" ColumnName="remarque" />
+          <ScalarProperty Name="facturee" ColumnName="facturee" />
+          <ScalarProperty Name="nivservice" ColumnName="nivservice" />
+          <ScalarProperty Name="categorie" ColumnName="categorie" />
+          <ScalarProperty Name="region" ColumnName="region" />
+          <ScalarProperty Name="departement" ColumnName="departement" />
+          <ScalarProperty Name="nbreJour" ColumnName="nbreJour" />
+          <ScalarProperty Name="nivpuissance" ColumnName="nivpuissance" />
+          <ScalarProperty Name="prevbill" ColumnName="prevbill" />
+          <ScalarProperty Name="periode" ColumnName="periode" />
+          <ScalarProperty Name="commune" ColumnName="commune" />
+          <ScalarProperty Name="village" ColumnName="village" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="nom1" ColumnName="nom1" />
+          <ScalarProperty Name="date_de_relève" ColumnName="date de relève" />
+          <ScalarProperty Name="consommation" ColumnName="consommation" />
+          <ScalarProperty Name="Nouvel_index" ColumnName="Nouvel index" />
+          <ScalarProperty Name="Ancien_index" ColumnName="Ancien index" />
+          <ScalarProperty Name="numcompteur" ColumnName="numcompteur" />
+          <ScalarProperty Name="Reference_Contrat" ColumnName="Reference Contrat" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="recouvrements">
+      <EntityTypeMapping TypeName="ERADEVModel.recouvrements">
+        <MappingFragment StoreEntitySet="recouvrements">
+          <ScalarProperty Name="facturee" ColumnName="facturee" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="nbrFacturesPayees" ColumnName="nbrFacturesPayees" />
+          <ScalarProperty Name="nbrFactures" ColumnName="nbrFactures" />
+          <ScalarProperty Name="montantRecouvre" ColumnName="montantRecouvre" />
+          <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
+          <ScalarProperty Name="periode" ColumnName="periode" />
+          <ScalarProperty Name="closedate" ColumnName="closedate" />
+          <ScalarProperty Name="opendate" ColumnName="opendate" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="encaissements">
+      <EntityTypeMapping TypeName="ERADEVModel.encaissements">
+        <MappingFragment StoreEntitySet="encaissements">
+          <ScalarProperty Name="periode" ColumnName="periode" />
+          <ScalarProperty Name="numerobordereau" ColumnName="numerobordereau" />
+          <ScalarProperty Name="numerorecue" ColumnName="numerorecue" />
+          <ScalarProperty Name="idbordereau" ColumnName="idbordereau" />
+          <ScalarProperty Name="commentaire" ColumnName="commentaire" />
+          <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
+          <ScalarProperty Name="dateencaissement" ColumnName="dateencaissement" />
+          <ScalarProperty Name="soldepostpaiement" ColumnName="soldepostpaiement" />
+          <ScalarProperty Name="soldeprepaiement" ColumnName="soldeprepaiement" />
+          <ScalarProperty Name="montantencaisee" ColumnName="montantencaisee" />
+          <ScalarProperty Name="refclient" ColumnName="refclient" />
+          <ScalarProperty Name="idfacture" ColumnName="idfacture" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

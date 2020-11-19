@@ -10,11 +10,12 @@ namespace proera
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/adminlte/plugins/datatables/jquery.dataTables.min.js",
-                        "~/adminlte/plugins/chart.js/Chart.min.js",                       
-                        "~/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js",
-                        "~/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js",
-                        "~/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"));
+                        "~/Scripts/datatables/jquery.dataTables.min.js",
+                        "~/Scripts/chart.js/Chart.min.js",
+                        "~/Scripts/datatables-bs4/js/dataTables.bootstrap4.min.js",
+                        "~/Scripts/datatables-responsive/js/dataTables.responsive.min.js",
+                        "~/Scripts/datatables-responsive/js/responsive.bootstrap4.min.js",
+                        "~/Scripts/js1/adminlte.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -29,14 +30,10 @@ namespace proera
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/adminlte/plugins/fontawesome-free/css/all.min.css",
                       "~/adminlte/css/adminlte.min.css",
-                      "~/adminlte/plugins/fontawesome-free/css/all.min.css",
-                      "~/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css",
+                      "~/Content/datatables-bs4/css/dataTables.bootstrap4.min.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new ScriptBundle("~/adminlte/js").Include(
-             "~/adminlte/js/adminlte.min.js"));
         }
     }
 }

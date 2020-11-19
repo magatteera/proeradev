@@ -1,4 +1,4 @@
-﻿@model proera.SAV
+﻿@model proera.clients
 
 @{
     ViewBag.Title = "Creation";
@@ -9,7 +9,7 @@
     <div class="form-group">
         <label class="control-label col">Entrez la Reference</label>
         <div class="col-md-10">
-            <input type="number" id="refclient" class="form-control" />
+            <input type="text" id="refclient" class="form-control" />
         </div>
     </div>
 </div>
@@ -19,27 +19,27 @@
     <div class="row">
 
         <div class="col">
-            <dt>
-                Nom
-            </dt>
+            <p>
+                Nom :
+            </p>
 
-            <dd id="ddNom">
+            <p id="ddNom">
 
-            </dd>
+            </p>
         </div>
 
         <div class="col">
-            <dt>
-                Ancienne Interface
-            </dt>
+            
+                Ancienne Interface :
+            
 
             <input type="text" readonly id="oldInterface" class="form-control" />
         </div>
 
         <div class="col">
-            <dt>
-                Nouvelle Interface
-            </dt>
+            
+                Nouvelle Interface : 
+            
 
 
             <input type="text" id="newInterface" class="form-control" />
@@ -49,34 +49,53 @@
     <br />
     <div class="row">
 
-    <div class="col">
-        <dt>
-            Index Depose
-        </dt>
+        <div class="col">
+            <p>
+                Index Depose
+            </p>
 
-        <input type="number" id="indexdepose" class="form-control" />
+            <input type="number" id="indexdepose" class="form-control" />
+        </div> 
+
+        <div class="col">
+            <p>
+                Index Pose
+            </p>
+
+
+            <input type="number" id="indexpose" class="form-control" />
+        </div>
+        
+        <div class="col">
+            <p>
+                Motif
+            </p>
+
+
+            <input  id="motif" type="text" class="form-control" />
+        </div> 
+
+
+        <div class="col">
+            <p>
+                Date
+            </p>
+
+
+            <input type="date" id="date" class="form-control" />
+        </div>
+
+        @*<div class="col">
+            <p>
+                Telephone
+            </p>
+
+            <p id="ddTelephone">
+
+            </p>
+        </div>*@
+
     </div>
-
-    <div class="col">
-        <dt>
-            Index Pose
-        </dt>
-
-
-        <input type="number" id="indexpose" class="form-control" />
-    </div>
-
-    @*<div class="col">
-        <dt>
-            Telephone
-        </dt>
-
-        <dd id="ddTelephone">
-
-        </dd>
-    </div>*@
-
-</div>
     <br />
     <br />
 
@@ -90,10 +109,16 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
-    $(document).ready(function () {
+    //alert("ref changed")
 
+    $(document).ready(function () {
+        //alert("ref changed")
+        
         $("#refclient").change(function () {
             //alert($("#nivpuissance").val())
+            alert("ref changed")
+
+            
             data = {
                 Reference_Contrat: $("#refclient").val()
             }
@@ -101,10 +126,10 @@
                 type: "POST",
                 url: "/clients/changementRefInterface",
                 data: data,
-                success: function (data) {
-                    if (data.message == "trouve") {
-                        $("#ddNom").html(data.nom)
-                        $("#oldInterface").val(data.oldInterface)
+                success: function (data2) {
+                    if (data2.message == "trouve") {
+                        $("#ddNom").html(data2.nom)
+                        $("#oldInterface").val(data2.oldInterface)
 
                         $("#detailsclient").attr("hidden", false)
 
@@ -123,16 +148,17 @@
 
 
 
+        
         $("#btnChanger").click(function () {
-            //alert($("#nivpuissance").val())
             data = {
                 oldinterface: $("#oldInterface").val(),
                 newinterface: $("#newInterface").val(),
                 indexdepose: $("#indexdepose").val(),
                 indexpose: $("#indexpose").val(),
-                refclient: $("#refclient").val()
+                refclient: $("#refclient").val(),
+                date: $("#date").val(),
+                motif: $("#motif").val(),
             }
-            @*alert(data.oldinterface + data.newinterface + " " + data.indexdepose + " " + data.indexpose + " " + data.refclient)*@
             $.ajax({
                 type: "POST",
                 url: "/clients/validerChangementInterface",
@@ -143,13 +169,15 @@
                     $("#indexdepose").val("")
                     $("#indexpose").val("")
                     $("#refclient").val("")
+                    $("#date").val("")
+                    $("#motif").val("")
                     alert(data.message)
                 },
                 error: function () {
                     alert("Error occured!!")
                 }
             });
-        });
+        }); 
 
     });
 

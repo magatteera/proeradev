@@ -14,6 +14,8 @@ using proera.Models;
 
 namespace proera.Controllers
 {
+
+    [Authorize(Roles = "Proera_REC, Proera_Admin")]
     public class recouvrementsController : Controller
     {
         private ERADEVEntities3 db = new ERADEVEntities3();
@@ -117,15 +119,9 @@ namespace proera.Controllers
                     //ViewBag.test2 = csv.GetRecord<>.ToString();
                     var releveslist = csv.GetRecords<recouv>().ToList();
 
+                    var periode = recouvrements.periode;
                     var listeclients = db.clients.ToList();
 
-                    ViewBag.test = recouvrements.periode;
-                    recouvrements.utilisateur = User.Identity.Name;
-                    recouvrements.active = 1;
-                    //var rel = db.releves.Where(r=>r.periode == recouvrements.periode)
-                    recouvrements.facturee = 0;
-                    db.recouvrements.Add(recouvrements);
-                    db.SaveChanges();
 
                     int nbrreleves = 0;
                     int nbrdepart = 0;
@@ -133,7 +129,25 @@ namespace proera.Controllers
                     int inexistant = 0;
                     int nonenservice = 0;
 
-                    var listeajoutes = new List<recouv>();
+                    ViewBag.test = recouvrements.periode;
+                    recouvrements.utilisateur = User.Identity.Name;
+                    recouvrements.active = 1;
+                    recouvrements.nbrFactures = 0;
+                    recouvrements.nbrFacturesPayees = 0;
+                    //var rel = db.releves.Where(r=>r.periode == recouvrements.periode)
+                    recouvrements.facturee = 0;
+
+                    var per = db.recouvrements.Where(r => r.periode == recouvrements.periode).ToList();
+                    if(per.Count == 0)
+                    {
+                        db.recouvrements.Add(recouvrements);
+                        db.SaveChanges();
+                    }
+                    /*db.recouvrements.Add(recouvrements);
+                    db.SaveChanges();*/
+
+
+                     var listeajoutes = new List<recouv>();
 
                     foreach(var r in releveslist)
                     {
@@ -243,6 +257,39 @@ namespace proera.Controllers
                            
                         //}
                     }
+
+                    /*foreach (var r in releveslist)
+                    {
+                        releves rel = new releves();
+                        rel.Reference_Contrat = Int32.Parse(r.ReferenceContrat);
+                        rel.numcompteur = r.numcompteur;
+                        rel.Ancien_index = Int32.Parse(r.Ancienindex);
+                        rel.date_de_relève = r.datereleve;
+                        rel.consommation = Int32.Parse(r.consommation);
+                        rel.periode = periode;
+                        rel.Nouvel_index = Int32.Parse(r.Nouvelindex);
+                            
+                        rel.nbreJour = Int32.Parse(r.nombrejours);
+                        rel.categorie = r.categorie;
+                        rel.facturee = 0;
+                        rel.clients = null;
+
+                        //Console.WriteLine(rel.consommation);
+                        try
+                        {
+                            db.releves.Add(rel);
+                            db.SaveChanges();
+                            nbrreleves++;
+                        }
+                        catch(Exception e)
+                        {
+
+                        }
+                            
+                    } */
+                    
+
+
                     ViewBag.erreur = 0;
                     ViewBag.nbrdepart = nbrdepart;
                     ViewBag.dupliques = dupliques;
@@ -256,6 +303,7 @@ namespace proera.Controllers
                 }
             } catch(Exception e)
             {
+                Console.WriteLine(e.Message);
                 ViewBag.erreur = 1;
 
                 ViewBag.nbrdepart = 0;
@@ -316,7 +364,7 @@ namespace proera.Controllers
             var encaissements = new List<encaissements>();
             foreach(var enc in encaissementss)
             {
-                if (factures.Find(f => f.id == enc.idfacture) != null)
+                if (factures.Find(f => f.IdFacture+"" == enc.idfacture) != null)
                     encaissements.Add(enc);
             }
 
@@ -330,7 +378,7 @@ namespace proera.Controllers
                 if(fac.Paiement == 1)
                 {
                     facturespayees++;
-                    var index = encaissements.FindIndex(re => re.idfacture == fac.id);
+                    var index = encaissements.FindIndex(re => re.idfacture == fac.IdFacture+"");
                     if (index != -1)
                         //var enc = db.encaissements.Where(e => e.idfacture == fac.IdFacture).ToList();
                         //if(enc.Count > 0)

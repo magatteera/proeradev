@@ -23,7 +23,20 @@
 
     @*<h3 id="facturespayees">payees</h3>
     <h3 id="facturesimpayees">impayees</h3>*@
-    Montant du Bordereau : <h3 id="montant"></h3><br /><br />
+
+<div class="row">
+    <div class="col-4">
+        Montant Encaissé : <h3 id="montantencaisse"></h3><br /><br />
+    </div>
+    
+    <div class="col-4">
+        Montant du Bordereau : <h3 id="montantbordereau"></h3><br /><br />
+    </div>
+    
+    <div class="col-4">
+        Ecart : <h3 id="ecart"></h3><br /><br />
+    </div>
+</div>
 
                            <table id="tablebody" class="table table-bordered table-striped table-sm">
                                <thead>
@@ -91,7 +104,9 @@
                     success: function (data) {
                         @*alert(data)*@
                         $("#bodytable").empty().append(data.table)
-                        $("#montant").html(data.montant)
+                        $("#montantencaisse").html(data.montantencaisse)
+                        $("#montantbordereau").html(data.montantbordereau)
+                        $("#ecart").html(data.ecart)
                     },
                     error: function () {
                     }

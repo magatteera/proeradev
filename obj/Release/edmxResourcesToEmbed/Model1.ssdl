@@ -54,7 +54,7 @@
     <Property Name="Contrat" Type="int" />
     <Property Name="numcompteur" Type="nvarchar" MaxLength="255" />
     <Property Name="Ancien indexe" Type="nvarchar" MaxLength="255" />
-    <Property Name="SoldeTotal" Type="float" />
+    <Property Name="SoldeTotal" Type="float" Nullable="false" />
     <Property Name="IDPayment" Type="nvarchar" MaxLength="255" />
     <Property Name="Prev_Bill" Type="nvarchar" MaxLength="255" />
     <Property Name="Last_Bill" Type="nvarchar" MaxLength="255" />
@@ -74,6 +74,8 @@
     <Property Name="codevillage" Type="int" />
     <Property Name="modePaiement" Type="int" />
     <Property Name="numeropaiement" Type="varchar" MaxLength="50" />
+    <Property Name="TypeBranch" Type="varchar" MaxLength="50" />
+    <Property Name="etat" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="communes">
     <Key>
@@ -119,7 +121,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="idfacture" Type="int" />
+    <Property Name="idfacture" Type="varchar" MaxLength="50" />
     <Property Name="refclient" Type="int" />
     <Property Name="montantencaisee" Type="float" />
     <Property Name="soldeprepaiement" Type="float" />
@@ -129,6 +131,8 @@
     <Property Name="commentaire" Type="varchar" MaxLength="100" />
     <Property Name="idbordereau" Type="int" />
     <Property Name="numerorecue" Type="varchar" MaxLength="50" />
+    <Property Name="numerobordereau" Type="varchar" MaxLength="50" />
+    <Property Name="periode" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="etatclient">
     <Key>
@@ -151,8 +155,8 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="idreleve" Type="int" Nullable="false" />
-    <Property Name="dateReleve" Type="nvarchar" MaxLength="23" />
+    <Property Name="idreleve" Type="int" />
+    <Property Name="dateReleve" Type="varchar" MaxLength="255" />
     <Property Name="conso" Type="float" />
     <Property Name="RedTableau" Type="float" />
     <Property Name="PartEnergetique" Type="float" />
@@ -229,8 +233,10 @@
     <Property Name="frais" Type="float" />
     <Property Name="referenceclient" Type="int" />
     <Property Name="datemigration" Type="date" />
-    <Property Name="interface" Type="nchar" MaxLength="10" />
-    <Property Name="index" Type="nchar" MaxLength="10" />
+    <Property Name="interface" Type="varchar" MaxLength="50" />
+    <Property Name="index" Type="int" />
+    <Property Name="motif" Type="varchar" MaxLength="250" />
+    <Property Name="date" Type="date" />
   </EntityType>
   <EntityType Name="miseenserviceclient">
     <Key>
@@ -308,8 +314,8 @@
     <Property Name="periode" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="utilisateur" Type="varchar" MaxLength="50" />
     <Property Name="montantRecouvre" Type="float" />
-    <Property Name="nbrFactures" Type="nchar" MaxLength="10" />
-    <Property Name="nbrFacturesPayees" Type="nchar" MaxLength="10" />
+    <Property Name="nbrFactures" Type="int" />
+    <Property Name="nbrFacturesPayees" Type="int" />
     <Property Name="active" Type="tinyint" />
     <Property Name="facturee" Type="tinyint" />
   </EntityType>
@@ -345,7 +351,7 @@
     <Property Name="categorie" Type="nvarchar" MaxLength="220" />
     <Property Name="nivservice" Type="nvarchar" MaxLength="220" />
     <Property Name="facturee" Type="tinyint" />
-    <Property Name="remarque" Type="varbinary" MaxLength="100" />
+    <Property Name="remarque" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="resiliation">
     <Key>
@@ -469,18 +475,6 @@
       </Principal>
       <Dependent Role="communes">
         <PropertyRef Name="iddepartement" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_db_encaissement_bordereau">
-    <End Role="bordereaux" Type="Self.bordereaux" Multiplicity="0..1" />
-    <End Role="encaissements" Type="Self.encaissements" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="bordereaux">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="encaissements">
-        <PropertyRef Name="idbordereau" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -682,10 +676,6 @@
     <AssociationSet Name="FK_communes_departements" Association="Self.FK_communes_departements">
       <End Role="departements" EntitySet="departements" />
       <End Role="communes" EntitySet="communes" />
-    </AssociationSet>
-    <AssociationSet Name="FK_db_encaissement_bordereau" Association="Self.FK_db_encaissement_bordereau">
-      <End Role="bordereaux" EntitySet="bordereaux" />
-      <End Role="encaissements" EntitySet="encaissements" />
     </AssociationSet>
     <AssociationSet Name="FK_departements_regions" Association="Self.FK_departements_regions">
       <End Role="regions" EntitySet="regions" />

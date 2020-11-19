@@ -103,6 +103,30 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="adminlte/js/pages/dashboard3.js">
       <publishTime>10/02/2020 12:03:57</publishTime>
     </File>
+    <File Include="adminlte/js1/adminlte.js">
+      <publishTime>10/02/2020 12:03:57</publishTime>
+    </File>
+    <File Include="adminlte/js1/adminlte.js.map">
+      <publishTime>10/02/2020 12:03:57</publishTime>
+    </File>
+    <File Include="adminlte/js1/adminlte.min.js">
+      <publishTime>10/02/2020 12:03:57</publishTime>
+    </File>
+    <File Include="adminlte/js1/adminlte.min.js.map">
+      <publishTime>10/02/2020 12:03:57</publishTime>
+    </File>
+    <File Include="adminlte/js1/demo.js">
+      <publishTime>10/02/2020 12:03:57</publishTime>
+    </File>
+    <File Include="adminlte/js1/pages/dashboard.js">
+      <publishTime>10/02/2020 12:03:57</publishTime>
+    </File>
+    <File Include="adminlte/js1/pages/dashboard2.js">
+      <publishTime>10/02/2020 12:03:57</publishTime>
+    </File>
+    <File Include="adminlte/js1/pages/dashboard3.js">
+      <publishTime>10/02/2020 12:03:57</publishTime>
+    </File>
     <File Include="adminlte/plugins/.npmignore">
       <publishTime>10/02/2020 12:20:36</publishTime>
     </File>
@@ -701,10 +725,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/09/2019 00:56:44</publishTime>
     </File>
     <File Include="bin/proera.dll">
-      <publishTime>11/11/2020 11:10:33</publishTime>
+      <publishTime>11/18/2020 15:20:39</publishTime>
     </File>
     <File Include="bin/proera.pdb">
-      <publishTime>11/11/2020 11:10:33</publishTime>
+      <publishTime>11/18/2020 15:20:39</publishTime>
     </File>
     <File Include="bin/pt-BR/Microsoft.Data.SqlClient.resources.dll">
       <publishTime>05/15/2020 23:07:26</publishTime>
@@ -883,6 +907,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="bin/zh-Hant/Microsoft.Data.SqlClient.resources.dll">
       <publishTime>05/15/2020 23:07:24</publishTime>
     </File>
+    <File Include="Content/adminlte.min.css.map">
+      <publishTime>11/12/2020 17:27:35</publishTime>
+    </File>
     <File Include="Content/bootstrap-grid.css">
       <publishTime>09/10/2020 12:09:14</publishTime>
     </File>
@@ -925,6 +952,105 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Content/bootstrap.min.css.map">
       <publishTime>09/10/2020 12:09:13</publishTime>
     </File>
+    <File Include="Content/datatables-bs4/css/dataTables.bootstrap4.css">
+      <publishTime>11/13/2020 10:16:14</publishTime>
+    </File>
+    <File Include="Content/datatables-bs4/css/dataTables.bootstrap4.min.css">
+      <publishTime>11/13/2020 10:16:14</publishTime>
+    </File>
+    <File Include="Content/datatables-bs4/js/dataTables.bootstrap4.js">
+      <publishTime>11/13/2020 10:16:14</publishTime>
+    </File>
+    <File Include="Content/datatables-bs4/js/dataTables.bootstrap4.min.js">
+      <publishTime>11/13/2020 10:16:14</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/css/all.css">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/css/all.min.css">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/css/brands.css">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/css/brands.min.css">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/css/fontawesome.css">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/css/fontawesome.min.css">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/css/regular.css">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/css/regular.min.css">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/css/solid.css">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/css/solid.min.css">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/css/svg-with-js.css">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/css/svg-with-js.min.css">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/css/v4-shims.css">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/css/v4-shims.min.css">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/webfonts/fa-brands-400.eot">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/webfonts/fa-brands-400.svg">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/webfonts/fa-brands-400.ttf">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/webfonts/fa-brands-400.woff">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/webfonts/fa-brands-400.woff2">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/webfonts/fa-regular-400.eot">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/webfonts/fa-regular-400.svg">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/webfonts/fa-regular-400.ttf">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/webfonts/fa-regular-400.woff">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/webfonts/fa-regular-400.woff2">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/webfonts/fa-solid-900.eot">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/webfonts/fa-solid-900.svg">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/webfonts/fa-solid-900.ttf">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/webfonts/fa-solid-900.woff">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
+    <File Include="Content/fontawesome-free/webfonts/fa-solid-900.woff2">
+      <publishTime>11/13/2020 10:15:29</publishTime>
+    </File>
     <File Include="Content/jquery.dataTables.min.css">
       <publishTime>09/10/2020 15:22:48</publishTime>
     </File>
@@ -941,7 +1067,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/08/2020 11:13:57</publishTime>
     </File>
     <File Include="Model1.edmx.diagram">
-      <publishTime>11/05/2020 12:35:16</publishTime>
+      <publishTime>11/18/2020 10:50:19</publishTime>
     </File>
     <File Include="Scripts/bootstrap.bundle.js">
       <publishTime>09/10/2020 12:09:13</publishTime>
@@ -966,6 +1092,42 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="Scripts/bootstrap.min.js.map">
       <publishTime>09/10/2020 12:09:12</publishTime>
+    </File>
+    <File Include="Scripts/datatables-bs4/css/dataTables.bootstrap4.css">
+      <publishTime>11/13/2020 10:17:13</publishTime>
+    </File>
+    <File Include="Scripts/datatables-bs4/css/dataTables.bootstrap4.min.css">
+      <publishTime>11/13/2020 10:17:13</publishTime>
+    </File>
+    <File Include="Scripts/datatables-bs4/js/dataTables.bootstrap4.js">
+      <publishTime>11/13/2020 10:17:13</publishTime>
+    </File>
+    <File Include="Scripts/datatables-bs4/js/dataTables.bootstrap4.min.js">
+      <publishTime>11/13/2020 10:17:13</publishTime>
+    </File>
+    <File Include="Scripts/datatables-responsive/css/responsive.bootstrap4.css">
+      <publishTime>11/13/2020 10:17:13</publishTime>
+    </File>
+    <File Include="Scripts/datatables-responsive/css/responsive.bootstrap4.min.css">
+      <publishTime>11/13/2020 10:17:13</publishTime>
+    </File>
+    <File Include="Scripts/datatables-responsive/js/dataTables.responsive.js">
+      <publishTime>11/13/2020 10:17:13</publishTime>
+    </File>
+    <File Include="Scripts/datatables-responsive/js/dataTables.responsive.min.js">
+      <publishTime>11/13/2020 10:17:13</publishTime>
+    </File>
+    <File Include="Scripts/datatables-responsive/js/responsive.bootstrap4.js">
+      <publishTime>11/13/2020 10:17:13</publishTime>
+    </File>
+    <File Include="Scripts/datatables-responsive/js/responsive.bootstrap4.min.js">
+      <publishTime>11/13/2020 10:17:13</publishTime>
+    </File>
+    <File Include="Scripts/datatables/jquery.dataTables.js">
+      <publishTime>11/13/2020 10:17:13</publishTime>
+    </File>
+    <File Include="Scripts/datatables/jquery.dataTables.min.js">
+      <publishTime>11/13/2020 10:17:13</publishTime>
     </File>
     <File Include="Scripts/esm/popper-utils.js">
       <publishTime>09/10/2020 12:09:12</publishTime>
@@ -1026,6 +1188,30 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="Scripts/jquery.validate.unobtrusive.min.js">
       <publishTime>09/08/2020 11:14:29</publishTime>
+    </File>
+    <File Include="Scripts/js1/adminlte.js">
+      <publishTime>11/12/2020 17:10:10</publishTime>
+    </File>
+    <File Include="Scripts/js1/adminlte.js.map">
+      <publishTime>11/12/2020 17:10:10</publishTime>
+    </File>
+    <File Include="Scripts/js1/adminlte.min.js">
+      <publishTime>11/12/2020 17:10:10</publishTime>
+    </File>
+    <File Include="Scripts/js1/adminlte.min.js.map">
+      <publishTime>11/12/2020 17:10:10</publishTime>
+    </File>
+    <File Include="Scripts/js1/demo.js">
+      <publishTime>11/12/2020 17:10:10</publishTime>
+    </File>
+    <File Include="Scripts/js1/pages/dashboard.js">
+      <publishTime>11/12/2020 17:10:10</publishTime>
+    </File>
+    <File Include="Scripts/js1/pages/dashboard2.js">
+      <publishTime>11/12/2020 17:10:10</publishTime>
+    </File>
+    <File Include="Scripts/js1/pages/dashboard3.js">
+      <publishTime>11/12/2020 17:10:10</publishTime>
     </File>
     <File Include="Scripts/modernizr-2.8.3.js">
       <publishTime>09/08/2020 11:14:27</publishTime>
@@ -1304,25 +1490,25 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/16/2020 17:18:56</publishTime>
     </File>
     <File Include="Views/clients/changerInterface - Copier %282%29.cshtml">
-      <publishTime>10/05/2020 15:52:19</publishTime>
+      <publishTime>11/13/2020 16:22:27</publishTime>
     </File>
     <File Include="Views/clients/changerinterface.cshtml">
-      <publishTime>10/09/2020 12:28:35</publishTime>
+      <publishTime>11/16/2020 08:50:30</publishTime>
     </File>
     <File Include="Views/clients/clientsacouper.cshtml">
-      <publishTime>11/11/2020 09:33:25</publishTime>
+      <publishTime>11/17/2020 12:09:37</publishTime>
     </File>
     <File Include="Views/clients/correctionReleve.cshtml">
-      <publishTime>10/05/2020 15:51:44</publishTime>
+      <publishTime>11/13/2020 16:22:27</publishTime>
     </File>
     <File Include="Views/clients/coupure.cshtml">
-      <publishTime>10/21/2020 11:52:00</publishTime>
+      <publishTime>11/16/2020 08:50:30</publishTime>
     </File>
     <File Include="Views/clients/CreateDomestique.cshtml">
-      <publishTime>11/09/2020 15:18:33</publishTime>
+      <publishTime>11/16/2020 08:32:26</publishTime>
     </File>
     <File Include="Views/clients/CreateProductif.cshtml">
-      <publishTime>10/26/2020 17:14:51</publishTime>
+      <publishTime>11/16/2020 08:32:26</publishTime>
     </File>
     <File Include="Views/clients/Delete.cshtml">
       <publishTime>10/13/2020 15:48:51</publishTime>
@@ -1361,7 +1547,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/05/2020 15:52:21</publishTime>
     </File>
     <File Include="Views/clients/ResultatRecherche.cshtml">
-      <publishTime>10/27/2020 16:12:15</publishTime>
+      <publishTime>11/13/2020 16:34:11</publishTime>
     </File>
     <File Include="Views/clients/Retablir.cshtml">
       <publishTime>10/21/2020 11:51:59</publishTime>
@@ -1424,7 +1610,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/20/2020 16:38:23</publishTime>
     </File>
     <File Include="Views/encaissements/Create.cshtml">
-      <publishTime>10/20/2020 17:31:21</publishTime>
+      <publishTime>11/18/2020 15:19:58</publishTime>
     </File>
     <File Include="Views/encaissements/Delete.cshtml">
       <publishTime>09/10/2020 12:51:45</publishTime>
@@ -1457,7 +1643,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/10/2020 12:52:19</publishTime>
     </File>
     <File Include="Views/facturationtriggers/Create.cshtml">
-      <publishTime>10/20/2020 12:39:54</publishTime>
+      <publishTime>11/13/2020 16:22:27</publishTime>
     </File>
     <File Include="Views/facturationtriggers/Delete.cshtml">
       <publishTime>10/02/2020 08:55:21</publishTime>
@@ -1685,7 +1871,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/08/2020 11:14:30</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>11/11/2020 09:37:31</publishTime>
+      <publishTime>11/17/2020 16:23:59</publishTime>
     </File>
     <File Include="Views/usages/Create.cshtml">
       <publishTime>09/10/2020 12:56:21</publishTime>
@@ -1724,7 +1910,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/08/2020 11:13:57</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/11/2020 10:54:35</publishTime>
+      <publishTime>11/18/2020 15:21:02</publishTime>
     </File>
   </ItemGroup>
 </Project>

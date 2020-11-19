@@ -20,7 +20,6 @@ namespace proera.Controllers
                         return View();
         }
 
-        [Authorize(Roles = "Administrateurs")]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

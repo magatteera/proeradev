@@ -6,6 +6,9 @@
 <br />
 <h2>Clients a Couper</h2>
 
-<iframe src="http://192.168.0.6/ReportServer/Pages/ReportViewer.aspx?%2ffactureindiv&rs:Command=Render" width="100%" height="600" style="border:1px solid black;">
+<iframe id="myframe"  width="100%" height="600" style="border:1px solid black;">
 </iframe>
 
+<script>
+    document.getElementById("myframe").src = "http://win-sqlsrv/ReportServer/Pages/ReportViewer.aspx?%2fERADEV%2fJPE&rs:Command=Render";
+</script>

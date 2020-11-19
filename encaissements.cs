@@ -15,7 +15,7 @@ namespace proera
     public partial class encaissements
     {
         public int id { get; set; }
-        public Nullable<int> idfacture { get; set; }
+        public string idfacture { get; set; }
         public Nullable<int> refclient { get; set; }
         public Nullable<double> montantencaisee { get; set; }
         public Nullable<double> soldeprepaiement { get; set; }
@@ -25,7 +25,7 @@ namespace proera
         public string commentaire { get; set; }
         public Nullable<int> idbordereau { get; set; }
         public string numerorecue { get; set; }
-    
-        public virtual bordereaux bordereaux { get; set; }
+        public string numerobordereau { get; set; }
+        public string periode { get; set; }
     }
 }

@@ -34,7 +34,7 @@ namespace proera
         public string categorie { get; set; }
         public string nivservice { get; set; }
         public Nullable<byte> facturee { get; set; }
-        public byte[] remarque { get; set; }
+        public string remarque { get; set; }
     
         public virtual clients clients { get; set; }
     }

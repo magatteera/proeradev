@@ -15,7 +15,7 @@ namespace proera
     public partial class factures
     {
         public int id { get; set; }
-        public int idreleve { get; set; }
+        public Nullable<int> idreleve { get; set; }
         public string dateReleve { get; set; }
         public Nullable<double> conso { get; set; }
         public Nullable<double> RedTableau { get; set; }

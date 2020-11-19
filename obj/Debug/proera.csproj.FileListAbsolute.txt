@@ -486,4 +486,3 @@ C:\Users\m.war\Documents\war\proera\obj\Debug\proera.csproj.CopyComplete
 C:\Users\m.war\Documents\war\proera\obj\Debug\proera.dll
 C:\Users\m.war\Documents\war\proera\obj\Debug\proera.pdb
 C:\Users\m.war\Documents\war\proera\obj\Debug\proera.csprojAssemblyReference.cache
-C:\Users\m.war\Documents\proera\obj\Debug\proera.csprojAssemblyReference.cache

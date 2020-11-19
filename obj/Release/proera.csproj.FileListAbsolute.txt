@@ -318,9 +318,9 @@ C:\Users\m.war\Documents\proera\bin\fr\System.Web.Razor.resources.dll
 C:\Users\m.war\Documents\proera\bin\fr\System.Web.WebPages.resources.dll
 C:\Users\m.war\Documents\proera\bin\fr\System.Web.WebPages.Deployment.resources.dll
 C:\Users\m.war\Documents\proera\bin\fr\System.Web.WebPages.Razor.resources.dll
-C:\Users\m.war\Documents\proera\obj\Release\proera.csprojAssemblyReference.cache
 C:\Users\m.war\Documents\proera\obj\Release\proera.csproj.CoreCompileInputs.cache
 C:\Users\m.war\Documents\proera\obj\Release\EFCoreSqlServerNetTopologySuite.cs
 C:\Users\m.war\Documents\proera\obj\Release\proera.csproj.CopyComplete
 C:\Users\m.war\Documents\proera\obj\Release\proera.dll
 C:\Users\m.war\Documents\proera\obj\Release\proera.pdb
+C:\Users\m.war\Documents\proera\obj\Release\proera.csprojAssemblyReference.cache

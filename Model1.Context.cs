@@ -35,9 +35,7 @@ namespace proera
         public virtual DbSet<departements> departements { get; set; }
         public virtual DbSet<typeelec> typeelec { get; set; }
         public virtual DbSet<bordereaux> bordereaux { get; set; }
-        public virtual DbSet<migration> migration { get; set; }
         public virtual DbSet<facturationtrigger> facturationtrigger { get; set; }
-        public virtual DbSet<recouvrements> recouvrements { get; set; }
         public virtual DbSet<forcermiseenvigueur> forcermiseenvigueur { get; set; }
         public virtual DbSet<compteurs> compteurs { get; set; }
         public virtual DbSet<reclamation> reclamation { get; set; }
@@ -48,8 +46,6 @@ namespace proera
         public virtual DbSet<SAV> SAV { get; set; }
         public virtual DbSet<raisonsociale> raisonsociale { get; set; }
         public virtual DbSet<tempReleves> tempReleves { get; set; }
-        public virtual DbSet<releves> releves { get; set; }
-        public virtual DbSet<encaissements> encaissements { get; set; }
         public virtual DbSet<modifencaissement> modifencaissement { get; set; }
         public virtual DbSet<factures> factures { get; set; }
         public virtual DbSet<etatclient> etatclient { get; set; }
@@ -57,7 +53,11 @@ namespace proera
         public virtual DbSet<communes> communes { get; set; }
         public virtual DbSet<villages> villages { get; set; }
         public virtual DbSet<miseenserviceclient> miseenserviceclient { get; set; }
-        public virtual DbSet<clients> clients { get; set; }
         public virtual DbSet<typepaiement> typepaiement { get; set; }
+        public virtual DbSet<clients> clients { get; set; }
+        public virtual DbSet<migration> migration { get; set; }
+        public virtual DbSet<releves> releves { get; set; }
+        public virtual DbSet<recouvrements> recouvrements { get; set; }
+        public virtual DbSet<encaissements> encaissements { get; set; }
     }
 }

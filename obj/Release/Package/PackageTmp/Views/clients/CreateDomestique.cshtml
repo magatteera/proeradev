@@ -138,7 +138,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Type_Elect, "Type Electrification", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
-                    <select class="form-control">
+                    <select name="Type_Elect" id="Type_Elect" class="form-control">
                         <option value="RESEAU">RESEAU</option>
                     </select>
                 </div>
@@ -150,7 +150,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.calibre, "Calibre", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
-                    @Html.DropDownList("calibres", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("calibre", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.calibre, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -163,7 +163,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.NivPuissance, "Niveau de Puissance", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
-                    @Html.DropDownList("nivpuissance", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("NivPuissance", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.NivPuissance, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -174,7 +174,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.NivPuissance, "Type Branchement", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
-                    @Html.DropDownList("branchements", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("TypeBranch", null, htmlAttributes: new { @class = "form-control" })
                 </div>
             </div>
 
@@ -366,10 +366,10 @@
         })
 
         data = {
-            nivpuissance: $("#nivpuissance").val(),
-            calibre: $("#calibres").val(),
-            typeelec: $("#typeelec").val(),
-            typebranchement: $("#branchements").val()
+            nivpuissance: $("#NivPuissance").val(),
+            calibre: $("#calibre").val(),
+            typeelec: $("#Type_Elect").val(),
+            typebranchement: $("#TypeBranch").val()
         }
 
 
@@ -398,12 +398,12 @@
             }
         });
 
-        $("#calibres").change(function () {
+        $("#calibre").change(function () {
             data = {
-                nivpuissance: $("#nivpuissance").val(),
-                calibre: $("#calibres").val(),
-                typeelec: $("#typeelec").val(),
-                typebranchement: $("#branchements").val()
+                nivpuissance: $("#NivPuissance").val(),
+                calibre: $("#calibre").val(),
+                typeelec: $("#Type_Elect").val(),
+                typebranchement: $("#TypeBranch").val()
             }
 
 
@@ -417,10 +417,10 @@
                     $('#fraisabonnement').empty()
                         .append(data.baremes)
 
-                    $('#branchements').empty()
+                    $('#TypeBranch').empty()
                         .append(data.branches)
 
-                    $('#calibres').empty()
+                    $('#calibre').empty()
                         .append(data.calibres)
 
                     if ($('#fraisabonnement').val > 0) {
@@ -469,13 +469,13 @@
         });
 
 
-        $("#nivpuissance").change(function () {
+        $("#NivPuissance").change(function () {
             //alert($("#nivpuissance").val())
             data = {
-                nivpuissance: $("#nivpuissance").val(),
-                calibre: $("#calibres").val(),
-                typeelec: $("#typeelec").val(),
-                typebranchement: $("#branchements").val()
+                nivpuissance: $("#NivPuissance").val(),
+                calibre: $("#calibre").val(),
+                typeelec: $("#Type_Elect").val(),
+                typebranchement: $("#TypeBranch").val()
             }
 
 
@@ -489,10 +489,10 @@
                     $('#fraisabonnement').empty()
                         .append(data.baremes)
 
-                    $('#branchements').empty()
+                    $('#TypeBranch').empty()
                         .append(data.branches)
 
-                    $('#calibres').empty()
+                    $('#calibre').empty()
                         .append(data.calibres)
 
                     if ($('#fraisabonnement').val > 0) {
@@ -513,13 +513,13 @@
 
 
         });
-        $("#calibres").change(function () {
+        $("#calibre").change(function () {
             //alert($("#nivpuissance").val())
             data = {
-                nivpuissance: $("#nivpuissance").val(),
-                calibre: $("#calibres").val(),
-                typeelec: $("#typeelec").val(),
-                typebranchement: $("#branchements").val()
+                nivpuissance: $("#NivPuissance").val(),
+                calibre: $("#calibre").val(),
+                typeelec: $("#Type_Elect").val(),
+                typebranchement: $("#TypeBranch").val()
             }
 
 
@@ -552,13 +552,13 @@
 
         });
 
-        $("#typeelec").change(function () {
+        $("#Type_Elect").change(function () {
             //alert($("#nivpuissance").val())
             data = {
-                nivpuissance: $("#nivpuissance").val(),
-                calibre: $("#calibres").val(),
-                typeelec: $("#typeelec").val(),
-                typebranchement: $("#branchements").val()
+                nivpuissance: $("#NivPuissance").val(),
+                calibre: $("#calibre").val(),
+                typeelec: $("#Type_Elect").val(),
+                typebranchement: $("#TypeBranch").val()
             }
 
 
@@ -591,13 +591,13 @@
 
         });
 
-        $("#branchements").change(function () {
+        $("#TypeBranch").change(function () {
             //alert($("#nivpuissance").val())
             data = {
-                nivpuissance: $("#nivpuissance").val(),
-                calibre: $("#calibres").val(),
-                typeelec: $("#typeelec").val(),
-                typebranchement: $("#branchements").val()
+                nivpuissance: $("#NivPuissance").val(),
+                calibre: $("#calibre").val(),
+                typeelec: $("#Type_Elect").val(),
+                typebranchement: $("#TypeBranch").val()
             }
 
 

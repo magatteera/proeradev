@@ -20,8 +20,8 @@ namespace proera
         public string periode { get; set; }
         public string utilisateur { get; set; }
         public Nullable<double> montantRecouvre { get; set; }
-        public string nbrFactures { get; set; }
-        public string nbrFacturesPayees { get; set; }
+        public Nullable<int> nbrFactures { get; set; }
+        public Nullable<int> nbrFacturesPayees { get; set; }
         public Nullable<byte> active { get; set; }
         public Nullable<byte> facturee { get; set; }
     }

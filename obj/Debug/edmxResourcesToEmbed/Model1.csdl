@@ -150,9 +150,7 @@
       <End Role="hbaremes" EntitySet="hbaremes" />
     </AssociationSet>
     <EntitySet Name="bordereaux" EntityType="ERADEVModel.bordereaux" />
-    <EntitySet Name="migration" EntityType="ERADEVModel.migration" />
     <EntitySet Name="facturationtrigger" EntityType="ERADEVModel.facturationtrigger" />
-    <EntitySet Name="recouvrements" EntityType="ERADEVModel.recouvrements" />
     <EntitySet Name="forcermiseenvigueur" EntityType="ERADEVModel.forcermiseenvigueur" />
     <EntitySet Name="compteurs" EntityType="ERADEVModel.compteurs" />
     <EntitySet Name="reclamation" EntityType="ERADEVModel.reclamation" />
@@ -171,12 +169,6 @@
     <EntitySet Name="SAV" EntityType="ERADEVModel.SAV" />
     <EntitySet Name="raisonsociale" EntityType="ERADEVModel.raisonsociale" />
     <EntitySet Name="tempReleves" EntityType="ERADEVModel.tempReleves" />
-    <EntitySet Name="releves" EntityType="ERADEVModel.releves" />
-    <EntitySet Name="encaissements" EntityType="ERADEVModel.encaissements" />
-    <AssociationSet Name="FK_db_encaissement_bordereau" Association="ERADEVModel.FK_db_encaissement_bordereau">
-      <End Role="bordereaux" EntitySet="bordereaux" />
-      <End Role="encaissements" EntitySet="encaissements" />
-    </AssociationSet>
     <EntitySet Name="modifencaissement" EntityType="ERADEVModel.modifencaissement" />
     <EntitySet Name="factures" EntityType="ERADEVModel.factures" />
     <EntitySet Name="etatclient" EntityType="ERADEVModel.etatclient" />
@@ -188,15 +180,12 @@
       <End Role="communes" EntitySet="communes" />
     </AssociationSet>
     <EntitySet Name="miseenserviceclient" EntityType="ERADEVModel.miseenserviceclient" />
-    <EntitySet Name="clients" EntityType="ERADEVModel.clients" />
     <EntitySet Name="typepaiement" EntityType="ERADEVModel.typepaiement" />
+    <EntitySet Name="encaissements" EntityType="ERADEVModel.encaissements" />
+    <EntitySet Name="clients" EntityType="ERADEVModel.clients" />
     <AssociationSet Name="FK_clients_typepaiement" Association="ERADEVModel.FK_clients_typepaiement">
       <End Role="typepaiement" EntitySet="typepaiement" />
       <End Role="clients" EntitySet="clients" />
-    </AssociationSet>
-    <AssociationSet Name="FK_migration_clients" Association="ERADEVModel.FK_migration_clients">
-      <End Role="clients" EntitySet="clients" />
-      <End Role="migration" EntitySet="migration" />
     </AssociationSet>
     <AssociationSet Name="FK_miseenserviceclient_clients" Association="ERADEVModel.FK_miseenserviceclient_clients">
       <End Role="clients" EntitySet="clients" />
@@ -206,14 +195,21 @@
       <End Role="clients" EntitySet="clients" />
       <End Role="reclamation" EntitySet="reclamation" />
     </AssociationSet>
-    <AssociationSet Name="FK_releves_clients2" Association="ERADEVModel.FK_releves_clients2">
-      <End Role="clients" EntitySet="clients" />
-      <End Role="releves" EntitySet="releves" />
-    </AssociationSet>
     <AssociationSet Name="FK_resiliation_clients" Association="ERADEVModel.FK_resiliation_clients">
       <End Role="clients" EntitySet="clients" />
       <End Role="resiliation" EntitySet="resiliation" />
     </AssociationSet>
+    <EntitySet Name="migration" EntityType="ERADEVModel.migration" />
+    <AssociationSet Name="FK_migration_clients" Association="ERADEVModel.FK_migration_clients">
+      <End Role="clients" EntitySet="clients" />
+      <End Role="migration" EntitySet="migration" />
+    </AssociationSet>
+    <EntitySet Name="releves" EntityType="ERADEVModel.releves" />
+    <AssociationSet Name="FK_releves_clients2" Association="ERADEVModel.FK_releves_clients2">
+      <End Role="clients" EntitySet="clients" />
+      <End Role="releves" EntitySet="releves" />
+    </AssociationSet>
+    <EntitySet Name="recouvrements" EntityType="ERADEVModel.recouvrements" />
   </EntityContainer>
   <EntityType Name="departements">
     <Key>
@@ -270,21 +266,6 @@
     <Property Name="datevalidation" Type="DateTime" Precision="0" />
     <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="validateur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="encaissements" Relationship="ERADEVModel.FK_db_encaissement_bordereau" FromRole="bordereaux" ToRole="encaissements" />
-  </EntityType>
-  <EntityType Name="migration">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="anciennivpui" Type="Int32" />
-    <Property Name="nouveaunivpui" Type="Int32" />
-    <Property Name="frais" Type="Double" />
-    <Property Name="referenceclient" Type="Int32" />
-    <Property Name="datemigration" Type="DateTime" Precision="0" />
-    <Property Name="interface" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="index" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-    <NavigationProperty Name="clients" Relationship="ERADEVModel.FK_migration_clients" FromRole="migration" ToRole="clients" />
   </EntityType>
   <EntityType Name="facturationtrigger">
     <Key>
@@ -294,21 +275,6 @@
     <Property Name="datefacturation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="periode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="recouvrements">
-    <Key>
-      <PropertyRef Name="periode" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="opendate" Type="DateTime" Precision="0" />
-    <Property Name="closedate" Type="DateTime" Precision="0" />
-    <Property Name="periode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="montantRecouvre" Type="Double" />
-    <Property Name="nbrFactures" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="nbrFacturesPayees" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="active" Type="Byte" />
-    <Property Name="facturee" Type="Byte" />
   </EntityType>
   <EntityType Name="forcermiseenvigueur">
     <Key>
@@ -465,62 +431,6 @@
     <Property Name="nombrejours" Type="Int32" />
     <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
-  <EntityType Name="releves">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Reference_Contrat" Type="Int32" />
-    <Property Name="numcompteur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Ancien_index" Type="Int32" />
-    <Property Name="Nouvel_index" Type="Int32" />
-    <Property Name="consommation" Type="Double" />
-    <Property Name="date_de_relève" Type="String" MaxLength="23" FixedLength="false" Unicode="true" />
-    <Property Name="nom1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="prenom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="village" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="commune" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="periode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="prevbill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="nivpuissance" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
-    <Property Name="nbreJour" Type="Int32" />
-    <Property Name="departement" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
-    <Property Name="region" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
-    <Property Name="categorie" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
-    <Property Name="nivservice" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
-    <Property Name="facturee" Type="Byte" />
-    <Property Name="remarque" Type="Binary" MaxLength="100" FixedLength="false" />
-    <NavigationProperty Name="clients" Relationship="ERADEVModel.FK_releves_clients2" FromRole="releves" ToRole="clients" />
-  </EntityType>
-  <EntityType Name="encaissements">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="idfacture" Type="Int32" />
-    <Property Name="refclient" Type="Int32" />
-    <Property Name="montantencaisee" Type="Double" />
-    <Property Name="soldeprepaiement" Type="Double" />
-    <Property Name="soldepostpaiement" Type="Double" />
-    <Property Name="dateencaissement" Type="DateTime" Precision="0" />
-    <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="commentaire" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="idbordereau" Type="Int32" />
-    <Property Name="numerorecue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="bordereaux" Relationship="ERADEVModel.FK_db_encaissement_bordereau" FromRole="encaissements" ToRole="bordereaux" />
-  </EntityType>
-  <Association Name="FK_db_encaissement_bordereau">
-    <End Type="ERADEVModel.bordereaux" Role="bordereaux" Multiplicity="0..1" />
-    <End Type="ERADEVModel.encaissements" Role="encaissements" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="bordereaux">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="encaissements">
-        <PropertyRef Name="idbordereau" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="modifencaissement">
     <Key>
       <PropertyRef Name="id" />
@@ -539,8 +449,8 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="idreleve" Type="Int32" Nullable="false" />
-    <Property Name="dateReleve" Type="String" MaxLength="23" FixedLength="false" Unicode="true" />
+    <Property Name="idreleve" Type="Int32" />
+    <Property Name="dateReleve" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="conso" Type="Double" />
     <Property Name="RedTableau" Type="Double" />
     <Property Name="PartEnergetique" Type="Double" />
@@ -637,6 +547,33 @@
     <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="clients" Relationship="ERADEVModel.FK_miseenserviceclient_clients" FromRole="miseenserviceclient" ToRole="clients" />
   </EntityType>
+  <EntityType Name="typepaiement">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="clients" Relationship="ERADEVModel.FK_clients_typepaiement" FromRole="typepaiement" ToRole="clients" />
+  </EntityType>
+  <EntityType Name="encaissements">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idfacture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="refclient" Type="Int32" />
+    <Property Name="montantencaisee" Type="Double" />
+    <Property Name="soldeprepaiement" Type="Double" />
+    <Property Name="soldepostpaiement" Type="Double" />
+    <Property Name="dateencaissement" Type="DateTime" Precision="0" />
+    <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="commentaire" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="idbordereau" Type="Int32" />
+    <Property Name="numerorecue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="numerobordereau" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="periode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
   <EntityType Name="clients">
     <Key>
       <PropertyRef Name="Reference_Contrat" />
@@ -664,7 +601,7 @@
     <Property Name="Contrat" Type="Int32" />
     <Property Name="numcompteur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="Ancien_indexe" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="SoldeTotal" Type="Double" />
+    <Property Name="SoldeTotal" Type="Double" Nullable="false" />
     <Property Name="IDPayment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="Prev_Bill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="Last_Bill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -684,21 +621,14 @@
     <Property Name="codevillage" Type="Int32" />
     <Property Name="modePaiement" Type="Int32" />
     <Property Name="numeropaiement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TypeBranch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="etat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="typepaiement" Relationship="ERADEVModel.FK_clients_typepaiement" FromRole="clients" ToRole="typepaiement" />
-    <NavigationProperty Name="migration" Relationship="ERADEVModel.FK_migration_clients" FromRole="clients" ToRole="migration" />
     <NavigationProperty Name="miseenserviceclient" Relationship="ERADEVModel.FK_miseenserviceclient_clients" FromRole="clients" ToRole="miseenserviceclient" />
     <NavigationProperty Name="reclamation" Relationship="ERADEVModel.FK_reclamation_clients" FromRole="clients" ToRole="reclamation" />
-    <NavigationProperty Name="releves" Relationship="ERADEVModel.FK_releves_clients2" FromRole="clients" ToRole="releves" />
     <NavigationProperty Name="resiliation" Relationship="ERADEVModel.FK_resiliation_clients" FromRole="clients" ToRole="resiliation" />
-  </EntityType>
-  <EntityType Name="typepaiement">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="date" Type="DateTime" Precision="0" />
-    <NavigationProperty Name="clients" Relationship="ERADEVModel.FK_clients_typepaiement" FromRole="typepaiement" ToRole="clients" />
+    <NavigationProperty Name="migration" Relationship="ERADEVModel.FK_migration_clients" FromRole="clients" ToRole="migration" />
+    <NavigationProperty Name="releves" Relationship="ERADEVModel.FK_releves_clients2" FromRole="clients" ToRole="releves" />
   </EntityType>
   <Association Name="FK_clients_typepaiement">
     <End Type="ERADEVModel.typepaiement" Role="typepaiement" Multiplicity="0..1" />
@@ -709,18 +639,6 @@
       </Principal>
       <Dependent Role="clients">
         <PropertyRef Name="modePaiement" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_migration_clients">
-    <End Type="ERADEVModel.clients" Role="clients" Multiplicity="0..1" />
-    <End Type="ERADEVModel.migration" Role="migration" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="clients">
-        <PropertyRef Name="Reference_Contrat" />
-      </Principal>
-      <Dependent Role="migration">
-        <PropertyRef Name="referenceclient" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -748,18 +666,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_releves_clients2">
-    <End Type="ERADEVModel.clients" Role="clients" Multiplicity="0..1" />
-    <End Type="ERADEVModel.releves" Role="releves" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="clients">
-        <PropertyRef Name="Reference_Contrat" />
-      </Principal>
-      <Dependent Role="releves">
-        <PropertyRef Name="Reference_Contrat" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_resiliation_clients">
     <End Type="ERADEVModel.clients" Role="clients" Multiplicity="0..1" />
     <End Type="ERADEVModel.resiliation" Role="resiliation" Multiplicity="*" />
@@ -772,4 +678,86 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="migration">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="anciennivpui" Type="Int32" />
+    <Property Name="nouveaunivpui" Type="Int32" />
+    <Property Name="frais" Type="Double" />
+    <Property Name="referenceclient" Type="Int32" />
+    <Property Name="datemigration" Type="DateTime" Precision="0" />
+    <Property Name="interface" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="index" Type="Int32" />
+    <Property Name="motif" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="clients" Relationship="ERADEVModel.FK_migration_clients" FromRole="migration" ToRole="clients" />
+  </EntityType>
+  <Association Name="FK_migration_clients">
+    <End Type="ERADEVModel.clients" Role="clients" Multiplicity="0..1" />
+    <End Type="ERADEVModel.migration" Role="migration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clients">
+        <PropertyRef Name="Reference_Contrat" />
+      </Principal>
+      <Dependent Role="migration">
+        <PropertyRef Name="referenceclient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="releves">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Reference_Contrat" Type="Int32" />
+    <Property Name="numcompteur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Ancien_index" Type="Int32" />
+    <Property Name="Nouvel_index" Type="Int32" />
+    <Property Name="consommation" Type="Double" />
+    <Property Name="date_de_relève" Type="String" MaxLength="23" FixedLength="false" Unicode="true" />
+    <Property Name="nom1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="prenom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="village" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="commune" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="periode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="prevbill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="nivpuissance" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
+    <Property Name="nbreJour" Type="Int32" />
+    <Property Name="departement" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
+    <Property Name="region" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
+    <Property Name="categorie" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
+    <Property Name="nivservice" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
+    <Property Name="facturee" Type="Byte" />
+    <Property Name="remarque" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="clients" Relationship="ERADEVModel.FK_releves_clients2" FromRole="releves" ToRole="clients" />
+  </EntityType>
+  <Association Name="FK_releves_clients2">
+    <End Type="ERADEVModel.clients" Role="clients" Multiplicity="0..1" />
+    <End Type="ERADEVModel.releves" Role="releves" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clients">
+        <PropertyRef Name="Reference_Contrat" />
+      </Principal>
+      <Dependent Role="releves">
+        <PropertyRef Name="Reference_Contrat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="recouvrements">
+    <Key>
+      <PropertyRef Name="periode" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="opendate" Type="DateTime" Precision="0" />
+    <Property Name="closedate" Type="DateTime" Precision="0" />
+    <Property Name="periode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="montantRecouvre" Type="Double" />
+    <Property Name="nbrFactures" Type="Int32" />
+    <Property Name="nbrFacturesPayees" Type="Int32" />
+    <Property Name="active" Type="Byte" />
+    <Property Name="facturee" Type="Byte" />
+  </EntityType>
 </Schema>

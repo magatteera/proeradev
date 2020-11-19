@@ -49,34 +49,53 @@
     <br />
     <div class="row">
 
-    <div class="col">
-        <dt>
-            Index Depose
-        </dt>
+        <div class="col">
+            <dt>
+                Index Depose
+            </dt>
 
-        <input type="number" id="indexdepose" class="form-control" />
+            <input type="number" id="indexdepose" class="form-control" />
+        </div>
+
+        <div class="col">
+            <dt>
+                Index Pose
+            </dt>
+
+
+            <input type="number" id="indexpose" class="form-control" />
+        </div>
+
+        <div class="col">
+            <dt>
+                Motif
+            </dt>
+
+
+            <textarea  id="motif" class="form-control" />
+        </div>
+
+
+        <div class="col">
+            <dt>
+                Date
+            </dt>
+
+
+            <input type="date" id="date" class="form-control" />
+        </div>
+
+        @*<div class="col">
+            <dt>
+                Telephone
+            </dt>
+
+            <dd id="ddTelephone">
+
+            </dd>
+        </div>*@
+
     </div>
-
-    <div class="col">
-        <dt>
-            Index Pose
-        </dt>
-
-
-        <input type="number" id="indexpose" class="form-control" />
-    </div>
-
-    @*<div class="col">
-        <dt>
-            Telephone
-        </dt>
-
-        <dd id="ddTelephone">
-
-        </dd>
-    </div>*@
-
-</div>
     <br />
     <br />
 
@@ -130,7 +149,9 @@
                 newinterface: $("#newInterface").val(),
                 indexdepose: $("#indexdepose").val(),
                 indexpose: $("#indexpose").val(),
-                refclient: $("#refclient").val()
+                refclient: $("#refclient").val(),
+                date: $("#date").val(),
+                motif: $("#motif").val(),
             }
             @*alert(data.oldinterface + data.newinterface + " " + data.indexdepose + " " + data.indexpose + " " + data.refclient)*@
             $.ajax({
@@ -143,6 +164,8 @@
                     $("#indexdepose").val("")
                     $("#indexpose").val("")
                     $("#refclient").val("")
+                    $("#date").val("")
+                    $("#motif").val("")
                     alert(data.message)
                 },
                 error: function () {

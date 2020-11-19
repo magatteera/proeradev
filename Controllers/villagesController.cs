@@ -29,7 +29,8 @@ namespace proera.Controllers
 
 
 
-    //[Authorize(Roles = "REC")]
+    [Authorize(Roles = "Proera_Admin")]
+    [Authorize(Users = "i.dia")]
     public class villagesController : Controller
     {
         private ERADEVEntities3 db = new ERADEVEntities3();

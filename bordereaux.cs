@@ -14,12 +14,6 @@ namespace proera
     
     public partial class bordereaux
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public bordereaux()
-        {
-            this.encaissements = new HashSet<encaissements>();
-        }
-    
         public int id { get; set; }
         public string numero { get; set; }
         public Nullable<System.DateTime> datecreation { get; set; }
@@ -29,8 +23,5 @@ namespace proera
         public Nullable<System.DateTime> datevalidation { get; set; }
         public string type { get; set; }
         public string validateur { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<encaissements> encaissements { get; set; }
     }
 }

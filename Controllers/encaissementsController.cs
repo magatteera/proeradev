@@ -11,6 +11,8 @@ using proera;
 namespace proera.Controllers
 {
     //[Authorize(Roles = "REC")]
+
+    [Authorize(Roles = "Proera_REC, Proera_Admin")]
     public class encaissementsController : Controller
     {
         private ERADEVEntities3 db = new ERADEVEntities3();
@@ -39,6 +41,7 @@ namespace proera.Controllers
         }
 
         // GET: encaissements/Create
+
         public ActionResult Create(string id)
         {
             var bordereaux = db.bordereaux.Where(b => (b.ouvert == 1) && (b.type== "encaissement") &&(b.utilisateur == User.Identity.Name)).ToList();
@@ -61,7 +64,7 @@ namespace proera.Controllers
                                                          select new SelectListItem
                                                          {
                                                              Value = s.id + "",
-                                                             Text = s.numero + "-- " + s.montant
+                                                             Text = s.numero
                                                          };
             ViewBag.bordereaux = new SelectList(selectListbord, "Value", "Text");
 
@@ -74,6 +77,7 @@ namespace proera.Controllers
             var encaiss = db.encaissements.Where(e => e.idbordereau == bordereaux.id).ToList();
             string tableencaissements = "";
             double sommeencaisse = 0;
+            var bord = db.bordereaux.Find(bordereaux.id);
             if (encaiss.Count > 0)
             {
                 foreach (encaissements enc in encaiss)
@@ -99,7 +103,7 @@ namespace proera.Controllers
                     sommeencaisse += (double)enc.montantencaisee;
                 }
 
-                return Json(new { table = tableencaissements, montant = sommeencaisse });
+                return Json(new { table = tableencaissements, montantencaisse = sommeencaisse, montantbordereau = bord.montant, ecart = sommeencaisse - bord.montant });
             }
 
             else
@@ -170,7 +174,7 @@ namespace proera.Controllers
 
                 var cli = db.clients.Find(enc.refclient);
 
-                cli.SoldeTotal = cli.SoldeTotal - modif.nouveaumontant + modif.ancienmontant;
+                cli.SoldeTotal = (double)(cli.SoldeTotal - modif.nouveaumontant + modif.ancienmontant);
 
                 db.Entry(cli).State = EntityState.Modified;
                 db.SaveChanges();
@@ -240,13 +244,13 @@ namespace proera.Controllers
             db.SaveChanges();
 
 
-            var bord1 = db.bordereaux.Where(b => b.ouvert == 1 & b.type.Contains("encaissement")).ToList();
+            var bord1 = db.bordereaux.Where(b => (b.ouvert == 1 & b.type.Contains("encaissement")) && (b.utilisateur == User.Identity.Name)).ToList();
             var bord = bord1.OrderByDescending(b => b.id);
 
             string bords = "";
             foreach (bordereaux b in bord)
             {
-                bords += "<option value='" + b.id + "'>" + b.numero + "--" + b.montant + "</option>";
+                bords += "<option value='" + b.id + "'>" + b.numero + "</option>";
             }
             //return "<option value='" + 12 + "'>" + 20000 + "</option>";
             return bords;
@@ -272,29 +276,31 @@ namespace proera.Controllers
         }
 
 
-        public string validencaissement([Bind(Include = "idfacture,refclient,montantencaisee,soldeprepaiement,soldepostpaiement,dateencaissement,commentaire,idbordereau,numerorecue")] encaissements encaissements)
+        public string validencaissement([Bind(Include = "idfacture,refclient,montantencaisee,soldeprepaiement,soldepostpaiement,dateencaissement,commentaire,idbordereau,numerorecue,periode")] encaissements encaissements)
         {
             //if (ModelState.IsValid)
             //{
                 try
                 {
-                    var idFac = encaissements.idfacture;
-                    encaissements.utilisateur = User.Identity.Name;
-                    db.encaissements.Add(encaissements);
-                    db.SaveChanges();
+                var idFac = encaissements.idfacture;
+                encaissements.utilisateur = User.Identity.Name;
+                db.encaissements.Add(encaissements);
+                db.SaveChanges();
+/*
+                var fac = db.factures.Where(f => f.id+"" == idFac).ToList()[0];
+                //var fac = fact[0];
+                fac.Paiement = 1;
+                db.Entry(fac).State = EntityState.Modified;
+                db.SaveChanges();
 
-                    var fac = db.factures.Where(f => f.id == idFac).ToList()[0];
-                    //var fac = fact[0];
-                    fac.Paiement = 1;
-                    db.Entry(fac).State = EntityState.Modified;
-                    db.SaveChanges();
+                var cli = db.clients.Find(fac.RefClient);
+                cli.SoldeTotal = (double)encaissements.soldepostpaiement;
+                db.Entry(cli).State = EntityState.Modified;
+                db.SaveChanges();*/
 
-                    var cli = db.clients.Find(fac.RefClient);
-                    cli.SoldeTotal = encaissements.soldepostpaiement;
-                    db.Entry(cli).State = EntityState.Modified;
-                    db.SaveChanges();
+                return "Encaissement fait avec succes!";
 
-                    return "Encaissement fait avec succes!";
+                //return "montant : "+encaissements.montantencaisee+" pre : " + encaissements.soldeprepaiement + " post : " + encaissements.soldepostpaiement + " " + encaissements.periode;
                 }
                 catch(Exception e)
                 {
@@ -313,12 +319,12 @@ namespace proera.Controllers
         public ActionResult changementfacture([Bind(Include = "idfacture")] encaissements encaissements)
         {
 
-            var facture = db.factures.Where(f => f.id == encaissements.idfacture).ToList();
+            var facture = db.factures.Where(f => f.id+"" == encaissements.idfacture).ToList();
             if (facture.Count > 0)
             {
                 var cli = db.clients.Find(facture[0].RefClient);
 
-                return Json(new { montant = facture[0].netPayer, solde = cli.SoldeTotal, refclient = facture[0].RefClient });
+                return Json(new { montant = facture[0].netPayer, periode = facture[0].PeriodeFacturee, solde = cli.SoldeTotal, refclient = facture[0].RefClient });
             }
             else
                 return Json(new { message = "inexistant" });
@@ -338,7 +344,11 @@ namespace proera.Controllers
                 {
                     paiess += "<tr>" +
                         "<td>" + p.dateencaissement + "</td>" +
+                        "<td>" + p.numerorecue + "</td>" +
                         "<td>" + p.montantencaisee + "</td>" +
+                        "<td>" + p.soldeprepaiement + "</td>" +
+                        "<td>" + p.soldepostpaiement + "</td>" +
+                        "<td>" + p.idfacture + "</td>" +
                          "</tr>";
                 }
 
@@ -367,7 +377,10 @@ namespace proera.Controllers
                 else
                 {
 
-                    return Json(new { message = "aucune facture", paiements = paiess
+                    return Json(new { message = "aucune facture", paiements = paiess,
+                        nom = cli.Nom1,
+                        prenom = cli.Prenom,
+                        village = db.villages.Find(cli.codevillage).village
                     });
                 }
             }
@@ -380,14 +393,16 @@ namespace proera.Controllers
 
             var encaisse = db.encaissements.Where(e => e.idbordereau == encaissements.idbordereau).ToList();
 
+            double sommeenc = 0;
             string liste = "";
             foreach(var enc in encaisse)
             {
+                sommeenc += (double)enc.montantencaisee;
                 //liste = liste + "<li> Id Facture : "+ enc.idfacture + "  montant : " + enc.montantencaisee +"</li>";
-                liste = liste + "<tr><td>" + enc.idfacture + "</td><td>" + enc.montantencaisee + "</td></tr>";
+                liste = liste + "<tr><td>" + enc.idfacture + "</td><td>" + enc.refclient + "</td><td>" + enc.montantencaisee + "</td></tr>";
             }
             if(encaisse.Count() > 0)
-                return Json(new { message = "", listes = liste  });
+                return Json(new { message = "", listes = liste, sommeencs = sommeenc  });
             return Json(new { message = "aucune facture" });
         }
 

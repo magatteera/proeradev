@@ -21,7 +21,9 @@ namespace proera
         public Nullable<int> referenceclient { get; set; }
         public Nullable<System.DateTime> datemigration { get; set; }
         public string @interface { get; set; }
-        public string index { get; set; }
+        public Nullable<int> index { get; set; }
+        public string motif { get; set; }
+        public Nullable<System.DateTime> date { get; set; }
     
         public virtual clients clients { get; set; }
     }

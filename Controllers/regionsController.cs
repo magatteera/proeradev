@@ -10,6 +10,9 @@ using proera;
 
 namespace proera.Controllers
 {
+
+    [Authorize(Roles = "Proera_Admin")]
+    [Authorize(Users = "i.dia")]
     public class regionsController : Controller
     {
         private ERADEVEntities3 db = new ERADEVEntities3();

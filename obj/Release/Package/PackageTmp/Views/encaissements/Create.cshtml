@@ -107,7 +107,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.soldeprepaiement, "Solde Prépaiement", htmlAttributes: new { @class = "control-label col" })
                         <div class="col-md-10">
-                            <input type="text" required disabled name="soldeprepaiement" id="soldeprepaiement" class="form-control" />
+                            <input type="number" required disabled name="soldeprepaiement" id="soldeprepaiement" class="form-control" />
                         </div>
                     </div>
                 </div>
@@ -120,7 +120,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.soldepostpaiement, "Solde PostPaiement", htmlAttributes: new { @class = "control-label col" })
                         <div class="col-md-10">
-                            <input type="text" required disabled name="soldepostpaiement" id="soldepostpaiement" class="form-control" />
+                            <input type="number" required disabled name="soldepostpaiement" id="soldepostpaiement" class="form-control" />
                         </div>
                     </div>
                 </div>
@@ -170,6 +170,8 @@
                     Nouveau Bordereau
                 </button>
             </div>
+
+            <input type="hidden" id="periodefacture" name="periodefacture" />
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
@@ -316,6 +318,7 @@
                     $("#montantfacture").val(data.montant)
                     $("#refclient").val(data.refclient)
                     $("#soldeprepaiement").val(data.solde)
+                    $("#periodefacture").val(data.periode)
                     $("#idfacture").removeClass("is-invalid")
                     $("#enregistrer").attr("disabled", false)
 
@@ -356,7 +359,7 @@
                     }
 
                     else {
-                        alert(data.message)
+                        //alert(data.message)
                         $("#bodytable").empty()
                     }
                 },
@@ -388,7 +391,7 @@
                         @*$("divinfos").attr("hidden", true)*@
                     }
                     else {
-                        alert(data.paiements)
+                       // alert(data.paiements)
                         $("#idfacture").empty()
                             .append(data.listefacture)
 
@@ -419,26 +422,28 @@
         $("#enregistrer").click(function () {
             data = {
                 idfacture: $("#idfacture").val(),
+                soldeprepaiement: $("#soldeprepaiement").val().replace('.', ','),
+                soldepostpaiement: $("#soldepostpaiement").val().replace('.', ','),
                 refclient: $("#refclient").val(),
-                montantencaisee: $("#montantencaisee").val(),
-                soldeprepaiement: $("#soldeprepaiement").val(),
-                soldepostpaiement: $("#soldepostpaiement").val(),
+                montantencaisee: $("#montantencaisee").val().replace('.', ','),
                 dateencaissement: $("#dateencaissement").val(),
                 commentaire: $("#commentaire").val(),
                 idbordereau: $("#idbordereau").val(),
-                numerorecue: $("#numerorecue").val()
+                numerorecue: $("#numerorecue").val(),
+                periode: $("#periodefacture").val()
             }
-            // alert($("#idfacture").val())
 
+            // alert($("#idfacture").val())
+            
             if (data.soldepostpaiement.length > 2 &&
                 data.dateencaissement.length > 2) {
                 $.ajax({
                     type: "POST",
                     url: "/encaissements/validencaissement",
                     data: data,
-                    success: function (data) {
-                        @*alert(data)*@
-                        if (data == "Encaissement fait avec succes!") {
+                    success: function (data2) {
+                        alert(data2)
+                        if (data2 == "Encaissement fait avec succes!") {
                             $("#idfacture").val("")
                             $("#refclient").val("")
                             $("#montantencaisee").val("")
@@ -456,7 +461,7 @@
                 });
             } else {
                 alert("Impossible, Verifiez vos entrees!")
-            }
+            } 
 
         })
 
