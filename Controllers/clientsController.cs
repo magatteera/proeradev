@@ -127,24 +127,34 @@ namespace proera.Controllers
 
 		public ActionResult rechercheEnAttenteBordereau([Bind(Include = "numero")] bordereaux bor)
 		{
-			var bord = db.bordereaux.Where(b => b.numero == bor.numero).ToList()[0].id;
-			var clients = db.clients.Where(c => (c.Bordereau == bord ) && (c.Etat_Client == 5)).ToList();
+			var bord = db.bordereaux.Where(b => b.numero == bor.numero).ToList();
+			if(bord.Count() > 0)
+            {
+				var idbord = bord[0].id;
+				var clients = db.clients.Where(c => (c.Bordereau == idbord) && (c.Etat_Client == 5)).ToList();
 
-			var villages = db.villages.ToList();
-			//foreach(var cl in clients)
-			//{
-			//    clients[clients.FindIndex(c => c.Reference_Contrat == cl.Reference_Contrat)].NivPuissance = db.hnivpuissances.Find(cl.NivPuissance).NivPuissance;
-			//}
+				var villages = db.villages.ToList();
+				//foreach(var cl in clients)
+				//{
+				//    clients[clients.FindIndex(c => c.Reference_Contrat == cl.Reference_Contrat)].NivPuissance = db.hnivpuissances.Find(cl.NivPuissance).NivPuissance;
+				//}
 
-			List<clients> cliss = new List<clients>();
-			foreach (var cl in clients)
-			{
-				cl.Village = villages[villages.FindIndex(v => v.code_village == cl.codevillage)].village;
-				cliss.Add(cl);
+				List<clients> cliss = new List<clients>();
+				foreach (var cl in clients)
+				{
+					cl.Village = villages[villages.FindIndex(v => v.code_village == cl.codevillage)].village;
+					cliss.Add(cl);
+				}
+
+				ViewBag.message = "Liste des clients en attente sur le Bordereau: " + bor.numero;
+				return View("ResultatRecherche", cliss);
+			} else
+            {
+
+				List<clients> cliss = new List<clients>();
+				return View("ResultatRecherche", cliss);
 			}
-
-			ViewBag.message = "Liste des clients en attente sur le Bordereau: "+bor.numero;
-			return View("ResultatRecherche", cliss);
+			
 		}
 		public ActionResult rechercheEnAttente([Bind(Include = "Nom1")] clients client)
 		{
@@ -165,6 +175,7 @@ namespace proera.Controllers
 			{
 
 				cl.Village = villages[villages.FindIndex(v => v.code_village == cl.codevillage)].village;
+				
 				cliss.Add(cl);
 			}
 
@@ -806,6 +817,7 @@ namespace proera.Controllers
 			return View("Retablir");
 		}
 
+		[Authorize(Roles = "Proera_TECH, Proera_Admin")]
 		public ActionResult changerinterface()
 		{
 			//var clients = db.clients.Where().ToList();
@@ -924,9 +936,25 @@ namespace proera.Controllers
 			return View("~/Views/clients/Migrer.cshtml", clients);
 		}
 
+		public String verifNumCompteur([Bind(Include = "numerointerface")] compteurs compteurs)
+        {
+			var compt = db.compteurs.Where(c => c.numerointerface == compteurs.numerointerface).ToList();
+			if(compt.Count() > 0)
+            {
+				if (compt[0].libre == 1)
+					return "libre";
+				else
+					return "occupe";
+            } else
+			return "inexistant";
+
+        }
+
 
 		// GET: clients/Edit/5
 		//[Authorize(Roles = "COM")]
+
+		[Authorize(Roles = "Proera_BacfOffice, Proera_Admin")]
 		public ActionResult Edit(int? id)
 		{
 			if (id == null)

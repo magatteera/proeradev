@@ -168,7 +168,7 @@
                     <div class="form-group">
                         <label class="control-label col">Interface</label>
                         <div class="col">
-                            <input type="text" required class="form-control" name="numcompteur" id="interface" />
+                            <input type="text" required class="form-control" name="numcompteur" id="numcompteur" />
                         </div>
                     </div>
 
@@ -243,6 +243,35 @@
                         append(data.commune)
                     $("#codevillage").empty().
                         append(data.village)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+        
+
+        $("#numcompteur").change(function () {
+            data = {
+                numerointerface: $("#numcompteur").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/verifNumCompteur",
+                data: data,
+                success: function (data) {
+                    //alert(data)
+                    if (data == "libre") {
+                        $("#savemiseenservice").attr("disabled", false)
+                    }
+                    if (data == "occupe") {
+                        alert("Ce compteur n'est pas libre.")
+                        $("#savemiseenservice").attr("disabled", true)
+                    }
+                    if (data == "inexistant") {
+                        alert("Ce numero de compteur est inexistant.")
+                        $("#savemiseenservice").attr("disabled", true)
+                    }
                 },
                 error: function () {
                     alert("Error occured!!")
@@ -331,6 +360,8 @@
                 referenceClient: $("#referenceClient").val(),
                 statut: $("#statut").val()
             }
+
+
             $.ajax({
                 type: "POST",
                 url: "/clients/appliquerMiseEnService",
@@ -374,6 +405,7 @@
                     alert("Error occured!!")
                 }
             });
+
         })
 
         $("#statut").change(function () {

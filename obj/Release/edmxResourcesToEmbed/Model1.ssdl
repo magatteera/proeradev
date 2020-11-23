@@ -68,7 +68,7 @@
     <Property Name="dateMeS" Type="nvarchar" MaxLength="255" />
     <Property Name="idlastbill" Type="nvarchar" MaxLength="255" />
     <Property Name="NivPuissance" Type="int" />
-    <Property Name="activite" Type="nvarchar" MaxLength="255" />
+    <Property Name="activite" Type="int" />
     <Property Name="sqlstate" Type="nvarchar" MaxLength="255" />
     <Property Name="refclient" Type="nvarchar" MaxLength="255" />
     <Property Name="codevillage" Type="int" />
@@ -454,6 +454,30 @@
     <Property Name="code_prog" Type="int" />
     <Property Name="idLocalite" Type="int" />
   </EntityType>
+  <Association Name="FK_clients_hnivpuissances">
+    <End Role="hnivpuissances" Type="Self.hnivpuissances" Multiplicity="0..1" />
+    <End Role="clients" Type="Self.clients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hnivpuissances">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="clients">
+        <PropertyRef Name="NivPuissance" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_clients_raisonsociale">
+    <End Role="raisonsociale" Type="Self.raisonsociale" Multiplicity="0..1" />
+    <End Role="clients" Type="Self.clients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="raisonsociale">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="clients">
+        <PropertyRef Name="activite" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_clients_typepaiement">
     <End Role="typepaiement" Type="Self.typepaiement" Multiplicity="0..1" />
     <End Role="clients" Type="Self.clients" Multiplicity="*" />
@@ -669,6 +693,14 @@
     <EntitySet Name="typereclamation" EntityType="Self.typereclamation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="usages" EntityType="Self.usages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="villages" EntityType="Self.villages" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_clients_hnivpuissances" Association="Self.FK_clients_hnivpuissances">
+      <End Role="hnivpuissances" EntitySet="hnivpuissances" />
+      <End Role="clients" EntitySet="clients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_clients_raisonsociale" Association="Self.FK_clients_raisonsociale">
+      <End Role="raisonsociale" EntitySet="raisonsociale" />
+      <End Role="clients" EntitySet="clients" />
+    </AssociationSet>
     <AssociationSet Name="FK_clients_typepaiement" Association="Self.FK_clients_typepaiement">
       <End Role="typepaiement" EntitySet="typepaiement" />
       <End Role="clients" EntitySet="clients" />

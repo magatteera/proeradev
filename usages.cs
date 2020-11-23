@@ -17,16 +17,16 @@ namespace proera
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public usages()
         {
-            this.hnivpuissances = new HashSet<hnivpuissances>();
             this.hbaremes = new HashSet<hbaremes>();
+            this.hnivpuissances = new HashSet<hnivpuissances>();
         }
     
         public int id { get; set; }
         public string usage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<hnivpuissances> hnivpuissances { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<hbaremes> hbaremes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<hnivpuissances> hnivpuissances { get; set; }
     }
 }

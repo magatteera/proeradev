@@ -168,7 +168,7 @@
                     <div class="form-group">
                         <label class="control-label col">Interface</label>
                         <div class="col">
-                            <input type="text" required class="form-control" name="interface" id="interface" />
+                            <input type="text" required class="form-control" name="interface" id="numcompteur" />
                         </div>
                     </div>
 
@@ -211,19 +211,13 @@
     </div>
 </div>
 
-
-
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
 
         $("#villages").prepend("<option selected value=''>Selectionnez le Village</option>")
 
-        $('#tablebody').DataTable({
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
-            }
-        });
+        
 
 
         
@@ -304,6 +298,11 @@
                     $("#tablebody").empty().
                         append(data)
 
+                    $('#tablebody').DataTable({
+                        "language": {
+                            "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
+                        }
+                    });
                    
 
                     $('[id^=btnmettreenService]').click(function () {
@@ -312,6 +311,34 @@
                         $("#referenceClient").val($('[id^=btnmettreenService]').val())
                         $("#modalmiseenservice").modal('show')
                     })
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+
+        $("#numcompteur").change(function () {
+            data = {
+                numerointerface: $("#numcompteur").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/verifNumCompteur",
+                data: data,
+                success: function (data) {
+                    //alert(data)
+                    if (data == "libre") {
+                        $("#savemiseenservice").attr("disabled", false)
+                    }
+                    if (data == "occupe") {
+                        alert("Ce compteur n'est pas libre.")
+                        $("#savemiseenservice").attr("disabled", true)
+                    }
+                    if (data == "inexistant") {
+                        alert("Ce numero de compteur est inexistant.")
+                        $("#savemiseenservice").attr("disabled", true)
+                    }
                 },
                 error: function () {
                     alert("Error occured!!")

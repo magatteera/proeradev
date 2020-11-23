@@ -9,13 +9,10 @@
         <EntityTypeShape EntityType="ERADEVModel.hbaremes" Width="1.5" PointX="5.25" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="ERADEVModel.hbranches" Width="1.5" PointX="3" PointY="15.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ERADEVModel.hcalibres" Width="1.5" PointX="3" PointY="17.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ERADEVModel.hnivpuissances" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ERADEVModel.regions" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ERADEVModel.usages" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
         <AssociationConnector Association="ERADEVModel.FK_HBareme_HBranch" ManuallyRouted="false" />
         <AssociationConnector Association="ERADEVModel.FK_HBareme_HCalibre" ManuallyRouted="false" />
-        <AssociationConnector Association="ERADEVModel.FK_HBareme_HNivPuissance" ManuallyRouted="false" />
-        <AssociationConnector Association="ERADEVModel.FK_HNivPuissance_Usage" ManuallyRouted="false" />
         <EntityTypeShape EntityType="ERADEVModel.departements" Width="1.5" PointX="3" PointY="7" />
         <AssociationConnector Association="ERADEVModel.FK_departements_regions" />
         <EntityTypeShape EntityType="ERADEVModel.typeelec" Width="1.5" PointX="3.375" PointY="0.75" />
@@ -32,7 +29,6 @@
         <AssociationConnector Association="ERADEVModel.FK_resiliation_motifresiliation" />
         <EntityTypeShape EntityType="ERADEVModel.changementinterface" Width="1.5" PointX="16.375" PointY="3.75" />
         <EntityTypeShape EntityType="ERADEVModel.SAV" Width="1.5" PointX="16.375" PointY="7.75" />
-        <EntityTypeShape EntityType="ERADEVModel.raisonsociale" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="ERADEVModel.tempReleves" Width="1.5" PointX="16.375" PointY="12.75" />
         <EntityTypeShape EntityType="ERADEVModel.modifencaissement" Width="1.5" PointX="10.375" PointY="5.75" />
         <EntityTypeShape EntityType="ERADEVModel.factures" Width="1.5" PointX="5.375" PointY="16.75" />
@@ -43,17 +39,23 @@
         <AssociationConnector Association="ERADEVModel.FK_communes_departements" />
         <EntityTypeShape EntityType="ERADEVModel.miseenserviceclient" Width="1.5" PointX="12" PointY="29.625" />
         <EntityTypeShape EntityType="ERADEVModel.typepaiement" Width="1.5" PointX="7.5" PointY="22.875" />
-        <EntityTypeShape EntityType="ERADEVModel.clients" Width="1.5" PointX="9.75" PointY="18.375" />
-        <AssociationConnector Association="ERADEVModel.FK_clients_typepaiement" />
-        <AssociationConnector Association="ERADEVModel.FK_miseenserviceclient_clients" />
-        <AssociationConnector Association="ERADEVModel.FK_reclamation_clients" />
-        <AssociationConnector Association="ERADEVModel.FK_resiliation_clients" />
         <EntityTypeShape EntityType="ERADEVModel.migration" Width="1.5" PointX="12" PointY="18.25" />
-        <AssociationConnector Association="ERADEVModel.FK_migration_clients" />
         <EntityTypeShape EntityType="ERADEVModel.releves" Width="1.5" PointX="12" PointY="12.125" />
-        <AssociationConnector Association="ERADEVModel.FK_releves_clients2" />
         <EntityTypeShape EntityType="ERADEVModel.recouvrements" Width="1.5" PointX="12.375" PointY="5.75" />
         <EntityTypeShape EntityType="ERADEVModel.encaissements" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ERADEVModel.hnivpuissances" Width="1.5" PointX="3" PointY="12.5" />
+        <AssociationConnector Association="ERADEVModel.FK_HBareme_HNivPuissance" />
+        <AssociationConnector Association="ERADEVModel.FK_HNivPuissance_Usage" />
+        <EntityTypeShape EntityType="ERADEVModel.clients" Width="1.5" PointX="9.75" PointY="13" />
+        <EntityTypeShape EntityType="ERADEVModel.raisonsociale" Width="1.5" PointX="7.5" PointY="29.75" />
+        <AssociationConnector Association="ERADEVModel.FK_clients_hnivpuissances" />
+        <AssociationConnector Association="ERADEVModel.FK_clients_raisonsociale" />
+        <AssociationConnector Association="ERADEVModel.FK_clients_typepaiement" />
+        <AssociationConnector Association="ERADEVModel.FK_migration_clients" />
+        <AssociationConnector Association="ERADEVModel.FK_miseenserviceclient_clients" />
+        <AssociationConnector Association="ERADEVModel.FK_reclamation_clients" />
+        <AssociationConnector Association="ERADEVModel.FK_releves_clients2" />
+        <AssociationConnector Association="ERADEVModel.FK_resiliation_clients" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

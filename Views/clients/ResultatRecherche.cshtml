@@ -41,35 +41,41 @@
                             <th>
                                 Etat Client
                             </th>
+                            <th>
+                                Niveau Puissance
+                            </th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Nom1)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Prenom)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Village)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Reference_Contrat)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Tel)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.etat)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Details", "Details", new { id = item.Reference_Contrat }) |
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nom1)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Prenom)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Village)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Reference_Contrat)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Tel)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.etat)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.hnivpuissances.NivPuissance)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Details", "Details", new { id = item.Reference_Contrat }) 
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>

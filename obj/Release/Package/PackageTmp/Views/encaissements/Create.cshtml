@@ -137,78 +137,92 @@
             </div>
             <br />
 
+            <div class="form-row">
 
-            <div class="col">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.numerorecue, "Numero Recue", htmlAttributes: new { @class = "control-label col" })
-                    <div class="col-md-10">
-                        <input type="text" id="numerorecue" required name="numerorecue" class="form-control" />
-                        @Html.ValidationMessageFor(model => model.numerorecue, "", new { @class = "text-danger" })
+                <div class="col">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.numerorecue, "Numero Recue", htmlAttributes: new { @class = "control-label col" })
+                        <div class="col-md-10">
+                            <input type="text" id="numerorecue" required name="numerorecue" class="form-control" />
+                            @Html.ValidationMessageFor(model => model.numerorecue, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.commentaire, htmlAttributes: new { @class = "control-label col" })
+                        <div class="col-md-10">
+                            <textarea nom="commentaire" id="commentaire" cols="16" rows="4" class="form-control"></textarea>
+                            @Html.ValidationMessageFor(model => model.commentaire, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <br />
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.commentaire, htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-                    <textarea nom="commentaire" id="commentaire" cols="16" rows="4" class="form-control"></textarea>
-                    @Html.ValidationMessageFor(model => model.commentaire, "", new { @class = "text-danger" })
+                <input type="hidden" id="periodefacture" name="periodefacture" />
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="button" value="Enregistrer" id="enregistrer" class="btn btn-outline-success" />
+                    </div>
                 </div>
             </div>
+    </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.idbordereau, "Bordereau", htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-                    @Html.DropDownList("idbordereau", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.idbordereau, "", new { @class = "text-danger" })
-                </div>
+    <div class="col-sm-4">
 
-
-                <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#exampleModal">
-                    Nouveau Bordereau
-                </button>
+        <div class="form-group">
+            @Html.LabelFor(model => model.idbordereau, "Bordereau", htmlAttributes: new { @class = "control-label col" })
+            <div class="col-md-10">
+                @Html.DropDownList("idbordereau", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.idbordereau, "", new { @class = "text-danger" })
             </div>
 
-            <input type="hidden" id="periodefacture" name="periodefacture" />
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="button" value="Enregistrer" id="enregistrer" class="btn btn-outline-success" />
-                </div>
-            </div>
+            <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#exampleModal">
+                Nouveau Bordereau
+            </button>
+        </div>
+
+
+        <p>Liste des encaissements</p>
+        <p style="display: inline-block">Montant Bordereau : <span style="font-weight:bold" id="montantbord"></span> </p>
+        <div class="row">
+
+            <table id="tablebody" class="table table-bordered table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>
+                            Id Facture
+                        </th>
+                        <th>
+                            Reference
+                        </th>
+                        <th>
+                            Montant Ecaisse
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody id="bodytable">
+                </tbody>
+
+
+
+            </table>
         </div>
     </div>
 
 </div>
 
 <div class="row">
-    <div class="col-sm-6">
-        <h4>Liste des encaissements sur le bordereau selectionné</h4>
-
-        <table id="tablebody" class="table table-bordered table-striped table-sm">
-            <thead>
-                <tr>
-                    <th>
-                        Id Facture
-                    </th>
-                    <th>
-                        Montant Ecaisse
-                    </th>
-                </tr>
-            </thead>
-
-            <tbody id="bodytable">
-            </tbody>
+    
 
 
-
-        </table>
-    </div>
-
-
-    <div class="col-sm-6">
+    <div class="col">
         <h4>Liste des 10 derniers paiements du client</h4>
 
         <table id="tablebodycli" class="table table-bordered table-striped table-sm">
@@ -218,7 +232,19 @@
                         date
                     </th>
                     <th>
+                        Recu
+                    </th>
+                    <th>
                         Montant
+                    </th>
+                    <th>
+                        Solde Pre
+                    </th>
+                    <th>
+                        Solde Post
+                    </th>
+                    <th>
+                        Facture
                     </th>
                 </tr>
             </thead>
@@ -349,9 +375,12 @@
                         $("#bodytable").empty()
                             .append(data.listes)
 
+                        $("#montantbord").html(data.sommeencs)
+
                         $('#tablebody').DataTable({
                             "language": {
-                                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
+                                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json",
+                                "searching": false
                             }
                         });
 
@@ -381,14 +410,30 @@
                 url: "/encaissements/changementrefclient",
                 data: data,
                 success: function (data) {
-                    if (data.message == "aucune facture")
+                    if (data.message == "aucune facture") {
+
                         alert("Verifiez vos entrees aucune facture pour ce client!")
+                        $("#bodytablecli").empty()
+                            .append(data.paiements)
+                        @* $("divinfos").attr("hidden", true) *@
+
+                        $("#nomClient").html(data.nom)
+                        $("#prenomClient").html(data.prenom)
+                        $("#villageClient").html(data.village)
+
+                        @* $("divinfos").attr("hidden", false) *@
+
+
+                        $("#montantencaisee").val("")
+                        $("#soldeprepaiement").val("")
+                        $("#soldepostpaiement").val("")
+                        $("#dateencaissement").val("")
+                        $("#commentaire").val("")
+                    }
                     else if (data.message == "client inexistant") {
                         alert("Client Inexistant")
 
-                        $("#bodytablecli").empty()
-                            .append(data.paiements)
-                        @*$("divinfos").attr("hidden", true)*@
+                        
                     }
                     else {
                        // alert(data.paiements)
@@ -453,6 +498,10 @@
                             $("#commentaire").val("")
                             $("#montantfacture").val("")
                             $("#numerorecue").val("")
+
+                            $("#nomClient").html("")
+                            $("#prenomClient").html("")
+                            $("#villageClient").html("")
                         }
                     },
                     error: function () {

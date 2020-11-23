@@ -24,7 +24,7 @@ namespace proera
     
         public virtual hbranches hbranches { get; set; }
         public virtual hcalibres hcalibres { get; set; }
-        public virtual hnivpuissances hnivpuissances { get; set; }
         public virtual usages usages { get; set; }
+        public virtual hnivpuissances hnivpuissances { get; set; }
     }
 }

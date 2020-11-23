@@ -29,7 +29,6 @@ namespace proera
         public virtual DbSet<hbaremes> hbaremes { get; set; }
         public virtual DbSet<hbranches> hbranches { get; set; }
         public virtual DbSet<hcalibres> hcalibres { get; set; }
-        public virtual DbSet<hnivpuissances> hnivpuissances { get; set; }
         public virtual DbSet<regions> regions { get; set; }
         public virtual DbSet<usages> usages { get; set; }
         public virtual DbSet<departements> departements { get; set; }
@@ -44,7 +43,6 @@ namespace proera
         public virtual DbSet<resiliation> resiliation { get; set; }
         public virtual DbSet<changementinterface> changementinterface { get; set; }
         public virtual DbSet<SAV> SAV { get; set; }
-        public virtual DbSet<raisonsociale> raisonsociale { get; set; }
         public virtual DbSet<tempReleves> tempReleves { get; set; }
         public virtual DbSet<modifencaissement> modifencaissement { get; set; }
         public virtual DbSet<factures> factures { get; set; }
@@ -54,10 +52,12 @@ namespace proera
         public virtual DbSet<villages> villages { get; set; }
         public virtual DbSet<miseenserviceclient> miseenserviceclient { get; set; }
         public virtual DbSet<typepaiement> typepaiement { get; set; }
-        public virtual DbSet<clients> clients { get; set; }
         public virtual DbSet<migration> migration { get; set; }
         public virtual DbSet<releves> releves { get; set; }
         public virtual DbSet<recouvrements> recouvrements { get; set; }
         public virtual DbSet<encaissements> encaissements { get; set; }
+        public virtual DbSet<hnivpuissances> hnivpuissances { get; set; }
+        public virtual DbSet<clients> clients { get; set; }
+        public virtual DbSet<raisonsociale> raisonsociale { get; set; }
     }
 }

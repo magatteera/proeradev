@@ -17,11 +17,11 @@ namespace proera
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public clients()
         {
+            this.migration = new HashSet<migration>();
             this.miseenserviceclient = new HashSet<miseenserviceclient>();
             this.reclamation = new HashSet<reclamation>();
-            this.resiliation = new HashSet<resiliation>();
-            this.migration = new HashSet<migration>();
             this.releves = new HashSet<releves>();
+            this.resiliation = new HashSet<resiliation>();
         }
     
         public int ID { get; set; }
@@ -61,7 +61,7 @@ namespace proera
         public string dateMeS { get; set; }
         public string idlastbill { get; set; }
         public Nullable<int> NivPuissance { get; set; }
-        public string activite { get; set; }
+        public Nullable<int> activite { get; set; }
         public string sqlstate { get; set; }
         public string refclient { get; set; }
         public Nullable<int> codevillage { get; set; }
@@ -70,16 +70,18 @@ namespace proera
         public string TypeBranch { get; set; }
         public string etat { get; set; }
     
+        public virtual hnivpuissances hnivpuissances { get; set; }
+        public virtual raisonsociale raisonsociale { get; set; }
         public virtual typepaiement typepaiement { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<migration> migration { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<miseenserviceclient> miseenserviceclient { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<reclamation> reclamation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<resiliation> resiliation { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<migration> migration { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<releves> releves { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<resiliation> resiliation { get; set; }
     }
 }

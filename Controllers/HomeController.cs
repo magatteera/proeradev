@@ -15,7 +15,7 @@ namespace proera.Controllers
         {
             ViewBag.nbrclients = db.clients.Count();
             ViewBag.nbrclientsservis = db.clients.Where(c => c.Etat_Client == 1).Count();
-            ViewBag.nbrclientsattente = ViewBag.nbrclients - ViewBag.nbrclientsservis;
+            ViewBag.nbrclientsattente = db.clients.Where(c => c.Etat_Client == 5).Count();
             ViewBag.totalvillages = db.villages.Count();
                         return View();
         }

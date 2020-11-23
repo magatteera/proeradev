@@ -17,7 +17,7 @@
                 <hr />
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Reference_Contrat, "reference du client", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Reference_Contrat, "reference", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.TextBox("reference", "", htmlAttributes: new { @class = "form-control" })
                     </div>
@@ -71,8 +71,6 @@
 
 
             </div>
-            <br />
-            <br />
             <div class="form-row">
                 <div class="col">
                     <div class="form-group">

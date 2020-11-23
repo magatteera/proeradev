@@ -38,15 +38,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="hnivpuissances">
-      <EntityTypeMapping TypeName="ERADEVModel.hnivpuissances">
-        <MappingFragment StoreEntitySet="hnivpuissances">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="NivPuissance" ColumnName="NivPuissance" />
-          <ScalarProperty Name="Usage" ColumnName="Usage" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="regions">
       <EntityTypeMapping TypeName="ERADEVModel.regions">
         <MappingFragment StoreEntitySet="regions">
@@ -218,14 +209,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="raisonsociale">
-      <EntityTypeMapping TypeName="ERADEVModel.raisonsociale">
-        <MappingFragment StoreEntitySet="raisonsociale">
-          <ScalarProperty Name="raison" ColumnName="raison" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tempReleves">
       <EntityTypeMapping TypeName="ERADEVModel.tempReleves">
         <MappingFragment StoreEntitySet="tempReleves">
@@ -360,57 +343,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="clients">
-      <EntityTypeMapping TypeName="ERADEVModel.clients">
-        <MappingFragment StoreEntitySet="clients">
-          <ScalarProperty Name="etat" ColumnName="etat" />
-          <ScalarProperty Name="TypeBranch" ColumnName="TypeBranch" />
-          <ScalarProperty Name="numeropaiement" ColumnName="numeropaiement" />
-          <ScalarProperty Name="modePaiement" ColumnName="modePaiement" />
-          <ScalarProperty Name="codevillage" ColumnName="codevillage" />
-          <ScalarProperty Name="refclient" ColumnName="refclient" />
-          <ScalarProperty Name="sqlstate" ColumnName="sqlstate" />
-          <ScalarProperty Name="activite" ColumnName="activite" />
-          <ScalarProperty Name="NivPuissance" ColumnName="NivPuissance" />
-          <ScalarProperty Name="idlastbill" ColumnName="idlastbill" />
-          <ScalarProperty Name="dateMeS" ColumnName="dateMeS" />
-          <ScalarProperty Name="dateAbonn" ColumnName="dateAbonn" />
-          <ScalarProperty Name="dateCoupure" ColumnName="dateCoupure" />
-          <ScalarProperty Name="periodeFacturee" ColumnName="periodeFacturee" />
-          <ScalarProperty Name="Créé_par" ColumnName="Créé par" />
-          <ScalarProperty Name="Créé" ColumnName="Créé" />
-          <ScalarProperty Name="Modifié" ColumnName="Modifié" />
-          <ScalarProperty Name="NbrEP" ColumnName="NbrEP" />
-          <ScalarProperty Name="Last_Bill" ColumnName="Last_Bill" />
-          <ScalarProperty Name="Prev_Bill" ColumnName="Prev_Bill" />
-          <ScalarProperty Name="IDPayment" ColumnName="IDPayment" />
-          <ScalarProperty Name="SoldeTotal" ColumnName="SoldeTotal" />
-          <ScalarProperty Name="Ancien_indexe" ColumnName="Ancien indexe" />
-          <ScalarProperty Name="numcompteur" ColumnName="numcompteur" />
-          <ScalarProperty Name="Contrat" ColumnName="Contrat" />
-          <ScalarProperty Name="Bordereau" ColumnName="Bordereau" />
-          <ScalarProperty Name="Y_GPS" ColumnName="Y_GPS" />
-          <ScalarProperty Name="X_GPS" ColumnName="X_GPS" />
-          <ScalarProperty Name="Date_Resiliation" ColumnName="Date Resiliation" />
-          <ScalarProperty Name="Date_Mise_en_Service" ColumnName="Date Mise en Service" />
-          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
-          <ScalarProperty Name="Etat_Client" ColumnName="Etat Client" />
-          <ScalarProperty Name="Montant_Encaisse" ColumnName="Montant Encaisse" />
-          <ScalarProperty Name="Reference_Contrat" ColumnName="Reference Contrat" />
-          <ScalarProperty Name="calibre" ColumnName="calibre" />
-          <ScalarProperty Name="Type_Elect" ColumnName="Type Elect" />
-          <ScalarProperty Name="Niv_Service" ColumnName="Niv Service" />
-          <ScalarProperty Name="Village" ColumnName="Village" />
-          <ScalarProperty Name="Date_Abonnement" ColumnName="Date Abonnement" />
-          <ScalarProperty Name="Raison_Social" ColumnName="Raison Social" />
-          <ScalarProperty Name="Tel" ColumnName="Tel" />
-          <ScalarProperty Name="Num_ID" ColumnName="Num ID" />
-          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
-          <ScalarProperty Name="Nom1" ColumnName="Nom1" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="migration">
       <EntityTypeMapping TypeName="ERADEVModel.migration">
         <MappingFragment StoreEntitySet="migration">
@@ -485,6 +417,74 @@
           <ScalarProperty Name="montantencaisee" ColumnName="montantencaisee" />
           <ScalarProperty Name="refclient" ColumnName="refclient" />
           <ScalarProperty Name="idfacture" ColumnName="idfacture" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="hnivpuissances">
+      <EntityTypeMapping TypeName="ERADEVModel.hnivpuissances">
+        <MappingFragment StoreEntitySet="hnivpuissances">
+          <ScalarProperty Name="Usage" ColumnName="Usage" />
+          <ScalarProperty Name="NivPuissance" ColumnName="NivPuissance" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="clients">
+      <EntityTypeMapping TypeName="ERADEVModel.clients">
+        <MappingFragment StoreEntitySet="clients">
+          <ScalarProperty Name="etat" ColumnName="etat" />
+          <ScalarProperty Name="TypeBranch" ColumnName="TypeBranch" />
+          <ScalarProperty Name="numeropaiement" ColumnName="numeropaiement" />
+          <ScalarProperty Name="modePaiement" ColumnName="modePaiement" />
+          <ScalarProperty Name="codevillage" ColumnName="codevillage" />
+          <ScalarProperty Name="refclient" ColumnName="refclient" />
+          <ScalarProperty Name="sqlstate" ColumnName="sqlstate" />
+          <ScalarProperty Name="activite" ColumnName="activite" />
+          <ScalarProperty Name="NivPuissance" ColumnName="NivPuissance" />
+          <ScalarProperty Name="idlastbill" ColumnName="idlastbill" />
+          <ScalarProperty Name="dateMeS" ColumnName="dateMeS" />
+          <ScalarProperty Name="dateAbonn" ColumnName="dateAbonn" />
+          <ScalarProperty Name="dateCoupure" ColumnName="dateCoupure" />
+          <ScalarProperty Name="periodeFacturee" ColumnName="periodeFacturee" />
+          <ScalarProperty Name="Créé_par" ColumnName="Créé par" />
+          <ScalarProperty Name="Créé" ColumnName="Créé" />
+          <ScalarProperty Name="Modifié" ColumnName="Modifié" />
+          <ScalarProperty Name="NbrEP" ColumnName="NbrEP" />
+          <ScalarProperty Name="Last_Bill" ColumnName="Last_Bill" />
+          <ScalarProperty Name="Prev_Bill" ColumnName="Prev_Bill" />
+          <ScalarProperty Name="IDPayment" ColumnName="IDPayment" />
+          <ScalarProperty Name="SoldeTotal" ColumnName="SoldeTotal" />
+          <ScalarProperty Name="Ancien_indexe" ColumnName="Ancien indexe" />
+          <ScalarProperty Name="numcompteur" ColumnName="numcompteur" />
+          <ScalarProperty Name="Contrat" ColumnName="Contrat" />
+          <ScalarProperty Name="Bordereau" ColumnName="Bordereau" />
+          <ScalarProperty Name="Y_GPS" ColumnName="Y_GPS" />
+          <ScalarProperty Name="X_GPS" ColumnName="X_GPS" />
+          <ScalarProperty Name="Date_Resiliation" ColumnName="Date Resiliation" />
+          <ScalarProperty Name="Date_Mise_en_Service" ColumnName="Date Mise en Service" />
+          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+          <ScalarProperty Name="Etat_Client" ColumnName="Etat Client" />
+          <ScalarProperty Name="Montant_Encaisse" ColumnName="Montant Encaisse" />
+          <ScalarProperty Name="Reference_Contrat" ColumnName="Reference Contrat" />
+          <ScalarProperty Name="calibre" ColumnName="calibre" />
+          <ScalarProperty Name="Type_Elect" ColumnName="Type Elect" />
+          <ScalarProperty Name="Niv_Service" ColumnName="Niv Service" />
+          <ScalarProperty Name="Village" ColumnName="Village" />
+          <ScalarProperty Name="Date_Abonnement" ColumnName="Date Abonnement" />
+          <ScalarProperty Name="Raison_Social" ColumnName="Raison Social" />
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="Num_ID" ColumnName="Num ID" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="Nom1" ColumnName="Nom1" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="raisonsociale">
+      <EntityTypeMapping TypeName="ERADEVModel.raisonsociale">
+        <MappingFragment StoreEntitySet="raisonsociale">
+          <ScalarProperty Name="raison" ColumnName="raison" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

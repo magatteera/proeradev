@@ -725,10 +725,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/09/2019 00:56:44</publishTime>
     </File>
     <File Include="bin/proera.dll">
-      <publishTime>11/18/2020 15:20:39</publishTime>
+      <publishTime>11/23/2020 10:27:03</publishTime>
     </File>
     <File Include="bin/proera.pdb">
-      <publishTime>11/18/2020 15:20:39</publishTime>
+      <publishTime>11/23/2020 10:27:03</publishTime>
     </File>
     <File Include="bin/pt-BR/Microsoft.Data.SqlClient.resources.dll">
       <publishTime>05/15/2020 23:07:26</publishTime>
@@ -827,10 +827,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/15/2020 23:07:24</publishTime>
     </File>
     <File Include="bin/SqlServerTypes/x64/msvcr120.dll">
-      <publishTime>09/11/2020 11:20:10</publishTime>
+      <publishTime>11/09/2020 11:20:10</publishTime>
     </File>
     <File Include="bin/SqlServerTypes/x64/SqlServerSpatial140.dll">
-      <publishTime>09/11/2020 11:20:10</publishTime>
+      <publishTime>11/09/2020 11:20:10</publishTime>
     </File>
     <File Include="bin/SqlServerTypes/x86/msvcr120.dll">
       <publishTime>09/11/2020 11:20:10</publishTime>
@@ -964,6 +964,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Content/datatables-bs4/js/dataTables.bootstrap4.min.js">
       <publishTime>11/13/2020 10:16:14</publishTime>
     </File>
+    <File Include="Content/era.png">
+      <publishTime>11/23/2020 10:26:47</publishTime>
+    </File>
     <File Include="Content/fontawesome-free/css/all.css">
       <publishTime>11/13/2020 10:15:29</publishTime>
     </File>
@@ -1067,7 +1070,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/08/2020 11:13:57</publishTime>
     </File>
     <File Include="Model1.edmx.diagram">
-      <publishTime>11/18/2020 10:50:19</publishTime>
+      <publishTime>11/20/2020 09:27:41</publishTime>
     </File>
     <File Include="Scripts/bootstrap.bundle.js">
       <publishTime>09/10/2020 12:09:13</publishTime>
@@ -1493,7 +1496,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/13/2020 16:22:27</publishTime>
     </File>
     <File Include="Views/clients/changerinterface.cshtml">
-      <publishTime>11/16/2020 08:50:30</publishTime>
+      <publishTime>11/20/2020 09:09:09</publishTime>
     </File>
     <File Include="Views/clients/clientsacouper.cshtml">
       <publishTime>11/17/2020 12:09:37</publishTime>
@@ -1514,7 +1517,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/13/2020 15:48:51</publishTime>
     </File>
     <File Include="Views/clients/Details.cshtml">
-      <publishTime>10/16/2020 17:45:09</publishTime>
+      <publishTime>11/20/2020 09:28:24</publishTime>
     </File>
     <File Include="Views/clients/Edit.cshtml">
       <publishTime>10/26/2020 17:01:59</publishTime>
@@ -1523,13 +1526,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/19/2020 16:18:21</publishTime>
     </File>
     <File Include="Views/clients/Index.cshtml">
-      <publishTime>10/27/2020 15:42:15</publishTime>
+      <publishTime>11/19/2020 16:26:02</publishTime>
     </File>
     <File Include="Views/clients/MettreEnService.cshtml">
-      <publishTime>11/05/2020 12:38:03</publishTime>
+      <publishTime>11/20/2020 11:28:12</publishTime>
     </File>
     <File Include="Views/clients/MettreEnServiceNonRac.cshtml">
-      <publishTime>11/05/2020 11:28:15</publishTime>
+      <publishTime>11/23/2020 08:25:18</publishTime>
     </File>
     <File Include="Views/clients/MettreEnVigueur.cshtml">
       <publishTime>11/05/2020 12:08:55</publishTime>
@@ -1547,7 +1550,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/05/2020 15:52:21</publishTime>
     </File>
     <File Include="Views/clients/ResultatRecherche.cshtml">
-      <publishTime>11/13/2020 16:34:11</publishTime>
+      <publishTime>11/20/2020 11:20:44</publishTime>
     </File>
     <File Include="Views/clients/Retablir.cshtml">
       <publishTime>10/21/2020 11:51:59</publishTime>
@@ -1607,10 +1610,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/05/2020 08:39:33</publishTime>
     </File>
     <File Include="Views/encaissements/arretercaisse.cshtml">
-      <publishTime>10/20/2020 16:38:23</publishTime>
+      <publishTime>11/19/2020 15:43:13</publishTime>
     </File>
     <File Include="Views/encaissements/Create.cshtml">
-      <publishTime>11/18/2020 15:19:58</publishTime>
+      <publishTime>11/19/2020 15:39:34</publishTime>
     </File>
     <File Include="Views/encaissements/Delete.cshtml">
       <publishTime>09/10/2020 12:51:45</publishTime>
@@ -1622,7 +1625,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/10/2020 12:51:47</publishTime>
     </File>
     <File Include="Views/encaissements/Index.cshtml">
-      <publishTime>10/21/2020 10:20:23</publishTime>
+      <publishTime>11/19/2020 16:22:55</publishTime>
     </File>
     <File Include="Views/encaissements/nouveaubordereau.cshtml">
       <publishTime>09/30/2020 12:25:37</publishTime>
@@ -1742,7 +1745,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/08/2020 11:13:57</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>10/09/2020 17:27:04</publishTime>
+      <publishTime>11/23/2020 08:46:28</publishTime>
     </File>
     <File Include="Views/migrations/Create.cshtml">
       <publishTime>09/29/2020 15:24:59</publishTime>
@@ -1871,7 +1874,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/08/2020 11:14:30</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>11/17/2020 16:23:59</publishTime>
+      <publishTime>11/23/2020 10:26:59</publishTime>
     </File>
     <File Include="Views/usages/Create.cshtml">
       <publishTime>09/10/2020 12:56:21</publishTime>
@@ -1910,7 +1913,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/08/2020 11:13:57</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/18/2020 15:21:02</publishTime>
+      <publishTime>11/23/2020 10:09:15</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -555,6 +555,7 @@
     <Content Include="Content\datatables-bs4\css\dataTables.bootstrap4.min.css" />
     <Content Include="Content\datatables-bs4\js\dataTables.bootstrap4.js" />
     <Content Include="Content\datatables-bs4\js\dataTables.bootstrap4.min.js" />
+    <Content Include="Content\era.png" />
     <Content Include="Content\fontawesome-free\css\all.css" />
     <Content Include="Content\fontawesome-free\css\all.min.css" />
     <Content Include="Content\fontawesome-free\css\brands.css" />
