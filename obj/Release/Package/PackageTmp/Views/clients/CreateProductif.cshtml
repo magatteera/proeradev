@@ -85,7 +85,7 @@
 
 
     </div>
-    
+
 
 
     <div class="form-row">
@@ -100,6 +100,8 @@
                 </div>
             </div>
         </div>
+
+        
 
     </div>
 
@@ -205,6 +207,17 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <div class="form-row" id="divpoints" hidden="true">
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(model => model.NivPuissance, "Nombre Points Lumineux", htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-10">
+                    <input type="number" class = "form-control"  id="pointslumineux" />
+                </div>
+            </div>
         </div>
     </div>
 
@@ -404,12 +417,17 @@
 
         $.ajax({
             type: "POST",
-            url: "/clients/changementProductif",
+            url: "/clients/changementnivpuissanceProductif",
             data: data,
             success: function (data) {
                 // alert(data)
                 $('#fraisabonnement').empty()
-                    .append(data)
+                    .append(data.baremes)
+                $('#TypeBranch').empty()
+                    .append(data.branches)
+
+                $('#calibre').empty()
+                    .append(data.calibres)
 
                 if ($('#fraisabonnement').val > 0) {
 
@@ -487,12 +505,25 @@
                         $("#SoldeTotal").val("")
                         $("#Montant_Encaisse").val("")
                     }
+
+                    if ($("#NivPuissance").val() == 6) {
+
+                        $("#divpoints").attr("hidden", false)
+                        $("#pointslumineux").val(1)
+                    } else {
+                        $("#divpoints").attr("hidden", true)
+                    }
                 },
                 error: function () {
                     alert("Error occured!!")
                 }
             });
         });
+
+        $("#pointslumineux").change(function () {
+            //alert(977 * $("#pointslumineux").val())
+            $('#fraisabonnement').empty().append("<option value='" + 977 * $("#pointslumineux").val() + "'>" + 977 * $("#pointslumineux").val()+"</option>")
+        })
 
         $("#calibre").change(function () {
             //alert($("#nivpuissance").val())
@@ -507,12 +538,12 @@
 
             $.ajax({
                 type: "POST",
-                url: "/clients/changementnivpuissanceProductif",
+                url: "/clients/changementCalibreProductif",
                 data: data,
                 success: function (data) {
-                    //alert(data)
+                    //alert(data.baremes)
                     $('#fraisabonnement').empty()
-                        .append(data)
+                        .append(data.baremes)
 
                     if ($('#fraisabonnement').val > 0) {
 
@@ -551,7 +582,7 @@
                 success: function (data) {
                     //alert(data)
                     $('#fraisabonnement').empty()
-                        .append(data)
+                        .append(data.baremes)
 
                     if ($('#fraisabonnement').val > 0) {
 
@@ -590,7 +621,7 @@
                 success: function (data) {
                     //alert(data)
                     $('#fraisabonnement').empty()
-                        .append(data)
+                        .append(data.baremes)
 
                     if ($('#fraisabonnement').val > 0) {
 
@@ -606,10 +637,9 @@
                     alert("Error occured!!")
                 }
             });
+        });
 
-
-
-        }); $("#Montant_Encaisse").change(function () {
+        $("#Montant_Encaisse").change(function () {
             if ($('#fraisabonnement').val() > 0) {
                 //alert($("#Montant_Encaisse").val())
                 $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())

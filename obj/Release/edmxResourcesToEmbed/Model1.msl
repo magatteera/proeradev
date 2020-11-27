@@ -55,16 +55,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="departements">
-      <EntityTypeMapping TypeName="ERADEVModel.departements">
-        <MappingFragment StoreEntitySet="departements">
-          <ScalarProperty Name="idregion" ColumnName="idregion" />
-          <ScalarProperty Name="geom" ColumnName="geom" />
-          <ScalarProperty Name="code_departement" ColumnName="code_departement" />
-          <ScalarProperty Name="nom" ColumnName="nom" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="typeelec">
       <EntityTypeMapping TypeName="ERADEVModel.typeelec">
         <MappingFragment StoreEntitySet="typeelec">
@@ -287,40 +277,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="communes">
-      <EntityTypeMapping TypeName="ERADEVModel.communes">
-        <MappingFragment StoreEntitySet="communes">
-          <ScalarProperty Name="iddepartement" ColumnName="iddepartement" />
-          <ScalarProperty Name="geom" ColumnName="geom" />
-          <ScalarProperty Name="code_com" ColumnName="code_com" />
-          <ScalarProperty Name="nom" ColumnName="nom" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="villages">
-      <EntityTypeMapping TypeName="ERADEVModel.villages">
-        <MappingFragment StoreEntitySet="villages">
-          <ScalarProperty Name="idLocalite" ColumnName="idLocalite" />
-          <ScalarProperty Name="code_prog" ColumnName="code_prog" />
-          <ScalarProperty Name="code_village" ColumnName="code_village" />
-          <ScalarProperty Name="lat" ColumnName="lat" />
-          <ScalarProperty Name="long" ColumnName="long" />
-          <ScalarProperty Name="moulin" ColumnName="moulin" />
-          <ScalarProperty Name="antenne_bts" ColumnName="antenne_bts" />
-          <ScalarProperty Name="forage" ColumnName="forage" />
-          <ScalarProperty Name="sante" ColumnName="sante" />
-          <ScalarProperty Name="education" ColumnName="education" />
-          <ScalarProperty Name="menage" ColumnName="menage" />
-          <ScalarProperty Name="population" ColumnName="population" />
-          <ScalarProperty Name="village" ColumnName="village" />
-          <ScalarProperty Name="commune" ColumnName="commune" />
-          <ScalarProperty Name="departement" ColumnName="departement" />
-          <ScalarProperty Name="region" ColumnName="region" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="miseenserviceclient">
       <EntityTypeMapping TypeName="ERADEVModel.miseenserviceclient">
         <MappingFragment StoreEntitySet="miseenserviceclient">
@@ -430,9 +386,111 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="raisonsociale">
+      <EntityTypeMapping TypeName="ERADEVModel.raisonsociale">
+        <MappingFragment StoreEntitySet="raisonsociale">
+          <ScalarProperty Name="raison" ColumnName="raison" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="retablissement">
+      <EntityTypeMapping TypeName="ERADEVModel.retablissement">
+        <MappingFragment StoreEntitySet="retablissement">
+          <ScalarProperty Name="index" ColumnName="index" />
+          <ScalarProperty Name="refclient" ColumnName="refclient" />
+          <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MisEnServiceVillages">
+      <EntityTypeMapping TypeName="ERADEVModel.MisEnServiceVillages">
+        <MappingFragment StoreEntitySet="MisEnServiceVillages">
+          <ScalarProperty Name="LineaireBT" ColumnName="LineaireBT" />
+          <ScalarProperty Name="nombreSupport" ColumnName="nombreSupport" />
+          <ScalarProperty Name="PuissanceDHP" ColumnName="PuissanceDHP" />
+          <ScalarProperty Name="CapaciteTransformateur" ColumnName="CapaciteTransformateur" />
+          <ScalarProperty Name="code_village" ColumnName="code_village" />
+          <ScalarProperty Name="Etat_travaux" ColumnName="Etat_travaux" />
+          <ScalarProperty Name="dateRaccPremierClient" ColumnName="dateRaccPremierClient" />
+          <ScalarProperty Name="VILLAGE" ColumnName="VILLAGE" />
+          <ScalarProperty Name="COMMUNE" ColumnName="COMMUNE" />
+          <ScalarProperty Name="DEPARTEMENT" ColumnName="DEPARTEMENT" />
+          <ScalarProperty Name="REGION" ColumnName="REGION" />
+          <ScalarProperty Name="ID_SERVICE" ColumnName="ID_SERVICE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="programmes">
+      <EntityTypeMapping TypeName="ERADEVModel.programmes">
+        <MappingFragment StoreEntitySet="programmes">
+          <ScalarProperty Name="operateur" ColumnName="operateur" />
+          <ScalarProperty Name="remarque" ColumnName="remarque" />
+          <ScalarProperty Name="descriptProg" ColumnName="descriptProg" />
+          <ScalarProperty Name="DateFin" ColumnName="DateFin" />
+          <ScalarProperty Name="avenant" ColumnName="avenant" />
+          <ScalarProperty Name="niveau_decaissement" ColumnName="niveau_decaissement" />
+          <ScalarProperty Name="MTavance" ColumnName="MTavance" />
+          <ScalarProperty Name="budget" ColumnName="budget" />
+          <ScalarProperty Name="delai" ColumnName="delai" />
+          <ScalarProperty Name="DateDebut" ColumnName="DateDebut" />
+          <ScalarProperty Name="tech" ColumnName="tech" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="communes">
+      <EntityTypeMapping TypeName="ERADEVModel.communes">
+        <MappingFragment StoreEntitySet="communes">
+          <ScalarProperty Name="iddepartement" ColumnName="iddepartement" />
+          <ScalarProperty Name="geom" ColumnName="geom" />
+          <ScalarProperty Name="code_com" ColumnName="code_com" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="departements">
+      <EntityTypeMapping TypeName="ERADEVModel.departements">
+        <MappingFragment StoreEntitySet="departements">
+          <ScalarProperty Name="idregion" ColumnName="idregion" />
+          <ScalarProperty Name="geom" ColumnName="geom" />
+          <ScalarProperty Name="code_departement" ColumnName="code_departement" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="villages">
+      <EntityTypeMapping TypeName="ERADEVModel.villages">
+        <MappingFragment StoreEntitySet="villages">
+          <ScalarProperty Name="etattravaux" ColumnName="etattravaux" />
+          <ScalarProperty Name="idLocalite" ColumnName="idLocalite" />
+          <ScalarProperty Name="code_prog" ColumnName="code_prog" />
+          <ScalarProperty Name="code_village" ColumnName="code_village" />
+          <ScalarProperty Name="latitude" ColumnName="latitude" />
+          <ScalarProperty Name="longitude" ColumnName="longitude" />
+          <ScalarProperty Name="moulin" ColumnName="moulin" />
+          <ScalarProperty Name="antenne_bts" ColumnName="antenne_bts" />
+          <ScalarProperty Name="forage" ColumnName="forage" />
+          <ScalarProperty Name="sante" ColumnName="sante" />
+          <ScalarProperty Name="education" ColumnName="education" />
+          <ScalarProperty Name="menage" ColumnName="menage" />
+          <ScalarProperty Name="population" ColumnName="population" />
+          <ScalarProperty Name="village" ColumnName="village" />
+          <ScalarProperty Name="commune" ColumnName="commune" />
+          <ScalarProperty Name="departement" ColumnName="departement" />
+          <ScalarProperty Name="region" ColumnName="region" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="clients">
       <EntityTypeMapping TypeName="ERADEVModel.clients">
         <MappingFragment StoreEntitySet="clients">
+          <ScalarProperty Name="usage" ColumnName="usage" />
           <ScalarProperty Name="etat" ColumnName="etat" />
           <ScalarProperty Name="TypeBranch" ColumnName="TypeBranch" />
           <ScalarProperty Name="numeropaiement" ColumnName="numeropaiement" />
@@ -478,14 +536,6 @@
           <ScalarProperty Name="Prenom" ColumnName="Prenom" />
           <ScalarProperty Name="Nom1" ColumnName="Nom1" />
           <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="raisonsociale">
-      <EntityTypeMapping TypeName="ERADEVModel.raisonsociale">
-        <MappingFragment StoreEntitySet="raisonsociale">
-          <ScalarProperty Name="raison" ColumnName="raison" />
-          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -81,6 +81,7 @@
           <Property Name="numeropaiement" Type="varchar" MaxLength="50" />
           <Property Name="TypeBranch" Type="varchar" MaxLength="50" />
           <Property Name="etat" Type="varchar" MaxLength="50" />
+          <Property Name="usage" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="communes">
           <Key>
@@ -255,6 +256,23 @@
           <Property Name="statut" Type="varchar" MaxLength="50" />
           <Property Name="utilisateur" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="MisEnServiceVillages">
+          <Key>
+            <PropertyRef Name="ID_SERVICE" />
+          </Key>
+          <Property Name="ID_SERVICE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="REGION" Type="varchar" MaxLength="50" />
+          <Property Name="DEPARTEMENT" Type="varchar" MaxLength="50" />
+          <Property Name="COMMUNE" Type="varchar" MaxLength="50" />
+          <Property Name="VILLAGE" Type="varchar" MaxLength="50" />
+          <Property Name="dateRaccPremierClient" Type="date" />
+          <Property Name="Etat_travaux" Type="varchar" MaxLength="50" />
+          <Property Name="code_village" Type="int" />
+          <Property Name="CapaciteTransformateur" Type="int" />
+          <Property Name="PuissanceDHP" Type="int" />
+          <Property Name="nombreSupport" Type="int" />
+          <Property Name="LineaireBT" Type="float" />
+        </EntityType>
         <EntityType Name="modifencaissement">
           <Key>
             <PropertyRef Name="id" />
@@ -285,6 +303,24 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="motif" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="programmes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="nom" Type="varchar" MaxLength="50" />
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="tech" Type="varchar" MaxLength="50" />
+          <Property Name="DateDebut" Type="date" />
+          <Property Name="delai" Type="int" />
+          <Property Name="budget" Type="int" />
+          <Property Name="MTavance" Type="int" />
+          <Property Name="niveau_decaissement" Type="float" />
+          <Property Name="avenant" Type="text" />
+          <Property Name="DateFin" Type="date" />
+          <Property Name="descriptProg" Type="text" />
+          <Property Name="remarque" Type="text" />
+          <Property Name="operateur" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="raisonsociale">
           <Key>
@@ -372,6 +408,18 @@
           <Property Name="indexdepose" Type="int" />
           <Property Name="interface" Type="varchar" MaxLength="50" />
         </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'PROERA.dbo.retablissement' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="retablissement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" />
+          <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+          <Property Name="refclient" Type="int" />
+          <Property Name="index" Type="int" />
+        </EntityType>
         <EntityType Name="SAV">
           <Key>
             <PropertyRef Name="id" />
@@ -453,11 +501,12 @@
           <Property Name="forage" Type="tinyint" />
           <Property Name="antenne_bts" Type="tinyint" />
           <Property Name="moulin" Type="tinyint" />
-          <Property Name="long" Type="float" />
-          <Property Name="lat" Type="float" />
+          <Property Name="longitude" Type="float" />
+          <Property Name="latitude" Type="float" />
           <Property Name="code_village" Type="int" Nullable="false" />
           <Property Name="code_prog" Type="int" />
           <Property Name="idLocalite" Type="int" />
+          <Property Name="etattravaux" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_clients_hnivpuissances">
           <End Role="hnivpuissances" Type="Self.hnivpuissances" Multiplicity="0..1" />
@@ -496,6 +545,18 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_communes_departements">
+          <End Role="departements" Type="Self.departements" Multiplicity="1" />
+          <End Role="communes" Type="Self.communes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="departements">
+              <PropertyRef Name="code_departement" />
+            </Principal>
+            <Dependent Role="communes">
+              <PropertyRef Name="iddepartement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_communes_departements1">
           <End Role="departements" Type="Self.departements" Multiplicity="1" />
           <End Role="communes" Type="Self.communes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -603,6 +664,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MisEnServiceVillages_villages">
+          <End Role="villages" Type="Self.villages" Multiplicity="0..1" />
+          <End Role="MisEnServiceVillages" Type="Self.MisEnServiceVillages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="villages">
+              <PropertyRef Name="code_village" />
+            </Principal>
+            <Dependent Role="MisEnServiceVillages">
+              <PropertyRef Name="code_village" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_reclamation_clients">
           <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
           <End Role="reclamation" Type="Self.reclamation" Multiplicity="*" />
@@ -663,6 +736,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_villages_communes">
+          <End Role="communes" Type="Self.communes" Multiplicity="0..1" />
+          <End Role="villages" Type="Self.villages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="communes">
+              <PropertyRef Name="code_com" />
+            </Principal>
+            <Dependent Role="villages">
+              <PropertyRef Name="idLocalite" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_villages_programmes">
+          <End Role="programmes" Type="Self.programmes" Multiplicity="0..1" />
+          <End Role="villages" Type="Self.villages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="programmes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="villages">
+              <PropertyRef Name="code_prog" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ERADEVModelStoreContainer">
           <EntitySet Name="bordereaux" EntityType="Self.bordereaux" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="changementinterface" EntityType="Self.changementinterface" Schema="dbo" store:Type="Tables" />
@@ -682,9 +779,11 @@
           <EntitySet Name="hnivpuissances" EntityType="Self.hnivpuissances" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="migration" EntityType="Self.migration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="miseenserviceclient" EntityType="Self.miseenserviceclient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MisEnServiceVillages" EntityType="Self.MisEnServiceVillages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="modifencaissement" EntityType="Self.modifencaissement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="modiffacture" EntityType="Self.modiffacture" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="motifresiliation" EntityType="Self.motifresiliation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="programmes" EntityType="Self.programmes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="raisonsociale" EntityType="Self.raisonsociale" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="reclamation" EntityType="Self.reclamation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="recouvrements" EntityType="Self.recouvrements" Schema="dbo" store:Type="Tables" />
@@ -698,6 +797,15 @@
           <EntitySet Name="typereclamation" EntityType="Self.typereclamation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="usages" EntityType="Self.usages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="villages" EntityType="Self.villages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="retablissement" EntityType="Self.retablissement" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [retablissement].[id] AS [id], 
+    [retablissement].[date] AS [date], 
+    [retablissement].[utilisateur] AS [utilisateur], 
+    [retablissement].[refclient] AS [refclient], 
+    [retablissement].[index] AS [index]
+    FROM [dbo].[retablissement] AS [retablissement]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_clients_hnivpuissances" Association="Self.FK_clients_hnivpuissances">
             <End Role="hnivpuissances" EntitySet="hnivpuissances" />
             <End Role="clients" EntitySet="clients" />
@@ -711,6 +819,10 @@
             <End Role="clients" EntitySet="clients" />
           </AssociationSet>
           <AssociationSet Name="FK_communes_departements" Association="Self.FK_communes_departements">
+            <End Role="departements" EntitySet="departements" />
+            <End Role="communes" EntitySet="communes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_communes_departements1" Association="Self.FK_communes_departements1">
             <End Role="departements" EntitySet="departements" />
             <End Role="communes" EntitySet="communes" />
           </AssociationSet>
@@ -746,6 +858,10 @@
             <End Role="clients" EntitySet="clients" />
             <End Role="miseenserviceclient" EntitySet="miseenserviceclient" />
           </AssociationSet>
+          <AssociationSet Name="FK_MisEnServiceVillages_villages" Association="Self.FK_MisEnServiceVillages_villages">
+            <End Role="villages" EntitySet="villages" />
+            <End Role="MisEnServiceVillages" EntitySet="MisEnServiceVillages" />
+          </AssociationSet>
           <AssociationSet Name="FK_reclamation_clients" Association="Self.FK_reclamation_clients">
             <End Role="clients" EntitySet="clients" />
             <End Role="reclamation" EntitySet="reclamation" />
@@ -765,6 +881,14 @@
           <AssociationSet Name="FK_resiliation_motifresiliation" Association="Self.FK_resiliation_motifresiliation">
             <End Role="motifresiliation" EntitySet="motifresiliation" />
             <End Role="resiliation" EntitySet="resiliation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_villages_communes" Association="Self.FK_villages_communes">
+            <End Role="communes" EntitySet="communes" />
+            <End Role="villages" EntitySet="villages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_villages_programmes" Association="Self.FK_villages_programmes">
+            <End Role="programmes" EntitySet="programmes" />
+            <End Role="villages" EntitySet="villages" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -867,11 +991,6 @@
             <End Role="hcalibres" EntitySet="hcalibres" />
             <End Role="hbaremes" EntitySet="hbaremes" />
           </AssociationSet>
-          <EntitySet Name="departements" EntityType="ERADEVModel.departements" />
-          <AssociationSet Name="FK_departements_regions" Association="ERADEVModel.FK_departements_regions">
-            <End Role="regions" EntitySet="regions" />
-            <End Role="departements" EntitySet="departements" />
-          </AssociationSet>
           <EntitySet Name="typeelec" EntityType="ERADEVModel.typeelec" />
           <AssociationSet Name="FK_hbaremes_usages" Association="ERADEVModel.FK_hbaremes_usages">
             <End Role="usages" EntitySet="usages" />
@@ -900,12 +1019,6 @@
           <EntitySet Name="factures" EntityType="ERADEVModel.factures" />
           <EntitySet Name="etatclient" EntityType="ERADEVModel.etatclient" />
           <EntitySet Name="modiffacture" EntityType="ERADEVModel.modiffacture" />
-          <EntitySet Name="communes" EntityType="ERADEVModel.communes" />
-          <EntitySet Name="villages" EntityType="ERADEVModel.villages" />
-          <AssociationSet Name="FK_communes_departements" Association="ERADEVModel.FK_communes_departements">
-            <End Role="departements" EntitySet="departements" />
-            <End Role="communes" EntitySet="communes" />
-          </AssociationSet>
           <EntitySet Name="miseenserviceclient" EntityType="ERADEVModel.miseenserviceclient" />
           <EntitySet Name="typepaiement" EntityType="ERADEVModel.typepaiement" />
           <EntitySet Name="migration" EntityType="ERADEVModel.migration" />
@@ -921,8 +1034,38 @@
             <End Role="usages" EntitySet="usages" />
             <End Role="hnivpuissances" EntitySet="hnivpuissances" />
           </AssociationSet>
-          <EntitySet Name="clients" EntityType="ERADEVModel.clients" />
           <EntitySet Name="raisonsociale" EntityType="ERADEVModel.raisonsociale" />
+          <EntitySet Name="retablissement" EntityType="ERADEVModel.retablissement" />
+          <EntitySet Name="MisEnServiceVillages" EntityType="ERADEVModel.MisEnServiceVillages" />
+          <EntitySet Name="programmes" EntityType="ERADEVModel.programmes" />
+          <EntitySet Name="communes" EntityType="ERADEVModel.communes" />
+          <EntitySet Name="departements" EntityType="ERADEVModel.departements" />
+          <EntitySet Name="villages" EntityType="ERADEVModel.villages" />
+          <AssociationSet Name="FK_communes_departements" Association="ERADEVModel.FK_communes_departements">
+            <End Role="departements" EntitySet="departements" />
+            <End Role="communes" EntitySet="communes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_communes_departements1" Association="ERADEVModel.FK_communes_departements1">
+            <End Role="departements" EntitySet="departements" />
+            <End Role="communes" EntitySet="communes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_villages_communes" Association="ERADEVModel.FK_villages_communes">
+            <End Role="communes" EntitySet="communes" />
+            <End Role="villages" EntitySet="villages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_departements_regions" Association="ERADEVModel.FK_departements_regions">
+            <End Role="regions" EntitySet="regions" />
+            <End Role="departements" EntitySet="departements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MisEnServiceVillages_villages" Association="ERADEVModel.FK_MisEnServiceVillages_villages">
+            <End Role="villages" EntitySet="villages" />
+            <End Role="MisEnServiceVillages" EntitySet="MisEnServiceVillages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_villages_programmes" Association="ERADEVModel.FK_villages_programmes">
+            <End Role="programmes" EntitySet="programmes" />
+            <End Role="villages" EntitySet="villages" />
+          </AssociationSet>
+          <EntitySet Name="clients" EntityType="ERADEVModel.clients" />
           <AssociationSet Name="FK_clients_hnivpuissances" Association="ERADEVModel.FK_clients_hnivpuissances">
             <End Role="hnivpuissances" EntitySet="hnivpuissances" />
             <End Role="clients" EntitySet="clients" />
@@ -956,29 +1099,6 @@
             <End Role="resiliation" EntitySet="resiliation" />
           </AssociationSet>
           </EntityContainer>
-        <EntityType Name="departements">
-          <Key>
-            <PropertyRef Name="code_departement" />
-          </Key>
-          <Property Name="nom" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="code_departement" Type="Int32" Nullable="false" />
-          <Property Name="geom" Type="Geography" />
-          <Property Name="idregion" Type="Int32" />
-          <NavigationProperty Name="regions" Relationship="ERADEVModel.FK_departements_regions" FromRole="departements" ToRole="regions" />
-          <NavigationProperty Name="communes" Relationship="ERADEVModel.FK_communes_departements" FromRole="departements" ToRole="communes" />
-        </EntityType>
-        <Association Name="FK_departements_regions">
-          <End Type="ERADEVModel.regions" Role="regions" Multiplicity="0..1" />
-          <End Type="ERADEVModel.departements" Role="departements" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="regions">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="departements">
-              <PropertyRef Name="idregion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="typeelec">
           <Key>
             <PropertyRef Name="id" />
@@ -1227,51 +1347,6 @@
           <Property Name="ancienneconso" Type="Int32" />
           <Property Name="nouvelleconso" Type="Int32" />
         </EntityType>
-        <EntityType Name="communes">
-          <Key>
-            <PropertyRef Name="code_com" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="code_com" Type="Int32" Nullable="false" />
-          <Property Name="geom" Type="Geography" />
-          <Property Name="iddepartement" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="departements" Relationship="ERADEVModel.FK_communes_departements" FromRole="communes" ToRole="departements" />
-        </EntityType>
-        <EntityType Name="villages">
-          <Key>
-            <PropertyRef Name="code_village" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="departement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="commune" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="village" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="population" Type="Int32" />
-          <Property Name="menage" Type="Double" />
-          <Property Name="education" Type="Byte" />
-          <Property Name="sante" Type="Byte" />
-          <Property Name="forage" Type="Byte" />
-          <Property Name="antenne_bts" Type="Byte" />
-          <Property Name="moulin" Type="Byte" />
-          <Property Name="long" Type="Double" />
-          <Property Name="lat" Type="Double" />
-          <Property Name="code_village" Type="Int32" Nullable="false" />
-          <Property Name="code_prog" Type="Int32" />
-          <Property Name="idLocalite" Type="Int32" />
-        </EntityType>
-        <Association Name="FK_communes_departements">
-          <End Type="ERADEVModel.departements" Role="departements" Multiplicity="1" />
-          <End Type="ERADEVModel.communes" Role="communes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="departements">
-              <PropertyRef Name="code_departement" />
-            </Principal>
-            <Dependent Role="communes">
-              <PropertyRef Name="iddepartement" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="miseenserviceclient">
           <Key>
             <PropertyRef Name="id" />
@@ -1405,6 +1480,184 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="raisonsociale">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="raison" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="clients" Relationship="ERADEVModel.FK_clients_raisonsociale" FromRole="raisonsociale" ToRole="clients" />
+        </EntityType>
+        <EntityType Name="retablissement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="refclient" Type="Int32" />
+          <Property Name="index" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MisEnServiceVillages">
+          <Key>
+            <PropertyRef Name="ID_SERVICE" />
+          </Key>
+          <Property Name="ID_SERVICE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="REGION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DEPARTEMENT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COMMUNE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VILLAGE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dateRaccPremierClient" Type="DateTime" Precision="0" />
+          <Property Name="Etat_travaux" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="code_village" Type="Int32" />
+          <Property Name="CapaciteTransformateur" Type="Int32" />
+          <Property Name="PuissanceDHP" Type="Int32" />
+          <Property Name="nombreSupport" Type="Int32" />
+          <Property Name="LineaireBT" Type="Double" />
+          <NavigationProperty Name="villages" Relationship="ERADEVModel.FK_MisEnServiceVillages_villages" FromRole="MisEnServiceVillages" ToRole="villages" />
+        </EntityType>
+        <EntityType Name="programmes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="tech" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateDebut" Type="DateTime" Precision="0" />
+          <Property Name="delai" Type="Int32" />
+          <Property Name="budget" Type="Int32" />
+          <Property Name="MTavance" Type="Int32" />
+          <Property Name="niveau_decaissement" Type="Double" />
+          <Property Name="avenant" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DateFin" Type="DateTime" Precision="0" />
+          <Property Name="descriptProg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="remarque" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="operateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="villages" Relationship="ERADEVModel.FK_villages_programmes" FromRole="programmes" ToRole="villages" />
+        </EntityType>
+        <EntityType Name="communes">
+          <Key>
+            <PropertyRef Name="code_com" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="code_com" Type="Int32" Nullable="false" />
+          <Property Name="geom" Type="Geography" />
+          <Property Name="iddepartement" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="departements" Relationship="ERADEVModel.FK_communes_departements" FromRole="communes" ToRole="departements" />
+          <NavigationProperty Name="departements1" Relationship="ERADEVModel.FK_communes_departements1" FromRole="communes" ToRole="departements" />
+          <NavigationProperty Name="villages" Relationship="ERADEVModel.FK_villages_communes" FromRole="communes" ToRole="villages" />
+        </EntityType>
+        <EntityType Name="departements">
+          <Key>
+            <PropertyRef Name="code_departement" />
+          </Key>
+          <Property Name="nom" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="code_departement" Type="Int32" Nullable="false" />
+          <Property Name="geom" Type="Geography" />
+          <Property Name="idregion" Type="Int32" />
+          <NavigationProperty Name="communes" Relationship="ERADEVModel.FK_communes_departements" FromRole="departements" ToRole="communes" />
+          <NavigationProperty Name="communes1" Relationship="ERADEVModel.FK_communes_departements1" FromRole="departements" ToRole="communes" />
+          <NavigationProperty Name="regions" Relationship="ERADEVModel.FK_departements_regions" FromRole="departements" ToRole="regions" />
+        </EntityType>
+        <EntityType Name="villages">
+          <Key>
+            <PropertyRef Name="code_village" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="departement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="commune" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="village" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="population" Type="Int32" />
+          <Property Name="menage" Type="Double" />
+          <Property Name="education" Type="Byte" />
+          <Property Name="sante" Type="Byte" />
+          <Property Name="forage" Type="Byte" />
+          <Property Name="antenne_bts" Type="Byte" />
+          <Property Name="moulin" Type="Byte" />
+          <Property Name="longitude" Type="Double" />
+          <Property Name="latitude" Type="Double" />
+          <Property Name="code_village" Type="Int32" Nullable="false" />
+          <Property Name="code_prog" Type="Int32" />
+          <Property Name="idLocalite" Type="Int32" />
+          <NavigationProperty Name="communes" Relationship="ERADEVModel.FK_villages_communes" FromRole="villages" ToRole="communes" />
+          <NavigationProperty Name="MisEnServiceVillages" Relationship="ERADEVModel.FK_MisEnServiceVillages_villages" FromRole="villages" ToRole="MisEnServiceVillages" />
+          <NavigationProperty Name="programmes" Relationship="ERADEVModel.FK_villages_programmes" FromRole="villages" ToRole="programmes" />
+          <Property Name="etattravaux" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_communes_departements">
+          <End Type="ERADEVModel.departements" Role="departements" Multiplicity="1" />
+          <End Type="ERADEVModel.communes" Role="communes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="departements">
+              <PropertyRef Name="code_departement" />
+            </Principal>
+            <Dependent Role="communes">
+              <PropertyRef Name="iddepartement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_communes_departements1">
+          <End Type="ERADEVModel.departements" Role="departements" Multiplicity="1" />
+          <End Type="ERADEVModel.communes" Role="communes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="departements">
+              <PropertyRef Name="code_departement" />
+            </Principal>
+            <Dependent Role="communes">
+              <PropertyRef Name="iddepartement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_villages_communes">
+          <End Type="ERADEVModel.communes" Role="communes" Multiplicity="0..1" />
+          <End Type="ERADEVModel.villages" Role="villages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="communes">
+              <PropertyRef Name="code_com" />
+            </Principal>
+            <Dependent Role="villages">
+              <PropertyRef Name="idLocalite" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_departements_regions">
+          <End Type="ERADEVModel.regions" Role="regions" Multiplicity="0..1" />
+          <End Type="ERADEVModel.departements" Role="departements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="regions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="departements">
+              <PropertyRef Name="idregion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MisEnServiceVillages_villages">
+          <End Type="ERADEVModel.villages" Role="villages" Multiplicity="0..1" />
+          <End Type="ERADEVModel.MisEnServiceVillages" Role="MisEnServiceVillages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="villages">
+              <PropertyRef Name="code_village" />
+            </Principal>
+            <Dependent Role="MisEnServiceVillages">
+              <PropertyRef Name="code_village" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_villages_programmes">
+          <End Type="ERADEVModel.programmes" Role="programmes" Multiplicity="0..1" />
+          <End Type="ERADEVModel.villages" Role="villages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="programmes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="villages">
+              <PropertyRef Name="code_prog" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="clients">
           <Key>
             <PropertyRef Name="Reference_Contrat" />
@@ -1454,6 +1707,7 @@
           <Property Name="numeropaiement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TypeBranch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="etat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="usage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="hnivpuissances" Relationship="ERADEVModel.FK_clients_hnivpuissances" FromRole="clients" ToRole="hnivpuissances" />
           <NavigationProperty Name="raisonsociale" Relationship="ERADEVModel.FK_clients_raisonsociale" FromRole="clients" ToRole="raisonsociale" />
           <NavigationProperty Name="typepaiement" Relationship="ERADEVModel.FK_clients_typepaiement" FromRole="clients" ToRole="typepaiement" />
@@ -1462,14 +1716,6 @@
           <NavigationProperty Name="reclamation" Relationship="ERADEVModel.FK_reclamation_clients" FromRole="clients" ToRole="reclamation" />
           <NavigationProperty Name="releves" Relationship="ERADEVModel.FK_releves_clients2" FromRole="clients" ToRole="releves" />
           <NavigationProperty Name="resiliation" Relationship="ERADEVModel.FK_resiliation_clients" FromRole="clients" ToRole="resiliation" />
-        </EntityType>
-        <EntityType Name="raisonsociale">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="raison" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="clients" Relationship="ERADEVModel.FK_clients_raisonsociale" FromRole="raisonsociale" ToRole="clients" />
         </EntityType>
         <Association Name="FK_clients_hnivpuissances">
           <End Type="ERADEVModel.hnivpuissances" Role="hnivpuissances" Multiplicity="0..1" />
@@ -1624,16 +1870,6 @@
               <MappingFragment StoreEntitySet="usages">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="usage" ColumnName="usage" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="departements">
-            <EntityTypeMapping TypeName="ERADEVModel.departements">
-              <MappingFragment StoreEntitySet="departements">
-                <ScalarProperty Name="idregion" ColumnName="idregion" />
-                <ScalarProperty Name="geom" ColumnName="geom" />
-                <ScalarProperty Name="code_departement" ColumnName="code_departement" />
-                <ScalarProperty Name="nom" ColumnName="nom" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1859,40 +2095,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="communes">
-            <EntityTypeMapping TypeName="ERADEVModel.communes">
-              <MappingFragment StoreEntitySet="communes">
-                <ScalarProperty Name="iddepartement" ColumnName="iddepartement" />
-                <ScalarProperty Name="geom" ColumnName="geom" />
-                <ScalarProperty Name="code_com" ColumnName="code_com" />
-                <ScalarProperty Name="nom" ColumnName="nom" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="villages">
-            <EntityTypeMapping TypeName="ERADEVModel.villages">
-              <MappingFragment StoreEntitySet="villages">
-                <ScalarProperty Name="idLocalite" ColumnName="idLocalite" />
-                <ScalarProperty Name="code_prog" ColumnName="code_prog" />
-                <ScalarProperty Name="code_village" ColumnName="code_village" />
-                <ScalarProperty Name="lat" ColumnName="lat" />
-                <ScalarProperty Name="long" ColumnName="long" />
-                <ScalarProperty Name="moulin" ColumnName="moulin" />
-                <ScalarProperty Name="antenne_bts" ColumnName="antenne_bts" />
-                <ScalarProperty Name="forage" ColumnName="forage" />
-                <ScalarProperty Name="sante" ColumnName="sante" />
-                <ScalarProperty Name="education" ColumnName="education" />
-                <ScalarProperty Name="menage" ColumnName="menage" />
-                <ScalarProperty Name="population" ColumnName="population" />
-                <ScalarProperty Name="village" ColumnName="village" />
-                <ScalarProperty Name="commune" ColumnName="commune" />
-                <ScalarProperty Name="departement" ColumnName="departement" />
-                <ScalarProperty Name="region" ColumnName="region" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="miseenserviceclient">
             <EntityTypeMapping TypeName="ERADEVModel.miseenserviceclient">
               <MappingFragment StoreEntitySet="miseenserviceclient">
@@ -2002,9 +2204,111 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="raisonsociale">
+            <EntityTypeMapping TypeName="ERADEVModel.raisonsociale">
+              <MappingFragment StoreEntitySet="raisonsociale">
+                <ScalarProperty Name="raison" ColumnName="raison" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="retablissement">
+            <EntityTypeMapping TypeName="ERADEVModel.retablissement">
+              <MappingFragment StoreEntitySet="retablissement">
+                <ScalarProperty Name="index" ColumnName="index" />
+                <ScalarProperty Name="refclient" ColumnName="refclient" />
+                <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MisEnServiceVillages">
+            <EntityTypeMapping TypeName="ERADEVModel.MisEnServiceVillages">
+              <MappingFragment StoreEntitySet="MisEnServiceVillages">
+                <ScalarProperty Name="LineaireBT" ColumnName="LineaireBT" />
+                <ScalarProperty Name="nombreSupport" ColumnName="nombreSupport" />
+                <ScalarProperty Name="PuissanceDHP" ColumnName="PuissanceDHP" />
+                <ScalarProperty Name="CapaciteTransformateur" ColumnName="CapaciteTransformateur" />
+                <ScalarProperty Name="code_village" ColumnName="code_village" />
+                <ScalarProperty Name="Etat_travaux" ColumnName="Etat_travaux" />
+                <ScalarProperty Name="dateRaccPremierClient" ColumnName="dateRaccPremierClient" />
+                <ScalarProperty Name="VILLAGE" ColumnName="VILLAGE" />
+                <ScalarProperty Name="COMMUNE" ColumnName="COMMUNE" />
+                <ScalarProperty Name="DEPARTEMENT" ColumnName="DEPARTEMENT" />
+                <ScalarProperty Name="REGION" ColumnName="REGION" />
+                <ScalarProperty Name="ID_SERVICE" ColumnName="ID_SERVICE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="programmes">
+            <EntityTypeMapping TypeName="ERADEVModel.programmes">
+              <MappingFragment StoreEntitySet="programmes">
+                <ScalarProperty Name="operateur" ColumnName="operateur" />
+                <ScalarProperty Name="remarque" ColumnName="remarque" />
+                <ScalarProperty Name="descriptProg" ColumnName="descriptProg" />
+                <ScalarProperty Name="DateFin" ColumnName="DateFin" />
+                <ScalarProperty Name="avenant" ColumnName="avenant" />
+                <ScalarProperty Name="niveau_decaissement" ColumnName="niveau_decaissement" />
+                <ScalarProperty Name="MTavance" ColumnName="MTavance" />
+                <ScalarProperty Name="budget" ColumnName="budget" />
+                <ScalarProperty Name="delai" ColumnName="delai" />
+                <ScalarProperty Name="DateDebut" ColumnName="DateDebut" />
+                <ScalarProperty Name="tech" ColumnName="tech" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="communes">
+            <EntityTypeMapping TypeName="ERADEVModel.communes">
+              <MappingFragment StoreEntitySet="communes">
+                <ScalarProperty Name="iddepartement" ColumnName="iddepartement" />
+                <ScalarProperty Name="geom" ColumnName="geom" />
+                <ScalarProperty Name="code_com" ColumnName="code_com" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="departements">
+            <EntityTypeMapping TypeName="ERADEVModel.departements">
+              <MappingFragment StoreEntitySet="departements">
+                <ScalarProperty Name="idregion" ColumnName="idregion" />
+                <ScalarProperty Name="geom" ColumnName="geom" />
+                <ScalarProperty Name="code_departement" ColumnName="code_departement" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="villages">
+            <EntityTypeMapping TypeName="ERADEVModel.villages">
+              <MappingFragment StoreEntitySet="villages">
+                <ScalarProperty Name="etattravaux" ColumnName="etattravaux" />
+                <ScalarProperty Name="idLocalite" ColumnName="idLocalite" />
+                <ScalarProperty Name="code_prog" ColumnName="code_prog" />
+                <ScalarProperty Name="code_village" ColumnName="code_village" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="moulin" ColumnName="moulin" />
+                <ScalarProperty Name="antenne_bts" ColumnName="antenne_bts" />
+                <ScalarProperty Name="forage" ColumnName="forage" />
+                <ScalarProperty Name="sante" ColumnName="sante" />
+                <ScalarProperty Name="education" ColumnName="education" />
+                <ScalarProperty Name="menage" ColumnName="menage" />
+                <ScalarProperty Name="population" ColumnName="population" />
+                <ScalarProperty Name="village" ColumnName="village" />
+                <ScalarProperty Name="commune" ColumnName="commune" />
+                <ScalarProperty Name="departement" ColumnName="departement" />
+                <ScalarProperty Name="region" ColumnName="region" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="clients">
             <EntityTypeMapping TypeName="ERADEVModel.clients">
               <MappingFragment StoreEntitySet="clients">
+                <ScalarProperty Name="usage" ColumnName="usage" />
                 <ScalarProperty Name="etat" ColumnName="etat" />
                 <ScalarProperty Name="TypeBranch" ColumnName="TypeBranch" />
                 <ScalarProperty Name="numeropaiement" ColumnName="numeropaiement" />
@@ -2050,14 +2354,6 @@
                 <ScalarProperty Name="Prenom" ColumnName="Prenom" />
                 <ScalarProperty Name="Nom1" ColumnName="Nom1" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="raisonsociale">
-            <EntityTypeMapping TypeName="ERADEVModel.raisonsociale">
-              <MappingFragment StoreEntitySet="raisonsociale">
-                <ScalarProperty Name="raison" ColumnName="raison" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

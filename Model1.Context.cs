@@ -31,7 +31,6 @@ namespace proera
         public virtual DbSet<hcalibres> hcalibres { get; set; }
         public virtual DbSet<regions> regions { get; set; }
         public virtual DbSet<usages> usages { get; set; }
-        public virtual DbSet<departements> departements { get; set; }
         public virtual DbSet<typeelec> typeelec { get; set; }
         public virtual DbSet<bordereaux> bordereaux { get; set; }
         public virtual DbSet<facturationtrigger> facturationtrigger { get; set; }
@@ -48,8 +47,6 @@ namespace proera
         public virtual DbSet<factures> factures { get; set; }
         public virtual DbSet<etatclient> etatclient { get; set; }
         public virtual DbSet<modiffacture> modiffacture { get; set; }
-        public virtual DbSet<communes> communes { get; set; }
-        public virtual DbSet<villages> villages { get; set; }
         public virtual DbSet<miseenserviceclient> miseenserviceclient { get; set; }
         public virtual DbSet<typepaiement> typepaiement { get; set; }
         public virtual DbSet<migration> migration { get; set; }
@@ -57,7 +54,13 @@ namespace proera
         public virtual DbSet<recouvrements> recouvrements { get; set; }
         public virtual DbSet<encaissements> encaissements { get; set; }
         public virtual DbSet<hnivpuissances> hnivpuissances { get; set; }
-        public virtual DbSet<clients> clients { get; set; }
         public virtual DbSet<raisonsociale> raisonsociale { get; set; }
+        public virtual DbSet<retablissement> retablissement { get; set; }
+        public virtual DbSet<MisEnServiceVillages> MisEnServiceVillages { get; set; }
+        public virtual DbSet<programmes> programmes { get; set; }
+        public virtual DbSet<communes> communes { get; set; }
+        public virtual DbSet<departements> departements { get; set; }
+        public virtual DbSet<villages> villages { get; set; }
+        public virtual DbSet<clients> clients { get; set; }
     }
 }

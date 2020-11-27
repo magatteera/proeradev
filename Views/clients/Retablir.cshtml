@@ -1,4 +1,4 @@
-﻿@model proera.SAV
+﻿@model proera.retablissement
 
 @{
     ViewBag.Title = "Creation";
@@ -72,7 +72,54 @@
         </table>
     </div>
     <br />
-    <button class="btn btn-success" id="btnRetablir">Retablir</button>
+    <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#modalcoupure">
+        Retablir
+    </button>
+</div>
+
+
+<div class="modal fade" id="modalcoupure" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Coupre d'un Client</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <h4>Retablissement</h4>
+                    <hr />
+
+                            <input type="hidden" disabled name="refclient" id="reference" class="form-control" />
+                      
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.date, htmlAttributes: new { @class = "control-label col" })
+                        <div class="col-md-10">
+                            <input type="date" name="date" class="form-control" />    
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.index, "Index de Retablissement", htmlAttributes: new { @class = "control-label col" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.index, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.index, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="couperclient" data-dismiss="modal" class="btn btn-danger">Retablir</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -95,12 +142,13 @@
                 data: data,
                 success: function (data) {
                     if (data.message == "trouve") {
+                        $("#reference").val($("#refclient").val())
+
                         $("#ddNom").html(data.nom)
-                            $("#ddPrenom").html(data.prenom)
+                        $("#ddPrenom").html(data.prenom)
                         $("#ddTelephone").html(data.tel)
                         $("#bodytablecli").empty().append(data.factures)
                         $("#detailsclient").attr("hidden", false)
-
 
                     } else {
 
@@ -115,30 +163,36 @@
             });
         });
 
-        
 
-        $("#btnRetablir").click(function () {
-            //alert($("#nivpuissance").val())
+        $("#couperclient").click(function () {
             data = {
-                Reference_Contrat: $("#refclient").val()
+                refclient: $("#reference").val(),
+                date: $("#DATE").val(),
+                index: $("#index").val()
             }
             $.ajax({
                 type: "POST",
                 url: "/clients/validerRetablissement",
                 data: data,
                 success: function (data) {
-                    alert(data.message)
+                    //alert(data)
+                    if (data.ok) {
+                        alert("Clients coupé avec succés!!")
+                        $('#tablebodyitems').empty()
+                            .append(data.cli)
+                    }
+                    else
+                        alert("une erreur est survenue")
                 },
                 error: function () {
                     alert("Error occured!!")
                 }
             });
-        });
-
+        })
 
 
     });
 
-    
+
 </script>
 

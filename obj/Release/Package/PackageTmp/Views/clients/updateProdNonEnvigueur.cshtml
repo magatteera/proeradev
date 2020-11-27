@@ -52,9 +52,9 @@
 
         <div class="col">
             <div class="form-group">
-                @Html.LabelFor(model => model.Raison_Social, "Raison Sociale", htmlAttributes: new { @class = "control-label col" })
+                @Html.LabelFor(model => model.Raison_Social, "Activite", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
-                    @Html.DropDownList("Raison_Social", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("activite", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Raison_Social, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -94,9 +94,9 @@
 
         <div class="col">
             <div class="form-group">
-                @Html.LabelFor(model => model.activite, htmlAttributes: new { @class = "control-label col" })
+                @Html.LabelFor(model => model.Raison_Social, htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.activite, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Raison_Social, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.activite, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -178,7 +178,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.calibre, "Calibre", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
-                    @Html.DropDownList("calibres", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("calibre", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.calibre, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -191,7 +191,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.NivPuissance, "Niveau de Puissance", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
-                    @Html.DropDownList("nivpuissance", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("NivPuissance", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.NivPuissance, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -202,7 +202,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.NivPuissance, "Type Branchement", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
-                    @Html.DropDownList("branchements", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("TypeBranch", null, htmlAttributes: new { @class = "form-control" })
                 </div>
             </div>
 
@@ -391,7 +391,7 @@
             if ($("#modePaiement").val() == 2) {
                 $('#paiementcoupon').attr("checked", true)
             } else {
-                ('#paiementcheque').attr("checked", true)
+                $('#paiementcheque').attr("checked", true)
             }
         }
 
@@ -412,10 +412,10 @@
         })
 
         data = {
-            nivpuissance: $("#nivpuissance").val(),
-            calibre: $("#calibres").val(),
-            typeelec: $("#typeelec").val(),
-            typebranchement: $("#branchements").val()
+            nivpuissance: $("#NivPuissance").val(),
+            calibre: $("#calibre").val(),
+            typeelec: $("#Type_Elec").val(),
+            typebranchement: $("#TypeBranch").val()
         }
 
 
@@ -429,14 +429,14 @@
                 $('#fraisabonnement').empty()
                     .append(data)
 
-                if ($('#fraisabonnement').val > 0) {
+                if ($('#fraisabonnement').val() > 0) {
 
                     $("#Montant_Encaisse").prop("disabled", false)
                     $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
 
                 } else {
-                    $("#SoldeTotal").val("")
-                    $("#Montant_Encaisse").val("")
+
+                    $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
                 }
             },
             error: function () {
@@ -472,13 +472,13 @@
 
         });
 
-        $("#nivpuissance").change(function () {
+        $("#NivPuissance").change(function () {
             //alert($("#nivpuissance").val())
             data = {
-                nivpuissance: $("#nivpuissance").val(),
-                calibre: $("#calibres").val(),
-                typeelec: $("#typeelec").val(),
-                typebranchement: $("#branchements").val()
+                nivpuissance: $("#NivPuissance").val(),
+                calibre: $("#calibre").val(),
+                typeelec: $("#Type_Elec").val(),
+                typebranchement: $("#TypeBranch").val()
             }
 
             $.ajax({
@@ -490,13 +490,13 @@
                     $('#fraisabonnement').empty()
                         .append(data.baremes)
 
-                    $('#branchements').empty()
+                    $('#TypeBranch').empty()
                         .append(data.branches)
 
-                    $('#calibres').empty()
+                    $('#calibre').empty()
                         .append(data.calibres)
 
-                    if ($('#fraisabonnement').val > 0) {
+                    if ($('#fraisabonnement').val() > 0) {
 
                         $("#Montant_Encaisse").prop("disabled", false)
                         $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
@@ -512,13 +512,13 @@
             });
         });
 
-        $("#calibres").change(function () {
+        $("#calibre").change(function () {
             //alert($("#nivpuissance").val())
             data = {
-                nivpuissance: $("#nivpuissance").val(),
-                calibre: $("#calibres").val(),
-                typeelec: $("#typeelec").val(),
-                typebranchement: $("#branchements").val()
+                nivpuissance: $("#NivPuissance").val(),
+                calibre: $("#calibre").val(),
+                typeelec: $("#Type_Elec").val(),
+                typebranchement: $("#TypeBranch").val()
             }
 
 
@@ -532,7 +532,7 @@
                     $('#fraisabonnement').empty()
                         .append(data)
 
-                    if ($('#fraisabonnement').val > 0) {
+                    if ($('#fraisabonnement').val() > 0) {
 
                         $("#Montant_Encaisse").prop("disabled", false)
                         $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
@@ -551,13 +551,13 @@
 
         });
 
-        $("#typeelec").change(function () {
+        $("#Type_Elec").change(function () {
             //alert($("#nivpuissance").val())
             data = {
-                nivpuissance: $("#nivpuissance").val(),
-                calibre: $("#calibres").val(),
-                typeelec: $("#typeelec").val(),
-                typebranchement: $("#branchements").val()
+                nivpuissance: $("#NivPuissance").val(),
+                calibre: $("#calibre").val(),
+                typeelec: $("#Type_Elec").val(),
+                typebranchement: $("#TypeBranch").val()
             }
 
 
@@ -571,7 +571,7 @@
                     $('#fraisabonnement').empty()
                         .append(data)
 
-                    if ($('#fraisabonnement').val > 0) {
+                    if ($('#fraisabonnement').val() > 0) {
 
                         $("#Montant_Encaisse").prop("disabled", false)
                         $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
@@ -590,13 +590,13 @@
 
         });
 
-        $("#branchements").change(function () {
+        $("#TypeBranch").change(function () {
             //alert($("#nivpuissance").val())
             data = {
-                nivpuissance: $("#nivpuissance").val(),
-                calibre: $("#calibres").val(),
-                typeelec: $("#typeelec").val(),
-                typebranchement: $("#branchements").val()
+                nivpuissance: $("#NivPuissance").val(),
+                calibre: $("#calibre").val(),
+                typeelec: $("#Type_Elec").val(),
+                typebranchement: $("#TypeBranch").val()
             }
 
 
@@ -610,7 +610,7 @@
                     $('#fraisabonnement').empty()
                         .append(data)
 
-                    if ($('#fraisabonnement').val > 0) {
+                    if ($('#fraisabonnement').val() > 0) {
 
                         $("#Montant_Encaisse").prop("disabled", false)
                         $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
@@ -635,7 +635,7 @@
         })
 
         $("#fraisabonnement").change(function () {
-            if ($('#fraisabonnement').val > 0) {
+            if ($('#fraisabonnement').val() > 0) {
 
                 $("#Montant_Encaisse").prop("disabled", false)
                 $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
@@ -646,7 +646,7 @@
             }
         })
 
-        if ($('#fraisabonnement').val > 0) { } else {
+        if ($('#fraisabonnement').val() > 0) { } else {
             //$("#Montant_Encaisse").prop("disabled", true)
         }
 

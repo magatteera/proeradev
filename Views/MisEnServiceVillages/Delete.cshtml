@@ -1,0 +1,112 @@
+﻿@model proera.MisEnServiceVillages
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>MisEnServiceVillages</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.REGION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.REGION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DEPARTEMENT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DEPARTEMENT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COMMUNE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COMMUNE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VILLAGE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VILLAGE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dateRaccPremierClient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateRaccPremierClient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Etat_travaux)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Etat_travaux)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CapaciteTransformateur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CapaciteTransformateur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PuissanceDHP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PuissanceDHP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombreSupport)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombreSupport)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LineaireBT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LineaireBT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.villages.region)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.villages.region)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

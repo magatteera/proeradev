@@ -146,7 +146,33 @@
             });
         });
 
-
+        $("#newInterface").change(function () {
+            data = {
+                numerointerface: $("#newInterface").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/verifNumCompteur",
+                data: data,
+                success: function (data) {
+                    //alert(data)
+                    if (data == "libre") {
+                        $("#btnChanger").attr("disabled", false)
+                    }
+                    if (data == "occupe") {
+                        alert("Ce compteur n'est pas libre.")
+                        $("#btnChanger").attr("disabled", true)
+                    }
+                    if (data == "inexistant") {
+                        alert("Ce numero de compteur est inexistant.")
+                        $("#btnChanger").attr("disabled", true)
+                    }
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
 
         
         $("#btnChanger").click(function () {

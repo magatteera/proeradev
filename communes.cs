@@ -14,6 +14,12 @@ namespace proera
     
     public partial class communes
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public communes()
+        {
+            this.villages = new HashSet<villages>();
+        }
+    
         public int id { get; set; }
         public string nom { get; set; }
         public int code_com { get; set; }
@@ -21,5 +27,8 @@ namespace proera
         public int iddepartement { get; set; }
     
         public virtual departements departements { get; set; }
+        public virtual departements departements1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<villages> villages { get; set; }
     }
 }

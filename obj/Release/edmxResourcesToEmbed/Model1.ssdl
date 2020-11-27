@@ -76,6 +76,7 @@
     <Property Name="numeropaiement" Type="varchar" MaxLength="50" />
     <Property Name="TypeBranch" Type="varchar" MaxLength="50" />
     <Property Name="etat" Type="varchar" MaxLength="50" />
+    <Property Name="usage" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="communes">
     <Key>
@@ -250,6 +251,23 @@
     <Property Name="statut" Type="varchar" MaxLength="50" />
     <Property Name="utilisateur" Type="varchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="MisEnServiceVillages">
+    <Key>
+      <PropertyRef Name="ID_SERVICE" />
+    </Key>
+    <Property Name="ID_SERVICE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="REGION" Type="varchar" MaxLength="50" />
+    <Property Name="DEPARTEMENT" Type="varchar" MaxLength="50" />
+    <Property Name="COMMUNE" Type="varchar" MaxLength="50" />
+    <Property Name="VILLAGE" Type="varchar" MaxLength="50" />
+    <Property Name="dateRaccPremierClient" Type="date" />
+    <Property Name="Etat_travaux" Type="varchar" MaxLength="50" />
+    <Property Name="code_village" Type="int" />
+    <Property Name="CapaciteTransformateur" Type="int" />
+    <Property Name="PuissanceDHP" Type="int" />
+    <Property Name="nombreSupport" Type="int" />
+    <Property Name="LineaireBT" Type="float" />
+  </EntityType>
   <EntityType Name="modifencaissement">
     <Key>
       <PropertyRef Name="id" />
@@ -280,6 +298,24 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="motif" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="programmes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="nom" Type="varchar" MaxLength="50" />
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="tech" Type="varchar" MaxLength="50" />
+    <Property Name="DateDebut" Type="date" />
+    <Property Name="delai" Type="int" />
+    <Property Name="budget" Type="int" />
+    <Property Name="MTavance" Type="int" />
+    <Property Name="niveau_decaissement" Type="float" />
+    <Property Name="avenant" Type="text" />
+    <Property Name="DateFin" Type="date" />
+    <Property Name="descriptProg" Type="text" />
+    <Property Name="remarque" Type="text" />
+    <Property Name="operateur" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="raisonsociale">
     <Key>
@@ -367,6 +403,18 @@
     <Property Name="indexdepose" Type="int" />
     <Property Name="interface" Type="varchar" MaxLength="50" />
   </EntityType>
+  <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'PROERA.dbo.retablissement' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+  <EntityType Name="retablissement">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="date" Type="date" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+    <Property Name="refclient" Type="int" />
+    <Property Name="index" Type="int" />
+  </EntityType>
   <EntityType Name="SAV">
     <Key>
       <PropertyRef Name="id" />
@@ -448,11 +496,12 @@
     <Property Name="forage" Type="tinyint" />
     <Property Name="antenne_bts" Type="tinyint" />
     <Property Name="moulin" Type="tinyint" />
-    <Property Name="long" Type="float" />
-    <Property Name="lat" Type="float" />
+    <Property Name="longitude" Type="float" />
+    <Property Name="latitude" Type="float" />
     <Property Name="code_village" Type="int" Nullable="false" />
     <Property Name="code_prog" Type="int" />
     <Property Name="idLocalite" Type="int" />
+    <Property Name="etattravaux" Type="varchar" MaxLength="50" />
   </EntityType>
   <Association Name="FK_clients_hnivpuissances">
     <End Role="hnivpuissances" Type="Self.hnivpuissances" Multiplicity="0..1" />
@@ -491,6 +540,18 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_communes_departements">
+    <End Role="departements" Type="Self.departements" Multiplicity="1" />
+    <End Role="communes" Type="Self.communes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="departements">
+        <PropertyRef Name="code_departement" />
+      </Principal>
+      <Dependent Role="communes">
+        <PropertyRef Name="iddepartement" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_communes_departements1">
     <End Role="departements" Type="Self.departements" Multiplicity="1" />
     <End Role="communes" Type="Self.communes" Multiplicity="*" />
     <ReferentialConstraint>
@@ -598,6 +659,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_MisEnServiceVillages_villages">
+    <End Role="villages" Type="Self.villages" Multiplicity="0..1" />
+    <End Role="MisEnServiceVillages" Type="Self.MisEnServiceVillages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="villages">
+        <PropertyRef Name="code_village" />
+      </Principal>
+      <Dependent Role="MisEnServiceVillages">
+        <PropertyRef Name="code_village" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_reclamation_clients">
     <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
     <End Role="reclamation" Type="Self.reclamation" Multiplicity="*" />
@@ -658,6 +731,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_villages_communes">
+    <End Role="communes" Type="Self.communes" Multiplicity="0..1" />
+    <End Role="villages" Type="Self.villages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="communes">
+        <PropertyRef Name="code_com" />
+      </Principal>
+      <Dependent Role="villages">
+        <PropertyRef Name="idLocalite" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_villages_programmes">
+    <End Role="programmes" Type="Self.programmes" Multiplicity="0..1" />
+    <End Role="villages" Type="Self.villages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="programmes">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="villages">
+        <PropertyRef Name="code_prog" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="ERADEVModelStoreContainer">
     <EntitySet Name="bordereaux" EntityType="Self.bordereaux" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="changementinterface" EntityType="Self.changementinterface" Schema="dbo" store:Type="Tables" />
@@ -677,9 +774,11 @@
     <EntitySet Name="hnivpuissances" EntityType="Self.hnivpuissances" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="migration" EntityType="Self.migration" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="miseenserviceclient" EntityType="Self.miseenserviceclient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MisEnServiceVillages" EntityType="Self.MisEnServiceVillages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="modifencaissement" EntityType="Self.modifencaissement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="modiffacture" EntityType="Self.modiffacture" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="motifresiliation" EntityType="Self.motifresiliation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="programmes" EntityType="Self.programmes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="raisonsociale" EntityType="Self.raisonsociale" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="reclamation" EntityType="Self.reclamation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="recouvrements" EntityType="Self.recouvrements" Schema="dbo" store:Type="Tables" />
@@ -693,6 +792,15 @@
     <EntitySet Name="typereclamation" EntityType="Self.typereclamation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="usages" EntityType="Self.usages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="villages" EntityType="Self.villages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="retablissement" EntityType="Self.retablissement" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [retablissement].[id] AS [id], 
+    [retablissement].[date] AS [date], 
+    [retablissement].[utilisateur] AS [utilisateur], 
+    [retablissement].[refclient] AS [refclient], 
+    [retablissement].[index] AS [index]
+    FROM [dbo].[retablissement] AS [retablissement]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK_clients_hnivpuissances" Association="Self.FK_clients_hnivpuissances">
       <End Role="hnivpuissances" EntitySet="hnivpuissances" />
       <End Role="clients" EntitySet="clients" />
@@ -706,6 +814,10 @@
       <End Role="clients" EntitySet="clients" />
     </AssociationSet>
     <AssociationSet Name="FK_communes_departements" Association="Self.FK_communes_departements">
+      <End Role="departements" EntitySet="departements" />
+      <End Role="communes" EntitySet="communes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_communes_departements1" Association="Self.FK_communes_departements1">
       <End Role="departements" EntitySet="departements" />
       <End Role="communes" EntitySet="communes" />
     </AssociationSet>
@@ -741,6 +853,10 @@
       <End Role="clients" EntitySet="clients" />
       <End Role="miseenserviceclient" EntitySet="miseenserviceclient" />
     </AssociationSet>
+    <AssociationSet Name="FK_MisEnServiceVillages_villages" Association="Self.FK_MisEnServiceVillages_villages">
+      <End Role="villages" EntitySet="villages" />
+      <End Role="MisEnServiceVillages" EntitySet="MisEnServiceVillages" />
+    </AssociationSet>
     <AssociationSet Name="FK_reclamation_clients" Association="Self.FK_reclamation_clients">
       <End Role="clients" EntitySet="clients" />
       <End Role="reclamation" EntitySet="reclamation" />
@@ -760,6 +876,14 @@
     <AssociationSet Name="FK_resiliation_motifresiliation" Association="Self.FK_resiliation_motifresiliation">
       <End Role="motifresiliation" EntitySet="motifresiliation" />
       <End Role="resiliation" EntitySet="resiliation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_villages_communes" Association="Self.FK_villages_communes">
+      <End Role="communes" EntitySet="communes" />
+      <End Role="villages" EntitySet="villages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_villages_programmes" Association="Self.FK_villages_programmes">
+      <End Role="programmes" EntitySet="programmes" />
+      <End Role="villages" EntitySet="villages" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

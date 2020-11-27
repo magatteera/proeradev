@@ -69,6 +69,7 @@ namespace proera
         public string numeropaiement { get; set; }
         public string TypeBranch { get; set; }
         public string etat { get; set; }
+        public string usage { get; set; }
     
         public virtual hnivpuissances hnivpuissances { get; set; }
         public virtual raisonsociale raisonsociale { get; set; }

@@ -16,6 +16,8 @@
 
     <hr />
 
+    <input type="hidden" name="usage" value="domestique" />
+
     <div class="form-row">
         <div class="col-sm-6">
             <div class="form-group">
@@ -69,7 +71,6 @@
             </div>
         </div>
 
-        <input type="hidden" name="Raison_Social" id="Raison_Social" value="PARTICULIER" />
 
     </div>
 
@@ -376,12 +377,12 @@
 
         $.ajax({
             type: "POST",
-            url: "/clients/changement",
+            url: "/clients/changementnivpuissance",
             data: data,
             success: function (data) {
                 // alert(data)
                 $('#fraisabonnement').empty()
-                    .append(data)
+                    .append(data.baremes)
 
                 if ($('#fraisabonnement').val > 0) {
 
@@ -485,7 +486,7 @@
                 url: "/clients/changementnivpuissance",
                 data: data,
                 success: function (data) {
-                    //alert(data)
+                    //alert(data.baremes)
                     $('#fraisabonnement').empty()
                         .append(data.baremes)
 
@@ -526,12 +527,12 @@
 
             $.ajax({
                 type: "POST",
-                url: "/clients/changement",
+                url: "/clients/changementnivpuissance",
                 data: data,
                 success: function (data) {
                     //alert(data)
                     $('#fraisabonnement').empty()
-                        .append(data)
+                        .append(data.baremes)
 
                     if ($('#fraisabonnement').val > 0) {
 
@@ -565,12 +566,12 @@
 
             $.ajax({
                 type: "POST",
-                url: "/clients/changement",
+                url: "/clients/changementnivpuissance",
                 data: data,
                 success: function (data) {
                     //alert(data)
                     $('#fraisabonnement').empty()
-                        .append(data)
+                        .append(data.baremes)
 
                     if ($('#fraisabonnement').val > 0) {
 
@@ -609,7 +610,7 @@
                 success: function (data) {
                     //alert(data)
                     $('#fraisabonnement').empty()
-                        .append(data)
+                        .append(data.baremes)
 
                     if ($('#fraisabonnement').val > 0) {
 

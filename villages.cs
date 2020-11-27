@@ -14,6 +14,12 @@ namespace proera
     
     public partial class villages
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public villages()
+        {
+            this.MisEnServiceVillages = new HashSet<MisEnServiceVillages>();
+        }
+    
         public int id { get; set; }
         public string region { get; set; }
         public string departement { get; set; }
@@ -26,10 +32,16 @@ namespace proera
         public Nullable<byte> forage { get; set; }
         public Nullable<byte> antenne_bts { get; set; }
         public Nullable<byte> moulin { get; set; }
-        public Nullable<double> @long { get; set; }
-        public Nullable<double> lat { get; set; }
+        public Nullable<double> longitude { get; set; }
+        public Nullable<double> latitude { get; set; }
         public int code_village { get; set; }
         public Nullable<int> code_prog { get; set; }
         public Nullable<int> idLocalite { get; set; }
+        public string etattravaux { get; set; }
+    
+        public virtual communes communes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MisEnServiceVillages> MisEnServiceVillages { get; set; }
+        public virtual programmes programmes { get; set; }
     }
 }

@@ -218,10 +218,10 @@ namespace proera.Controllers
 					branchesfilt.Add(br);
 			}
 
-			var bord = db.bordereaux.Where(b => b.ouvert == 1).ToList();
+			var bord = db.bordereaux.Where(b => (b.ouvert == 1) && (b.utilisateur == User.Identity.Name)).ToList();
 			ViewBag.NivPuissance = new SelectList(nivpui, "Id", "NivPuissance");
 			ViewBag.activite = new SelectList(db.raisonsociale.ToList(), "id", "raison");
-			ViewBag.calibre = new SelectList(calibresfilt, "calibre", "calibre");
+			ViewBag.calibre = new SelectList(calibresfilt, "Id", "calibre");
 			ViewBag.Type_Elect = new SelectList(typeelec, "type", "type");
 			ViewBag.TypeBranch = new SelectList(branchesfilt, "id", "branch");
 			IEnumerable<SelectListItem> selectListbord = from s in bord
@@ -438,7 +438,7 @@ namespace proera.Controllers
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 
-		public ActionResult Create([Bind(Include = "ID,Nom1,Prenom,Num_ID,Tel,Raison_Social,Date_Abonnement,Village,Niv_Service,Type_Elect,calibre,Reference_Contrat,Montant_Encaisse,Etat_Client,Commentaire,Date_Mise_en_Service,Date_Resiliation,X_GPS,Y_GPS,Bordereau,Contrat,numcompteur,Ancien_indexe,SoldeTotal,IDPayment,Prev_Bill,Last_Bill,NbrEP,Modifié,Créé,Créé_par,periodeFacturee,dateCoupure,dateAbonn,dateMeS,idlastbill,NivPuissance,activite,sqlstate,refclient,codevillage,modePaiement,numeropaiement,TypeBranch,etat")] clients clients)
+		public ActionResult Create([Bind(Include = "ID, usage,Nom1,Prenom,Num_ID,Tel,Raison_Social,Date_Abonnement,Village,Niv_Service,Type_Elect,calibre,Reference_Contrat,Montant_Encaisse,Etat_Client,Commentaire,Date_Mise_en_Service,Date_Resiliation,X_GPS,Y_GPS,Bordereau,Contrat,numcompteur,Ancien_indexe,SoldeTotal,IDPayment,Prev_Bill,Last_Bill,NbrEP,Modifié,Créé,Créé_par,periodeFacturee,dateCoupure,dateAbonn,dateMeS,idlastbill,NivPuissance,activite,sqlstate,refclient,codevillage,modePaiement,numeropaiement,TypeBranch,etat")] clients clients)
 		{
 			if (ModelState.IsValid)
 			{
@@ -448,8 +448,9 @@ namespace proera.Controllers
 				clients.Créé_par = User.Identity.Name;
 				db.clients.Add(clients);
 				db.SaveChanges();
-				var cl = db.clients.Where(c => c.ID == db.clients.Max(u => u.ID)).ToList();
-				return RedirectToAction("Details", new { id = cl[0].Reference_Contrat });
+				//var cl = db.clients.Where(c => c.ID == db.clients.Max(u => u.ID)).ToList();
+				var cl = db.clients.OrderByDescending(c => c.ID).ToList()[0];
+				return RedirectToAction("Details", new { id = cl.Reference_Contrat });
 			}
 
 			//ViewBag.Etat_Client = new SelectList(db.etatclient, "id", "etat", clients.Etat_Client);
@@ -717,12 +718,12 @@ namespace proera.Controllers
 
 			return Json(new { message = "absent" });
 		}
-		public ActionResult validerRetablissement([Bind(Include = "Reference_Contrat")] clients clients)
+		public ActionResult validerRetablissement([Bind(Include = "refclient,date, index")] retablissement retablissement)
 		{
 			//clients
 			try
 			{
-				var cli = db.clients.Find(clients.Reference_Contrat);
+				var cli = db.clients.Find(retablissement.refclient);
 
 				cli.Etat_Client = 1;
 				db.Entry(cli).State = EntityState.Modified;
@@ -735,6 +736,10 @@ namespace proera.Controllers
 					db.Entry(fac).State = EntityState.Modified;
 					db.SaveChanges();
 				}
+
+				retablissement.utilisateur = User.Identity.Name;
+				db.retablissement.Add(retablissement);
+				db.SaveChanges();
 
 				return Json(new { message = "Client retabli avec succes." });
 			}
@@ -986,8 +991,13 @@ namespace proera.Controllers
 						bool existe = false;
 						foreach (hbaremes b in baremes)
 						{
-							if (b.Calibre2 == cal.Id && b.NiveauPuissance == nivpui[0].Id)
+							/*if (b.Calibre2 == cal.Id && b.NiveauPuissance == nivpui[0].Id)
+								existe = true;*/
+
+
+							if (b.Calibre2 + "" == clients.calibre && b.NiveauPuissance == clients.NivPuissance)
 								existe = true;
+
 						}
 						if (existe)
 
@@ -1001,17 +1011,17 @@ namespace proera.Controllers
 						bool existe = false;
 						foreach (hbaremes b in baremes)
 						{
-							if (b.branch == br.Id)
+							if (b.branch+"" == clients.TypeBranch)
 								existe = true;
 						}
 						if (existe)
 							branchesfilt.Add(br);
 					}
 					var bord = db.bordereaux.Where(b => (b.ouvert == 1) && (b.utilisateur == User.Identity.Name)).ToList();
-					ViewBag.NivPuissance = new SelectList(nivpui, "Id", "NivPuissance");
-					ViewBag.calibre = new SelectList(calibresfilt, "calibre", "calibre");
-					ViewBag.Type_Elect = new SelectList(typeelec, "type", "type");
-					ViewBag.TypeBranch = new SelectList(branchesfilt, "id", "branch");
+					ViewBag.NivPuissance = new SelectList(nivpui, "Id", "NivPuissance", clients.NivPuissance);
+					ViewBag.calibre = new SelectList(calibresfilt, "Id", "calibre", clients.calibre);
+					ViewBag.Type_Elect = new SelectList(typeelec, "type", "type", clients.Type_Elect);
+					ViewBag.TypeBranch = new SelectList(branchesfilt, "id", "branch", clients.TypeBranch);
 					IEnumerable<SelectListItem> selectListbord = from s in bord
 																 select new SelectListItem
 																 {
@@ -1065,7 +1075,11 @@ namespace proera.Controllers
 						bool existe = false;
 						foreach (hbaremes b in baremes)
 						{
-							if (b.Calibre2 == cal.Id && b.NiveauPuissance == nivpui[0].Id)
+							/*if (b.Calibre2 == cal.Id && b.NiveauPuissance == nivpui[0].Id)
+								existe = true;*/
+
+
+							if (b.Calibre2 + "" == clients.calibre && b.NiveauPuissance == clients.NivPuissance)
 								existe = true;
 						}
 						if (existe)
@@ -1088,11 +1102,11 @@ namespace proera.Controllers
 					}
 
 					var bord = db.bordereaux.Where(b => b.ouvert == 1).ToList();
-					ViewBag.NivPuissance = new SelectList(nivpui, "Id", "NivPuissance");
-					ViewBag.Raison_Social = new SelectList(db.raisonsociale.ToList(), "id", "raison");
-					ViewBag.calibre = new SelectList(calibresfilt, "calibre", "calibre");
-					ViewBag.Type_Elect = new SelectList(typeelec, "type", "type");
-					ViewBag.TypeBranch = new SelectList(branchesfilt, "id", "branch");
+					ViewBag.NivPuissance = new SelectList(nivpui, "Id", "NivPuissance",clients.NivPuissance);
+					ViewBag.activite = new SelectList(db.raisonsociale.ToList(), "id", "raison", clients.activite);
+					ViewBag.calibre = new SelectList(calibresfilt, "Id", "calibre", clients.calibre);
+					ViewBag.Type_Elect = new SelectList(typeelec, "type", "type", clients.Type_Elect);
+					ViewBag.TypeBranch = new SelectList(branchesfilt, "id", "branch", clients.TypeBranch);
 					IEnumerable<SelectListItem> selectListbord = from s in bord
 																 select new SelectListItem
 																 {
@@ -1174,7 +1188,7 @@ namespace proera.Controllers
 
 		//[Authorize(Roles = "COM")]
 
-		[Authorize(Roles = "Proera_TECH, Proera_Admin")]
+		[Authorize(Roles = "Proera_TECH, Proera_DAF, Proera_Admin")]
 		public ActionResult mettreEnVigueur()
 		{
 
@@ -1261,6 +1275,7 @@ namespace proera.Controllers
 			if (!miseenserviceclient.statut.Contains("NON RACCORDABLE"))
 			{
 				client.Etat_Client = 1;
+				client.numcompteur = miseenserviceclient.numcompteur;
 				client.Date_Mise_en_Service = miseenserviceclient.dateMiseEnService + "";
 				client.numcompteur = miseenserviceclient.numcompteur;
 				client.Ancien_indexe = miseenserviceclient.indexDePose+"";
@@ -1422,8 +1437,8 @@ namespace proera.Controllers
 			foreach (hbaremes bar in baremes)
 			{
 				if (bar.hnivpuissances.Id != json.nivpuissance ||
-					bar.hcalibres.Calibre != json.calibre ||
-					bar.Usage != 1 ||
+					bar.Calibre2+"" != json.calibre ||
+					bar.Usage != 2 ||
 					bar.branch != json.typebranchement)
 				{
 
@@ -1435,7 +1450,7 @@ namespace proera.Controllers
 			string baremes2 = "";
 			foreach (hbaremes bar in baremeschanges)
 			{
-				baremes2 = "<option value='" + bar.Montant + "'>" + bar.Montant + "</option>";
+				baremes2 += "<option value='" + bar.Montant + "'>" + bar.Montant + "</option>";
 			}
 			//return "<option value='" + 12 + "'>" + 20000 + "</option>";
 			return baremes2;
@@ -1449,7 +1464,7 @@ namespace proera.Controllers
 			foreach (hbaremes bar in baremes)
 			{
 				if (bar.hnivpuissances.Id != json.nivpuissance ||
-					bar.hcalibres.Calibre != json.calibre ||
+					bar.Calibre2+"" != json.calibre ||
 					bar.Usage == 1 ||
 					bar.branch != json.typebranchement)
 				{
@@ -1480,7 +1495,7 @@ namespace proera.Controllers
 			db.SaveChanges();
 
 
-			var bord1 = db.bordereaux.Where(b => b.ouvert == 1).ToList();
+			var bord1 = db.bordereaux.Where(b => (b.ouvert == 1)&&(b.utilisateur == User.Identity.Name)).ToList();
 			var bord = bord1.OrderByDescending(b => b.id);
 
 			string bords = "";
@@ -1490,6 +1505,76 @@ namespace proera.Controllers
 			}
 			//return "<option value='" + 12 + "'>" + 20000 + "</option>";
 			return bords;
+		}
+
+		
+
+		public ActionResult changementCalibreProductif([Bind(Include = "nivpuissance, calibre, typeelec, typebranchement")] myJson json)
+		{
+			//var objet = JsonConvert.DeserializeObject<myJson>(json);
+			var baremes = db.hbaremes.ToList();
+			var branches = db.hbranches.ToList();
+			var calibres = db.hcalibres.ToList();
+			var branchechanges = new List<hbranches>();
+			var calibrechanges = new List<hcalibres>();
+			var baremeschanges = new List<hbaremes>();
+			string selectbranches = "";
+			string selectcalibres = "";
+			string baremes2 = "";
+
+
+			foreach (hcalibres cal in calibres)
+			{
+				bool existe = false;
+				foreach (hbaremes b in baremes)
+				{
+					if (b.Calibre2 == cal.Id && b.hnivpuissances.Id == json.nivpuissance)
+						existe = true;
+				}
+				if (existe)
+				{
+					calibrechanges.Add(cal);
+					selectcalibres += "<option value='" + cal.Id + "'>" + cal.Calibre + "</option>";
+				}
+
+			}
+
+
+			foreach (hbranches branch in branches)
+			{
+				bool existe = false;
+				foreach (hbaremes b in baremes)
+				{
+					if (b.branch == branch.Id && b.hnivpuissances.Id == json.nivpuissance)
+						existe = true;
+				}
+				if (existe)
+				{
+					branchechanges.Add(branch);
+					selectbranches += "<option value='" + branch.Id + "'>" + branch.Branch + "</option>";
+				}
+
+			}
+
+			foreach (hbaremes bar in baremes)
+			{
+
+				if (bar.hnivpuissances.Id != json.nivpuissance ||
+					bar.Calibre2 != Int32.Parse(json.calibre) ||
+					bar.Usage == 1 ||
+					bar.branch != json.typebranchement)
+				{
+
+				}
+				else
+				{
+					baremeschanges.Add(bar);
+					baremes2 += "<option value='" + bar.Montant + "'>" + bar.Montant + "</option>";
+				}
+			}
+
+			//return "<option value='" + 12 + "'>" + 20000 + "</option>";
+			return Json(new { baremes = baremes2, branches = selectbranches, calibres = selectcalibres });
 		}
 
 		// GET: clients/Edit/5
@@ -1553,7 +1638,7 @@ namespace proera.Controllers
 				else
 				{
 					baremeschanges.Add(bar);
-					baremes2 = "<option value='" + bar.Montant + "'>" + bar.Montant + "</option>";
+					baremes2 += "<option value='" + bar.Montant + "'>" + bar.Montant + "</option>";
 				}
 			}
 
@@ -1613,16 +1698,18 @@ namespace proera.Controllers
 
 				if (bar.hnivpuissances.Id != json.nivpuissance ||
 					bar.Calibre2 != calibrechanges[0].Id ||
-					bar.Usage != 1 ||
+					bar.Usage == 2 ||
 					bar.branch != branchechanges[0].Id)
 				{
+
+
 
 				}
 				else
 				{
 
 					baremeschanges.Add(bar);
-					baremes2 = "<option value='" + bar.Montant + "'>" + bar.Montant + "</option>";
+					baremes2 += "<option value='" + bar.Montant + "'>" + bar.Montant + "</option>";
 				}
 			}
 

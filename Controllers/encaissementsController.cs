@@ -12,7 +12,7 @@ namespace proera.Controllers
 {
     //[Authorize(Roles = "REC")]
 
-    [Authorize(Roles = "Proera_REC, Proera_Admin")]
+    [Authorize(Roles = "Proera_REC, Proera_ENC, Proera_Admin")]
     public class encaissementsController : Controller
     {
         private ERADEVEntities3 db = new ERADEVEntities3();

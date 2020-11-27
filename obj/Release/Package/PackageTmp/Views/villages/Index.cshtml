@@ -12,9 +12,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.id)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.region)
         </th>
         <th>
@@ -25,6 +22,10 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.village)
+        </th>
+
+        <th>
+            Code Village
         </th>
         <th>
             @Html.DisplayNameFor(model => model.population)
@@ -48,76 +49,64 @@
             @Html.DisplayNameFor(model => model.moulin)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.long)
+            @Html.DisplayNameFor(model => model.longitude)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.lat)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.code_prog)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.idLocalite)
+            @Html.DisplayNameFor(model => model.latitude)
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.region)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.departement)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.commune)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.village)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.population)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.menage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.education)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sante)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.forage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.antenne_bts)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.moulin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.long)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lat)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.code_prog)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idLocalite)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.code_village }) |
-            @Html.ActionLink("Details", "Details", new { id=item.code_village }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.code_village })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.region)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.departement)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.commune)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.village)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.code_village)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.population)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.menage)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.education)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.sante)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.forage)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.antenne_bts)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.moulin)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.longitude)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.latitude)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.code_village }) |
+        @Html.ActionLink("Details", "Details", new { id = item.code_village }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.code_village })
+    </td>
+</tr>
 }
 
 </table>
