@@ -1,0 +1,57 @@
+﻿@model IEnumerable<proera.correctionsolde>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.utilisateur)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.soldepre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.soldepost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.referenceclient)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.motif)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.utilisateur)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.soldepre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.soldepost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.referenceclient)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.motif)
+        </td>
+    </tr>
+}
+
+</table>

@@ -360,29 +360,34 @@ namespace proera.Controllers
             var factures = db.factures.Where(f => f.PeriodeFacturee == recouvrements.periode).ToList();
             //var encaissements = db.encaissements.Where(f => f.idfacture.Contains(recouvrements.periode)).ToList();
 
-            var encaissementss = db.encaissements.ToList();
+            var encaissementss = db.encaissements.Where(e => e.periode == recouvrements.periode).ToList();
             var encaissements = new List<encaissements>();
-            foreach(var enc in encaissementss)
+
+            double montant = 0;
+            foreach (var enc in encaissementss)
             {
-                if (factures.Find(f => f.IdFacture+"" == enc.idfacture) != null)
+                montant = montant + (double)enc.montantencaisee;
+
+                if (factures.Find(f => f.IdFacture + "" == enc.idfacture) != null)
+                {
                     encaissements.Add(enc);
+                }
             }
 
 
             var facturespayees = 0;
             var facturesimpayees = 0;
-            double montant = 0;
 
             foreach(var fac in factures)
             {
                 if(fac.Paiement == 1)
                 {
                     facturespayees++;
-                    var index = encaissements.FindIndex(re => re.idfacture == fac.IdFacture+"");
-                    if (index != -1)
+                    //var index = encaissements.FindIndex(re => re.idfacture == fac.IdFacture+"");
+                    //if (index != -1)
                         //var enc = db.encaissements.Where(e => e.idfacture == fac.IdFacture).ToList();
                         //if(enc.Count > 0)
-                        montant = montant + (double)encaissements[index].montantencaisee;
+                        //montant = montant + (double)encaissements[index].montantencaisee;
                 } else
                 {
                     facturesimpayees++;

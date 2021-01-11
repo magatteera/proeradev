@@ -105,12 +105,7 @@
     <EntitySet Name="facturationtrigger" EntityType="ERADEVModel.facturationtrigger" />
     <EntitySet Name="forcermiseenvigueur" EntityType="ERADEVModel.forcermiseenvigueur" />
     <EntitySet Name="compteurs" EntityType="ERADEVModel.compteurs" />
-    <EntitySet Name="reclamation" EntityType="ERADEVModel.reclamation" />
     <EntitySet Name="typereclamation" EntityType="ERADEVModel.typereclamation" />
-    <AssociationSet Name="FK_reclamation_typereclamation" Association="ERADEVModel.FK_reclamation_typereclamation">
-      <End EntitySet="typereclamation" Role="typereclamation" />
-      <End EntitySet="reclamation" Role="reclamation" />
-    </AssociationSet>
     <EntitySet Name="motifresiliation" EntityType="ERADEVModel.motifresiliation" />
     <EntitySet Name="resiliation" EntityType="ERADEVModel.resiliation" />
     <AssociationSet Name="FK_resiliation_motifresiliation" Association="ERADEVModel.FK_resiliation_motifresiliation">
@@ -129,7 +124,6 @@
     <EntitySet Name="migration" EntityType="ERADEVModel.migration" />
     <EntitySet Name="releves" EntityType="ERADEVModel.releves" />
     <EntitySet Name="recouvrements" EntityType="ERADEVModel.recouvrements" />
-    <EntitySet Name="encaissements" EntityType="ERADEVModel.encaissements" />
     <EntitySet Name="hnivpuissances" EntityType="ERADEVModel.hnivpuissances" />
     <AssociationSet Name="FK_HBareme_HNivPuissance" Association="ERADEVModel.FK_HBareme_HNivPuissance">
       <End Role="hnivpuissances" EntitySet="hnivpuissances" />
@@ -142,7 +136,6 @@
     <EntitySet Name="raisonsociale" EntityType="ERADEVModel.raisonsociale" />
     <EntitySet Name="retablissement" EntityType="ERADEVModel.retablissement" />
     <EntitySet Name="MisEnServiceVillages" EntityType="ERADEVModel.MisEnServiceVillages" />
-    <EntitySet Name="programmes" EntityType="ERADEVModel.programmes" />
     <EntitySet Name="communes" EntityType="ERADEVModel.communes" />
     <EntitySet Name="departements" EntityType="ERADEVModel.departements" />
     <EntitySet Name="villages" EntityType="ERADEVModel.villages" />
@@ -166,9 +159,14 @@
       <End Role="villages" EntitySet="villages" />
       <End Role="MisEnServiceVillages" EntitySet="MisEnServiceVillages" />
     </AssociationSet>
-    <AssociationSet Name="FK_villages_programmes" Association="ERADEVModel.FK_villages_programmes">
-      <End Role="programmes" EntitySet="programmes" />
+    <EntitySet Name="reclamation" EntityType="ERADEVModel.reclamation" />
+    <AssociationSet Name="FK_reclamation_typereclamation" Association="ERADEVModel.FK_reclamation_typereclamation">
+      <End Role="typereclamation" EntitySet="typereclamation" />
+      <End Role="reclamation" EntitySet="reclamation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_reclamation_villages" Association="ERADEVModel.FK_reclamation_villages">
       <End Role="villages" EntitySet="villages" />
+      <End Role="reclamation" EntitySet="reclamation" />
     </AssociationSet>
     <EntitySet Name="clients" EntityType="ERADEVModel.clients" />
     <AssociationSet Name="FK_clients_hnivpuissances" Association="ERADEVModel.FK_clients_hnivpuissances">
@@ -203,6 +201,13 @@
       <End Role="clients" EntitySet="clients" />
       <End Role="resiliation" EntitySet="resiliation" />
     </AssociationSet>
+    <EntitySet Name="programmes" EntityType="ERADEVModel.programmes" />
+    <AssociationSet Name="FK_villages_programmes" Association="ERADEVModel.FK_villages_programmes">
+      <End Role="programmes" EntitySet="programmes" />
+      <End Role="villages" EntitySet="villages" />
+    </AssociationSet>
+    <EntitySet Name="correctionsolde" EntityType="ERADEVModel.correctionsolde" />
+    <EntitySet Name="encaissements" EntityType="ERADEVModel.encaissements" />
   </EntityContainer>
   <EntityType Name="typeelec">
     <Key>
@@ -271,24 +276,6 @@
     <Property Name="entrepot" Type="Int32" />
     <Property Name="fabricant" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
-  <EntityType Name="reclamation">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="refclient" Type="Int32" />
-    <Property Name="date" Type="DateTime" Precision="0" />
-    <Property Name="type" Type="Int32" />
-    <Property Name="priorite" Type="Int32" />
-    <Property Name="commentaire" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="nivintervention" Type="Int32" />
-    <Property Name="telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="localite" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="statut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="typereclamation" Relationship="ERADEVModel.FK_reclamation_typereclamation" FromRole="reclamation" ToRole="typereclamation" />
-    <NavigationProperty Name="clients" Relationship="ERADEVModel.FK_reclamation_clients" FromRole="reclamation" ToRole="clients" />
-  </EntityType>
   <EntityType Name="typereclamation">
     <Key>
       <PropertyRef Name="id" />
@@ -297,18 +284,6 @@
     <Property Name="type" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
     <NavigationProperty Name="reclamation" Relationship="ERADEVModel.FK_reclamation_typereclamation" FromRole="typereclamation" ToRole="reclamation" />
   </EntityType>
-  <Association Name="FK_reclamation_typereclamation">
-    <End Type="ERADEVModel.typereclamation" Multiplicity="0..1" Role="typereclamation" />
-    <End Type="ERADEVModel.reclamation" Multiplicity="*" Role="reclamation" />
-    <ReferentialConstraint>
-      <Principal Role="typereclamation">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="reclamation">
-        <PropertyRef Name="type" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="motifresiliation">
     <Key>
       <PropertyRef Name="id" />
@@ -460,7 +435,7 @@
     <Property Name="numcompteur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="indexDePose" Type="Double" />
     <Property Name="dateMiseEnService" Type="DateTime" Precision="0" />
-    <Property Name="referenceClient" Type="Int32" />
+    <Property Name="referenceClient" Type="Int32" Nullable="false" />
     <Property Name="statut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="clients" Relationship="ERADEVModel.FK_miseenserviceclient_clients" FromRole="miseenserviceclient" ToRole="clients" />
@@ -531,24 +506,6 @@
     <Property Name="nbrFacturesPayees" Type="Int32" />
     <Property Name="active" Type="Byte" />
     <Property Name="facturee" Type="Byte" />
-  </EntityType>
-  <EntityType Name="encaissements">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="idfacture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="refclient" Type="Int32" />
-    <Property Name="montantencaisee" Type="Double" />
-    <Property Name="soldeprepaiement" Type="Double" />
-    <Property Name="soldepostpaiement" Type="Double" />
-    <Property Name="dateencaissement" Type="DateTime" Precision="0" />
-    <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="commentaire" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="idbordereau" Type="Int32" />
-    <Property Name="numerorecue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="numerobordereau" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="periode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="hnivpuissances">
     <Key>
@@ -621,25 +578,6 @@
     <Property Name="LineaireBT" Type="Double" />
     <NavigationProperty Name="villages" Relationship="ERADEVModel.FK_MisEnServiceVillages_villages" FromRole="MisEnServiceVillages" ToRole="villages" />
   </EntityType>
-  <EntityType Name="programmes">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="ID" Type="Int32" Nullable="false" />
-    <Property Name="tech" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="DateDebut" Type="DateTime" Precision="0" />
-    <Property Name="delai" Type="Int32" />
-    <Property Name="budget" Type="Int32" />
-    <Property Name="MTavance" Type="Int32" />
-    <Property Name="niveau_decaissement" Type="Double" />
-    <Property Name="avenant" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="DateFin" Type="DateTime" Precision="0" />
-    <Property Name="descriptProg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="remarque" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="operateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="villages" Relationship="ERADEVModel.FK_villages_programmes" FromRole="programmes" ToRole="villages" />
-  </EntityType>
   <EntityType Name="communes">
     <Key>
       <PropertyRef Name="code_com" />
@@ -688,8 +626,14 @@
     <Property Name="idLocalite" Type="Int32" />
     <NavigationProperty Name="communes" Relationship="ERADEVModel.FK_villages_communes" FromRole="villages" ToRole="communes" />
     <NavigationProperty Name="MisEnServiceVillages" Relationship="ERADEVModel.FK_MisEnServiceVillages_villages" FromRole="villages" ToRole="MisEnServiceVillages" />
-    <NavigationProperty Name="programmes" Relationship="ERADEVModel.FK_villages_programmes" FromRole="villages" ToRole="programmes" />
     <Property Name="etattravaux" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="reclamation" Relationship="ERADEVModel.FK_reclamation_villages" FromRole="villages" ToRole="reclamation" />
+    <NavigationProperty Name="programmes" Relationship="ERADEVModel.FK_villages_programmes" FromRole="villages" ToRole="programmes" />
+    <Property Name="technologie" Type="Int32" />
+    <Property Name="commercialise" Type="Byte" />
+    <Property Name="nbrclients" Type="Int32" />
+    <Property Name="codemt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="neardist" Type="Double" />
   </EntityType>
   <Association Name="FK_communes_departements">
     <End Type="ERADEVModel.departements" Role="departements" Multiplicity="1" />
@@ -751,15 +695,46 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_villages_programmes">
-    <End Type="ERADEVModel.programmes" Role="programmes" Multiplicity="0..1" />
-    <End Type="ERADEVModel.villages" Role="villages" Multiplicity="*" />
+  <EntityType Name="reclamation">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="refclient" Type="Int32" />
+    <Property Name="date" Type="DateTime" Precision="0" />
+    <Property Name="type" Type="Int32" />
+    <Property Name="priorite" Type="Int32" />
+    <Property Name="commentaire" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="nivintervention" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="localite" Type="Int32" />
+    <Property Name="statut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="typereclamation" Relationship="ERADEVModel.FK_reclamation_typereclamation" FromRole="reclamation" ToRole="typereclamation" />
+    <NavigationProperty Name="villages" Relationship="ERADEVModel.FK_reclamation_villages" FromRole="reclamation" ToRole="villages" />
+    <NavigationProperty Name="clients" Relationship="ERADEVModel.FK_reclamation_clients" FromRole="reclamation" ToRole="clients" />
+  </EntityType>
+  <Association Name="FK_reclamation_typereclamation">
+    <End Type="ERADEVModel.typereclamation" Role="typereclamation" Multiplicity="0..1" />
+    <End Type="ERADEVModel.reclamation" Role="reclamation" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="programmes">
-        <PropertyRef Name="ID" />
+      <Principal Role="typereclamation">
+        <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="villages">
-        <PropertyRef Name="code_prog" />
+      <Dependent Role="reclamation">
+        <PropertyRef Name="type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reclamation_villages">
+    <End Type="ERADEVModel.villages" Role="villages" Multiplicity="0..1" />
+    <End Type="ERADEVModel.reclamation" Role="reclamation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="villages">
+        <PropertyRef Name="code_village" />
+      </Principal>
+      <Dependent Role="reclamation">
+        <PropertyRef Name="localite" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -796,7 +771,7 @@
     <Property Name="Last_Bill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="NbrEP" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="Modifié" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Créé" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Créé" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Créé_par" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="periodeFacturee" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="dateCoupure" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -821,6 +796,7 @@
     <NavigationProperty Name="reclamation" Relationship="ERADEVModel.FK_reclamation_clients" FromRole="clients" ToRole="reclamation" />
     <NavigationProperty Name="releves" Relationship="ERADEVModel.FK_releves_clients2" FromRole="clients" ToRole="releves" />
     <NavigationProperty Name="resiliation" Relationship="ERADEVModel.FK_resiliation_clients" FromRole="clients" ToRole="resiliation" />
+    <Property Name="modefacturation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="FK_clients_hnivpuissances">
     <End Type="ERADEVModel.hnivpuissances" Role="hnivpuissances" Multiplicity="0..1" />
@@ -918,4 +894,66 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="programmes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tech" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DateDebut" Type="DateTime" Precision="0" />
+    <Property Name="delai" Type="Int32" />
+    <Property Name="budget" Type="Int32" />
+    <Property Name="MTavance" Type="Int32" />
+    <Property Name="niveau_decaissement" Type="Double" />
+    <Property Name="avenant" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="DateFin" Type="DateTime" Precision="0" />
+    <Property Name="descriptProg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="remarque" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="operateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="villages" Relationship="ERADEVModel.FK_villages_programmes" FromRole="programmes" ToRole="villages" />
+  </EntityType>
+  <Association Name="FK_villages_programmes">
+    <End Type="ERADEVModel.programmes" Role="programmes" Multiplicity="0..1" />
+    <End Type="ERADEVModel.villages" Role="villages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="programmes">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="villages">
+        <PropertyRef Name="code_prog" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="correctionsolde">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="utilisateur" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="soldepre" Type="Double" Nullable="false" />
+    <Property Name="soldepost" Type="Double" Nullable="false" />
+    <Property Name="date" Type="DateTime" Precision="0" />
+    <Property Name="referenceclient" Type="Int32" Nullable="false" />
+    <Property Name="motif" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="encaissements">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idfacture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="refclient" Type="Int32" />
+    <Property Name="montantencaisee" Type="Double" />
+    <Property Name="soldeprepaiement" Type="Double" />
+    <Property Name="soldepostpaiement" Type="Double" />
+    <Property Name="dateencaissement" Type="DateTime" Precision="0" />
+    <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="commentaire" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="idbordereau" Type="Int32" />
+    <Property Name="numerorecue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="numerobordereau" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="periode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="datesysteme" Type="DateTime" Precision="0" />
+  </EntityType>
 </Schema>

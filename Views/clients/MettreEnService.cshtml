@@ -67,7 +67,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label>Regions</label>
-              
+
                 @Html.DropDownList("regions", null, htmlAttributes: new { @class = "form-control select2bs4 select2-hidden-accessible" })
             </div>
             <!-- /.form-group -->
@@ -83,19 +83,34 @@
             <div class="form-group">
                 <label>Communes</label>
 
-                @Html.DropDownList("COMMUNE", null, htmlAttributes:  new { @class = "form-control select2bs4 select2-hidden-accessible" })
+                @Html.DropDownList("COMMUNE", null, htmlAttributes: new { @class = "form-control select2bs4 select2-hidden-accessible" })
             </div>
             <!-- /.form-group -->
             <div class="form-group">
                 <label>Villages</label>
 
-                @Html.DropDownList("villages", null, htmlAttributes:  new { @class = "form-control select2bs4 select2-hidden-accessible" })
+                @Html.DropDownList("villages", null, htmlAttributes: new { @class = "form-control select2bs4 select2-hidden-accessible" })
             </div>
             <!-- /.form-group -->
         </div>
         <!-- /.col -->
     </div>
     <!-- /.row -->
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Reference du client</label>
+                <input type="text" id="rechercheref" class="form-control" />
+            </div>
+            <!-- /.form-group -->
+            <div class="form-group">
+                <button class="btn btn-success" type="button" id="btnrechercherref">Rechercher par Reference</button>
+            </div>
+            <!-- /.form-group -->
+        </div>
+        <!-- /.col -->
+    </div>
 </div>
 
 
@@ -225,6 +240,39 @@
             }
         });*@
 
+        $("#btnrechercherref").click(function () {
+            data = {
+                Reference_Contrat: $("#rechercheref").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/rechercheclimes",
+                data: data,
+                success: function (data2) {
+                    $("#tablebody").empty().
+                        append(data2)
+                    @* $("#serviceTable").DataTable({
+                        "language": {
+                            "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
+                        }
+                    });*@
+
+
+
+                    $('[id^=btnmettreenService]').click(function (bouton) {
+                        @* alert("clicked")
+                        alert($('[id^=btnmettreenService]').val()) *@
+
+                        $("#referenceClient").val($(this).val())
+                        $("#modalmiseenservice").modal('show')
+                    })
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+
 
 
 
@@ -245,7 +293,7 @@
                         append(data.village)
                 },
                 error: function () {
-                    alert("Error occured!!")
+                    swal("Erreur", "Une erreur s'est produite", "error")  
                 }
             });
         })
@@ -265,11 +313,11 @@
                         $("#savemiseenservice").attr("disabled", false)
                     }
                     if (data == "occupe") {
-                        alert("Ce compteur n'est pas libre.")
+                        swal("Erreur", "Ce compteur n'est pas libre", "error") 
                         $("#savemiseenservice").attr("disabled", true)
                     }
                     if (data == "inexistant") {
-                        alert("Ce numero de compteur est inexistant.")
+                        swal("Erreur", "Ce numero de compteur est inexistant", "error") 
                         $("#savemiseenservice").attr("disabled", true)
                     }
                 },
@@ -295,7 +343,7 @@
                         append(data.village)
                 },
                 error: function () {
-                    alert("Error occured!!")
+                    swal("Erreur", "Une erreur s'est produite", "error") 
                 }
             });
         })
@@ -369,7 +417,8 @@
                 url: "/clients/appliquerMiseEnService",
                 data: data,
                 success: function (data) {
-                    alert(data)
+
+                    swal(data) 
 
                     $("#numcompteur").val("")
 

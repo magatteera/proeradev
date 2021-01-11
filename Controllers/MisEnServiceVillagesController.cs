@@ -41,7 +41,15 @@ namespace proera.Controllers
         // GET: MisEnServiceVillages/Create
         public ActionResult Create()
         {
-            ViewBag.code_village = new SelectList(db.villages, "code_village", "region");
+
+            var region = db.regions.ToList();
+            var idregion = region[0].id;
+            ViewBag.region = new SelectList(region, "id", "nom_region");
+            var depts = db.departements.Where(d => d.idregion == idregion).ToList();
+            ViewBag.departement = new SelectList(depts, "code_departement", "nom");
+            var iddept = depts[0].code_departement;
+            var coms = db.communes.Where(c => c.iddepartement == iddept).ToList();
+            ViewBag.idLocalite = new SelectList(db.communes, "code_com", "nom");
             return View();
         }
 

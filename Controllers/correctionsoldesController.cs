@@ -11,114 +11,129 @@ using proera;
 namespace proera.Controllers
 {
 
-    [Authorize(Roles = "Proera_ADMIN, Proera_SIG")]
-    public class departementsController : Controller
+    [Authorize(Roles = "Proera_BacfOffice, Proera_ADMIN")]
+    public class correctionsoldesController : Controller
     {
         private ERADEVEntities3 db = new ERADEVEntities3();
 
-        // GET: departements
+        // GET: correctionsoldes
         public ActionResult Index()
         {
-            var departements = db.departements.Include(d => d.regions);
-            return View(departements.ToList());
+            return View(db.correctionsolde.ToList());
         }
 
-        // GET: departements/Details/5
+        // GET: correctionsoldes/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            departements departements = db.departements.Find(id);
-            if (departements == null)
+            correctionsolde correctionsolde = db.correctionsolde.Find(id);
+            if (correctionsolde == null)
             {
                 return HttpNotFound();
             }
-            return View(departements);
+            return View(correctionsolde);
         }
 
-        // GET: departements/Create
+        // GET: correctionsoldes/Create
         public ActionResult Create()
         {
-            ViewBag.idregion = new SelectList(db.regions, "id", "nom_region");
+
             return View();
         }
 
-        // POST: departements/Create
+
+        public ActionResult changementrefclient([Bind(Include = "Reference_Contrat")] clients client)
+        {
+            var refcl = client.Reference_Contrat;
+            var cli = db.clients.Find(refcl);
+
+            if (cli != null)
+            {
+                    return Json(new
+                    {
+                        message = "existe",
+                        nom = cli.Nom1,
+                        prenom = cli.Prenom,
+                        solde = cli.SoldeTotal,
+                        villagess = db.villages.Find(cli.codevillage).village
+                    });
+            }
+
+            return Json(new { message = "client inexistant" });
+        }
+
+
+        // POST: correctionsoldes/Create
         // Afin de déjouer les attaques par survalidation, activez les propriétés spécifiques auxquelles vous voulez établir une liaison. Pour 
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,nom,code_departement,geom,idregion")] departements departements)
+        public ActionResult Create([Bind(Include = "id,utilisateur,soldepre,soldepost,date,referenceclient,motif")] correctionsolde correctionsolde)
         {
-            if (ModelState.IsValid)
-            {
-                departements.code_departement = 0;
-                db.departements.Add(departements);
+            correctionsolde.utilisateur = User.Identity.Name;
+            correctionsolde.date = DateTime.Now;
+                db.correctionsolde.Add(correctionsolde);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-
-            ViewBag.idregion = new SelectList(db.regions, "id", "nom_region", departements.idregion);
-            return View(departements);
+            return View(correctionsolde);
         }
 
-        // GET: departements/Edit/5
+        // GET: correctionsoldes/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            departements departements = db.departements.Find(id);
-            if (departements == null)
+            correctionsolde correctionsolde = db.correctionsolde.Find(id);
+            if (correctionsolde == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.idregion = new SelectList(db.regions, "id", "nom_region", departements.idregion);
-            return View(departements);
+            return View(correctionsolde);
         }
 
-        // POST: departements/Edit/5
+        // POST: correctionsoldes/Edit/5
         // Afin de déjouer les attaques par survalidation, activez les propriétés spécifiques auxquelles vous voulez établir une liaison. Pour 
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,nom,code_departement,geom,idregion")] departements departements)
+        public ActionResult Edit([Bind(Include = "id,utilisateur,soldepre,soldepost,date,referenceclient,motif")] correctionsolde correctionsolde)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(departements).State = EntityState.Modified;
+                db.Entry(correctionsolde).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.idregion = new SelectList(db.regions, "id", "nom_region", departements.idregion);
-            return View(departements);
+            return View(correctionsolde);
         }
 
-        // GET: departements/Delete/5
+        // GET: correctionsoldes/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            departements departements = db.departements.Find(id);
-            if (departements == null)
+            correctionsolde correctionsolde = db.correctionsolde.Find(id);
+            if (correctionsolde == null)
             {
                 return HttpNotFound();
             }
-            return View(departements);
+            return View(correctionsolde);
         }
 
-        // POST: departements/Delete/5
+        // POST: correctionsoldes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            departements departements = db.departements.Find(id);
-            db.departements.Remove(departements);
+            correctionsolde correctionsolde = db.correctionsolde.Find(id);
+            db.correctionsolde.Remove(correctionsolde);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

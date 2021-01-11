@@ -10,6 +10,7 @@ using proera;
 
 namespace proera.Controllers
 {
+    [Authorize(Roles = "Proera_REC, Proera_Admin")]
     public class facturesController : Controller
     {
         private ERADEVEntities3 db = new ERADEVEntities3();
@@ -101,9 +102,9 @@ namespace proera.Controllers
             return View(factures);
         }
 
-        public ActionResult factureACorriger([Bind(Include = "id")] factures factures)
+        public ActionResult factureACorriger([Bind(Include = "idFacture")] factures factures)
         {
-            var facs = db.factures.Where(f => (f.id == factures.id) && (f.Paiement == 0)).ToList();
+            var facs = db.factures.Where(f => (f.IdFacture == factures.IdFacture) && (f.Paiement == 0)).ToList();
             if (facs.Count() > 0)
             {
                 var fac = facs[0];
@@ -128,10 +129,10 @@ namespace proera.Controllers
         
 
 
-        public ActionResult validerModif([Bind(Include = "id, conso, NouvIndex, AncienIndex")] factures factures)
+        public ActionResult validerModif([Bind(Include = "idFacture, conso, NouvIndex, AncienIndex")] factures factures)
         {
 
-            var facs = db.factures.Where(f => f.id == factures.id).ToList();
+            var facs = db.factures.Where(f => f.IdFacture == factures.IdFacture).ToList();
             var fac = facs[0];
             modiffacture mdf = new modiffacture();
             mdf.ancienneconso = (int)fac.conso;

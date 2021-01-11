@@ -38,7 +38,7 @@
     </div>
 </div>
 
-                           <table id="tablebody" class="table table-bordered table-striped table-sm">
+                           @*<table id="tablebody" class="table table-bordered table-striped table-sm">
                                <thead>
                                    <tr>
                                        <th>
@@ -76,7 +76,7 @@
 
 
 
-                           </table>
+                           </table>*@
 
 
 
@@ -88,7 +88,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-            $("#bordereaux").prepend("<option selected value=''>Selectionnez la Periode</option>")
+            $("#bordereaux").prepend("<option selected value=''>Selectionnez le Bordereau</option>")
             $("#bordereaux").change(function () {
                 @*alert($("#bordereaux").val())*@
                 data = {
@@ -103,7 +103,7 @@
                     data: data,
                     success: function (data) {
                         @*alert(data)*@
-                        $("#bodytable").empty().append(data.table)
+                        @*$("#bodytable").empty().append(data.table)*@
                         $("#montantencaisse").html(data.montantencaisse)
                         $("#montantbordereau").html(data.montantbordereau)
                         $("#ecart").html(data.ecart)

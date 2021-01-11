@@ -393,12 +393,12 @@
 
         $.ajax({
             type: "POST",
-            url: "/clients/changement",
+            url: "/clients/changementnivpuissance",
             data: data,
             success: function (data) {
                 // alert(data)
                 $('#fraisabonnement').empty()
-                    .append(data)
+                    .append(data.baremes)
 
                 if ($('#fraisabonnement').val() > 0) {
 

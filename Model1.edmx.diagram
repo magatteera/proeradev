@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="060955530165413fb72b47535a2dd00e" Name="Diagram1" ZoomLevel="75">
+      <Diagram DiagramId="060955530165413fb72b47535a2dd00e" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="ERADEVModel.contrats" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ERADEVModel.hbaremes" Width="1.5" PointX="5.25" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="ERADEVModel.hbranches" Width="1.5" PointX="3" PointY="15.5" IsExpanded="true" />
@@ -19,9 +19,7 @@
         <EntityTypeShape EntityType="ERADEVModel.facturationtrigger" Width="1.5" PointX="3.375" PointY="3.75" />
         <EntityTypeShape EntityType="ERADEVModel.forcermiseenvigueur" Width="1.5" PointX="14.375" PointY="9.75" />
         <EntityTypeShape EntityType="ERADEVModel.compteurs" Width="1.5" PointX="14.375" PointY="13.75" />
-        <EntityTypeShape EntityType="ERADEVModel.reclamation" Width="1.5" PointX="12" PointY="22.125" />
         <EntityTypeShape EntityType="ERADEVModel.typereclamation" PointX="9.375" PointY="0.875" Width="1.5" />
-        <AssociationConnector Association="ERADEVModel.FK_reclamation_typereclamation" />
         <EntityTypeShape EntityType="ERADEVModel.motifresiliation" Width="1.5" PointX="12.75" PointY="27.125" />
         <EntityTypeShape EntityType="ERADEVModel.resiliation" Width="1.5" PointX="15" PointY="20.375" />
         <AssociationConnector Association="ERADEVModel.FK_resiliation_motifresiliation" />
@@ -37,14 +35,12 @@
         <EntityTypeShape EntityType="ERADEVModel.migration" Width="1.5" PointX="12" PointY="18.25" />
         <EntityTypeShape EntityType="ERADEVModel.releves" Width="1.5" PointX="12" PointY="12.125" />
         <EntityTypeShape EntityType="ERADEVModel.recouvrements" Width="1.5" PointX="12.375" PointY="5.75" />
-        <EntityTypeShape EntityType="ERADEVModel.encaissements" Width="1.5" PointX="11.375" PointY="0.75" />
         <EntityTypeShape EntityType="ERADEVModel.hnivpuissances" Width="1.5" PointX="3" PointY="12.5" />
         <AssociationConnector Association="ERADEVModel.FK_HBareme_HNivPuissance" />
         <AssociationConnector Association="ERADEVModel.FK_HNivPuissance_Usage" />
         <EntityTypeShape EntityType="ERADEVModel.raisonsociale" Width="1.5" PointX="7.5" PointY="29.75" />
         <EntityTypeShape EntityType="ERADEVModel.retablissement" Width="1.5" PointX="13.375" PointY="1.125" />
         <EntityTypeShape EntityType="ERADEVModel.MisEnServiceVillages" Width="1.5" PointX="21.875" PointY="17.625" />
-        <EntityTypeShape EntityType="ERADEVModel.programmes" Width="1.5" PointX="17.375" PointY="17.5" />
         <EntityTypeShape EntityType="ERADEVModel.communes" Width="1.5" PointX="5.25" PointY="6.875" />
         <EntityTypeShape EntityType="ERADEVModel.departements" Width="1.5" PointX="3" PointY="7" />
         <EntityTypeShape EntityType="ERADEVModel.villages" Width="1.5" PointX="19.625" PointY="11.625" />
@@ -53,7 +49,9 @@
         <AssociationConnector Association="ERADEVModel.FK_villages_communes" />
         <AssociationConnector Association="ERADEVModel.FK_departements_regions" />
         <AssociationConnector Association="ERADEVModel.FK_MisEnServiceVillages_villages" />
-        <AssociationConnector Association="ERADEVModel.FK_villages_programmes" />
+        <EntityTypeShape EntityType="ERADEVModel.reclamation" Width="1.5" PointX="21.875" PointY="12.375" />
+        <AssociationConnector Association="ERADEVModel.FK_reclamation_typereclamation" />
+        <AssociationConnector Association="ERADEVModel.FK_reclamation_villages" />
         <EntityTypeShape EntityType="ERADEVModel.clients" Width="1.5" PointX="9.75" PointY="16.25" />
         <AssociationConnector Association="ERADEVModel.FK_clients_hnivpuissances" />
         <AssociationConnector Association="ERADEVModel.FK_clients_raisonsociale" />
@@ -63,6 +61,10 @@
         <AssociationConnector Association="ERADEVModel.FK_reclamation_clients" />
         <AssociationConnector Association="ERADEVModel.FK_releves_clients2" />
         <AssociationConnector Association="ERADEVModel.FK_resiliation_clients" />
+        <EntityTypeShape EntityType="ERADEVModel.programmes" Width="1.5" PointX="7.375" PointY="4" />
+        <AssociationConnector Association="ERADEVModel.FK_villages_programmes" />
+        <EntityTypeShape EntityType="ERADEVModel.correctionsolde" Width="1.5" PointX="16.375" PointY="16.75" />
+        <EntityTypeShape EntityType="ERADEVModel.encaissements" Width="1.5" PointX="18.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

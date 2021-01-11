@@ -26,7 +26,7 @@
         @using (Html.BeginForm("validerModif", "factures", FormMethod.Post ))
         {
 
-            <input type="hidden" name="id" id="id" />
+            <input type="hidden" name="idFacture" id="id" />
 
             <div class="form-group">
                 <label class="control-label col-md-2">Ancien Index</label>
@@ -49,7 +49,7 @@
             <div class="form-group">
                 <label class="control-label col-md-2">Consommation</label>
                 <div class="col-md-10">
-                    <input value="" id="txtconsommation" name="conso" type="text" class="form-control" />
+                    <input value="" id="txtconsommation" name="conso" disabled class="form-control" />
                 </div>
             </div>
 
@@ -72,7 +72,7 @@
 
                 $("#txtnumerofacture").change(function () {
                     data = {
-                        id: $("#txtnumerofacture").val()
+                        idFacture: $("#txtnumerofacture").val()
                     }
                     // alert($("#idfacture").val())
                     $.ajax({
@@ -89,6 +89,12 @@
                                 $("#id").val($("#txtnumerofacture").val())
                                 
                                 $("#divfacture").attr("hidden", false)
+                                $("#txtnouvelindex").change(function () {
+                                    $("#txtconsommation").val(parseInt($("#txtnouvelindex").val()) - parseInt($("#txtancienindex").val()))
+                                })
+                                $("#txtancienindex").change(function () {
+                                    $("#txtconsommation").val(parseInt($("#txtnouvelindex").val()) - parseInt($("#txtancienindex").val()))
+                                })
                             } else {
 
                                 $("#divfacture").attr("hidden", true)

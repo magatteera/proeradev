@@ -6,10 +6,10 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
 <div class="form-horizontal">
     <h4>villages</h4>
     <hr />
@@ -17,7 +17,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.region, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.region, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownList("region", null, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.region, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -25,7 +25,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.departement, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.departement, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownList("departement", null, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.departement, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -55,12 +55,13 @@
         </div>
     </div>
 
-    
+
 
     <div class="form-group">
         @Html.LabelFor(model => model.education, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.education, new { htmlAttributes = new { @class = "form-control" } })
+            Oui : @Html.RadioButtonFor(model => model.education, "1", new { htmlAttributes = new { @class = "form-control" } })
+            Non : @Html.RadioButtonFor(model => model.education, "0", new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.education, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -68,7 +69,8 @@
     <div class="form-group">
         @Html.LabelFor(model => model.sante, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.sante, new { htmlAttributes = new { @class = "form-control" } })
+            Oui : @Html.RadioButtonFor(model => model.sante, "1", new { htmlAttributes = new { @class = "form-control" } })
+            Non : @Html.RadioButtonFor(model => model.sante, "0", new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.sante, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -76,7 +78,8 @@
     <div class="form-group">
         @Html.LabelFor(model => model.forage, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.forage, new { htmlAttributes = new { @class = "form-control" } })
+            Oui : @Html.RadioButtonFor(model => model.forage, "1", new { htmlAttributes = new { @class = "form-control" } })
+            Non : @Html.RadioButtonFor(model => model.forage, "0", new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.forage, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -84,7 +87,8 @@
     <div class="form-group">
         @Html.LabelFor(model => model.antenne_bts, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.antenne_bts, new { htmlAttributes = new { @class = "form-control" } })
+            Oui : @Html.RadioButtonFor(model => model.antenne_bts, "1", new { htmlAttributes = new { @class = "form-control" } })
+            Non : @Html.RadioButtonFor(model => model.antenne_bts, "0", new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.antenne_bts, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -92,7 +96,8 @@
     <div class="form-group">
         @Html.LabelFor(model => model.moulin, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.moulin, new { htmlAttributes = new { @class = "form-control" } })
+            Oui : @Html.RadioButtonFor(model => model.moulin, "1", new { htmlAttributes = new { @class = "form-control" } })
+            Non : @Html.RadioButtonFor(model => model.moulin, "0", new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.moulin, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -110,6 +115,20 @@
         <div class="col-md-10">
             @Html.EditorFor(model => model.latitude, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.latitude, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.etattravaux, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <select class="form-control" id="etatravaux" nom="etatravaux">
+                <option value="MIS EN SERVICE">MIS EN SERVICE</option>
+                <option value="EN COURS">EN COURS</option>
+                <option value="EN PROJET">EN PROJET</option>
+                <option value="INDEFINI">INDEFINI</option>
+            </select>
         </div>
     </div>
 
@@ -133,3 +152,53 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+       
+
+        $("#region").change(function () {
+            data = {
+                id: $("#region").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/changementregion",
+                data: data,
+                success: function (data) {
+                    $("#departement").empty().
+                        append(data.departement)
+                    $("#idLocalite").empty().
+                        append(data.commune)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+
+
+        $("#departement").change(function () {
+            data = {
+                code_departement: $("#departement").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/changementdepartement",
+                data: data,
+                success: function (data) {
+                    $("#idLocalite").empty().
+                        append(data.commune)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+
+    });
+</script>

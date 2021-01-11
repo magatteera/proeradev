@@ -183,6 +183,8 @@
     </div>
 
 
+    <input type="hidden" name="Raison_Social" id="Raison_Social" value="PARTICULIER" />
+
 
 
 
@@ -387,7 +389,7 @@
                 if ($('#fraisabonnement').val > 0) {
 
                     $("#Montant_Encaisse").prop("disabled", false)
-                    $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
+                    $("#SoldeTotal").val($('#fraisabonnement').val() - $("#Montant_Encaisse").val())
 
                 } else {
                     $("#SoldeTotal").val("")
@@ -427,7 +429,7 @@
                     if ($('#fraisabonnement').val > 0) {
 
                         $("#Montant_Encaisse").prop("disabled", false)
-                        $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
+                        $("#SoldeTotal").val($('#fraisabonnement').val() - $("#Montant_Encaisse").val())
 
                     } else {
                         $("#SoldeTotal").val("")
@@ -499,7 +501,7 @@
                     if ($('#fraisabonnement').val > 0) {
 
                         $("#Montant_Encaisse").prop("disabled", false)
-                        $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
+                        $("#SoldeTotal").val($('#fraisabonnement').val() - $("#Montant_Encaisse").val())
 
                     } else {
                         $("#SoldeTotal").val("")
@@ -537,7 +539,7 @@
                     if ($('#fraisabonnement').val > 0) {
 
                         $("#Montant_Encaisse").prop("disabled", false)
-                        $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
+                        $("#SoldeTotal").val($('#fraisabonnement').val() - $("#Montant_Encaisse").val())
 
                     } else {
                         $("#SoldeTotal").val("")
@@ -576,7 +578,7 @@
                     if ($('#fraisabonnement').val > 0) {
 
                         $("#Montant_Encaisse").prop("disabled", false)
-                        $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
+                        $("#SoldeTotal").val($('#fraisabonnement').val() - $("#Montant_Encaisse").val())
 
                     } else {
                         $("#SoldeTotal").val("")
@@ -615,7 +617,7 @@
                     if ($('#fraisabonnement').val > 0) {
 
                         $("#Montant_Encaisse").prop("disabled", false)
-                        $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
+                        $("#SoldeTotal").val($('#fraisabonnement').val() - $("#Montant_Encaisse").val())
 
                     } else {
                         $("#SoldeTotal").val("")
@@ -632,7 +634,7 @@
         }); $("#Montant_Encaisse").change(function () {
             if ($('#fraisabonnement').val() > 0) {
                 //alert($("#Montant_Encaisse").val())
-                $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
+                $("#SoldeTotal").val($('#fraisabonnement').val() - $("#Montant_Encaisse").val())
             }
         })
 
@@ -640,7 +642,7 @@
             if ($('#fraisabonnement').val > 0) {
 
                 $("#Montant_Encaisse").prop("disabled", false)
-                $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
+                $("#SoldeTotal").val($('#fraisabonnement').val() - $("#Montant_Encaisse").val())
 
             } else {
                 $("#SoldeTotal").val("")

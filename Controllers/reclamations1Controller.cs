@@ -40,6 +40,33 @@ namespace proera.Controllers
         public ActionResult Create()
         {
             //ViewBag.refclient = new SelectList(db.clients, "Reference_Contrat", "Nom1");
+            var region = db.regions.ToList();
+            ViewBag.regions = new SelectList(region, "id", "nom_region");
+            var departement = db.departements.ToList();
+            var deptfilt = new List<departements>();
+            foreach (departements dept in departement)
+            {
+                if (dept.idregion == region[0].id)
+                    deptfilt.Add(dept);
+            }
+            var commune = db.communes.ToList();
+            var communefilt = new List<communes>();
+            foreach (communes com in commune)
+            {
+                if (com.iddepartement == deptfilt[0].code_departement)
+                    communefilt.Add(com);
+            }
+            var village = db.villages.ToList();
+            var villagefilt = new List<villages>();
+            foreach (villages v in village)
+            {
+                if (v.idLocalite == communefilt[0].code_com)
+                    villagefilt.Add(v);
+            }
+
+            ViewBag.departements = new SelectList(deptfilt, "code_departement", "nom");
+            ViewBag.communes = new SelectList(communefilt, "code_com", "nom");
+            ViewBag.localite = new SelectList(villagefilt, "code_village", "village");
             ViewBag.type = new SelectList(db.typereclamation, "id", "type");
             return View();
         }
@@ -58,13 +85,69 @@ namespace proera.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            /*
+                        ViewBag.refclient = new SelectList(db.clients, "Reference_Contrat", "Nom1", reclamation.refclient);
+                        ViewBag.type = new SelectList(db.typereclamation, "id", "type", reclamation.type);*/
+            //return View(reclamation);
 
-            ViewBag.refclient = new SelectList(db.clients, "Reference_Contrat", "Nom1", reclamation.refclient);
-            ViewBag.type = new SelectList(db.typereclamation, "id", "type", reclamation.type);
-            return View(reclamation);
+            return RedirectToAction("Index");
         }
 
-        
+        public ActionResult changementregion([Bind(Include = "id")] regions reg)
+        {
+
+            var departement = db.departements.Where(d => d.idregion == reg.id).ToList();
+            string depart = "<option value=''>Selectionnez le department</option>";
+            foreach (departements dept in departement)
+            {
+                depart += "<option value='" + dept.code_departement + "'>" + dept.nom + "</option>";
+
+            }
+
+            string communesselect = "<option value=''>Selectionnez la commune</option>";
+
+            string villagesselect = "<option value=''>Selectionnez le village</option>";
+
+
+
+            return Json(new { departement = depart, commune = communesselect, village = villagesselect });
+
+        }
+        public ActionResult changementdepartement([Bind(Include = "code_departement")] departements dept)
+        {
+
+            var commune = db.communes.Where(c => c.iddepartement == dept.code_departement).ToList();
+            string communesselect = "<option value=''>Selectionnez la commune</option>";
+            foreach (communes com in commune)
+            {
+
+                communesselect += "<option value='" + com.code_com + "'>" + com.nom + "</option>";
+
+            }
+
+            string villagesselect = "<option value=''>Selectionnez le village</option>";
+
+
+            return Json(new { commune = communesselect, village = villagesselect });
+        }
+
+
+        public ActionResult changementcommune([Bind(Include = "code_com")] communes com)
+        {
+
+            var villagess = db.villages.Where(v => v.idLocalite == com.code_com).ToList();
+            string villagesselect = "<option value=''>Selectionnez le village</option>";
+            foreach (villages v in villagess)
+            {
+
+                villagesselect += "<option value='" + v.code_village + "'>" + v.village + "</option>";
+
+            }
+
+            return Json(new { village = villagesselect });
+        }
+
+
 
         public ActionResult verifrefclient([Bind(Include = "refclient")] reclamation reclamation)
         {
@@ -90,6 +173,38 @@ namespace proera.Controllers
             {
                 return HttpNotFound();
             }
+
+            var idregion = Int32.Parse((reclamation.localite + "").Substring(0, 1));
+            var iddept = Int32.Parse((reclamation.localite + "").Substring(0, 2));
+            var idcom = Int32.Parse((reclamation.localite + "").Substring(0, 3));
+            //ViewBag.refclient = new SelectList(db.clients, "Reference_Contrat", "Nom1");
+            var region = db.regions.ToList();
+            ViewBag.regions = new SelectList(region, "id", "nom_region", idregion);
+            var departement = db.departements.ToList();
+            var deptfilt = new List<departements>();
+            foreach (departements dept in departement)
+            {
+                if (dept.idregion == idregion)
+                    deptfilt.Add(dept);
+            }
+            var commune = db.communes.ToList();
+            var communefilt = new List<communes>();
+            foreach (communes com in commune)
+            {
+                if (com.iddepartement == iddept)
+                    communefilt.Add(com);
+            }
+            var village = db.villages.ToList();
+            var villagefilt = new List<villages>();
+            foreach (villages v in village)
+            {
+                if (v.idLocalite == idcom)
+                    villagefilt.Add(v);
+            }
+
+            ViewBag.departements = new SelectList(deptfilt, "code_departement", "nom", iddept);
+            ViewBag.communes = new SelectList(communefilt, "code_com", "nom", idcom);
+            ViewBag.localite = new SelectList(villagefilt, "code_village", "village", reclamation.localite);
             //ViewBag.refclient = new SelectList(db.clients, "Reference_Contrat", "Nom1", reclamation.refclient);
             ViewBag.type = new SelectList(db.typereclamation, "id", "type", reclamation.type);
             return View(reclamation);
@@ -104,6 +219,7 @@ namespace proera.Controllers
         {
             if (ModelState.IsValid)
             {
+                reclamation.utilisateur = User.Identity.Name;
                 db.Entry(reclamation).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

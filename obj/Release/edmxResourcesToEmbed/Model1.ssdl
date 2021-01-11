@@ -60,7 +60,7 @@
     <Property Name="Last_Bill" Type="nvarchar" MaxLength="255" />
     <Property Name="NbrEP" Type="nvarchar" MaxLength="255" />
     <Property Name="Modifié" Type="nvarchar" MaxLength="255" />
-    <Property Name="Créé" Type="nvarchar" MaxLength="255" />
+    <Property Name="Créé" Type="varchar" MaxLength="50" />
     <Property Name="Créé par" Type="nvarchar" MaxLength="255" />
     <Property Name="periodeFacturee" Type="nvarchar" MaxLength="255" />
     <Property Name="dateCoupure" Type="nvarchar" MaxLength="255" />
@@ -77,6 +77,7 @@
     <Property Name="TypeBranch" Type="varchar" MaxLength="50" />
     <Property Name="etat" Type="varchar" MaxLength="50" />
     <Property Name="usage" Type="varchar" MaxLength="50" />
+    <Property Name="modefacturation" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="communes">
     <Key>
@@ -108,6 +109,18 @@
     <Property Name="id" Type="int" Nullable="false" />
     <Property Name="contrat" Type="nvarchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="correctionsolde">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="soldepre" Type="float" Nullable="false" />
+    <Property Name="soldepost" Type="float" Nullable="false" />
+    <Property Name="date" Type="date" />
+    <Property Name="referenceclient" Type="int" Nullable="false" />
+    <Property Name="motif" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
   <EntityType Name="departements">
     <Key>
       <PropertyRef Name="code_departement" />
@@ -134,6 +147,7 @@
     <Property Name="numerorecue" Type="varchar" MaxLength="50" />
     <Property Name="numerobordereau" Type="varchar" MaxLength="50" />
     <Property Name="periode" Type="varchar" MaxLength="50" />
+    <Property Name="datesysteme" Type="date" />
   </EntityType>
   <EntityType Name="etatclient">
     <Key>
@@ -241,13 +255,13 @@
   </EntityType>
   <EntityType Name="miseenserviceclient">
     <Key>
-      <PropertyRef Name="id" />
+      <PropertyRef Name="referenceClient" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="numcompteur" Type="varchar" MaxLength="50" />
     <Property Name="indexDePose" Type="float" />
     <Property Name="dateMiseEnService" Type="date" />
-    <Property Name="referenceClient" Type="int" />
+    <Property Name="referenceClient" Type="int" Nullable="false" />
     <Property Name="statut" Type="varchar" MaxLength="50" />
     <Property Name="utilisateur" Type="varchar" MaxLength="50" />
   </EntityType>
@@ -304,7 +318,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="nom" Type="varchar" MaxLength="50" />
-    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="tech" Type="varchar" MaxLength="50" />
     <Property Name="DateDebut" Type="date" />
     <Property Name="delai" Type="int" />
@@ -334,9 +348,9 @@
     <Property Name="type" Type="int" />
     <Property Name="priorite" Type="int" />
     <Property Name="commentaire" Type="varchar" MaxLength="50" />
-    <Property Name="nivintervention" Type="int" />
+    <Property Name="nivintervention" Type="varchar" MaxLength="50" />
     <Property Name="telephone" Type="varchar" MaxLength="50" />
-    <Property Name="localite" Type="varchar" MaxLength="50" />
+    <Property Name="localite" Type="int" />
     <Property Name="statut" Type="varchar" MaxLength="50" />
     <Property Name="utilisateur" Type="varchar" MaxLength="50" />
   </EntityType>
@@ -502,7 +516,23 @@ avertissement 6002: La table/vue 'PROERA.dbo.retablissement' n'a pas de clé pri
     <Property Name="code_prog" Type="int" />
     <Property Name="idLocalite" Type="int" />
     <Property Name="etattravaux" Type="varchar" MaxLength="50" />
+    <Property Name="technologie" Type="int" />
+    <Property Name="commercialise" Type="tinyint" />
+    <Property Name="nbrclients" Type="int" />
+    <Property Name="codemt" Type="varchar" MaxLength="50" />
+    <Property Name="neardist" Type="float" />
   </EntityType>
+  <!--Erreurs détectées durant la génération :
+avertissement 6013: Aucune clé primaire n'est définie pour la table/vue 'PROERA.dbo.View_DetailsEncaissement' ; en outre, aucune clé primaire valide n'a pu être déduite. Cette table/vue a été exclue. Pour utiliser l'entité, vous devez passer en revue votre schéma, ajouter les clés appropriées et supprimer le commentaire associé.
+        <EntityType Name="View_DetailsEncaissement">
+          <Property Name="idbordereau" Type="int" />
+          <Property Name="sommeenc" Type="float" />
+          <Property Name="nbrenc" Type="int" />
+          <Property Name="montant" Type="float" />
+          <Property Name="numero" Type="varchar" MaxLength="50" />
+          <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+          <Property Name="datecreation" Type="date" />
+        </EntityType>-->
   <Association Name="FK_clients_hnivpuissances">
     <End Role="hnivpuissances" Type="Self.hnivpuissances" Multiplicity="0..1" />
     <End Role="clients" Type="Self.clients" Multiplicity="*" />
@@ -648,8 +678,8 @@ avertissement 6002: La table/vue 'PROERA.dbo.retablissement' n'a pas de clé pri
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_miseenserviceclient_clients">
-    <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
-    <End Role="miseenserviceclient" Type="Self.miseenserviceclient" Multiplicity="*" />
+    <End Role="clients" Type="Self.clients" Multiplicity="1" />
+    <End Role="miseenserviceclient" Type="Self.miseenserviceclient" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="clients">
         <PropertyRef Name="Reference Contrat" />
@@ -692,6 +722,18 @@ avertissement 6002: La table/vue 'PROERA.dbo.retablissement' n'a pas de clé pri
       </Principal>
       <Dependent Role="reclamation">
         <PropertyRef Name="type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reclamation_villages">
+    <End Role="villages" Type="Self.villages" Multiplicity="0..1" />
+    <End Role="reclamation" Type="Self.reclamation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="villages">
+        <PropertyRef Name="code_village" />
+      </Principal>
+      <Dependent Role="reclamation">
+        <PropertyRef Name="localite" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -762,6 +804,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.retablissement' n'a pas de clé pri
     <EntitySet Name="communes" EntityType="Self.communes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="compteurs" EntityType="Self.compteurs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="contrats" EntityType="Self.contrats" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="correctionsolde" EntityType="Self.correctionsolde" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="departements" EntityType="Self.departements" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="encaissements" EntityType="Self.encaissements" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="etatclient" EntityType="Self.etatclient" Schema="dbo" store:Type="Tables" />
@@ -863,6 +906,10 @@ avertissement 6002: La table/vue 'PROERA.dbo.retablissement' n'a pas de clé pri
     </AssociationSet>
     <AssociationSet Name="FK_reclamation_typereclamation" Association="Self.FK_reclamation_typereclamation">
       <End Role="typereclamation" EntitySet="typereclamation" />
+      <End Role="reclamation" EntitySet="reclamation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_reclamation_villages" Association="Self.FK_reclamation_villages">
+      <End Role="villages" EntitySet="villages" />
       <End Role="reclamation" EntitySet="reclamation" />
     </AssociationSet>
     <AssociationSet Name="FK_releves_clients2" Association="Self.FK_releves_clients2">

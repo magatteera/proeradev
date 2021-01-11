@@ -57,6 +57,8 @@ namespace proera.Controllers
             return View();
         }
 
+
+        [Authorize(Roles = "Proera_CA, Proera_Admin")]
         public ActionResult arretercaisse(string id)
         {
             var bordereaux = db.bordereaux.Where(b => (b.ouvert == 1) && (b.type == "encaissement")).ToList();
@@ -74,42 +76,44 @@ namespace proera.Controllers
 
         public ActionResult changementbordereaux([Bind(Include = "id")] bordereaux bordereaux)
         {
-            var encaiss = db.encaissements.Where(e => e.idbordereau == bordereaux.id).ToList();
-            string tableencaissements = "";
-            double sommeencaisse = 0;
+            //var encaiss = db.encaissements.Where(e => e.idbordereau == bordereaux.id).ToList();
+            //string tableencaissements = "";
+            //double sommeencaisse = 0;
             var bord = db.bordereaux.Find(bordereaux.id);
-            if (encaiss.Count > 0)
-            {
-                foreach (encaissements enc in encaiss)
-                {
-                    //if (cli.etatclient.id == 5 && cli.Contrat == 5)
+            //if (encaiss.Count > 0)
+            //{
+            //    foreach (encaissements enc in encaiss)
+            //    {
+            //        //if (cli.etatclient.id == 5 && cli.Contrat == 5)
 
-                    var cl = db.clients.Find(enc.refclient);
+            //        var cl = db.clients.Find(enc.refclient);
 
-                    tableencaissements += "<tr>" +
-                        "<td>" + enc.refclient + "</td>" +
-                        "<td>" + cl.Nom1 + "</td>" +
-                        "<td>" + cl.Prenom + "</td>" +
-                        "<td>" + enc.numerorecue + "</td>" +
-                        "<td>" + enc.montantencaisee + "</td>" +
-                        "<td>" + enc.soldeprepaiement + "</td>" +
-                        "<td>" + enc.soldepostpaiement + "</td>" +
-                        "<td>" + enc.dateencaissement + "</td>" +
-                        "<td>" + enc.idfacture + "</td>" +
-                         "</tr>";
+            //        tableencaissements += "<tr>" +
+            //            "<td>" + enc.refclient + "</td>" +
+            //            "<td>" + cl.Nom1 + "</td>" +
+            //            "<td>" + cl.Prenom + "</td>" +
+            //            "<td>" + enc.numerorecue + "</td>" +
+            //            "<td>" + enc.montantencaisee + "</td>" +
+            //            "<td>" + enc.soldeprepaiement + "</td>" +
+            //            "<td>" + enc.soldepostpaiement + "</td>" +
+            //            "<td>" + enc.dateencaissement + "</td>" +
+            //            "<td>" + enc.idfacture + "</td>" +
+            //             "</tr>";
 
-                    //"<td><a href='/clients/mettreEnVigueurValide/"+ cli.Bordereau +"'>Edit</a>" +
+            //        //"<td><a href='/clients/mettreEnVigueurValide/"+ cli.Bordereau +"'>Edit</a>" +
 
-                    sommeencaisse += (double)enc.montantencaisee;
-                }
+            //        sommeencaisse += (double)enc.montantencaisee;
+            //    }
 
-                return Json(new { table = tableencaissements, montantencaisse = sommeencaisse, montantbordereau = bord.montant, ecart = sommeencaisse - bord.montant });
-            }
+            //    return Json(new {numbord = bord.numero, table = tableencaissements, montantencaisse = sommeencaisse, montantbordereau = bord.montant, ecart = sommeencaisse - bord.montant });
+            //}
 
-            else
+            //else
 
-            return Json(new { table = tableencaissements, montant = 0 });
+            //var venc = db.
 
+            //return Json(new { numbord = bord.numero, table = tableencaissements, montant = 0 , montantencaisse = sommeencaisse, montantbordereau = bord.montant, ecart = bord.montant });
+            return "";
         }
 
         public ActionResult changementbordereaux2([Bind(Include = "id")] bordereaux bordereaux)
@@ -261,7 +265,7 @@ namespace proera.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public String Create([Bind(Include = "idfacture,refclient,montantencaisee,soldeprepaiement,soldepostpaiement,dateencaissement,commentaire,idbordereau")] encaissements encaissements)
+        public String Create([Bind(Include = "idfacture,refclient,montantencaisee,datesysteme,soldeprepaiement,soldepostpaiement,dateencaissement,commentaire,idbordereau")] encaissements encaissements)
         {
             if (ModelState.IsValid)
             {
@@ -276,31 +280,32 @@ namespace proera.Controllers
         }
 
 
-        public string validencaissement([Bind(Include = "idfacture,refclient,montantencaisee,soldeprepaiement,soldepostpaiement,dateencaissement,commentaire,idbordereau,numerorecue,periode")] encaissements encaissements)
+        public string validencaissement([Bind(Include = "idfacture,refclient,datesysteme,montantencaisee,soldeprepaiement,soldepostpaiement,dateencaissement,commentaire,idbordereau,numerorecue,periode")] encaissements encaissement)
         {
             //if (ModelState.IsValid)
             //{
                 try
                 {
-                var idFac = encaissements.idfacture;
-                encaissements.utilisateur = User.Identity.Name;
-                db.encaissements.Add(encaissements);
-                db.SaveChanges();
-/*
-                var fac = db.factures.Where(f => f.id+"" == idFac).ToList()[0];
-                //var fac = fact[0];
-                fac.Paiement = 1;
-                db.Entry(fac).State = EntityState.Modified;
-                db.SaveChanges();
+                    var idFac = encaissement.idfacture;
+                    encaissement.utilisateur = User.Identity.Name;
+                encaissement.datesysteme = DateTime.Now;
+                    db.encaissements.Add(encaissement);
+                    db.SaveChanges();
+    /*
+                    var fac = db.factures.Where(f => f.id+"" == idFac).ToList()[0];
+                    //var fac = fact[0];
+                    fac.Paiement = 1;
+                    db.Entry(fac).State = EntityState.Modified;
+                    db.SaveChanges();
 
-                var cli = db.clients.Find(fac.RefClient);
-                cli.SoldeTotal = (double)encaissements.soldepostpaiement;
-                db.Entry(cli).State = EntityState.Modified;
-                db.SaveChanges();*/
+                    var cli = db.clients.Find(fac.RefClient);
+                    cli.SoldeTotal = (double)encaissements.soldepostpaiement;
+                    db.Entry(cli).State = EntityState.Modified;
+                    db.SaveChanges();*/
 
-                return "Encaissement fait avec succes!";
+                    return "Encaissement fait avec succes!";
 
-                //return "montant : "+encaissements.montantencaisee+" pre : " + encaissements.soldeprepaiement + " post : " + encaissements.soldepostpaiement + " " + encaissements.periode;
+                    //return "montant : "+encaissements.montantencaisee+" pre : " + encaissements.soldeprepaiement + " post : " + encaissements.soldepostpaiement + " " + encaissements.periode;
                 }
                 catch(Exception e)
                 {
@@ -370,7 +375,7 @@ namespace proera.Controllers
                         message = "",
                         nom = cli.Nom1,
                         prenom = cli.Prenom,
-                        village = db.villages.Find(cli.codevillage).village,
+                        villagess = db.villages.Find(cli.codevillage).village,
                         paiements = paiess
                     });
                 }
@@ -380,7 +385,7 @@ namespace proera.Controllers
                     return Json(new { message = "aucune facture", paiements = paiess,
                         nom = cli.Nom1,
                         prenom = cli.Prenom,
-                        village = db.villages.Find(cli.codevillage).village
+                        villagess = db.villages.Find(cli.codevillage).village
                     });
                 }
             }
@@ -432,7 +437,7 @@ namespace proera.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,idfacture,refclient,montantencaisee,soldeprepaiement,soldepostpaiement,dateencaissement,utilisateur,commentaire,idbordereau")] encaissements encaissements)
+        public ActionResult Edit([Bind(Include = "id,idfacture,refclient,datesysteme,montantencaisee,soldeprepaiement,soldepostpaiement,dateencaissement,utilisateur,commentaire,idbordereau")] encaissements encaissements)
         {
             if (ModelState.IsValid)
             {

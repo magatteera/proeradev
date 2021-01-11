@@ -33,5 +33,12 @@ namespace proera.Controllers
 
             return View();
         }
+
+        public ActionResult tabCommercial()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View("commercial");
+        }
     }
 }

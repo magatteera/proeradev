@@ -310,7 +310,7 @@ namespace proera.Controllers
 			
 			var bord = db.bordereaux.Where(b => (b.ouvert == 1) && (b.utilisateur == User.Identity.Name)).ToList();
 			ViewBag.NivPuissance = new SelectList(nivpui, "Id", "NivPuissance");
-			ViewBag.calibre = new SelectList(calibresfilt, "calibre", "calibre");
+			ViewBag.calibre = new SelectList(calibresfilt, "Id", "calibre");
 			ViewBag.Type_Elect = new SelectList(typeelec, "type", "type");
 			ViewBag.TypeBranch = new SelectList(branchesfilt, "id", "branch");
 			IEnumerable<SelectListItem> selectListbord = from s in bord
@@ -446,7 +446,7 @@ namespace proera.Controllers
 				clients.Etat_Client = 5;
 				clients.NivPuissance = db.hnivpuissances.Where(n => n.Id == clients.NivPuissance).ToList()[0].Id;
 				clients.Créé_par = User.Identity.Name;
-				db.clients.Add(clients);
+				db.clients.Add(clients);	
 				db.SaveChanges();
 				//var cl = db.clients.Where(c => c.ID == db.clients.Max(u => u.ID)).ToList();
 				var cl = db.clients.OrderByDescending(c => c.ID).ToList()[0];
@@ -925,8 +925,8 @@ namespace proera.Controllers
 					branchesfilt.Add(br);
 			}
 			var bord = db.bordereaux.Where(b => b.ouvert == 1).ToList();
-			ViewBag.NivPuissance = new SelectList(nivpui, "NivPuissance", "NivPuissance");
-			ViewBag.calibre = new SelectList(calibresfilt, "calibre", "calibre");
+			ViewBag.NivPuissance = new SelectList(nivpui, "Id", "NivPuissance");
+			ViewBag.calibre = new SelectList(calibresfilt, "Id", "calibre");
 			ViewBag.Type_Elect = new SelectList(typeelec, "type", "type");
 			ViewBag.TypeBranch = new SelectList(branchesfilt, "id", "branch");
 			IEnumerable<SelectListItem> selectListbord = from s in bord
@@ -959,9 +959,9 @@ namespace proera.Controllers
 		// GET: clients/Edit/5
 		//[Authorize(Roles = "COM")]
 
-		[Authorize(Roles = "Proera_BacfOffice, Proera_Admin")]
-		public ActionResult Edit(int? id)
-		{
+		[Authorize(Roles = "Proera_ADMIN, Proera_REC")]
+		public ActionResult EditEnVigueur(int? id)
+        {
 			if (id == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -975,179 +975,7 @@ namespace proera.Controllers
 			ViewBag.Etat_Client = clients.Etat_Client;
 			ViewBag.Contrat = clients.Contrat;
 
-			if (clients.Contrat == 3)
-			{
-				if (clients.Raison_Social == null)
-					RedirectToAction("Index");
-
-				if(clients.Raison_Social.Contains("PARTICULIER"))
-				{
-					var baremes = db.hbaremes.Where(b => b.Usage == 1).ToList();
-					var nivpui = db.hnivpuissances.Where(n => n.Usage == 1).ToList();
-					var calibres = db.hcalibres.ToList();
-					var calibresfilt = new List<hcalibres>();
-					foreach (hcalibres cal in calibres)
-					{
-						bool existe = false;
-						foreach (hbaremes b in baremes)
-						{
-							/*if (b.Calibre2 == cal.Id && b.NiveauPuissance == nivpui[0].Id)
-								existe = true;*/
-
-
-							if (b.Calibre2 + "" == clients.calibre && b.NiveauPuissance == clients.NivPuissance)
-								existe = true;
-
-						}
-						if (existe)
-
-							calibresfilt.Add(cal);
-					}
-					var typeelec = db.typeelec.ToList();
-					var typebranche = db.hbranches.ToList();
-					var branchesfilt = new List<hbranches>();
-					foreach (hbranches br in typebranche)
-					{
-						bool existe = false;
-						foreach (hbaremes b in baremes)
-						{
-							if (b.branch+"" == clients.TypeBranch)
-								existe = true;
-						}
-						if (existe)
-							branchesfilt.Add(br);
-					}
-					var bord = db.bordereaux.Where(b => (b.ouvert == 1) && (b.utilisateur == User.Identity.Name)).ToList();
-					ViewBag.NivPuissance = new SelectList(nivpui, "Id", "NivPuissance", clients.NivPuissance);
-					ViewBag.calibre = new SelectList(calibresfilt, "Id", "calibre", clients.calibre);
-					ViewBag.Type_Elect = new SelectList(typeelec, "type", "type", clients.Type_Elect);
-					ViewBag.TypeBranch = new SelectList(branchesfilt, "id", "branch", clients.TypeBranch);
-					IEnumerable<SelectListItem> selectListbord = from s in bord
-																 select new SelectListItem
-																 {
-																	 Value = s.id + "",
-																	 Text = s.numero
-																 };
-					ViewBag.bordereau = new SelectList(selectListbord, "Value", "Text");
-					var region1 = db.regions.ToList();
-					ViewBag.regions = new SelectList(region1, "id", "nom_region");
-					var departement1 = db.departements.ToList();
-					var deptfilt1 = new List<departements>();
-					foreach (departements dept in departement1)
-					{
-						if (dept.idregion == region1[0].id)
-							deptfilt1.Add(dept);
-					}
-					var commune1 = db.communes.ToList();
-					var communefilt1 = new List<communes>();
-					foreach (communes com in commune1)
-					{
-						if (com.iddepartement == deptfilt1[0].code_departement)
-							communefilt1.Add(com);
-					}
-					var village1 = db.villages.ToList();
-					var villagefilt1 = new List<villages>();
-					foreach (villages v in village1)
-					{
-						if (v.idLocalite == communefilt1[0].code_com)
-							villagefilt1.Add(v);
-					}
-					ViewBag.idmodePaiement = clients.modePaiement;
-
-
-					ViewBag.departements = new SelectList(deptfilt1, "code_departement", "nom");
-					ViewBag.communes = new SelectList(communefilt1, "code_com", "nom");
-					ViewBag.codevillage = new SelectList(villagefilt1, "code_village", "village");
-
-					ViewBag.modePaiement = new SelectList(db.typepaiement.ToList(), "id", "Type");
-
-					ViewBag.ajout = false;
-
-					return View("updateDomNonEnvigueur", clients);
-				} else
-				{
-					var baremes = db.hbaremes.Where(n => (n.Usage == 2) || (n.Usage == 3)).ToList();
-					var nivpui = db.hnivpuissances.Where(n => (n.Usage == 2) || (n.Usage == 3)).ToList();
-					var calibres = db.hcalibres.ToList();
-					var calibresfilt = new List<hcalibres>();
-					foreach (hcalibres cal in calibres)
-					{
-						bool existe = false;
-						foreach (hbaremes b in baremes)
-						{
-							/*if (b.Calibre2 == cal.Id && b.NiveauPuissance == nivpui[0].Id)
-								existe = true;*/
-
-
-							if (b.Calibre2 + "" == clients.calibre && b.NiveauPuissance == clients.NivPuissance)
-								existe = true;
-						}
-						if (existe)
-
-							calibresfilt.Add(cal);
-					}
-					var typeelec = db.typeelec.ToList();
-					var typebranche = db.hbranches.ToList();
-					var branchesfilt = new List<hbranches>();
-					foreach (hbranches br in typebranche)
-					{
-						bool existe = false;
-						foreach (hbaremes b in baremes)
-						{
-							if (b.branch == br.Id)
-								existe = true;
-						}
-						if (existe)
-							branchesfilt.Add(br);
-					}
-
-					var bord = db.bordereaux.Where(b => b.ouvert == 1).ToList();
-					ViewBag.NivPuissance = new SelectList(nivpui, "Id", "NivPuissance",clients.NivPuissance);
-					ViewBag.activite = new SelectList(db.raisonsociale.ToList(), "id", "raison", clients.activite);
-					ViewBag.calibre = new SelectList(calibresfilt, "Id", "calibre", clients.calibre);
-					ViewBag.Type_Elect = new SelectList(typeelec, "type", "type", clients.Type_Elect);
-					ViewBag.TypeBranch = new SelectList(branchesfilt, "id", "branch", clients.TypeBranch);
-					IEnumerable<SelectListItem> selectListbord = from s in bord
-																 select new SelectListItem
-																 {
-																	 Value = s.id + "",
-																	 Text = s.numero
-																 };
-					ViewBag.bordereau = new SelectList(selectListbord, "Value", "Text");
-					var region2 = db.regions.ToList();
-					ViewBag.regions = new SelectList(region2, "id", "nom_region");
-					var departement2 = db.departements.ToList();
-					var deptfilt2 = new List<departements>();
-					foreach (departements dept in departement2)
-					{
-						if (dept.idregion == region2[0].id)
-							deptfilt2.Add(dept);
-					}
-					var commune2 = db.communes.ToList();
-					var communefilt2 = new List<communes>();
-					foreach (communes com in commune2)
-					{
-						if (com.iddepartement == deptfilt2[0].code_departement)
-							communefilt2.Add(com);
-					}
-					var village2 = db.villages.ToList();
-					var villagefilt2 = new List<villages>();
-					foreach (villages v in village2)
-					{
-						if (v.idLocalite == communefilt2[0].code_com)
-							villagefilt2.Add(v);
-					}
-
-					ViewBag.departements = new SelectList(deptfilt2, "code_departement", "nom");
-					ViewBag.communes = new SelectList(communefilt2, "code_com", "nom");
-					ViewBag.codevillage = new SelectList(villagefilt2, "code_village", "village");
-
-					ViewBag.ajout = false;
-					return View("updateProdNonEnvigueur", clients);
-				}
-			}
-
-			var region = db.regions.ToList();   
+			var region = db.regions.ToList();
 			ViewBag.regions = new SelectList(region, "id", "nom_region");
 			var departement = db.departements.ToList();
 			var deptfilt = new List<departements>();
@@ -1177,14 +1005,261 @@ namespace proera.Controllers
 
 			ViewBag.Etat_Client = new SelectList(db.etatclient, "id", "etat", clients.Etat_Client);
 			ViewBag.codevillage = new SelectList(db.villages, "code_village", "village", clients.codevillage);
+			
+			ViewBag.activite = new SelectList(db.raisonsociale, "id", "raison", clients.activite);
 
 			if (clients.Contrat != 1)
 			{
 
 			}
 
+			return View("Edit",clients);
+		}
+
+		[Authorize(Roles = "Proera_BacfOffice, Proera_ADMIN, Proera_CA")]
+		public ActionResult EditNonEnVigueur(int? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			clients clients = db.clients.Find(id);
+			if (clients == null)
+			{
+				return HttpNotFound();
+			}
+
+			ViewBag.Etat_Client = clients.Etat_Client;
+			ViewBag.Contrat = clients.Contrat;
+
+			if (clients.Raison_Social == null)
+				RedirectToAction("Index");
+
+			var idregion = Int32.Parse((clients.codevillage + "").Substring(0, 1));
+			var iddept = Int32.Parse((clients.codevillage + "").Substring(0, 2));
+			var idcom = Int32.Parse((clients.codevillage + "").Substring(0, 3));
+
+			if (clients.Raison_Social.Contains("PARTICULIER"))
+			{
+				var baremes = db.hbaremes.Where(b => b.Usage == 1).ToList();
+				var nivpui = db.hnivpuissances.Where(n => n.Usage == 1).ToList();
+				var calibres = db.hcalibres.ToList();
+				var calibresfilt = new List<hcalibres>();
+				foreach (hcalibres cal in calibres)
+				{
+					bool existe = false;
+					foreach (hbaremes b in baremes)
+					{
+						/*if (b.Calibre2 == cal.Id && b.NiveauPuissance == nivpui[0].Id)
+							existe = true;*/
+
+
+						if (b.Calibre2 + "" == clients.calibre && b.NiveauPuissance == clients.NivPuissance)
+							existe = true;
+
+					}
+					if (existe)
+
+						calibresfilt.Add(cal);
+				}
+				var typeelec = db.typeelec.ToList();
+				var typebranche = db.hbranches.ToList();
+				var branchesfilt = new List<hbranches>();
+				foreach (hbranches br in typebranche)
+				{
+					bool existe = false;
+					foreach (hbaremes b in baremes)
+					{
+						if (b.branch + "" == clients.TypeBranch)
+							existe = true;
+					}
+					if (existe)
+						branchesfilt.Add(br);
+				}
+				var bord = db.bordereaux.Where(b => (b.ouvert == 1) && (b.utilisateur == User.Identity.Name)).ToList();
+				ViewBag.NivPuissance = new SelectList(nivpui, "Id", "NivPuissance", clients.NivPuissance);
+				ViewBag.calibre = new SelectList(calibresfilt, "Id", "calibre", clients.calibre);
+				ViewBag.Type_Elect = new SelectList(typeelec, "type", "type", clients.Type_Elect);
+				ViewBag.TypeBranch = new SelectList(branchesfilt, "id", "branch", clients.TypeBranch);
+				IEnumerable<SelectListItem> selectListbord = from s in bord
+															 select new SelectListItem
+															 {
+																 Value = s.id + "",
+																 Text = s.numero
+															 };
+				ViewBag.bordereau = new SelectList(selectListbord, "Value", "Text");
+				var region1 = db.regions.ToList();
+				ViewBag.regions = new SelectList(region1, "id", "nom_region", idregion);
+				var departement1 = db.departements.ToList();
+				var deptfilt1 = new List<departements>();
+				foreach (departements dept in departement1)
+				{
+					if (dept.idregion == idregion)
+						deptfilt1.Add(dept);
+				}
+				var commune1 = db.communes.ToList();
+				var communefilt1 = new List<communes>();
+				foreach (communes com in commune1)
+				{
+					if (com.iddepartement == iddept)
+						communefilt1.Add(com);
+				}
+				var village1 = db.villages.ToList();
+				var villagefilt1 = new List<villages>();
+				foreach (villages v in village1)
+				{
+					if (v.idLocalite == idcom)
+						villagefilt1.Add(v);
+				}
+				ViewBag.idmodePaiement = clients.modePaiement;
+
+
+				ViewBag.departements = new SelectList(deptfilt1, "code_departement", "nom", iddept);
+				ViewBag.communes = new SelectList(communefilt1, "code_com", "nom", idcom);
+				ViewBag.codevillage = new SelectList(villagefilt1, "code_village", "village", clients.codevillage);
+
+				ViewBag.modePaiement = new SelectList(db.typepaiement.ToList(), "id", "Type");
+
+				ViewBag.ajout = false;
+
+				return View("updateDomNonEnvigueur", clients);
+			}
+			else
+			{
+				var baremes = db.hbaremes.Where(n => (n.Usage == 2) || (n.Usage == 3)).ToList();
+				var nivpui = db.hnivpuissances.Where(n => (n.Usage == 2) || (n.Usage == 3)).ToList();
+				var calibres = db.hcalibres.ToList();
+				var calibresfilt = new List<hcalibres>();
+				foreach (hcalibres cal in calibres)
+				{
+					bool existe = false;
+					foreach (hbaremes b in baremes)
+					{
+						/*if (b.Calibre2 == cal.Id && b.NiveauPuissance == nivpui[0].Id)
+							existe = true;*/
+
+
+						if (b.Calibre2 + "" == clients.calibre && b.NiveauPuissance == clients.NivPuissance)
+							existe = true;
+					}
+					if (existe)
+
+						calibresfilt.Add(cal);
+				}
+				var typeelec = db.typeelec.ToList();
+				var typebranche = db.hbranches.ToList();
+				var branchesfilt = new List<hbranches>();
+				foreach (hbranches br in typebranche)
+				{
+					bool existe = false;
+					foreach (hbaremes b in baremes)
+					{
+						if (b.branch == br.Id)
+							existe = true;
+					}
+					if (existe)
+						branchesfilt.Add(br);
+				}
+
+				var bord = db.bordereaux.Where(b => b.ouvert == 1).ToList();
+				ViewBag.NivPuissance = new SelectList(nivpui, "Id", "NivPuissance", clients.NivPuissance);
+				ViewBag.activite = new SelectList(db.raisonsociale.ToList(), "id", "raison", clients.activite);
+				ViewBag.calibre = new SelectList(calibresfilt, "Id", "calibre", clients.calibre);
+				ViewBag.Type_Elect = new SelectList(typeelec, "type", "type", clients.Type_Elect);
+				ViewBag.TypeBranch = new SelectList(branchesfilt, "id", "branch", clients.TypeBranch);
+				IEnumerable<SelectListItem> selectListbord = from s in bord
+															 select new SelectListItem
+															 {
+																 Value = s.id + "",
+																 Text = s.numero
+															 };
+				ViewBag.bordereau = new SelectList(selectListbord, "Value", "Text");
+				var region2 = db.regions.ToList();
+				ViewBag.regions = new SelectList(region2, "id", "nom_region", idregion);
+				var departement2 = db.departements.ToList();
+				var deptfilt2 = new List<departements>();
+				foreach (departements dept in departement2)
+				{
+					if (dept.idregion == idregion)
+						deptfilt2.Add(dept);
+				}
+				var commune2 = db.communes.ToList();
+				var communefilt2 = new List<communes>();
+				foreach (communes com in commune2)
+				{
+					if (com.iddepartement == iddept)
+						communefilt2.Add(com);
+				}
+				var village2 = db.villages.ToList();
+				var villagefilt2 = new List<villages>();
+				foreach (villages v in village2)
+				{
+					if (v.idLocalite == idcom)
+						villagefilt2.Add(v);
+				}
+
+				ViewBag.departements = new SelectList(deptfilt2, "code_departement", "nom", iddept);
+				ViewBag.communes = new SelectList(communefilt2, "code_com", "nom", idcom);
+				ViewBag.codevillage = new SelectList(villagefilt2, "code_village", "village", clients.codevillage);
+
+				ViewBag.ajout = false;
+				return View("updateProdNonEnvigueur", clients);
+			}
+		}
+
+
+
+		[Authorize(Roles = "Proera_BacfOffice, Proera_ADMIN, Proera_CA")]
+		public ActionResult Edit(int? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			clients clients = db.clients.Find(id);
+			if (clients == null)
+			{
+				return HttpNotFound();
+			}
+
+			ViewBag.Etat_Client = clients.Etat_Client;
+			ViewBag.Contrat = clients.Contrat;
+
+			if (clients.Contrat == 3)
+			{
+				return RedirectToAction("EditNonEnVigueur/"+id);
+			}
+
+			return RedirectToAction("EditEnVigueur/" + id);
+			
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		//[Authorize(Roles = "COM")]
+		public ActionResult Edit2([Bind(Include = "ID, usage,Nom1,Prenom,Num_ID,Tel,Raison_Social,Date_Abonnement,Village,Niv_Service,Type_Elect,calibre,Reference_Contrat,Montant_Encaisse,Etat_Client,Commentaire,Date_Mise_en_Service,Date_Resiliation,X_GPS,Y_GPS,Bordereau,Contrat,numcompteur,Ancien_indexe,SoldeTotal,IDPayment,Prev_Bill,Last_Bill,NbrEP,Modifié,Créé,Créé_par,periodeFacturee,dateCoupure,dateAbonn,dateMeS,idlastbill,NivPuissance,activite,sqlstate,refclient,codevillage,modePaiement,numeropaiement,TypeBranch,etat")] clients clients)
+		{
+			if (ModelState.IsValid)
+			{
+				var client = db.clients.Find(clients.Reference_Contrat);
+				//clients.Etat_Client = 5;
+				//clients.Contrat = 3;
+				client.Nom1 = clients.Nom1;
+				client.Prenom = clients.Prenom;
+				client.Tel = clients.Tel;
+				client.Raison_Social = clients.Raison_Social;
+				client.codevillage = clients.codevillage;
+				client.activite = clients.activite;
+				db.Entry(client).State = EntityState.Modified;
+				db.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			ViewBag.Etat_Client = new SelectList(db.etatclient, "id", "etat", clients.Etat_Client);
+			ViewBag.codevillage = new SelectList(db.villages, "code_village", "village", clients.codevillage);
 			return View(clients);
 		}
+
+
 
 		//[Authorize(Roles = "COM")]
 
@@ -1336,7 +1411,45 @@ namespace proera.Controllers
 			return selectclients;
 		}
 
+		public String rechercheclimes([Bind(Include = "Reference_Contrat")] clients vil)
+		{
+			var clientss = db.clients.Where(c => (c.Reference_Contrat == vil.Reference_Contrat) ).ToList();
+			var niv = db.hnivpuissances.ToList();
+
+			string selectclients = "";
+
+			foreach (clients cli in clientss)
+			{
+				//if (cli.etatclient.id == 5 && cli.Contrat == 5)
+				if (cli.NivPuissance != null)
+					selectclients += "<tr>" +
+						"<td>" + cli.Nom1 + "</td>" +
+						"<td>" + cli.Prenom + "</td>" +
+						"<td>" + cli.Tel + "</td>" +
+						"<td>" + cli.Reference_Contrat + "</td>" +
+						"<td>" + niv[niv.FindIndex(v => v.Id == cli.NivPuissance)].NivPuissance + "</td>" +
+						"<td><button class='btn btn-info btn-sm btn-round' value='" + cli.Reference_Contrat + "' id='btnmettreenService-" + cli.Reference_Contrat + "' type='button'>Raccorder</button></td>" +
+						"</tr>";
+
+				else
+					selectclients += "<tr>" +
+						"<td>" + cli.Nom1 + "</td>" +
+						"<td>" + cli.Prenom + "</td>" +
+						"<td>" + cli.Village + "</td>" +
+						"<td>" + cli.Reference_Contrat + "</td>" +
+						"<td>non defini</td>" +
+						"<td><button class='btn btn-info btn-sm btn-round' value='" + cli.Reference_Contrat + "' id='btnmettreenService-" + cli.Reference_Contrat + "' type='button'>Raccorder</button></td>" +
+						"</tr>";
+
+				//"<td><a href='/clients/mettreEnVigueurValide/"+ cli.Bordereau +"'>Edit</a>" +
+			}
+
+			return selectclients;
+		}
+
 		
+
+
 
 		public String changementvillagemesNonRac([Bind(Include = "code_village")] villages vil)
 		{
@@ -1725,7 +1838,7 @@ namespace proera.Controllers
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		//[Authorize(Roles = "COM")]
-		public ActionResult Edit([Bind(Include = "numeropaiement,Nom1,Prenom,Num_ID,Tel,Raison_Social,Date_Abonnement,Village,Niv_Service,Type_Elect,calibre,Reference_Contrat,Montant_Encaisse,Commentaire,Bordereau,SoldeTotal,IDPayment,Modifié,Créé,Créé_par,periodeFacturee,dateCoupure,dateAbonn,dateMeS,idlastbill,NivPuissance,activite,sqlstate,refclient,codevillage,modePaiement")] clients clients)
+		public ActionResult Edit([Bind(Include = "ID, usage,Nom1,Prenom,Num_ID,Tel,Raison_Social,Date_Abonnement,Village,Niv_Service,Type_Elect,calibre,Reference_Contrat,Montant_Encaisse,Etat_Client,Commentaire,Date_Mise_en_Service,Date_Resiliation,X_GPS,Y_GPS,Bordereau,Contrat,numcompteur,Ancien_indexe,SoldeTotal,IDPayment,Prev_Bill,Last_Bill,NbrEP,Modifié,Créé,Créé_par,periodeFacturee,dateCoupure,dateAbonn,dateMeS,idlastbill,NivPuissance,activite,sqlstate,refclient,codevillage,modePaiement,numeropaiement,TypeBranch,etat")] clients clients)
 		{
 			if (ModelState.IsValid)
 			{

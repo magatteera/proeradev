@@ -11,9 +11,7 @@ using proera;
 namespace proera.Controllers
 {
 
-    [Authorize(Roles = "Proera_Admin")]
-
-    [Authorize(Users = "i.dia")]
+    [Authorize(Roles = "Proera_ADMIN, Proera_SIG")]
     public class communesController : Controller
     {
         private ERADEVEntities3 db = new ERADEVEntities3();
@@ -45,7 +43,10 @@ namespace proera.Controllers
         {
 
             var region = db.regions.ToList();
+            var idregion = region[0].id;
             ViewBag.regions = new SelectList(region, "id", "nom_region");
+            var depts = db.departements.Where(d => d.idregion == idregion).ToList();
+            ViewBag.iddepartement = new SelectList(depts, "code_departement", "nom");
             //ViewBag.iddepartement = new SelectList(db.departements, "code_departement", "nom");
             return View();
         }
