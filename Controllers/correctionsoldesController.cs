@@ -11,10 +11,10 @@ using proera;
 namespace proera.Controllers
 {
 
-    [Authorize(Roles = "Proera_BacfOffice, Proera_ADMIN")]
+    [Authorize(Roles = "Proera_BackOffice, Proera_ADMIN")]
     public class correctionsoldesController : Controller
     {
-        private ERADEVEntities3 db = new ERADEVEntities3();
+        private Data_PROERA db = new Data_PROERA();
 
         // GET: correctionsoldes
         public ActionResult Index()

@@ -13,7 +13,7 @@ namespace proera.Controllers
     [Authorize(Roles = "Proera_REC, Proera_Admin")]
     public class facturesController : Controller
     {
-        private ERADEVEntities3 db = new ERADEVEntities3();
+        private Data_PROERA db = new Data_PROERA();
 
         // GET: factures
         public ActionResult Index()

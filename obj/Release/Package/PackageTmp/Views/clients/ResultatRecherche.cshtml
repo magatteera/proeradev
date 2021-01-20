@@ -1,0 +1,101 @@
+﻿@model IEnumerable<proera.clients>
+
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+<h2>Resultat Recherche</h2>
+
+<h2>@ViewBag.message</h2>
+
+
+
+
+
+
+
+
+
+<div class="card-body">
+    <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="tablebody" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Nom1)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Prenom)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Village)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Reference_Contrat)
+                            </th>
+                            <th>
+                                Telephone
+                            </th>
+                            <th>
+                                Etat Client
+                            </th>
+                            <th>
+                                Niveau Puissance
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nom1)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Prenom)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Village)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Reference_Contrat)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Tel)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.etat)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.hnivpuissances.NivPuissance)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Details", "Details", new { id = item.Reference_Contrat }) 
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+
+        $('#tablebody').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
+            }
+        });
+    });
+</script>
+

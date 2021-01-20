@@ -15,7 +15,7 @@ namespace proera.Controllers
     [Authorize(Roles = "Proera_REC, Proera_ENC, Proera_Admin")]
     public class encaissementsController : Controller
     {
-        private ERADEVEntities3 db = new ERADEVEntities3();
+        private Data_PROERA db = new Data_PROERA();
 
         // GET: encaissements
         public ActionResult Index()
@@ -80,6 +80,7 @@ namespace proera.Controllers
             //string tableencaissements = "";
             //double sommeencaisse = 0;
             var bord = db.bordereaux.Find(bordereaux.id);
+            var details = db.View_DetailsEncaissement.Where(v => v.id == bord.id).ToList()[0];
             //if (encaiss.Count > 0)
             //{
             //    foreach (encaissements enc in encaiss)
@@ -112,8 +113,12 @@ namespace proera.Controllers
 
             //var venc = db.
 
-            //return Json(new { numbord = bord.numero, table = tableencaissements, montant = 0 , montantencaisse = sommeencaisse, montantbordereau = bord.montant, ecart = bord.montant });
-            return "";
+            return Json(new { numbord = bord.numero, montantencaisse = details.sommeenc, montantbordereau = details.montant,
+                ecart = details.sommeenc - details.montant, datecreat = details.datecreation, nbrencs = details.nbrenc, 
+                util = details.utilisateur,
+                
+            });
+            //return "";
         }
 
         public ActionResult changementbordereaux2([Bind(Include = "id")] bordereaux bordereaux)

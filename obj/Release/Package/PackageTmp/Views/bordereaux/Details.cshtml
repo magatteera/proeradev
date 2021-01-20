@@ -1,0 +1,74 @@
+﻿@model proera.bordereaux
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>bordereaux</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.datecreation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datecreation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.montant)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.montant)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ouvert)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ouvert)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.utilisateur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.utilisateur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.datevalidation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datevalidation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.type)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

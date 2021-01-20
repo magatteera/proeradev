@@ -1,0 +1,132 @@
+﻿@model IEnumerable<proera.villages>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table" id="tablebody">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.region)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.departement)
+        </th>
+        <th>
+            Localite
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.village)
+        </th>
+
+        <th>
+            Code Village
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.population)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.menage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.education)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sante)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.forage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.antenne_bts)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.moulin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.longitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.latitude)
+        </th>
+        <th></th>
+    </tr>
+        </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.region)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.departement)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.communes.nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.village)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.code_village)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.population)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.menage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.education)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sante)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.forage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.antenne_bts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.moulin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.longitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.latitude)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.code_village }) |
+                @Html.ActionLink("Details", "Details", new { id = item.code_village }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.code_village })
+            </td>
+        </tr>
+    }
+        </tbody>
+
+</table>
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+
+        $('#tablebody').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
+            }
+        });
+    });
+</script>

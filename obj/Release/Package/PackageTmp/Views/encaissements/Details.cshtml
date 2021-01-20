@@ -1,0 +1,90 @@
+﻿@model proera.encaissements
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>encaissements</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.refclient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.refclient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.montantencaisee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.montantencaisee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.soldeprepaiement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.soldeprepaiement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.soldepostpaiement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.soldepostpaiement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dateencaissement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateencaissement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.utilisateur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.utilisateur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.commentaire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.commentaire)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bordereaux.numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bordereaux.numero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.factures.nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.factures.nom)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

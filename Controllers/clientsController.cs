@@ -34,7 +34,7 @@ namespace proera.Controllers
 
 	public class clientsController : Controller
 	{
-		private ERADEVEntities3 db = new ERADEVEntities3();
+		private Data_PROERA db = new Data_PROERA();
 
 		// GET: clients
 		public ActionResult Index(string message = "")
@@ -597,7 +597,7 @@ namespace proera.Controllers
 			//    clients.Add(db.clients.Find(f.RefClient));
 			//}
 
-			var recouvs = db.recouvrements.Where(r => (r.active == 0) && (r.utilisateur == User.Identity.Name)).ToList();
+			var recouvs = db.recouvrements.Where(r => (r.active == 0) ).ToList();
 			ViewBag.periode = new SelectList(recouvs, "periode", "periode");
 
 			return View("coupure");
@@ -1016,7 +1016,7 @@ namespace proera.Controllers
 			return View("Edit",clients);
 		}
 
-		[Authorize(Roles = "Proera_BacfOffice, Proera_ADMIN, Proera_CA")]
+		[Authorize(Roles = "Proera_BackOffice, Proera_ADMIN, Proera_CA")]
 		public ActionResult EditNonEnVigueur(int? id)
 		{
 			if (id == null)

@@ -18,7 +18,7 @@ namespace proera.Controllers
     [Authorize(Roles = "Proera_REC, Proera_Admin")]
     public class recouvrementsController : Controller
     {
-        private ERADEVEntities3 db = new ERADEVEntities3();
+        private Data_PROERA db = new Data_PROERA();
 
         // GET: recouvrements
         public ActionResult Index(string id)

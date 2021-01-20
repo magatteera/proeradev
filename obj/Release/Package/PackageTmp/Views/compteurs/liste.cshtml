@@ -1,0 +1,87 @@
+﻿@model IEnumerable<proera.compteurs>
+
+@{
+    ViewBag.Title = "Liste";
+}
+
+<table class="table" id="tablebody">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.numerointerface)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.datereception)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.utilisateur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.libre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.entrepot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fabricant)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.numerointerface)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.datereception)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.utilisateur)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.libre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.entrepot)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fabricant)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+
+</table>
+
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+
+        $('#tablebody').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
+            }
+        });
+    });
+</script>

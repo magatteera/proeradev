@@ -1,0 +1,58 @@
+﻿@model IEnumerable<proera.factures>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+<div class="form-horizontal">
+    <h4>Generer Factures</h4>
+    <hr />
+
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Periode</label>
+        <div class="col-md-10">
+            @Html.DropDownList("periode", null, htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input  value="Generer Factures" id="Enregistrer" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#Enregistrer").change(function () {
+            data = {
+                periode: $("#periode").val()
+            }
+            // alert($("#idfacture").val())
+            $.ajax({
+                type: "POST",
+                url: "/factures/genererfactures",
+                data: data,
+                success: function (data) {
+                   
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+
+    });
+</script>

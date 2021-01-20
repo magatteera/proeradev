@@ -1,0 +1,205 @@
+﻿@model proera.clients
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm("Edit2", "Clients", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>clients</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <hr />
+    <h3>Identification</h3>
+    <hr />
+
+
+    @Html.HiddenFor(model => model.Reference_Contrat, new { htmlAttributes = new { @class = "form-control" } })
+
+    <div class="form-row">
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nom1, "Nom", htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Nom1, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nom1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Prenom, htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Prenom, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Prenom, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Tel, "Telephone", htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Tel, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Tel, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Raison_Social, "Activité", htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-10">
+                    @Html.DropDownList("activite", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.activite, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+    <hr />
+    <h3>Localisation</h3>
+    <hr />
+
+    <div class="form-row">
+
+        <div class="col">
+            <div class="form-group">
+                @Html.Label("Region", htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-10">
+                    @Html.DropDownList("regions", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col">
+            <div class="form-group">
+                @Html.Label("Departement", htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-10">
+                    @Html.DropDownList("departements", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <div class="form-row">
+
+        <div class="col">
+            <div class="form-group">
+                @Html.Label("Commune", htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-10">
+                    @Html.DropDownList("communes", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(model => model.codevillage, "Village", htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-10">
+                    @Html.DropDownList("codevillage", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.codevillage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Modifier" class="btn btn-warning" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $("#regions").change(function () {
+            data = {
+                id: $("#regions").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/changementregion",
+                data: data,
+                success: function (data) {
+                    $("#departements").empty().
+                        append(data.departement)
+                    $("#communes").empty().
+                        append(data.commune)
+                    $("#codevillage").empty().
+                        append(data.village)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+        $("#departements").change(function () {
+            data = {
+                code_departement: $("#departements").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/changementdepartement",
+                data: data,
+                success: function (data) {
+                    $("#communes").empty().
+                        append(data.commune)
+                    $("#codevillage").empty().
+                        append(data.village)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+        $("#communes").change(function () {
+            data = {
+                code_com: $("#communes").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/changementcommune",
+                data: data,
+                success: function (data) {
+                    $("#codevillage").empty().
+                        append(data.village)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+    });
+</script>
