@@ -90,7 +90,8 @@ namespace proera.Controllers
                 lati = village.latitude,
                 etattra = village.etattravaux,
                 code = village.code_prog,
-                techprog = village.programmes.tech
+                techprog = village.programmes.tech,
+                techno = village.technologie
             });
 
         }
@@ -112,11 +113,11 @@ namespace proera.Controllers
             var region = db.regions.ToList();
             var idregion = (villages.idLocalite + "").Substring(1, 1);
             ViewBag.region = new SelectList(region, "id", "nom_region", Int32.Parse(idregion));
-            var depts = db.departements.Where(d => d.idregion+"" == idregion).ToList();
+            var depts = db.departements.Where(d => d.idregion + "" == idregion).ToList();
             var iddepts = (villages.idLocalite + "").Substring(1, 2);
             ViewBag.departement = new SelectList(depts, "code_departement", "nom", Int32.Parse(iddepts));
-        
-            var coms = db.communes.Where(c => c.iddepartement+"" == iddepts).ToList();
+
+            var coms = db.communes.Where(c => c.iddepartement + "" == iddepts).ToList();
             var idcom = villages.idLocalite;
             ViewBag.idLocalite = new SelectList(db.communes, "code_com", "nom", villages.idLocalite);
             if (villages.code_prog > 0)
@@ -125,8 +126,15 @@ namespace proera.Controllers
             }
             else
                 ViewBag.code_prog = new SelectList(db.programmes, "ID", "nom");
+
+            if (villages.technologie != null)
+                ViewBag.technologie = new SelectList(db.Technologies, "id", "technologie", villages.technologie);
+            else
+                ViewBag.technologie = new SelectList(db.Technologies, "id", "technologie");
             return View(villages);
         }
+
+
 
         // GET: villages/Edit/5
         public ActionResult Edit2()
@@ -140,6 +148,9 @@ namespace proera.Controllers
             var coms = db.communes.Where(c => c.iddepartement  == iddept).ToList();
             ViewBag.idLocalite = new SelectList(db.communes, "code_com", "nom");
             ViewBag.code_prog = new SelectList(db.programmes, "ID", "nom");
+
+            ViewBag.technologie = new SelectList(db.Technologies, "ID", "nom");
+
             return View("~/Views/villages/Edit2.cshtml");
         }
 

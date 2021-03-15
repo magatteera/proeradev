@@ -153,10 +153,27 @@ namespace proera.Controllers
                     {
                         nbrdepart++;
 
-                        if (listeclients.FindIndex(re => re.Reference_Contrat == Int32.Parse(r.ReferenceContrat)) == -1)
+                        releves rel = new releves();
+                        rel.Reference_Contrat = Int32.Parse(r.ReferenceContrat);
+                        rel.numcompteur = r.numcompteur;
+                        rel.Ancien_index = Int32.Parse(r.Ancienindex);
+                        rel.date_de_relève = r.datereleve;
+                        rel.consommation = Int32.Parse(r.consommation);
+                        rel.periode = recouvrements.periode;
+                        rel.Nouvel_index = Int32.Parse(r.Nouvelindex);
+                        rel.nbreJour = Int32.Parse(r.nombrejours);
+                        rel.categorie = r.categorie;
+                        rel.facturee = 0;
+                        try
                         {
-                            inexistant++;
+                            db.releves.Add(rel);
+                            //db.SaveChanges();
+                            nbrreleves++;
+                        }
+                        catch (Exception e)
+                        {
                             tempReleves temp = new tempReleves();
+
                             temp.ReferenceContrat = Int32.Parse(r.ReferenceContrat);
                             temp.numcompteur = r.numcompteur;
                             temp.Ancienindex = Int32.Parse(r.Ancienindex);
@@ -165,98 +182,128 @@ namespace proera.Controllers
                             temp.periode = recouvrements.periode;
                             temp.Nouvelindex = Int32.Parse(r.Nouvelindex);
                             temp.nombrejours = Int32.Parse(r.nombrejours);
-                            temp.type = "client inexistant";
+                            temp.type = "erreur inconnue";
 
                             db.tempReleves.Add(temp);
-                            db.SaveChanges();
-                        } else
-                        {
-
-                            if (listeclients[listeclients.FindIndex(re => re.Reference_Contrat == Int32.Parse(r.ReferenceContrat))].Etat_Client != 1)
-                            {
-                                tempReleves temp = new tempReleves();
-
-                                temp.ReferenceContrat = Int32.Parse(r.ReferenceContrat);
-                                temp.numcompteur = r.numcompteur;
-                                temp.Ancienindex = Int32.Parse(r.Ancienindex);
-                                temp.datereleve = DateTime.Parse(r.datereleve);
-                                temp.consommation = Int32.Parse(r.consommation);
-                                temp.periode = recouvrements.periode;
-                                temp.Nouvelindex = Int32.Parse(r.Nouvelindex);
-                                temp.nombrejours = Int32.Parse(r.nombrejours);
-                                temp.type = "Client non en service";
-
-                                db.tempReleves.Add(temp);
-                                db.SaveChanges();
-
-                                nonenservice++;
-                            }
-                            else
-                            {
-
-
-                                if (listeajoutes.FindIndex(re => re.ReferenceContrat == r.ReferenceContrat) == -1)
-                                {
-                                    releves rel = new releves();
-                                    rel.Reference_Contrat = Int32.Parse(r.ReferenceContrat);
-                                    rel.numcompteur = r.numcompteur;
-                                    rel.Ancien_index = Int32.Parse(r.Ancienindex);
-                                    rel.date_de_relève = r.datereleve;
-                                    rel.consommation = Int32.Parse(r.consommation);
-                                    rel.periode = recouvrements.periode;
-                                    rel.Nouvel_index = Int32.Parse(r.Nouvelindex);
-                                    rel.nbreJour = Int32.Parse(r.nombrejours);
-                                    rel.categorie = r.categorie;
-                                    rel.facturee = 0;
-                                    try
-                                    {
-                                        db.releves.Add(rel);
-                                        db.SaveChanges();
-                                        nbrreleves++;
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        tempReleves temp = new tempReleves();
-
-                                        temp.ReferenceContrat = Int32.Parse(r.ReferenceContrat);
-                                        temp.numcompteur = r.numcompteur;
-                                        temp.Ancienindex = Int32.Parse(r.Ancienindex);
-                                        temp.datereleve = DateTime.Parse(r.datereleve);
-                                        temp.consommation = Int32.Parse(r.consommation);
-                                        temp.periode = recouvrements.periode;
-                                        temp.Nouvelindex = Int32.Parse(r.Nouvelindex);
-                                        temp.nombrejours = Int32.Parse(r.nombrejours);
-                                        temp.type = "erreur inconnue";
-
-                                        db.tempReleves.Add(temp);
-                                        db.SaveChanges();
-                                    }
-                                }
-                                else
-                                {
-                                    dupliques++;
-                                    tempReleves temp = new tempReleves();
-
-                                    temp.ReferenceContrat = Int32.Parse(r.ReferenceContrat);
-                                    temp.numcompteur = r.numcompteur;
-                                    temp.Ancienindex = Int32.Parse(r.Ancienindex);
-                                    temp.datereleve = DateTime.Parse(r.datereleve);
-                                    temp.consommation = Int32.Parse(r.consommation);
-                                    temp.periode = recouvrements.periode;
-                                    temp.Nouvelindex = Int32.Parse(r.Nouvelindex);
-                                    temp.nombrejours = Int32.Parse(r.nombrejours);
-                                    temp.type = "duplique";
-
-                                    db.tempReleves.Add(temp);
-                                    db.SaveChanges();
-                                }
-                                listeajoutes.Add(r);
-                            }
+                            //db.SaveChanges();
                         }
 
-                           
+
                         //}
                     }
+
+                    db.SaveChanges();
+
+
+                    //foreach (var r in releveslist)
+                    //{
+                    //    nbrdepart++;
+
+                    //    if (listeclients.FindIndex(re => re.Reference_Contrat == Int32.Parse(r.ReferenceContrat)) == -1)
+                    //    {
+                    //        inexistant++;
+                    //        tempReleves temp = new tempReleves();
+                    //        temp.ReferenceContrat = Int32.Parse(r.ReferenceContrat);
+                    //        temp.numcompteur = r.numcompteur;
+                    //        temp.Ancienindex = Int32.Parse(r.Ancienindex);
+                    //        temp.datereleve = DateTime.Parse(r.datereleve);
+                    //        temp.consommation = Int32.Parse(r.consommation);
+                    //        temp.periode = recouvrements.periode;
+                    //        temp.Nouvelindex = Int32.Parse(r.Nouvelindex);
+                    //        temp.nombrejours = Int32.Parse(r.nombrejours);
+                    //        temp.type = "client inexistant";
+
+                    //        db.tempReleves.Add(temp);
+                    //        db.SaveChanges();
+                    //    }
+                    //    else
+                    //    {
+
+                    //        if (listeclients[listeclients.FindIndex(re => re.Reference_Contrat == Int32.Parse(r.ReferenceContrat))].Etat_Client != 1)
+                    //        {
+                    //            tempReleves temp = new tempReleves();
+
+                    //            temp.ReferenceContrat = Int32.Parse(r.ReferenceContrat);
+                    //            temp.numcompteur = r.numcompteur;
+                    //            temp.Ancienindex = Int32.Parse(r.Ancienindex);
+                    //            temp.datereleve = DateTime.Parse(r.datereleve);
+                    //            temp.consommation = Int32.Parse(r.consommation);
+                    //            temp.periode = recouvrements.periode;
+                    //            temp.Nouvelindex = Int32.Parse(r.Nouvelindex);
+                    //            temp.nombrejours = Int32.Parse(r.nombrejours);
+                    //            temp.type = "Client non en service";
+
+                    //            db.tempReleves.Add(temp);
+                    //            db.SaveChanges();
+
+                    //            nonenservice++;
+                    //        }
+                    //        else
+                    //        {
+
+
+                    //            if (listeajoutes.FindIndex(re => re.ReferenceContrat == r.ReferenceContrat) == -1)
+                    //            {
+                    //                releves rel = new releves();
+                    //                rel.Reference_Contrat = Int32.Parse(r.ReferenceContrat);
+                    //                rel.numcompteur = r.numcompteur;
+                    //                rel.Ancien_index = Int32.Parse(r.Ancienindex);
+                    //                rel.date_de_relève = r.datereleve;
+                    //                rel.consommation = Int32.Parse(r.consommation);
+                    //                rel.periode = recouvrements.periode;
+                    //                rel.Nouvel_index = Int32.Parse(r.Nouvelindex);
+                    //                rel.nbreJour = Int32.Parse(r.nombrejours);
+                    //                rel.categorie = r.categorie;
+                    //                rel.facturee = 0;
+                    //                try
+                    //                {
+                    //                    db.releves.Add(rel);
+                    //                    db.SaveChanges();
+                    //                    nbrreleves++;
+                    //                }
+                    //                catch (Exception e)
+                    //                {
+                    //                    tempReleves temp = new tempReleves();
+
+                    //                    temp.ReferenceContrat = Int32.Parse(r.ReferenceContrat);
+                    //                    temp.numcompteur = r.numcompteur;
+                    //                    temp.Ancienindex = Int32.Parse(r.Ancienindex);
+                    //                    temp.datereleve = DateTime.Parse(r.datereleve);
+                    //                    temp.consommation = Int32.Parse(r.consommation);
+                    //                    temp.periode = recouvrements.periode;
+                    //                    temp.Nouvelindex = Int32.Parse(r.Nouvelindex);
+                    //                    temp.nombrejours = Int32.Parse(r.nombrejours);
+                    //                    temp.type = "erreur inconnue";
+
+                    //                    db.tempReleves.Add(temp);
+                    //                    db.SaveChanges();
+                    //                }
+                    //            }
+                    //            else
+                    //            {
+                    //                dupliques++;
+                    //                tempReleves temp = new tempReleves();
+
+                    //                temp.ReferenceContrat = Int32.Parse(r.ReferenceContrat);
+                    //                temp.numcompteur = r.numcompteur;
+                    //                temp.Ancienindex = Int32.Parse(r.Ancienindex);
+                    //                temp.datereleve = DateTime.Parse(r.datereleve);
+                    //                temp.consommation = Int32.Parse(r.consommation);
+                    //                temp.periode = recouvrements.periode;
+                    //                temp.Nouvelindex = Int32.Parse(r.Nouvelindex);
+                    //                temp.nombrejours = Int32.Parse(r.nombrejours);
+                    //                temp.type = "duplique";
+
+                    //                db.tempReleves.Add(temp);
+                    //                db.SaveChanges();
+                    //            }
+                    //            listeajoutes.Add(r);
+                    //        }
+                    //    }
+
+
+                    //    //}
+                    //}
 
                     /*foreach (var r in releveslist)
                     {
@@ -287,7 +334,7 @@ namespace proera.Controllers
                         }
                             
                     } */
-                    
+
 
 
                     ViewBag.erreur = 0;

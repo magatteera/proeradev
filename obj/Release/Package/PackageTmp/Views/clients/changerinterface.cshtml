@@ -29,17 +29,27 @@
         </div>
 
         <div class="col">
-            
-                Ancienne Interface :
-            
+            <p>
+                Prenom :
+            </p>
+
+            <p id="ddPrenom">
+
+            </p>
+        </div>
+
+        <div class="col">
+
+            Ancienne Interface :
+
 
             <input type="text" readonly id="oldInterface" class="form-control" />
         </div>
 
         <div class="col">
-            
-                Nouvelle Interface : 
-            
+
+            Nouvelle Interface :
+
 
 
             <input type="text" id="newInterface" class="form-control" />
@@ -129,6 +139,8 @@
                 success: function (data2) {
                     if (data2.message == "trouve") {
                         $("#ddNom").html(data2.nom)
+                        $("#ddPrenom").html(data2.prenom)
+                        
                         $("#oldInterface").val(data2.oldInterface)
 
                         $("#detailsclient").attr("hidden", false)

@@ -328,22 +328,10 @@
         var datatable = 0;
 
         $("#montantencaisee").change(function () {
-            if (parseFloat($("#montantencaisee").val()) < parseFloat($("#montantfacture").val()) - 500) {
-
-                if (parseFloat($("#soldeprepaiement").val()) -500 > parseFloat($("#montantencaisee").val())) {
-
-                    swal("Erreur", "Le Montant encaissé ne peut etre inferieur au montant de la facture!", "error")
-
-                    $("#soldepostpaiement").val("")
-                } else {
-
-                    $("#soldepostpaiement").val(Math.round(($("#soldeprepaiement").val() - $("#montantencaisee").val())))
-                }
-
-            } else {
+            
 
                 $("#soldepostpaiement").val(Math.round(($("#soldeprepaiement").val() - $("#montantencaisee").val())))
-            }
+            
         })
 
         $("#idbordereau").prepend("<option value='' selected>Selectionnez le bordereau</option>")
@@ -547,7 +535,7 @@
                 type: $("#typebordereau").val()
             }
 
-            if ($("#numerobordereau").val().length < 3) {
+            if ($("#numerobordereau").val().length < 3 || $("#montantbordereau").val().length < 4) {
                 alert ("Veuillez creer un bordereaux en donnant un montant et un numero qui sont obligatoires.")
             } else
             $.ajax({

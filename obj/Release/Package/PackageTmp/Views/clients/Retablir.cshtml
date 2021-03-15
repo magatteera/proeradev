@@ -98,7 +98,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.date, htmlAttributes: new { @class = "control-label col" })
                         <div class="col-md-10">
-                            <input type="date" name="date" class="form-control" />    
+                            <input type="date" name="date" id="DATE" class="form-control" />    
                         </div>
                     </div>
 
@@ -132,7 +132,6 @@
     $(document).ready(function () {
 
         $("#refclient").change(function () {
-            //alert($("#nivpuissance").val())
             data = {
                 Reference_Contrat: $("#refclient").val()
             }
@@ -160,8 +159,8 @@
                 error: function () {
                     alert("Error occured!!")
                 }
-            });
-        });
+            })
+        })
 
 
         $("#couperclient").click(function () {
@@ -175,23 +174,17 @@
                 url: "/clients/validerRetablissement",
                 data: data,
                 success: function (data) {
-                    //alert(data)
-                    if (data.ok) {
-                        alert("Clients coupé avec succés!!")
-                        $('#tablebodyitems').empty()
-                            .append(data.cli)
-                    }
-                    else
-                        alert("une erreur est survenue")
+                        alert(data.message)
+                        
                 },
                 error: function () {
                     alert("Error occured!!")
                 }
-            });
+            })
         })
 
 
-    });
+    })
 
 
 </script>

@@ -168,6 +168,26 @@
                 <div class="form-horizontal">
                     <hr />
 
+                    <div class="form-group">
+                        <label class="control-label col">Prenom</label>
+                        <div class="col">
+                            <input type="text" disabled class="form-control" name="prenom" id="prenom" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col">Nom</label>
+                        <div class="col">
+                            <input type="text" disabled class="form-control" name="nom" id="nom" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col">Reference</label>
+                        <div class="col">
+                            <input type="text" disabled class="form-control" name="referenceClient" id="referenceClient" />
+                        </div>
+                    </div>
 
                     <div class="form-group">
 
@@ -212,8 +232,6 @@
                         </div>
                     </div>
 
-
-                    <input type="hidden" class="form-control" name="referenceClient" id="referenceClient" />
 
 
                 </div>
@@ -391,6 +409,15 @@
                     $('[id^=btnmettreenService]').click(function (bouton) {
                         @*alert("clicked")
                         alert($('[id^=btnmettreenService]').val())*@
+                        $.ajax({
+                            type: "POST",
+                            url: "/clients/donneesclients",
+                            data: { "referenceClient": $(this).val() },
+                            success: function (data) {
+                                $("#nom").val(data.nom)
+                                $("#prenom").val(data.prenom)
+                            }
+                        })
 
                         $("#referenceClient").val($(this).val())
                         $("#modalmiseenservice").modal('show')

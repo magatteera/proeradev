@@ -687,6 +687,30 @@ namespace proera.Controllers
 			return Json(new { ok = false });
 		}
 
+		
+
+			public ActionResult changementRefClientCoupure([Bind(Include = "Reference_Contrat")] clients clients)
+		{
+			//clients
+			var cli = db.clients.Find(clients.Reference_Contrat);
+			if (cli != null)
+			{
+				var village = db.villages.Where(v => v.code_village == cli.codevillage).ToList()[0];
+				return Json(new
+				{
+					message = "trouve",
+					nom = cli.Nom1,
+					prenom = cli.Prenom,
+					tel = cli.Tel,
+					cni = cli.Num_ID,
+					village = village.village
+				});
+			}
+
+
+			return Json(new { message = "absent" });
+		}
+
 
 		public ActionResult changementRefRetablissement([Bind(Include = "Reference_Contrat")] clients clients)
 		{
@@ -729,13 +753,13 @@ namespace proera.Controllers
 				db.Entry(cli).State = EntityState.Modified;
 				db.SaveChanges();
 
-				var facs = db.factures.Where(f => f.RefClient == cli.Reference_Contrat).ToList();
-				foreach(var fac in facs)
-				{
-					fac.Paiement = 1;
-					db.Entry(fac).State = EntityState.Modified;
-					db.SaveChanges();
-				}
+				//var facs = db.factures.Where(f => f.RefClient == cli.Reference_Contrat).ToList();
+				//foreach(var fac in facs)
+				//{
+				//	fac.Paiement = 1;
+				//	db.Entry(fac).State = EntityState.Modified;
+				//	db.SaveChanges();
+				//}
 
 				retablissement.utilisateur = User.Identity.Name;
 				db.retablissement.Add(retablissement);
@@ -759,6 +783,7 @@ namespace proera.Controllers
 			//var facts = db.factures.Where(f => (f.Paiement == false) && (f.penalite > 0) && (f.PeriodeFacturee == rec.periode)).ToList();
 			var facts = db.factures.Where(f => (f.Paiement == 0) && (f.PeriodeFacturee == rec.periode)).ToList();
 			var clients = new List<clients>();
+			//return facts.Count() + "";
 
 			foreach (var f in facts)
 			{
@@ -840,6 +865,7 @@ namespace proera.Controllers
 				{
 					message = "trouve",
 					nom = cli.Nom1,
+					prenom = cli.Prenom,
 					oldInterface = cli.numcompteur
 				});
 			}
@@ -1267,7 +1293,7 @@ namespace proera.Controllers
 		public ActionResult mettreEnVigueur()
 		{
 
-			ViewBag.bordereaux = new SelectList(db.bordereaux.Where(b => b.ouvert == 1), "id", "numero");
+			ViewBag.bordereaux = new SelectList(db.bordereaux.Where(b => ( b.ouvert == 1 ) && ( b.type == "abonnement" )), "id", "numero");
 			//ViewBag.role = System.Web.Security.Roles.n
 			return View("MettreEnVigueur");
 		}
@@ -1409,6 +1435,7 @@ namespace proera.Controllers
 			}
 
 			return selectclients;
+			
 		}
 
 		public String rechercheclimes([Bind(Include = "Reference_Contrat")] clients vil)
@@ -1508,6 +1535,18 @@ namespace proera.Controllers
 			return Json(new { departement = depart, commune = communesselect, village = villagesselect });
 
 		}
+
+
+
+		public ActionResult donneesclients([Bind(Include = "referenceClient")] miseenserviceclient cli)
+		{
+
+			var client = db.clients.Find(cli.referenceClient);
+			return Json(new { nom= client.Nom1, prenom = client.Prenom });
+
+		}
+
+		
 		public ActionResult changementdepartementmes([Bind(Include = "code_departement")] departements dept)
 		{
 
@@ -1842,9 +1881,25 @@ namespace proera.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				clients.Etat_Client = 5;
-				clients.Contrat = 3;
-				db.Entry(clients).State = EntityState.Modified;
+				var client = db.clients.Find(clients.Reference_Contrat);
+				//clients.Etat_Client = 5;
+				//clients.Contrat = 3;
+				client.Nom1 = clients.Nom1;
+				client.Prenom = clients.Prenom;
+				client.Tel = clients.Tel;
+				client.Num_ID = clients.Num_ID;
+				client.Date_Abonnement = clients.Date_Abonnement;
+				client.codevillage = clients.codevillage;
+				client.Type_Elect = clients.Type_Elect;
+				client.calibre = clients.calibre;
+				client.NivPuissance = clients.NivPuissance;
+				client.TypeBranch = clients.TypeBranch;
+				client.Bordereau = clients.Bordereau;
+				client.SoldeTotal = clients.SoldeTotal;
+				client.Montant_Encaisse = clients.Montant_Encaisse;
+				client.numeropaiement = clients.numeropaiement;
+				client.Commentaire = clients.Commentaire;
+				db.Entry(client).State = EntityState.Modified;
 				db.SaveChanges();
 				return RedirectToAction("Index");
 			}

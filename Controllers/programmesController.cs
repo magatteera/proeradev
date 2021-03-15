@@ -19,7 +19,8 @@ namespace proera.Controllers
         // GET: programmes
         public ActionResult Index()
         {
-            return View(db.programmes.ToList());
+            ViewBag.programmes = new SelectList(db.programmes, "id", "nom");
+            return View();
         }
 
         // GET: programmes/Details/5
@@ -59,6 +60,52 @@ namespace proera.Controllers
 
             return View(programmes);
         }
+
+        public ActionResult listevillages([Bind(Include = "ID")] programmes p)
+        {
+            var village = db.villages.Where(v => v.code_prog != p.ID).ToList();
+
+            string listebr = "";
+
+            foreach (var v in village)
+            {
+                listebr += 
+                    "<tr>" + "<td>" + v.village + "</td>" +
+                    //"<td>" + v.communes.nom + "</td>" +
+                    "<td>" + v.code_village + "</td>" +
+                    "<td>" + "<button class='btn btn-warning btn-sm' id='btnmodifier-" + v.id + "' code='" + v.code_village + "'>Attribuer</button>" + "</td>" +
+                    "</tr>";
+            }
+
+            return Json(new
+            {
+                villages = listebr
+            });
+        }
+
+        public ActionResult changerprogramme([Bind(Include = "code_prog, code_village")] villages vil)
+        {
+            var village = db.villages.Where(v => v.code_village == vil.code_village).ToList()[0];
+
+            try
+            {
+                village.code_prog = vil.code_prog;
+                db.Entry(village).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(new
+                {
+                    message = "Programme attribué avec succés"
+                });
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    message = "erreur"
+                });
+            }
+        }
+
 
         // GET: programmes/Edit/5
         public ActionResult Edit(int? id)

@@ -213,6 +213,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </li>
 
 
+                                <li class="nav-item">
+                                    <a id="rapportbvbyperiode" target="_blank" href="http://win-sqlsrv/ReportServer/Pages/ReportViewer.aspx?%2fERADEV%2fBVByPeriode&rs:Command=Render" class="nav-link nav-dark">Bordereaux par Periode</a>
+                                </li>
+
+
 
                             </ul>
                         </li>
@@ -258,16 +263,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     @Html.ActionLink("Bordereau d'encaissement", "", "bordereaux/create", new { area = "" }, new { @class = "nav-link nav-dark" })
                                 </li>
                                 <li class="nav-item">
+                                    @Html.ActionLink("Liste Bordereaux DAF", "", "bordereaux/bordereauxdaf", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Liste Bordereaux Caisse", "", "bordereaux/bordereauxcaisse", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+                                <li class="nav-item">
                                     @Html.ActionLink("Caisse", "", "encaissements/create", new { area = "" }, new { @class = "nav-link nav-dark" })
                                 </li>
 
+
+                                <li class="nav-item">
+                                    @Html.ActionLink("Caisse Sans Restrict", "", "encaissements/encaissersansrestrict", new { area = "" }, new { @class = "nav-link nav-dark" })
+                                </li>
+                                
                                 <li class="nav-item">
                                     @Html.ActionLink("Arreté de Caisse", "", "encaissements/arretercaisse", new { area = "" }, new { @class = "nav-link nav-dark" })
                                 </li>
 
                                 @*<li class="nav-item">
-                    @Html.ActionLink("Corriger Encaissement", "", "encaissements/index", new { area = "" }, new { @class = "nav-link nav-dark" })
-                </li>*@
+            @Html.ActionLink("Corriger Encaissement", "", "encaissements/index", new { area = "" }, new { @class = "nav-link nav-dark" })
+        </li>*@
 
                             </ul>
                         </li>
@@ -513,7 +529,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             document.getElementById("rapportReleves2").setAttribute("href", "http://reporting.erasenegal.com:8081/ReportServer/Pages/ReportViewer.aspx?%2fERADEV%2fRapportReleves2&rs:Command=Render")
             document.getElementById("rapportenattente").setAttribute("href", "http://reporting.erasenegal.com:8081/ReportServer/Pages/ReportViewer.aspx?%2fERADEV%2fEnAttente&rs:Command=Render")
             document.getElementById("rapportclientsacouper").setAttribute("href", "http://reporting.erasenegal.com:8081/ReportServer/Pages/ReportViewer.aspx?%2fERADEV%2fClientsACouper&rs:Command=Render")
-           
+            document.getElementById("rapportbvbyperiode").setAttribute("href", "http://reporting.erasenegal.com:8081/ReportServer/Pages/ReportViewer.aspx?%2fERADEV%2fBVByPeriode&rs:Command=Render")
            
         }
         //document.write("<iframe src='" + link + pagesite + "' width=100% height=100%></iframe>");

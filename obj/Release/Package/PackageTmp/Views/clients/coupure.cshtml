@@ -6,12 +6,26 @@
 <br />
 <h2>Coupure d'un Client</h2>
 <div class="form-horizonal">
-    <div class="form-group">
-        <label class="control-label col">Selectionnez la Periode</label>
-        <div class="col-md-10">
-            @Html.DropDownList("periode", null, htmlAttributes: new { @class = "form-control" })
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label class="control-label col">Selectionnez la Periode</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("periode", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="form-group">
+                <label class="control-label col">Entrez la Reference</label>
+                <div class="col-md-10">
+                    <input type="text" name="refclient" id="refclient" class="form-control" />
+                </div>
+            </div>
         </div>
     </div>
+   
 </div>
 
 
@@ -131,6 +145,10 @@
                             @*@Html.DropDownList("MOTIF", null, htmlAttributes: new { @class = "form-control" })*@
                             <select class="form-control" name="MOTIF">
                                 <option value="Defaut Paiement">Defaut Paiement</option>
+                                <option value="Suite incident">Suite incident</option>
+                                <option value="Pour construction">Pour construction</option>
+                                <option value="Suite constat de fraude">Suite constat de fraude</option>
+                                <option value="Suspension provisoire de service">Suspension provisoire de service</option>
                             </select>
                             @Html.ValidationMessageFor(model => model.MOTIF, "", new { @class = "text-danger" })
                         </div>
@@ -168,6 +186,8 @@
     </div>
 </div>
 
+
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -189,7 +209,6 @@
                 url: "/clients/changementPeriodeCoupure",
                 data: data,
                 success: function (data) {
-                    //alert(data)
                     $('#tablebodyitems').empty()
                         .append(data)
 
@@ -211,6 +230,33 @@
                         $("#village").val($("button[id^='btncouper']").attr("village"))
                         $("#modalcoupure").modal('show')
                     })
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        });
+
+        $("#refclient").change(function () {
+            //alert($("#nivpuissance").val())
+
+
+            data = {
+                Reference_Contrat: $("#refclient").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/changementRefClientCoupure",
+                data: data,
+                success: function (data) {
+                    if (data.message == 'trouve'){
+                        
+                        $("#reference").val($("#refclient").val())
+                        $("#nom").val(data.nom)
+                        $("#prenom").val(data.prenom)
+                        $("#village").val(data.village)
+                        $("#modalcoupure").modal('show')
+                        }
                 },
                 error: function () {
                     alert("Error occured!!")

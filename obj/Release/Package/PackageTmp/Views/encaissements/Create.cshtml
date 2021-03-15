@@ -325,18 +325,25 @@
 
         $("#enregistrer").attr("disabled", true)
 
+        var datatable = 0;
 
         $("#montantencaisee").change(function () {
-            @*if ($("#montantencaisee").val() <
-                $("#montantfacture").val()) {
+            if (parseFloat($("#montantencaisee").val()) < parseFloat($("#montantfacture").val()) - 500) {
 
-                swal("Erreur", "Le Montant encaissé ne peut etre inferieur au montant de la facture!", "error")
+                if (parseFloat($("#soldeprepaiement").val()) -500 > parseFloat($("#montantencaisee").val())) {
 
-                $("#soldepostpaiement").val("")
-            } else {*@
+                    swal("Erreur", "Le Montant encaissé ne peut etre inferieur au montant de la facture!", "error")
 
-                $("#soldepostpaiement").val($("#soldeprepaiement").val() - $("#montantencaisee").val())
-            @*}*@
+                    $("#soldepostpaiement").val("")
+                } else {
+
+                    $("#soldepostpaiement").val(Math.round(($("#soldeprepaiement").val() - $("#montantencaisee").val())))
+                }
+
+            } else {
+
+                $("#soldepostpaiement").val(Math.round(($("#soldeprepaiement").val() - $("#montantencaisee").val())))
+            }
         })
 
         $("#idbordereau").prepend("<option value='' selected>Selectionnez le bordereau</option>")
@@ -386,12 +393,15 @@
 
                         $("#montantbord").html(data.sommeencs)
 
-                        $('#tablebody').DataTable({
-                            "language": {
-                                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json",
-                                "searching": false
-                            }
-                        });
+
+                        if (datatable == 0) {
+                            $('#tablebody').DataTable({
+                                "language": {
+                                    "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
+                                }
+                            });
+                            datatable = 1;
+                        }
 
 
                     }
@@ -537,7 +547,7 @@
                 type: $("#typebordereau").val()
             }
 
-            if ($("#montantbordereau").val().length < 4 || $("#montantbordereau").val().length < 3) {
+            if ($("#numerobordereau").val().length < 3) {
                 alert ("Veuillez creer un bordereaux en donnant un montant et un numero qui sont obligatoires.")
             } else
             $.ajax({

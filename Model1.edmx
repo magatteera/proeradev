@@ -470,8 +470,6 @@
           <Property Name="indexdepose" Type="int" />
           <Property Name="interface" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Erreurs détectées durant la génération :
-avertissement 6002: La table/vue 'PROERA.dbo.retablissement' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
         <EntityType Name="retablissement">
           <Key>
             <PropertyRef Name="id" />
@@ -947,6 +945,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <EntitySet Name="regions" EntityType="Self.regions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="releves" EntityType="Self.releves" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="resiliation" EntityType="Self.resiliation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="retablissement" EntityType="Self.retablissement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SAV" EntityType="Self.SAV" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sav_interface" EntityType="Self.sav_interface" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tarifs" EntityType="Self.tarifs" Schema="dbo" store:Type="Tables" />
@@ -957,15 +956,6 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <EntitySet Name="typereclamation" EntityType="Self.typereclamation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="usages" EntityType="Self.usages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="villages" EntityType="Self.villages" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="retablissement" EntityType="Self.retablissement" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [retablissement].[id] AS [id], 
-    [retablissement].[date] AS [date], 
-    [retablissement].[utilisateur] AS [utilisateur], 
-    [retablissement].[refclient] AS [refclient], 
-    [retablissement].[index] AS [index]
-    FROM [dbo].[retablissement] AS [retablissement]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="View_DetailsEncaissement" EntityType="Self.View_DetailsEncaissement" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [View_DetailsEncaissement].[id] AS [id], 

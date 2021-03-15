@@ -725,10 +725,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/09/2019 00:56:44</publishTime>
     </File>
     <File Include="bin/proera.dll">
-      <publishTime>01/15/2021 14:37:12</publishTime>
+      <publishTime>03/08/2021 10:43:57</publishTime>
     </File>
     <File Include="bin/proera.pdb">
-      <publishTime>01/15/2021 14:37:12</publishTime>
+      <publishTime>03/08/2021 10:43:57</publishTime>
     </File>
     <File Include="bin/pt-BR/Microsoft.Data.SqlClient.resources.dll">
       <publishTime>05/15/2020 23:07:26</publishTime>
@@ -1478,7 +1478,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/11/2020 11:20:10</publishTime>
     </File>
     <File Include="Views/bordereaux/Create.cshtml">
-      <publishTime>12/24/2020 10:50:58</publishTime>
+      <publishTime>03/08/2021 10:43:44</publishTime>
     </File>
     <File Include="Views/bordereaux/Delete.cshtml">
       <publishTime>09/16/2020 17:18:51</publishTime>
@@ -1492,11 +1492,17 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Views/bordereaux/Index.cshtml">
       <publishTime>09/16/2020 17:18:56</publishTime>
     </File>
+    <File Include="Views/bordereaux/listecaisse.cshtml">
+      <publishTime>02/23/2021 11:12:56</publishTime>
+    </File>
+    <File Include="Views/bordereaux/listedaf.cshtml">
+      <publishTime>02/23/2021 11:06:47</publishTime>
+    </File>
     <File Include="Views/clients/changerInterface - Copier %282%29.cshtml">
       <publishTime>11/13/2020 16:22:27</publishTime>
     </File>
     <File Include="Views/clients/changerinterface.cshtml">
-      <publishTime>11/23/2020 16:55:36</publishTime>
+      <publishTime>01/29/2021 09:53:44</publishTime>
     </File>
     <File Include="Views/clients/clientsacouper.cshtml">
       <publishTime>11/17/2020 12:09:37</publishTime>
@@ -1505,7 +1511,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/13/2020 16:22:27</publishTime>
     </File>
     <File Include="Views/clients/coupure.cshtml">
-      <publishTime>11/16/2020 08:50:30</publishTime>
+      <publishTime>01/21/2021 15:46:49</publishTime>
     </File>
     <File Include="Views/clients/CreateDomestique.cshtml">
       <publishTime>01/13/2021 10:00:50</publishTime>
@@ -1529,7 +1535,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/19/2020 16:26:02</publishTime>
     </File>
     <File Include="Views/clients/MettreEnService.cshtml">
-      <publishTime>12/24/2020 11:10:14</publishTime>
+      <publishTime>02/12/2021 08:29:37</publishTime>
     </File>
     <File Include="Views/clients/MettreEnServiceNonRac.cshtml">
       <publishTime>11/23/2020 08:25:18</publishTime>
@@ -1553,13 +1559,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/20/2020 11:20:44</publishTime>
     </File>
     <File Include="Views/clients/Retablir.cshtml">
-      <publishTime>11/24/2020 10:22:43</publishTime>
+      <publishTime>01/22/2021 16:33:47</publishTime>
     </File>
     <File Include="Views/clients/retablissement.cshtml">
       <publishTime>10/05/2020 15:52:25</publishTime>
     </File>
     <File Include="Views/clients/updateDomNonEnvigueur.cshtml">
-      <publishTime>12/02/2020 11:57:50</publishTime>
+      <publishTime>02/01/2021 09:53:42</publishTime>
     </File>
     <File Include="Views/clients/updateProdNonEnvigueur.cshtml">
       <publishTime>11/26/2020 11:39:06</publishTime>
@@ -1628,7 +1634,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/13/2021 08:50:43</publishTime>
     </File>
     <File Include="Views/encaissements/Create.cshtml">
-      <publishTime>01/05/2021 09:41:18</publishTime>
+      <publishTime>03/08/2021 10:43:10</publishTime>
+    </File>
+    <File Include="Views/encaissements/CreateSansRestrict.cshtml">
+      <publishTime>03/04/2021 09:54:44</publishTime>
     </File>
     <File Include="Views/encaissements/Delete.cshtml">
       <publishTime>09/10/2020 12:51:45</publishTime>
@@ -1820,7 +1829,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/27/2020 09:20:52</publishTime>
     </File>
     <File Include="Views/programmes/Index.cshtml">
-      <publishTime>11/27/2020 09:20:53</publishTime>
+      <publishTime>02/03/2021 16:39:14</publishTime>
     </File>
     <File Include="Views/reclamations1/Create.cshtml">
       <publishTime>12/01/2020 16:59:13</publishTime>
@@ -1922,7 +1931,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/08/2020 11:14:30</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>01/15/2021 11:15:59</publishTime>
+      <publishTime>03/04/2021 09:58:13</publishTime>
     </File>
     <File Include="Views/usages/Create.cshtml">
       <publishTime>09/10/2020 12:56:21</publishTime>
@@ -1949,10 +1958,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>12/10/2020 16:00:40</publishTime>
     </File>
     <File Include="Views/villages/Edit.cshtml">
-      <publishTime>01/15/2021 10:25:51</publishTime>
+      <publishTime>03/03/2021 09:37:59</publishTime>
     </File>
     <File Include="Views/villages/Edit2.cshtml">
-      <publishTime>12/14/2020 11:34:36</publishTime>
+      <publishTime>02/03/2021 16:48:07</publishTime>
     </File>
     <File Include="Views/villages/Index.cshtml">
       <publishTime>12/10/2020 16:01:38</publishTime>
@@ -1964,7 +1973,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/08/2020 11:13:57</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/15/2021 14:37:13</publishTime>
+      <publishTime>03/08/2021 10:44:38</publishTime>
     </File>
   </ItemGroup>
 </Project>

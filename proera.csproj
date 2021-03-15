@@ -999,6 +999,9 @@
     <Content Include="Views\correctionsoldes\Details.cshtml" />
     <Content Include="Views\correctionsoldes\Edit.cshtml" />
     <Content Include="Views\correctionsoldes\Index.cshtml" />
+    <Content Include="Views\bordereaux\listecaisse.cshtml" />
+    <Content Include="Views\bordereaux\listedaf.cshtml" />
+    <Content Include="Views\encaissements\CreateSansRestrict.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\upload\" />

@@ -57,6 +57,14 @@ namespace proera.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Proera_BackOffice, Proera_ADMIN")]
+        public ActionResult encaissersansrestrict()
+        {
+            var bordereaux = db.bordereaux.Where(b => (b.ouvert == 1) && (b.type == "encaissement")).ToList();
+            ViewBag.idbordereau = new SelectList(bordereaux, "id", "numero");
+            return View("~/Views/encaissements/CreateSansRestrict.cshtml");
+        }
+
 
         [Authorize(Roles = "Proera_CA, Proera_Admin")]
         public ActionResult arretercaisse(string id)
@@ -401,7 +409,7 @@ namespace proera.Controllers
         public ActionResult changementbordereau([Bind(Include = "idbordereau")] encaissements encaissements)
         {
 
-            var encaisse = db.encaissements.Where(e => e.idbordereau == encaissements.idbordereau).ToList();
+            var encaisse = db.encaissements.Where(e => e.idbordereau == encaissements.idbordereau).OrderByDescending(e => e.id).ToList();
 
             double sommeenc = 0;
             string liste = "";
@@ -459,6 +467,8 @@ namespace proera.Controllers
         {
             return View("~/Views/recouvrements/encaisser.cshtml");
         }
+
+
 
 
 
