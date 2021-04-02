@@ -10,10 +10,10 @@ using proera;
 
 namespace proera.Controllers
 {
-    [Authorize(Roles = "Proera_REC, Proera_Admin")]
+    [Authorize(Roles = "Proera_REC, Proera_Admin")] 
     public class facturesController : Controller
     {
-        private Data_PROERA db = new Data_PROERA();
+        private PROERAEntities db = new PROERAEntities();
 
         // GET: factures
         public ActionResult Index()
@@ -102,9 +102,9 @@ namespace proera.Controllers
             return View(factures);
         }
 
-        public ActionResult factureACorriger([Bind(Include = "idFacture")] factures factures)
+        public ActionResult factureACorriger([Bind(Include = "id")] factures factures)
         {
-            var facs = db.factures.Where(f => (f.IdFacture == factures.IdFacture) && (f.Paiement == 0)).ToList();
+            var facs = db.factures.Where(f => (f.id == factures.id) && (f.Paiement == 0)).ToList();
             if (facs.Count() > 0)
             {
                 var fac = facs[0];
@@ -121,7 +121,7 @@ namespace proera.Controllers
             else
                 return Json(new
                 {
-                    message = "Facture inexistante ou deja payee"
+                    message = "Facture inexistante ou deja payee " 
                 });
         }
 

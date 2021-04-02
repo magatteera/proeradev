@@ -18,7 +18,6 @@ namespace proera
         public villages()
         {
             this.MisEnServiceVillages = new HashSet<MisEnServiceVillages>();
-            this.near_dist = new HashSet<near_dist>();
             this.reclamation = new HashSet<reclamation>();
         }
     
@@ -34,8 +33,8 @@ namespace proera
         public Nullable<byte> forage { get; set; }
         public Nullable<byte> antenne_bts { get; set; }
         public Nullable<byte> moulin { get; set; }
-        public Nullable<double> longitude { get; set; }
-        public Nullable<double> latitude { get; set; }
+        public string longitude { get; set; }
+        public string latitude { get; set; }
         public int code_village { get; set; }
         public Nullable<int> code_prog { get; set; }
         public Nullable<int> idLocalite { get; set; }
@@ -49,8 +48,6 @@ namespace proera
         public virtual communes communes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MisEnServiceVillages> MisEnServiceVillages { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<near_dist> near_dist { get; set; }
         public virtual programmes programmes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<reclamation> reclamation { get; set; }

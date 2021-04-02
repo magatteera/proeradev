@@ -16,7 +16,7 @@ namespace proera.Controllers
 {
     public class compteursController : Controller
     {
-        private Data_PROERA db = new Data_PROERA();
+        private PROERAEntities db = new PROERAEntities();
 
         // GET: compteurs
         public ActionResult Index()

@@ -12,12 +12,12 @@ namespace proera.Controllers
 {
     public class resiliationsController : Controller
     {
-        private Data_PROERA db = new Data_PROERA();
+        private PROERAEntities db = new PROERAEntities();
 
         // GET: resiliations
         public ActionResult Index()
         {
-            var resiliation = db.resiliation.Include(r => r.clients).Include(r => r.motifresiliation);
+            var resiliation = db.resiliation.Include(r => r.clients);
             return View(resiliation.ToList());
         }
 
@@ -33,7 +33,7 @@ namespace proera.Controllers
             {
                 return HttpNotFound();
             }
-            return View(resiliation);
+            return RedirectToAction("Index");
         }
 
         // GET: resiliations/Create
@@ -53,7 +53,9 @@ namespace proera.Controllers
         {
             if (ModelState.IsValid)
             {
+                resiliation.utilisateur = User.Identity.Name;
                 db.resiliation.Add(resiliation);
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -12,7 +12,7 @@ namespace proera.Controllers
 {
     public class villagesController : Controller
     {
-        private Data_PROERA db = new Data_PROERA();
+        private PROERAEntities db = new PROERAEntities();
 
         // GET: villages
         public ActionResult Index()
@@ -91,7 +91,8 @@ namespace proera.Controllers
                 etattra = village.etattravaux,
                 code = village.code_prog,
                 techprog = village.programmes.tech,
-                techno = village.technologie
+                techno = village.technologie,
+                nbrclient = village.nbrclients
             });
 
         }
@@ -149,7 +150,7 @@ namespace proera.Controllers
             ViewBag.idLocalite = new SelectList(db.communes, "code_com", "nom");
             ViewBag.code_prog = new SelectList(db.programmes, "ID", "nom");
 
-            ViewBag.technologie = new SelectList(db.Technologies, "ID", "nom");
+            ViewBag.technologie = new SelectList(db.Technologies, "ID", "technologie");
 
             return View("~/Views/villages/Edit2.cshtml");
         }
@@ -160,7 +161,7 @@ namespace proera.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,region,departement,commune,village,population,menage,education,sante,forage,antenne_bts,moulin,longitude,latitude,code_village,code_prog,idLocalite")] villages villages)
+        public ActionResult Edit([Bind(Include = "id,region,departement,commune,village,population,menage,education,sante,forage,antenne_bts,moulin,longitude,latitude,code_village,code_prog,idLocalite,etattravaux,technologie,commercialise,nbrclients,codemt,neardist")] villages villages)
         {
             if (ModelState.IsValid)
             {
@@ -172,6 +173,46 @@ namespace proera.Controllers
             ViewBag.idLocalite = new SelectList(db.communes, "code_com", "nom", villages.idLocalite);
             ViewBag.code_prog = new SelectList(db.programmes, "ID", "nom", villages.code_prog);
             return View(villages);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit2([Bind(Include = "id,region,departement,commune,village,population,menage,education,sante,forage,antenne_bts,moulin,longitude,latitude,code_village,code_prog,idLocalite,etattravaux,technologie,commercialise,nbrclients,codemt,neardist")] villages villages)
+        {
+            //if (ModelState.IsValid)
+            //{
+                var v = db.villages.Find(villages.code_village);
+                v.village = villages.village;
+                v.population = villages.population;
+                v.education = villages.education;
+                v.sante = villages.sante;
+                v.forage = villages.forage;
+                v.antenne_bts = villages.antenne_bts;
+                v.moulin = villages.moulin;
+                v.longitude = villages.longitude;
+                v.latitude = villages.latitude;
+                v.etattravaux = villages.etattravaux;
+                v.code_prog = villages.code_prog;
+                v.technologie = villages.technologie;
+                //villages.menage = villages.population / 8;
+                db.Entry(v).State = EntityState.Modified;
+                db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
+            var region = db.regions.ToList();
+            var idregion = region[0].id;
+            ViewBag.region = new SelectList(region, "id", "nom_region");
+            var depts = db.departements.Where(d => d.idregion == idregion).ToList();
+            ViewBag.departement = new SelectList(depts, "code_departement", "nom");
+            var iddept = depts[0].code_departement;
+            var coms = db.communes.Where(c => c.iddepartement == iddept).ToList();
+            ViewBag.idLocalite = new SelectList(db.communes, "code_com", "nom");
+            ViewBag.code_prog = new SelectList(db.programmes, "ID", "nom");
+
+            ViewBag.technologie = new SelectList(db.Technologies, "ID", "technologie");
+
+            return View("~/Views/villages/Edit2.cshtml");
         }
 
         // GET: villages/Delete/5

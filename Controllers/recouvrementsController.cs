@@ -18,7 +18,7 @@ namespace proera.Controllers
     [Authorize(Roles = "Proera_REC, Proera_Admin")]
     public class recouvrementsController : Controller
     {
-        private Data_PROERA db = new Data_PROERA();
+        private PROERAEntities db = new PROERAEntities();
 
         // GET: recouvrements
         public ActionResult Index(string id)
@@ -114,10 +114,10 @@ namespace proera.Controllers
                     //path = "C:\\Users\\m.war\\source\\repos\\proera\\App_Data\\upload\\" + filename;
                     file.SaveAs(path);
 
-                    var csv = new CsvReader(new StreamReader(path), CultureInfo.CurrentCulture);
+                    //var csv = new CsvReader(new StreamReader(path), CultureInfo.CurrentCulture);
 
                     //ViewBag.test2 = csv.GetRecord<>.ToString();
-                    var releveslist = csv.GetRecords<recouv>().ToList();
+                    //var releveslist = csv.GetRecords<recouv>().ToList();
 
                     var periode = recouvrements.periode;
                     var listeclients = db.clients.ToList();
@@ -143,56 +143,69 @@ namespace proera.Controllers
                         db.recouvrements.Add(recouvrements);
                         db.SaveChanges();
                     }
+
+                    string url = "http://localhost:5000/" + filename;
+                    //HttpWebRequest webReq = (HttpWebRequest)WebRequest.Create(string.Format(url));
+                    //webReq.Method = "GET";
+                    //HttpWebResponse webResponse = (HttpWebResponse)webReq.GetResponse();
+                    //Console.WriteLine("Reponse : " + webResponse.ToString());
+
+                    Console.WriteLine("Reponse : " );
+
+                    System.Net.Http.HttpClient httpClient = new System.Net.Http.HttpClient();
+                    var result = httpClient.GetAsync(url).Result;
+                    Console.WriteLine("Reponse : " + result.StatusCode);
+
                     /*db.recouvrements.Add(recouvrements);
                     db.SaveChanges();*/
+                       
+
+                    // var listeajoutes = new List<recouv>();
+
+                    //foreach(var r in releveslist)
+                    //{
+                    //    nbrdepart++;
+
+                    //    releves rel = new releves();
+                    //    rel.Reference_Contrat = Int32.Parse(r.ReferenceContrat);
+                    //    rel.numcompteur = r.numcompteur;
+                    //    rel.Ancien_index = Int32.Parse(r.Ancienindex);
+                    //    rel.date_de_relève = r.datereleve;
+                    //    rel.consommation = Int32.Parse(r.consommation);
+                    //    rel.periode = recouvrements.periode;
+                    //    rel.Nouvel_index = Int32.Parse(r.Nouvelindex);
+                    //    rel.nbreJour = Int32.Parse(r.nombrejours);
+                    //    rel.categorie = r.categorie;
+                    //    rel.facturee = 0;
+                    //    try
+                    //    {
+                    //        db.releves.Add(rel);
+                    //        //db.SaveChanges();
+                    //        nbrreleves++;
+                    //    }
+                    //    catch (Exception e)
+                    //    {
+                    //        tempReleves temp = new tempReleves();
+
+                    //        temp.ReferenceContrat = Int32.Parse(r.ReferenceContrat);
+                    //        temp.numcompteur = r.numcompteur;
+                    //        temp.Ancienindex = Int32.Parse(r.Ancienindex);
+                    //        temp.datereleve = DateTime.Parse(r.datereleve);
+                    //        temp.consommation = Int32.Parse(r.consommation);
+                    //        temp.periode = recouvrements.periode;
+                    //        temp.Nouvelindex = Int32.Parse(r.Nouvelindex);
+                    //        temp.nombrejours = Int32.Parse(r.nombrejours);
+                    //        temp.type = "erreur inconnue";
+
+                    //        db.tempReleves.Add(temp);
+                    //        //db.SaveChanges();
+                    //    }
 
 
-                     var listeajoutes = new List<recouv>();
+                    //    //}
+                    //}
 
-                    foreach(var r in releveslist)
-                    {
-                        nbrdepart++;
-
-                        releves rel = new releves();
-                        rel.Reference_Contrat = Int32.Parse(r.ReferenceContrat);
-                        rel.numcompteur = r.numcompteur;
-                        rel.Ancien_index = Int32.Parse(r.Ancienindex);
-                        rel.date_de_relève = r.datereleve;
-                        rel.consommation = Int32.Parse(r.consommation);
-                        rel.periode = recouvrements.periode;
-                        rel.Nouvel_index = Int32.Parse(r.Nouvelindex);
-                        rel.nbreJour = Int32.Parse(r.nombrejours);
-                        rel.categorie = r.categorie;
-                        rel.facturee = 0;
-                        try
-                        {
-                            db.releves.Add(rel);
-                            //db.SaveChanges();
-                            nbrreleves++;
-                        }
-                        catch (Exception e)
-                        {
-                            tempReleves temp = new tempReleves();
-
-                            temp.ReferenceContrat = Int32.Parse(r.ReferenceContrat);
-                            temp.numcompteur = r.numcompteur;
-                            temp.Ancienindex = Int32.Parse(r.Ancienindex);
-                            temp.datereleve = DateTime.Parse(r.datereleve);
-                            temp.consommation = Int32.Parse(r.consommation);
-                            temp.periode = recouvrements.periode;
-                            temp.Nouvelindex = Int32.Parse(r.Nouvelindex);
-                            temp.nombrejours = Int32.Parse(r.nombrejours);
-                            temp.type = "erreur inconnue";
-
-                            db.tempReleves.Add(temp);
-                            //db.SaveChanges();
-                        }
-
-
-                        //}
-                    }
-
-                    db.SaveChanges();
+                    //db.SaveChanges();
 
 
                     //foreach (var r in releveslist)

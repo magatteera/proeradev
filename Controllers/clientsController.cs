@@ -34,7 +34,7 @@ namespace proera.Controllers
 
 	public class clientsController : Controller
 	{
-		private Data_PROERA db = new Data_PROERA();
+		private PROERAEntities db = new PROERAEntities();
 
 		// GET: clients
 		public ActionResult Index(string message = "")
@@ -72,7 +72,11 @@ namespace proera.Controllers
 
 			if (message.IsNullOrWhiteSpace())
 				return View();
-			else return View(message);
+			else
+			{
+				ViewBag.message = message;
+				return View();
+			}
 
 
 		}
@@ -97,7 +101,7 @@ namespace proera.Controllers
 				ViewBag.contrat = db.contrats.Find(clients.Contrat).contrat;
 			if(clients.NivPuissance!=null)
 			ViewBag.nivpui = db.hnivpuissances.Find(clients.NivPuissance).NivPuissance;
-			return View(clients);
+			return View("Details", clients);
 		}
 
 		public RedirectToRouteResult recherche(int reference)
@@ -985,7 +989,7 @@ namespace proera.Controllers
 		// GET: clients/Edit/5
 		//[Authorize(Roles = "COM")]
 
-		[Authorize(Roles = "Proera_ADMIN, Proera_REC")]
+		[Authorize(Roles = "Proera_ADMIN, Proera_REC, Proera_BackOffice")]
 		public ActionResult EditEnVigueur(int? id)
         {
 			if (id == null)
@@ -1113,7 +1117,7 @@ namespace proera.Controllers
 																 Value = s.id + "",
 																 Text = s.numero
 															 };
-				ViewBag.bordereau = new SelectList(selectListbord, "Value", "Text");
+				ViewBag.Bordereau = new SelectList(selectListbord, "Value", "Text", clients.Bordereau);
 				var region1 = db.regions.ToList();
 				ViewBag.regions = new SelectList(region1, "id", "nom_region", idregion);
 				var departement1 = db.departements.ToList();
@@ -1199,7 +1203,7 @@ namespace proera.Controllers
 																 Value = s.id + "",
 																 Text = s.numero
 															 };
-				ViewBag.bordereau = new SelectList(selectListbord, "Value", "Text");
+				ViewBag.Bordereau = new SelectList(selectListbord, "Value", "Text", clients.Bordereau);
 				var region2 = db.regions.ToList();
 				ViewBag.regions = new SelectList(region2, "id", "nom_region", idregion);
 				var departement2 = db.departements.ToList();
@@ -1278,7 +1282,7 @@ namespace proera.Controllers
 				client.activite = clients.activite;
 				db.Entry(client).State = EntityState.Modified;
 				db.SaveChanges();
-				return RedirectToAction("Index");
+				return RedirectToAction("Details", new { id = clients.Reference_Contrat });
 			}
 			ViewBag.Etat_Client = new SelectList(db.etatclient, "id", "etat", clients.Etat_Client);
 			ViewBag.codevillage = new SelectList(db.villages, "code_village", "village", clients.codevillage);
@@ -1896,12 +1900,17 @@ namespace proera.Controllers
 				client.TypeBranch = clients.TypeBranch;
 				client.Bordereau = clients.Bordereau;
 				client.SoldeTotal = clients.SoldeTotal;
+				client.modePaiement = clients.modePaiement;
 				client.Montant_Encaisse = clients.Montant_Encaisse;
 				client.numeropaiement = clients.numeropaiement;
 				client.Commentaire = clients.Commentaire;
+				client.Bordereau = clients.Bordereau;
+				client.Type_Elect = clients.Type_Elect;
+				client.activite = clients.activite;
+				client.Raison_Social = clients.Raison_Social;
 				db.Entry(client).State = EntityState.Modified;
 				db.SaveChanges();
-				return RedirectToAction("Index");
+				return RedirectToAction("Details", new { id = clients.Reference_Contrat });
 			}
 			ViewBag.Etat_Client = new SelectList(db.etatclient, "id", "etat", clients.Etat_Client);
 			ViewBag.codevillage = new SelectList(db.villages, "code_village", "village", clients.codevillage);

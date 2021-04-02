@@ -97,7 +97,6 @@
                 @Html.LabelFor(model => model.Raison_Social, htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Raison_Social, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.activite, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
@@ -387,6 +386,8 @@
 
         if ($("#modePaiement").val() == 1) {
             $("#txtnumpaiement").attr("hidden", true)
+
+            $('#paiementespeces').attr("checked", true)
         } else {
             if ($("#modePaiement").val() == 2) {
                 $('#paiementcoupon').attr("checked", true)

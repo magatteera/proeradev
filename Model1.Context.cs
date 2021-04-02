@@ -13,10 +13,10 @@ namespace proera
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Data_PROERA : DbContext
+    public partial class PROERAEntities : DbContext
     {
-        public Data_PROERA()
-            : base("name=Data_PROERA")
+        public PROERAEntities()
+            : base("name=PROERAEntities")
         {
         }
     
@@ -44,6 +44,7 @@ namespace proera
         public virtual DbSet<hbranches> hbranches { get; set; }
         public virtual DbSet<hcalibres> hcalibres { get; set; }
         public virtual DbSet<hnivpuissances> hnivpuissances { get; set; }
+        public virtual DbSet<messages> messages { get; set; }
         public virtual DbSet<migration> migration { get; set; }
         public virtual DbSet<miseenserviceclient> miseenserviceclient { get; set; }
         public virtual DbSet<miseenvigueur> miseenvigueur { get; set; }
@@ -51,7 +52,6 @@ namespace proera
         public virtual DbSet<modifencaissement> modifencaissement { get; set; }
         public virtual DbSet<modiffacture> modiffacture { get; set; }
         public virtual DbSet<motifresiliation> motifresiliation { get; set; }
-        public virtual DbSet<near_dist> near_dist { get; set; }
         public virtual DbSet<pannes> pannes { get; set; }
         public virtual DbSet<programmes> programmes { get; set; }
         public virtual DbSet<raisonsociale> raisonsociale { get; set; }
@@ -60,17 +60,18 @@ namespace proera
         public virtual DbSet<regions> regions { get; set; }
         public virtual DbSet<releves> releves { get; set; }
         public virtual DbSet<resiliation> resiliation { get; set; }
+        public virtual DbSet<retablissement> retablissement { get; set; }
         public virtual DbSet<SAV> SAV { get; set; }
-        public virtual DbSet<sav_interface> sav_interface { get; set; }
         public virtual DbSet<tarifs> tarifs { get; set; }
         public virtual DbSet<Technologies> Technologies { get; set; }
         public virtual DbSet<tempReleves> tempReleves { get; set; }
+        public virtual DbSet<triggerproc> triggerproc { get; set; }
         public virtual DbSet<typeelec> typeelec { get; set; }
         public virtual DbSet<typepaiement> typepaiement { get; set; }
         public virtual DbSet<typereclamation> typereclamation { get; set; }
         public virtual DbSet<usages> usages { get; set; }
         public virtual DbSet<villages> villages { get; set; }
-        public virtual DbSet<retablissement> retablissement { get; set; }
+        public virtual DbSet<mevlist> mevlist { get; set; }
         public virtual DbSet<View_DetailsEncaissement> View_DetailsEncaissement { get; set; }
     }
 }

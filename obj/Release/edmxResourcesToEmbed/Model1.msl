@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="PROERAModelStoreContainer" CdmEntityContainer="Data_PROERA">
+  <EntityContainerMapping StorageEntityContainer="PROERAModelStoreContainer" CdmEntityContainer="PROERAEntities">
     <EntitySetMapping Name="activite">
       <EntityTypeMapping TypeName="PROERAModel.activite">
         <MappingFragment StoreEntitySet="activite">
@@ -275,6 +275,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="messages">
+      <EntityTypeMapping TypeName="PROERAModel.messages">
+        <MappingFragment StoreEntitySet="messages">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="cle" ColumnName="cle" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="numero" ColumnName="numero" />
+          <ScalarProperty Name="message" ColumnName="message" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="migration">
       <EntityTypeMapping TypeName="PROERAModel.migration">
         <MappingFragment StoreEntitySet="migration">
@@ -330,6 +341,7 @@
           <ScalarProperty Name="PuissanceDHP" ColumnName="PuissanceDHP" />
           <ScalarProperty Name="nombreSupport" ColumnName="nombreSupport" />
           <ScalarProperty Name="LineaireBT" ColumnName="LineaireBT" />
+          <ScalarProperty Name="datemiseenservice" ColumnName="datemiseenservice" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -364,17 +376,6 @@
         <MappingFragment StoreEntitySet="motifresiliation">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="motif" ColumnName="motif" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="near_dist">
-      <EntityTypeMapping TypeName="PROERAModel.near_dist">
-        <MappingFragment StoreEntitySet="near_dist">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="codevillage" ColumnName="codevillage" />
-          <ScalarProperty Name="near_dist1" ColumnName="near_dist" />
-          <ScalarProperty Name="axe" ColumnName="axe" />
-          <ScalarProperty Name="code" ColumnName="code" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -501,6 +502,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="retablissement">
+      <EntityTypeMapping TypeName="PROERAModel.retablissement">
+        <MappingFragment StoreEntitySet="retablissement">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
+          <ScalarProperty Name="refclient" ColumnName="refclient" />
+          <ScalarProperty Name="index" ColumnName="index" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="SAV">
       <EntityTypeMapping TypeName="PROERAModel.SAV">
         <MappingFragment StoreEntitySet="SAV">
@@ -520,20 +532,6 @@
           <ScalarProperty Name="createdate" ColumnName="createdate" />
           <ScalarProperty Name="index" ColumnName="index" />
           <ScalarProperty Name="periodedue" ColumnName="periodedue" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="sav_interface">
-      <EntityTypeMapping TypeName="PROERAModel.sav_interface">
-        <MappingFragment StoreEntitySet="sav_interface">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="refclient" ColumnName="refclient" />
-          <ScalarProperty Name="ancieninterface" ColumnName="ancieninterface" />
-          <ScalarProperty Name="indexpose" ColumnName="indexpose" />
-          <ScalarProperty Name="indexdepose" ColumnName="indexdepose" />
-          <ScalarProperty Name="newinterface" ColumnName="newinterface" />
-          <ScalarProperty Name="date" ColumnName="date" />
-          <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -573,6 +571,20 @@
           <ScalarProperty Name="periode" ColumnName="periode" />
           <ScalarProperty Name="nombrejours" ColumnName="nombrejours" />
           <ScalarProperty Name="type" ColumnName="type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="triggerproc">
+      <EntityTypeMapping TypeName="PROERAModel.triggerproc">
+        <MappingFragment StoreEntitySet="triggerproc">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nomproc" ColumnName="nomproc" />
+          <ScalarProperty Name="param1" ColumnName="param1" />
+          <ScalarProperty Name="param2" ColumnName="param2" />
+          <ScalarProperty Name="param3" ColumnName="param3" />
+          <ScalarProperty Name="param4" ColumnName="param4" />
+          <ScalarProperty Name="param5" ColumnName="param5" />
+          <ScalarProperty Name="param6" ColumnName="param6" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -638,14 +650,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="retablissement">
-      <EntityTypeMapping TypeName="PROERAModel.retablissement">
-        <MappingFragment StoreEntitySet="retablissement">
-          <ScalarProperty Name="index" ColumnName="index" />
-          <ScalarProperty Name="refclient" ColumnName="refclient" />
-          <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
-          <ScalarProperty Name="date" ColumnName="date" />
+    <EntitySetMapping Name="mevlist">
+      <EntityTypeMapping TypeName="PROERAModel.mevlist">
+        <MappingFragment StoreEntitySet="mevlist">
+          <ScalarProperty Name="dateMeV" ColumnName="dateMeV" />
+          <ScalarProperty Name="numbord" ColumnName="numbord" />
+          <ScalarProperty Name="montantbord" ColumnName="montantbord" />
+          <ScalarProperty Name="iduser" ColumnName="iduser" />
           <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="remarque" ColumnName="remarque" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

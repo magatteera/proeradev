@@ -66,29 +66,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
-                                    Sig Era
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-
-
-                                <li class="nav-item">
-                                    <a id="rapportsigera" target="_blank" href="https://app.powerbi.com/view?r=eyJrIjoiOWJiN2JlODQtNjlkNi00MGEyLWE5NDItMWFmMGE0M2IzY2RhIiwidCI6IjZhOGE4YmU3LTkwMmQtNDliMC1iNzZjLTc4MTBmYzYwMzE0YiIsImMiOjh9&pageName=ReportSection" class="nav-link nav-dark">Tab Sig Era</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a id="rapportsigerav2" target="_blank" href="https://erasenegal.maps.arcgis.com/apps/webappviewer/index.html?id=bfb6dccc7d374738933a65307846d82a" class="nav-link nav-dark">Tab Sig Era V2</a>
-                                </li>
-
-
-                            </ul>
-                        </li>
-
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>
                                     Gestion Clients
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
@@ -218,6 +195,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </li>
 
 
+                                <li class="nav-item">
+                                    <a id="rapportresiliations" target="_blank" href="http://win-sqlsrv/ReportServer/Pages/ReportViewer.aspx?%2fERADEV%2fResiliations&rs:Command=Render" class="nav-link nav-dark">Resiliations</a>
+                                </li>
+
+
+                                <li class="nav-item">
+                                    <a id="rapportbvpasenvigueur" target="_blank" href="http://win-sqlsrv/ReportServer/Pages/ReportViewer.aspx?%2fERADEV%2fbvpasenvigueur&rs:Command=Render" class="nav-link nav-dark">BV pas en vigueur</a>
+                                </li>
+
+
+
+
 
                             </ul>
                         </li>
@@ -276,14 +265,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <li class="nav-item">
                                     @Html.ActionLink("Caisse Sans Restrict", "", "encaissements/encaissersansrestrict", new { area = "" }, new { @class = "nav-link nav-dark" })
                                 </li>
-                                
+
                                 <li class="nav-item">
                                     @Html.ActionLink("Arreté de Caisse", "", "encaissements/arretercaisse", new { area = "" }, new { @class = "nav-link nav-dark" })
                                 </li>
 
                                 @*<li class="nav-item">
-            @Html.ActionLink("Corriger Encaissement", "", "encaissements/index", new { area = "" }, new { @class = "nav-link nav-dark" })
-        </li>*@
+                    @Html.ActionLink("Corriger Encaissement", "", "encaissements/index", new { area = "" }, new { @class = "nav-link nav-dark" })
+                </li>*@
 
                             </ul>
                         </li>
@@ -382,31 +371,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </li>
 
                         @*<li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-money-bill-alt"></i>
-                                <p>
-                                    JPE
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    @Html.ActionLink("Clients a Couper", "", "recouvrements/ouvrirperioderecouvrement", new { area = "" }, new { @class = "nav-link nav-dark" })
-                                </li>
-                                <li class="nav-item">
-                                    @Html.ActionLink("Clients a Retablir", "", "clients/rechercheEnAttente", new { area = "" }, new { @class = "nav-link" })
-                                </li>
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-money-bill-alt"></i>
+                <p>
+                    JPE
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    @Html.ActionLink("Clients a Couper", "", "recouvrements/ouvrirperioderecouvrement", new { area = "" }, new { @class = "nav-link nav-dark" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Clients a Retablir", "", "clients/rechercheEnAttente", new { area = "" }, new { @class = "nav-link" })
+                </li>
 
-                                <li class="nav-item">
-                                    @Html.ActionLink("Clients Coupes", "", "recouvrements/cloturer", new { area = "" }, new { @class = "nav-link" })
-                                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Clients Coupes", "", "recouvrements/cloturer", new { area = "" }, new { @class = "nav-link" })
+                </li>
 
-                                <li class="nav-item">
-                                    @Html.ActionLink("Clients Retablis", "", "recouvrements/cloturer", new { area = "" }, new { @class = "nav-link" })
-                                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Clients Retablis", "", "recouvrements/cloturer", new { area = "" }, new { @class = "nav-link" })
+                </li>
 
-                            </ul>
-                        </li>*@
+            </ul>
+        </li>*@
 
 
 
@@ -446,6 +435,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                             </ul>
                         </li>
+
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Sig Era
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+
+
+                                <li class="nav-item">
+                                    <a id="rapportsigera" target="_blank" href="https://app.powerbi.com/view?r=eyJrIjoiOTAwY2E3N2ItZjkwNy00OTRkLWJkZjctY2QwNzkxYmMxMzAyIiwidCI6IjZhOGE4YmU3LTkwMmQtNDliMC1iNzZjLTc4MTBmYzYwMzE0YiIsImMiOjh9" class="nav-link nav-dark">Tab Sig Era</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a id="rapportsigerav2" target="_blank" href="https://erasenegal.maps.arcgis.com/apps/webappviewer/index.html?id=bfb6dccc7d374738933a65307846d82a" class="nav-link nav-dark">Tab Sig Era V2</a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+
 
 
 
@@ -530,7 +544,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
             document.getElementById("rapportenattente").setAttribute("href", "http://reporting.erasenegal.com:8081/ReportServer/Pages/ReportViewer.aspx?%2fERADEV%2fEnAttente&rs:Command=Render")
             document.getElementById("rapportclientsacouper").setAttribute("href", "http://reporting.erasenegal.com:8081/ReportServer/Pages/ReportViewer.aspx?%2fERADEV%2fClientsACouper&rs:Command=Render")
             document.getElementById("rapportbvbyperiode").setAttribute("href", "http://reporting.erasenegal.com:8081/ReportServer/Pages/ReportViewer.aspx?%2fERADEV%2fBVByPeriode&rs:Command=Render")
-           
+            document.getElementById("rapportresiliations").setAttribute("href", "http://reporting.erasenegal.com:8081/ReportServer/Pages/ReportViewer.aspx?%2fERADEV%2fResiliations&rs:Command=Render")
+            document.getElementById("rapportbvpasenvigueur").setAttribute("href", "http://reporting.erasenegal.com:8081/ReportServer/Pages/ReportViewer.aspx?%2fERADEV%2fbvpasenvigueur&rs:Command=Render")
+            
         }
         //document.write("<iframe src='" + link + pagesite + "' width=100% height=100%></iframe>");
 

@@ -19,13 +19,14 @@ namespace proera
         public string DEPARTEMENT { get; set; }
         public string COMMUNE { get; set; }
         public string VILLAGE { get; set; }
-        public Nullable<System.DateTime> dateRaccPremierClient { get; set; }
+        public string dateRaccPremierClient { get; set; }
         public string Etat_travaux { get; set; }
         public Nullable<int> code_village { get; set; }
         public Nullable<int> CapaciteTransformateur { get; set; }
         public Nullable<int> PuissanceDHP { get; set; }
         public Nullable<int> nombreSupport { get; set; }
         public Nullable<double> LineaireBT { get; set; }
+        public Nullable<System.DateTime> datemiseenservice { get; set; }
     
         public virtual villages villages { get; set; }
     }

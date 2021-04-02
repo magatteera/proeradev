@@ -12,7 +12,7 @@ namespace proera.Controllers
 {
     public class bordereauxController : Controller
     {
-        private Data_PROERA db = new Data_PROERA();
+        private PROERAEntities db = new PROERAEntities();
 
         // GET: bordereaux
         public ActionResult Index()

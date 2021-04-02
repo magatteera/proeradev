@@ -14,7 +14,7 @@ namespace proera.Controllers
     [Authorize(Roles = "Proera_SIG,Proera_Admin")]
     public class programmesController : Controller
     {
-        private Data_PROERA db = new Data_PROERA();
+        private PROERAEntities db = new PROERAEntities();
 
         // GET: programmes
         public ActionResult Index()
@@ -71,7 +71,7 @@ namespace proera.Controllers
             {
                 listebr += 
                     "<tr>" + "<td>" + v.village + "</td>" +
-                    //"<td>" + v.communes.nom + "</td>" +
+                    "<td>" + db.communes.Where(c => c.code_com == v.idLocalite).ToList()[0].nom + "</td>" +
                     "<td>" + v.code_village + "</td>" +
                     "<td>" + "<button class='btn btn-warning btn-sm' id='btnmodifier-" + v.id + "' code='" + v.code_village + "'>Attribuer</button>" + "</td>" +
                     "</tr>";

@@ -14,16 +14,7 @@ namespace proera
     
     public partial class motifresiliation
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public motifresiliation()
-        {
-            this.resiliation = new HashSet<resiliation>();
-        }
-    
         public int id { get; set; }
         public string motif { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<resiliation> resiliation { get; set; }
     }
 }

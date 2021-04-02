@@ -71,8 +71,9 @@
                 $("#divfacture").attr("hidden", true)
 
                 $("#txtnumerofacture").change(function () {
+                    @*alert($("#txtnumerofacture").val())*@
                     data = {
-                        idFacture: $("#txtnumerofacture").val()
+                        id: $("#txtnumerofacture").val()
                     }
                     // alert($("#idfacture").val())
                     $.ajax({
@@ -98,7 +99,7 @@
                             } else {
 
                                 $("#divfacture").attr("hidden", true)
-                                alert("Facture Introuvable!!")
+                                alert(data.message)
                             }
                         },
                         error: function () {

@@ -14,7 +14,7 @@ namespace proera.Controllers
     [Authorize(Roles = "Proera_SIG,Proera_Admin")]
     public class MisEnServiceVillagesController : Controller
     {
-        private Data_PROERA db = new Data_PROERA();
+        private PROERAEntities db = new PROERAEntities();
 
         // GET: MisEnServiceVillages
         public ActionResult Index()

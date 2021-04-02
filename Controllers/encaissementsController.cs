@@ -15,7 +15,7 @@ namespace proera.Controllers
     [Authorize(Roles = "Proera_REC, Proera_ENC, Proera_Admin")]
     public class encaissementsController : Controller
     {
-        private Data_PROERA db = new Data_PROERA();
+        private PROERAEntities db = new PROERAEntities();
 
         // GET: encaissements
         public ActionResult Index()

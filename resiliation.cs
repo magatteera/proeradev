@@ -19,12 +19,11 @@ namespace proera
         public Nullable<System.DateTime> date { get; set; }
         public string utilisateur { get; set; }
         public string commentaire { get; set; }
-        public Nullable<int> motif { get; set; }
+        public string motif { get; set; }
         public Nullable<double> netapayer { get; set; }
         public Nullable<int> indexdepose { get; set; }
         public string @interface { get; set; }
     
         public virtual clients clients { get; set; }
-        public virtual motifresiliation motifresiliation { get; set; }
     }
 }
