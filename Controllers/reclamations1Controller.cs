@@ -12,7 +12,7 @@ namespace proera.Controllers
 {
     public class reclamations1Controller : Controller
     {
-        private PROERAEntities db = new PROERAEntities();
+        private PROERAEntities1 db = new PROERAEntities1();
 
         // GET: reclamations1
         public ActionResult Index()
@@ -20,6 +20,8 @@ namespace proera.Controllers
             var reclamation = db.reclamation.Include(r => r.clients).Include(r => r.typereclamation);
             return View(reclamation.ToList());
         }
+
+
 
         // GET: reclamations1/Details/5
         public ActionResult Details(int? id)
@@ -40,33 +42,31 @@ namespace proera.Controllers
         public ActionResult Create()
         {
             //ViewBag.refclient = new SelectList(db.clients, "Reference_Contrat", "Nom1");
-            var region = db.regions.ToList();
-            ViewBag.regions = new SelectList(region, "id", "nom_region");
-            var departement = db.departements.ToList();
-            var deptfilt = new List<departements>();
-            foreach (departements dept in departement)
-            {
-                if (dept.idregion == region[0].id)
-                    deptfilt.Add(dept);
-            }
-            var commune = db.communes.ToList();
-            var communefilt = new List<communes>();
-            foreach (communes com in commune)
-            {
-                if (com.iddepartement == deptfilt[0].code_departement)
-                    communefilt.Add(com);
-            }
-            var village = db.villages.ToList();
-            var villagefilt = new List<villages>();
-            foreach (villages v in village)
-            {
-                if (v.idLocalite == communefilt[0].code_com)
-                    villagefilt.Add(v);
-            }
+            //var region = db.regions.ToList();
+            //ViewBag.regions = new SelectList(region, "id", "nom_region");
+            //var departement = db.departements.ToList();
+            //var deptfilt = new List<departements>();
+            //foreach (departements dept in departement)
+            //{
+            //    if (dept.idregion == region[0].id)
+            //        deptfilt.Add(dept);
+            //}
+            //var commune = db.communes.ToList();
+            //var communefilt = new List<communes>();
+            //foreach (communes com in commune)
+            //{
+            //    if (com.iddepartement == deptfilt[0].code_departement)
+            //        communefilt.Add(com);
+            //}
+            //var village = db.villages.ToList();
+            //var villagefilt = new List<villages>();
+            //foreach (villages v in village)
+            //{
+            //    if (v.idLocalite == communefilt[0].code_com)
+            //        villagefilt.Add(v);
+            //}
 
-            ViewBag.departements = new SelectList(deptfilt, "code_departement", "nom");
-            ViewBag.communes = new SelectList(communefilt, "code_com", "nom");
-            ViewBag.localite = new SelectList(villagefilt, "code_village", "village");
+
             ViewBag.type = new SelectList(db.typereclamation, "id", "type");
             return View();
         }
@@ -76,13 +76,14 @@ namespace proera.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,refclient,date,type,priorite,commentaire,nivintervention,telephone,localite,statut,utilisateur")] reclamation reclamation)
+        public ActionResult Create([Bind(Include = "id,refclient,date,type,priorite,commentaire,nivintervention,telephone,localite,statut,utilisateur, numcompteur, datecloture, nature")] reclamation reclamation)
         {
             if (ModelState.IsValid)
             {
                 reclamation.utilisateur = User.Identity.Name;
                 db.reclamation.Add(reclamation);
                 db.SaveChanges();
+                return Redirect("http://nodec-winserv1:8081/ReportServer/Pages/ReportViewer.aspx?%2freclamations&rs:Command=Render");
                 return RedirectToAction("Index");
             }
             /*
@@ -154,7 +155,45 @@ namespace proera.Controllers
             var cls = db.clients.Where(c => c.Reference_Contrat == reclamation.refclient).ToList();
             if(cls.Count() > 0)
             {
-                return Json(new { message = "existe" });
+                var vill = db.villages.Find(cls[0].codevillage);
+                return Json(new
+                {
+                    message = "existe",
+                    refclient = cls[0].Reference_Contrat,
+                    nom = cls[0].Nom1,
+                    prenom = cls[0].Prenom,
+                    //village = 
+                    village = vill.village,
+                    commune = vill.communes.nom,
+                    departement = vill.communes.departements.nom,
+                    region = vill.communes.departements.regions.nom_region,
+                    codevill = vill.code_village,
+                    compteur = cls[0].numcompteur
+                }) ;
+            }
+
+            return Json(new { message = "absent" });
+        }
+        public ActionResult verifcompteur([Bind(Include = "numcompteur")] reclamation reclamation)
+        {
+            var cls = db.clients.Where(c => c.numcompteur == reclamation.numcompteur).ToList();
+            if (cls.Count() > 0)
+            {
+                var vill = db.villages.Find(cls[0].codevillage);
+                return Json(new
+                {
+                    message = "existe",
+                    refclient = cls[0].Reference_Contrat,
+                    nom = cls[0].Nom1,
+                    prenom = cls[0].Prenom,
+                    //village = 
+                    village = vill.village,
+                    commune = vill.communes.nom,
+                    departement = vill.communes.departements.nom,
+                    region = vill.communes.departements.regions.nom_region,
+                    codevill = vill.code_village,
+                    compteur = cls[0].numcompteur
+                });
             }
 
             return Json(new { message = "absent" });
@@ -215,12 +254,21 @@ namespace proera.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,refclient,date,type,priorite,commentaire,nivintervention,telephone,localite,statut,utilisateur")] reclamation reclamation)
+        public ActionResult Edit([Bind(Include = "id,refclient,date,type,priorite,commentaire,nivintervention,telephone,localite,statut,utilisateur, numcompteur, datecloture, nature")] reclamation reclamation)
         {
             if (ModelState.IsValid)
             {
-                reclamation.utilisateur = User.Identity.Name;
-                db.Entry(reclamation).State = EntityState.Modified;
+                var rec = db.reclamation.Find(reclamation.id);
+                //reclamation.utilisateur = User.Identity.Name;
+                rec.utilisateur = User.Identity.Name;
+                rec.type = reclamation.type;
+                rec.nature = reclamation.nature;
+                rec.priorite = reclamation.priorite;
+                rec.commentaire = reclamation.commentaire;
+                rec.nivintervention = reclamation.nivintervention;
+                rec.telephone = reclamation.telephone;
+                rec.datecloture = reclamation.datecloture;
+                db.Entry(rec).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

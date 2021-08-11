@@ -18,7 +18,7 @@ namespace proera
         public villages()
         {
             this.MisEnServiceVillages = new HashSet<MisEnServiceVillages>();
-            this.reclamation = new HashSet<reclamation>();
+            this.near_dist = new HashSet<near_dist>();
         }
     
         public int id { get; set; }
@@ -49,8 +49,8 @@ namespace proera
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MisEnServiceVillages> MisEnServiceVillages { get; set; }
         public virtual programmes programmes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<reclamation> reclamation { get; set; }
         public virtual Technologies Technologies { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<near_dist> near_dist { get; set; }
     }
 }

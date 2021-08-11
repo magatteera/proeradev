@@ -27,7 +27,6 @@ namespace proera
         public int iddepartement { get; set; }
     
         public virtual departements departements { get; set; }
-        public virtual departements departements1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<villages> villages { get; set; }
     }

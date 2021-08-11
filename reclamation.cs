@@ -18,16 +18,18 @@ namespace proera
         public Nullable<int> refclient { get; set; }
         public Nullable<System.DateTime> date { get; set; }
         public Nullable<int> type { get; set; }
-        public Nullable<int> priorite { get; set; }
+        public string priorite { get; set; }
         public string commentaire { get; set; }
         public string nivintervention { get; set; }
         public string telephone { get; set; }
         public Nullable<int> localite { get; set; }
         public string statut { get; set; }
         public string utilisateur { get; set; }
+        public string numcompteur { get; set; }
+        public Nullable<System.DateTime> datecloture { get; set; }
+        public string nature { get; set; }
     
-        public virtual clients clients { get; set; }
         public virtual typereclamation typereclamation { get; set; }
-        public virtual villages villages { get; set; }
+        public virtual clients clients { get; set; }
     }
 }

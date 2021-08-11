@@ -14,7 +14,7 @@ namespace proera.Controllers
     [Authorize(Roles = "Proera_BackOffice, Proera_ADMIN")]
     public class correctionsoldesController : Controller
     {
-        private PROERAEntities db = new PROERAEntities();
+        private PROERAEntities1 db = new PROERAEntities1();
 
         // GET: correctionsoldes
         public ActionResult Index()
@@ -71,7 +71,7 @@ namespace proera.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,utilisateur,soldepre,soldepost,date,referenceclient,motif")] correctionsolde correctionsolde)
+        public ActionResult Create([Bind(Include = "soldepre,soldepost,referenceclient,motif")] correctionsolde correctionsolde)
         {
             correctionsolde.utilisateur = User.Identity.Name;
             correctionsolde.date = DateTime.Now;

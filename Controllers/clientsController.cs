@@ -34,7 +34,7 @@ namespace proera.Controllers
 
 	public class clientsController : Controller
 	{
-		private PROERAEntities db = new PROERAEntities();
+		private PROERAEntities1 db = new PROERAEntities1();
 
 		// GET: clients
 		public ActionResult Index(string message = "")
@@ -601,7 +601,7 @@ namespace proera.Controllers
 			//    clients.Add(db.clients.Find(f.RefClient));
 			//}
 
-			var recouvs = db.recouvrements.Where(r => (r.active == 0) ).ToList();
+			var recouvs = db.recouvrements.Where(r => (r.active == 0) ).OrderByDescending(r => r.id).Take(2).ToList();
 			ViewBag.periode = new SelectList(recouvs, "periode", "periode");
 
 			return View("coupure");
@@ -985,6 +985,46 @@ namespace proera.Controllers
 
         }
 
+		
+
+		[HttpPost]
+		public ActionResult getModeActuel([Bind(Include = "Reference_Contrat")] clients clients)
+		{
+			var client = db.clients.Where(c => c.Reference_Contrat == clients.Reference_Contrat).ToList();
+				if (client.Count() > 0) {
+					var modeact = client[0].modefacturation;
+
+					var nom = client[0].Nom1;
+					var prenom = client[0].Prenom;
+					return Json(new { trouve = "ok", mode = modeact, nomcl = nom, prenomcl = prenom }); 
+				}
+				else
+				return Json(new { trouve = "non"});
+		}
+
+
+
+		[HttpPost]
+		public String changerMode([Bind(Include = "Reference_Contrat, modefacturation")] clients clients)
+		{
+			var client = db.clients.Find(clients.Reference_Contrat);
+
+			client.modefacturation = clients.modefacturation;
+
+			db.Entry(client).State = EntityState.Modified;
+			db.SaveChanges();
+			return "Mode de facturation changé!";
+		}
+
+
+
+		[Authorize(Roles = "Proera_ADMIN, Proera_BackOffice")]
+		public ActionResult changerModeFact()
+        {
+
+			return View("changermodefact");
+		}
+
 
 		// GET: clients/Edit/5
 		//[Authorize(Roles = "COM")]
@@ -1239,7 +1279,7 @@ namespace proera.Controllers
 
 
 
-		[Authorize(Roles = "Proera_BacfOffice, Proera_ADMIN, Proera_CA")]
+		[Authorize(Roles = "Proera_BackfOffice, Proera_ADMIN, Proera_CA")]
 		public ActionResult Edit(int? id)
 		{
 			if (id == null)
@@ -1263,6 +1303,22 @@ namespace proera.Controllers
 			return RedirectToAction("EditEnVigueur/" + id);
 			
 		}
+
+		
+
+		[HttpPost]
+		public ActionResult getAutoNum([Bind(Include = "numerointerface")] compteurs compteur)
+		{
+			var cmps = db.compteurs.Where(c => c.numerointerface.Contains(compteur.numerointerface)).Take(5);
+			string txt = "";
+			foreach(var c in cmps)
+            {
+				txt += "\""+c.numerointerface+"\",";
+            }
+			txt = txt.Remove(txt.Length -1, 1);
+			return Json(new { texte = txt });
+		}
+
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
@@ -1444,7 +1500,8 @@ namespace proera.Controllers
 
 		public String rechercheclimes([Bind(Include = "Reference_Contrat")] clients vil)
 		{
-			var clientss = db.clients.Where(c => (c.Reference_Contrat == vil.Reference_Contrat) ).ToList();
+			var clientss = db.clients.Where(c => (c.Reference_Contrat == vil.Reference_Contrat) 
+													&& (c.Contrat == 1) && (c.Etat_Client == 5)).ToList();
 			var niv = db.hnivpuissances.ToList();
 
 			string selectclients = "";

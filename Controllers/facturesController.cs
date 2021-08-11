@@ -13,7 +13,7 @@ namespace proera.Controllers
     [Authorize(Roles = "Proera_REC, Proera_Admin")] 
     public class facturesController : Controller
     {
-        private PROERAEntities db = new PROERAEntities();
+        private PROERAEntities1 db = new PROERAEntities1();
 
         // GET: factures
         public ActionResult Index()
@@ -115,7 +115,8 @@ namespace proera.Controllers
                         montant = fac.netPayer,
                         ancienindex = fac.AncienIndex,
                         nouvelindex = fac.NouvIndex,
-                        consom = fac.conso
+                        consom = fac.conso,
+                        id = fac.id
                     });
             }
             else
@@ -129,22 +130,24 @@ namespace proera.Controllers
         
 
 
-        public ActionResult validerModif([Bind(Include = "idFacture, conso, NouvIndex, AncienIndex")] factures factures)
+        public ActionResult validerModif([Bind(Include = "id, NouvIndex, AncienIndex")] factures factures)
         {
 
-            var facs = db.factures.Where(f => f.IdFacture == factures.IdFacture).ToList();
-            var fac = facs[0];
-            modiffacture mdf = new modiffacture();
-            mdf.ancienneconso = (int)fac.conso;
-            mdf.nouvelleconso = (int)factures.conso;
-            mdf.utilisateur = User.Identity.Name;
-            mdf.idfacture = factures.id;
-            mdf.date = DateTime.Now;
+            var fac = db.factures.Find(factures.id);
+            //var fac = facs[0];
+            var mdf = new modiffacture
+            {   
+                ancienneconso = (int)fac.conso,
+                nouvelleconso = (int)factures.NouvIndex - (int)factures.AncienIndex,
+                utilisateur = User.Identity.Name,
+                idfacture = factures.id,
+                date = DateTime.Now
+            };
 
             db.modiffacture.Add(mdf);
             db.SaveChanges();
 
-            fac.conso = factures.conso;
+            fac.conso = (int)factures.NouvIndex - (int)factures.AncienIndex;
             fac.NouvIndex = factures.NouvIndex;
             fac.AncienIndex = factures.AncienIndex;
 

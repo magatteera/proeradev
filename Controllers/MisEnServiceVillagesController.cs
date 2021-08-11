@@ -14,7 +14,7 @@ namespace proera.Controllers
     [Authorize(Roles = "Proera_SIG,Proera_Admin")]
     public class MisEnServiceVillagesController : Controller
     {
-        private PROERAEntities db = new PROERAEntities();
+        private PROERAEntities1 db = new PROERAEntities1();
 
         // GET: MisEnServiceVillages
         public ActionResult Index()
@@ -58,7 +58,7 @@ namespace proera.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_SERVICE,REGION,DEPARTEMENT,COMMUNE,VILLAGE,dateRaccPremierClient,Etat_travaux,code_village,CapaciteTransformateur,PuissanceDHP,nombreSupport,LineaireBT")] MisEnServiceVillages misEnServiceVillages)
+        public ActionResult Create([Bind(Include = "ID_SERVICE,REGION,DEPARTEMENT,COMMUNE,VILLAGE,dateRaccPremierClient,Etat_travaux,code_village,CapaciteTransformateur,PuissanceDHP,nombreSupport,LineaireBT,datemiseenservice")] MisEnServiceVillages misEnServiceVillages)
         {
             if (ModelState.IsValid)
             {
@@ -87,12 +87,31 @@ namespace proera.Controllers
             return View(misEnServiceVillages);
         }
 
+        public ActionResult mettreenservice2(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            villages villages = db.villages.Find(id);
+            if (villages == null)
+            {
+                return HttpNotFound();
+            }
+
+            var mes = new MisEnServiceVillages
+            {
+                code_village = villages.code_village
+            };
+            return View(mes);
+        }
+
         // POST: MisEnServiceVillages/Edit/5
         // Afin de déjouer les attaques par survalidation, activez les propriétés spécifiques auxquelles vous voulez établir une liaison. Pour 
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_SERVICE,REGION,DEPARTEMENT,COMMUNE,VILLAGE,dateRaccPremierClient,Etat_travaux,code_village,CapaciteTransformateur,PuissanceDHP,nombreSupport,LineaireBT")] MisEnServiceVillages misEnServiceVillages)
+        public ActionResult Edit([Bind(Include = "ID_SERVICE,REGION,DEPARTEMENT,COMMUNE,VILLAGE,dateRaccPremierClient,Etat_travaux,code_village,CapaciteTransformateur,PuissanceDHP,nombreSupport,LineaireBT, datemiseenservice")] MisEnServiceVillages misEnServiceVillages)
         {
             if (ModelState.IsValid)
             {

@@ -26,7 +26,7 @@
         @using (Html.BeginForm("validerModif", "factures", FormMethod.Post ))
         {
 
-            <input type="hidden" name="idFacture" id="id" />
+            <input type="hidden" name="id" id="id" />
 
             <div class="form-group">
                 <label class="control-label col-md-2">Ancien Index</label>
@@ -87,7 +87,7 @@
                                 $("#txtnouvelindex").val(data.nouvelindex)
                                 $("#txtconsommation").val(data.consom)
                                 $("#txtmontant").val(data.montant)
-                                $("#id").val($("#txtnumerofacture").val())
+                                $("#id").val(data.id)
                                 
                                 $("#divfacture").attr("hidden", false)
                                 $("#txtnouvelindex").change(function () {

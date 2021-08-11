@@ -80,7 +80,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.soldepost, "Nouveau Solde", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="text" required name="soldepost" id="soldepost" class="form-control" />
+                <input type="number" required name="soldepost" id="soldepost" class="form-control" />
             </div>
         </div>
 
@@ -89,8 +89,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.motif, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.motif, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.motif, "", new { @class = "text-danger" })
+
+                <input type="text-area" value=" " name="motif" id="motif" class="form-control" />
             </div>
         </div>
 

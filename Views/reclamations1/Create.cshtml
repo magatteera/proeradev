@@ -13,126 +13,300 @@
 <div class="form-horizontal">
     <h4>reclamation</h4>
     <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.refclient, "Reference Client", htmlAttributes: new { @class = "control-label col" })
-        <div class="col-md-10">
-            <input type="number" name="refclient" id="refclient" class="form-control" />
-            @Html.ValidationMessageFor(model => model.refclient, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.date, htmlAttributes: new { @class = "control-label col" })
-        <div class="col-md-10">
-            <input type="date" name="date" id="date" class="form-control" />
-            @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    <div class="row">
+        <div class="col">
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.type, "type", htmlAttributes: new { @class = "control-label col" })
-        <div class="col-md-10">
-            @Html.DropDownList("type", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.priorite, htmlAttributes: new { @class = "control-label col" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.priorite, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.priorite, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.commentaire, htmlAttributes: new { @class = "control-label col" })
-        <div class="col-md-10">
-            <textarea rows="3" name="commentaire" id="commentaire" class="form-control"></textarea>
-            @Html.ValidationMessageFor(model => model.commentaire, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.nivintervention,"Niveau Intervention", htmlAttributes: new { @class = "control-label col" })
-        <div class="col-md-10">
-            <select name="nivintervention" class="form-control">
-                <option value="Critique">Critique</option>
-                <option value="Moyen">Moyen</option>
-                <option value="Moindre">Moindre</option>
-            </select>
-            @Html.ValidationMessageFor(model => model.nivintervention, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.telephone, htmlAttributes: new { @class = "control-label col" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.telephone, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.telephone, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-row">
-
-        <div class="col-sm-6">
             <div class="form-group">
-                @Html.Label("Region", htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-                    @Html.DropDownList("regions", null, htmlAttributes: new { @class = "form-control" })
+                @Html.LabelFor(model => model.refclient, "Numero Compteur", htmlAttributes: new { @class = "control-label col" })
+                <div class="col">
+                    <input type="text" name="numcompteur" id="numcompteur" class="form-control" />
                 </div>
             </div>
         </div>
 
+        <div class="col">
 
-        <div class="col-sm-6">
             <div class="form-group">
-                @Html.Label("Departement", htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-                    @Html.DropDownList("departements", null, htmlAttributes: new { @class = "form-control" })
-                </div>
-            </div>
-        </div>
-
-
-    </div>
-
-
-
-    <div class="form-row">
-
-        <div class="col-sm-6">
-            <div class="form-group">
-                @Html.Label("Commune", htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-                    @Html.DropDownList("communes", null, htmlAttributes: new { @class = "form-control" })
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-6">
-            <div class="form-group">
-                @Html.LabelFor(model => model.localite, "Village", htmlAttributes: new { @class = "control-label col" })
-                <div class="col-md-10">
-                    @Html.DropDownList("localite", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.localite, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.refclient, "Reference Contrat", htmlAttributes: new { @class = "control-label col" })
+                <div class="col">
+                    <input type="number" name="reference" id="reference" class="form-control" />
                 </div>
             </div>
         </div>
     </div>
 
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.statut, htmlAttributes: new { @class = "control-label col" })
-        <div class="col-md-10">
-            <select name="statut" class="form-control">
-                <option value="En cours">En cours</option>
-                <option value="Termine">Termine</option>
-            </select>
-            @Html.ValidationMessageFor(model => model.statut, "", new { @class = "text-danger" })
+    <div class="col" id="divinfos">
+        <ul class="list-group list-group-flush">
+
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-2">
+
+                        <dt>
+                            NOM
+                        </dt>
+
+                        <dd>
+                            <p id="nomClient"></p>
+                        </dd>
+                    </div>
+
+
+                    <div class="col-2">
+                        <dt>
+                            Prenom
+                        </dt>
+
+                        <dd>
+                            <p id="prenomClient"></p>
+                        </dd>
+                    </div>
+
+
+                    <div class="col-2">
+
+                        <dt>
+                            Reference
+                        </dt>
+
+                        <dd>
+                            <p id="referenceaffiche"></p>
+                        </dd>
+                    </div>
+
+                    <br/>
+
+                    <div class="col-2">
+
+                        <dt>
+                            Village
+                        </dt>
+                        <dd>
+                            <p id="villageClient"></p>
+                        </dd>
+                    </div>
+
+                    <div class="col-2">
+
+                        <dt>
+                            Commune
+                        </dt>
+                        <dd>
+                            <p id="communeClient"></p>
+                        </dd>
+                    </div>
+
+                    <div class="col-2">
+
+                        <dt>
+                            Departement
+                        </dt>
+                        <dd>
+                            <p id="departementClient"></p>
+                        </dd>
+                    </div>
+
+                    <div class="col-2">
+
+                        <dt>
+                            Region
+                        </dt>
+                        <dd>
+                            <p id="regionClient"></p>
+                        </dd>
+                    </div>
+
+
+                </div>
+
+
+            </li>
+
+        </ul>
+    </div>
+
+    <input type="hidden" name="refclient" id="refclient" />
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(model => model.date, htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-6">
+                    <input type="date" name="date" id="date" class="form-control" />
+                    @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(model => model.type, "type", htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-6">
+                    @Html.DropDownList("type", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
+                </div>
+            </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(model => model.commentaire, htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-6">
+                    <textarea rows="3" name="commentaire" id="commentaire" class="form-control"></textarea>
+                    @Html.ValidationMessageFor(model => model.commentaire, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(model => model.nivintervention, "Niveau Intervention", htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-6">
+                    <select name="nivintervention" class="form-control">
+                        <option value="Critique">Critique</option>
+                        <option value="Moyen">Moyen</option>
+                        <option value="Moindre">Moindre</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.nivintervention, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(model => model.nature, "Nature", htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-6">
+                    <select name="nature" class="form-control">
+                        <option value="Haute">Haute</option>
+                        <option value="Moyenne">Moyenne</option>
+                        <option value="Non Prioritaire">Non Prioritaire</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.nivintervention, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(model => model.priorite, "Priorité", htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-6">
+                    <select name="priorite" class="form-control">
+                        <option value="Problème sur la distribution (Poste ,Central PV ; MT ;BT)">Problème sur la distribution (Poste ,Central PV ; MT ;BT)</option>
+                        <option value="Absence de tension (chez le client)">Absence de tension (chez le client)</option>
+                        <option value="Raccordement tardive">Raccordement tardive</option>
+                        <option value="Facture non reçue">Facture non reçue</option>
+                        <option value="Problème de solde">Problème de solde</option>
+                        <option value="Problème de code de recharge (client au prépaiement)">Problème de code de recharge (client au prépaiement)</option>
+                        <option value="Renseignement">Renseignement</option>
+                        <option value="Divers">Divers</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.nivintervention, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(model => model.telephone, htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.telephone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.telephone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                @Html.LabelFor(model => model.statut, htmlAttributes: new { @class = "control-label col" })
+                <div class="col-md-10">
+                    <select name="statut" class="form-control">
+                        <option value="En cours">En cours</option>
+                        <option value="Termine">Termine</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.statut, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.priorite, htmlAttributes: new { @class = "control-label col" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.priorite, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.priorite, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    
+
+    
+
+
+    
+
+
+    
+
+    
+
+    @*<div class="form-row">
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.Label("Region", htmlAttributes: new { @class = "control-label col" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("regions", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.Label("Departement", htmlAttributes: new { @class = "control-label col" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("departements", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+        <div class="form-row">
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.Label("Commune", htmlAttributes: new { @class = "control-label col" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("communes", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.localite, "Village", htmlAttributes: new { @class = "control-label col" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("localite", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.localite, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+
+    <input type="hidden" name="localite" id="localite" hidden />
+
+
+    
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -149,9 +323,56 @@
     $(document).ready(function () {
 
         
-        $("#refclient").change(function () {
+        $("#numcompteur").change(function () {
             data = {
-                refclient: $("#refclient").val()
+                numcompteur: $("#numcompteur").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/reclamations1/verifcompteur",
+                data: data,
+                success: function (data) {
+
+                    if (data.message == "existe") {
+                        @*alert(data)*@
+
+                        $("#nomClient").html(data.nom)
+                        $("#prenomClient").html(data.prenom)
+                        $("#villageClient").html(data.village)
+                        $("#communeClient").html(data.commune)
+                        $("#departementClient").html(data.departement)
+                        $("#regionClient").html(data.region)
+                        $("#referenceaffiche").html(data.refclient)
+                        $("#refclient").val(data.refclient)
+                        $("#localite").val(data.codevill)
+                        $("#reference").val(data.refclient)
+
+                        $("#btncreate").attr("disabled", false)
+                    }
+                    else {
+                        $("#nomClient").html("")
+                        $("#prenomClient").html("")
+                        $("#villageClient").html("")
+                        $("#communeClient").html("")
+                        $("#departementClient").html("")
+                        $("#regionClient").html("")
+                        $("#referenceaffiche").html("")
+                        $("#refclient").val("")
+                        $("#btncreate").attr("disabled", true)
+                        swal("Erreur", "Aucun client associé a ce Compteur", "error")
+                    }
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+
+
+
+        $("#reference").change(function () {
+            data = {
+                refclient: $("#reference").val()
             }
             $.ajax({
                 type: "POST",
@@ -160,11 +381,32 @@
                 success: function (data) {
 
                     if (data.message == "existe") {
-                        
+                        @* alert(data) *@
+
+                        $("#nomClient").html(data.nom)
+                        $("#prenomClient").html(data.prenom)
+                        $("#villageClient").html(data.village)
+                        $("#communeClient").html(data.commune)
+                        $("#departementClient").html(data.departement)
+                        $("#regionClient").html(data.region)
+                        $("#referenceaffiche").html(data.refclient)
+                        $("#refclient").val(data.refclient)
+                        $("#localite").val(data.codevill)
+                        $("#numcompteur").val(data.compteur)
+
+                        $("#btncreate").attr("disabled", false)
                     }
                     else {
+                        $("#nomClient").html("")
+                        $("#prenomClient").html("")
+                        $("#villageClient").html("")
+                        $("#communeClient").html("")
+                        $("#departementClient").html("")
+                        $("#regionClient").html("")
+                        $("#referenceaffiche").html("")
+                        $("#refclient").val("")
                         $("#btncreate").attr("disabled", true)
-                        swal("Erreur", "Reference de client inexistante", "error")
+                        swal("Erreur", "Reference Contrat inexistant", "error")
                     }
                 },
                 error: function () {
@@ -172,6 +414,8 @@
                 }
             });
         })
+
+
 
 
 

@@ -15,7 +15,7 @@ namespace proera.Controllers
     [Authorize(Roles = "Proera_REC, Proera_ENC, Proera_Admin")]
     public class encaissementsController : Controller
     {
-        private PROERAEntities db = new PROERAEntities();
+        private PROERAEntities1 db = new PROERAEntities1();
 
         // GET: encaissements
         public ActionResult Index()
@@ -55,6 +55,8 @@ namespace proera.Controllers
                     ViewBag.ajout = true;
             }
             return View();
+
+            //return View("~/Views/encaissements/CreateSansRestrict.cshtml");
         }
 
         [Authorize(Roles = "Proera_BackOffice, Proera_ADMIN")]
@@ -293,7 +295,7 @@ namespace proera.Controllers
         }
 
 
-        public string validencaissement([Bind(Include = "idfacture,refclient,datesysteme,montantencaisee,soldeprepaiement,soldepostpaiement,dateencaissement,commentaire,idbordereau,numerorecue,periode")] encaissements encaissement)
+        public string validencaissement([Bind(Include = "idfacture,refclient,datesysteme,montantencaisee,soldeprepaiement,soldepostpaiement,dateencaissement,commentaire,idbordereau,numerorecue,periode,fraiscoupure")] encaissements encaissement)
         {
             //if (ModelState.IsValid)
             //{
@@ -342,13 +344,13 @@ namespace proera.Controllers
             {
                 var cli = db.clients.Find(facture[0].RefClient);
 
-                return Json(new { montant = facture[0].netPayer, periode = facture[0].PeriodeFacturee, solde = cli.SoldeTotal, refclient = facture[0].RefClient });
+                return Json(new { montant = facture[0].netPayer, soldefacture = facture[0].solde, penalite = facture[0].penalite, periode = facture[0].PeriodeFacturee, solde = cli.SoldeTotal, refclient = facture[0].RefClient });
             }
             else
                 return Json(new { message = "inexistant" });
         }
 
-        public ActionResult changementrefclient([Bind(Include = "refclient")] encaissements encaissements)
+        public ActionResult changementrefclient([Bind(Include = "refclient")] encaissements encaissements) 
         {
             var refcl = encaissements.refclient;
             var cli = db.clients.Find(refcl);
@@ -367,6 +369,7 @@ namespace proera.Controllers
                         "<td>" + p.soldeprepaiement + "</td>" +
                         "<td>" + p.soldepostpaiement + "</td>" +
                         "<td>" + p.idfacture + "</td>" +
+                        "<td>" + p.periode + "</td>" +
                          "</tr>";
                 }
 

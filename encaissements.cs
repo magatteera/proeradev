@@ -28,5 +28,6 @@ namespace proera
         public string numerobordereau { get; set; }
         public string periode { get; set; }
         public Nullable<System.DateTime> datesysteme { get; set; }
+        public Nullable<double> fraiscoupure { get; set; }
     }
 }

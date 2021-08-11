@@ -14,13 +14,18 @@ namespace proera.Controllers
     [Authorize(Roles = "Proera_SIG,Proera_Admin")]
     public class programmesController : Controller
     {
-        private PROERAEntities db = new PROERAEntities();
+        private PROERAEntities1 db = new PROERAEntities1();
 
         // GET: programmes
         public ActionResult Index()
         {
             ViewBag.programmes = new SelectList(db.programmes, "id", "nom");
             return View();
+        }
+
+        public ActionResult liste()
+        {
+            return View(db.programmes.ToList());
         }
 
         // GET: programmes/Details/5
@@ -65,21 +70,38 @@ namespace proera.Controllers
         {
             var village = db.villages.Where(v => v.code_prog != p.ID).ToList();
 
+            var villagein = db.villages.Where(v => v.code_prog == p.ID).ToList();
+
             string listebr = "";
+
+            var coms = db.communes.ToList();
 
             foreach (var v in village)
             {
                 listebr += 
                     "<tr>" + "<td>" + v.village + "</td>" +
-                    "<td>" + db.communes.Where(c => c.code_com == v.idLocalite).ToList()[0].nom + "</td>" +
+                    "<td>" + coms[coms.FindIndex(re => re.code_com == v.idLocalite)].nom + "</td>" +
+                    //"<td>" + db.communes.Where(c => c.code_com+"" == v.idLocalite+"").ToList()[0].nom +"</td>" +
                     "<td>" + v.code_village + "</td>" +
                     "<td>" + "<button class='btn btn-warning btn-sm' id='btnmodifier-" + v.id + "' code='" + v.code_village + "'>Attribuer</button>" + "</td>" +
                     "</tr>";
             }
 
+            string listein = "";
+
+            foreach (var v in villagein)
+            {
+                listein +=
+                    "<tr>" + "<td>" + v.village + "</td>" +
+                    "<td>" + coms[coms.FindIndex(re => re.code_com == v.idLocalite)].nom + "</td>" +
+                    //"<td>" + db.communes.Where(c => c.code_com+"" == v.idLocalite+"").ToList()[0].nom +"</td>" +
+                    "<td>" + v.code_village + "</td>" +
+                    "</tr>";
+            }
+
             return Json(new
             {
-                villages = listebr
+                villages = listebr, id = p.ID, villagesin = listein
             });
         }
 

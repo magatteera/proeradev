@@ -1,12 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="PROERAModelStoreContainer" CdmEntityContainer="PROERAEntities">
+  <EntityContainerMapping StorageEntityContainer="PROERAModelStoreContainer" CdmEntityContainer="PROERAEntities1">
     <EntitySetMapping Name="activite">
       <EntityTypeMapping TypeName="PROERAModel.activite">
         <MappingFragment StoreEntitySet="activite">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="activite1" ColumnName="activite" />
           <ScalarProperty Name="date" ColumnName="date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="agences">
+      <EntityTypeMapping TypeName="PROERAModel.agences">
+        <MappingFragment StoreEntitySet="agences">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -39,56 +47,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="clients">
-      <EntityTypeMapping TypeName="PROERAModel.clients">
-        <MappingFragment StoreEntitySet="clients">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Nom1" ColumnName="Nom1" />
-          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
-          <ScalarProperty Name="Num_ID" ColumnName="Num ID" />
-          <ScalarProperty Name="Tel" ColumnName="Tel" />
-          <ScalarProperty Name="Raison_Social" ColumnName="Raison Social" />
-          <ScalarProperty Name="Date_Abonnement" ColumnName="Date Abonnement" />
-          <ScalarProperty Name="Village" ColumnName="Village" />
-          <ScalarProperty Name="Niv_Service" ColumnName="Niv Service" />
-          <ScalarProperty Name="Type_Elect" ColumnName="Type Elect" />
-          <ScalarProperty Name="calibre" ColumnName="calibre" />
-          <ScalarProperty Name="Reference_Contrat" ColumnName="Reference Contrat" />
-          <ScalarProperty Name="Montant_Encaisse" ColumnName="Montant Encaisse" />
-          <ScalarProperty Name="Etat_Client" ColumnName="Etat Client" />
-          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
-          <ScalarProperty Name="Date_Mise_en_Service" ColumnName="Date Mise en Service" />
-          <ScalarProperty Name="Date_Resiliation" ColumnName="Date Resiliation" />
-          <ScalarProperty Name="X_GPS" ColumnName="X_GPS" />
-          <ScalarProperty Name="Y_GPS" ColumnName="Y_GPS" />
-          <ScalarProperty Name="Bordereau" ColumnName="Bordereau" />
-          <ScalarProperty Name="Contrat" ColumnName="Contrat" />
-          <ScalarProperty Name="numcompteur" ColumnName="numcompteur" />
-          <ScalarProperty Name="Ancien_indexe" ColumnName="Ancien indexe" />
-          <ScalarProperty Name="SoldeTotal" ColumnName="SoldeTotal" />
-          <ScalarProperty Name="IDPayment" ColumnName="IDPayment" />
-          <ScalarProperty Name="Prev_Bill" ColumnName="Prev_Bill" />
-          <ScalarProperty Name="Last_Bill" ColumnName="Last_Bill" />
-          <ScalarProperty Name="NbrEP" ColumnName="NbrEP" />
-          <ScalarProperty Name="Modifié" ColumnName="Modifié" />
-          <ScalarProperty Name="Créé" ColumnName="Créé" />
-          <ScalarProperty Name="Créé_par" ColumnName="Créé par" />
-          <ScalarProperty Name="periodeFacturee" ColumnName="periodeFacturee" />
-          <ScalarProperty Name="dateCoupure" ColumnName="dateCoupure" />
-          <ScalarProperty Name="dateAbonn" ColumnName="dateAbonn" />
-          <ScalarProperty Name="dateMeS" ColumnName="dateMeS" />
-          <ScalarProperty Name="idlastbill" ColumnName="idlastbill" />
-          <ScalarProperty Name="NivPuissance" ColumnName="NivPuissance" />
-          <ScalarProperty Name="activite" ColumnName="activite" />
-          <ScalarProperty Name="sqlstate" ColumnName="sqlstate" />
-          <ScalarProperty Name="refclient" ColumnName="refclient" />
-          <ScalarProperty Name="codevillage" ColumnName="codevillage" />
-          <ScalarProperty Name="modePaiement" ColumnName="modePaiement" />
-          <ScalarProperty Name="numeropaiement" ColumnName="numeropaiement" />
-          <ScalarProperty Name="TypeBranch" ColumnName="TypeBranch" />
-          <ScalarProperty Name="etat" ColumnName="etat" />
-          <ScalarProperty Name="usage" ColumnName="usage" />
-          <ScalarProperty Name="modefacturation" ColumnName="modefacturation" />
+    <EntitySetMapping Name="cloturerecouv">
+      <EntityTypeMapping TypeName="PROERAModel.cloturerecouv">
+        <MappingFragment StoreEntitySet="cloturerecouv">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="periode" ColumnName="periode" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -125,6 +90,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="correctionreleve">
+      <EntityTypeMapping TypeName="PROERAModel.correctionreleve">
+        <MappingFragment StoreEntitySet="correctionreleve">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="idreleve" ColumnName="idreleve" />
+          <ScalarProperty Name="idfacture" ColumnName="idfacture" />
+          <ScalarProperty Name="ancienneconso" ColumnName="ancienneconso" />
+          <ScalarProperty Name="nouvelleconso" ColumnName="nouvelleconso" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="correctionsolde">
       <EntityTypeMapping TypeName="PROERAModel.correctionsolde">
         <MappingFragment StoreEntitySet="correctionsolde">
@@ -145,26 +123,30 @@
           <ScalarProperty Name="code_departement" ColumnName="code_departement" />
           <ScalarProperty Name="geom" ColumnName="geom" />
           <ScalarProperty Name="idregion" ColumnName="idregion" />
+          <ScalarProperty Name="idagence" ColumnName="idagence" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="encaissements">
-      <EntityTypeMapping TypeName="PROERAModel.encaissements">
-        <MappingFragment StoreEntitySet="encaissements">
+    <EntitySetMapping Name="encaissement">
+      <EntityTypeMapping TypeName="PROERAModel.encaissement">
+        <MappingFragment StoreEntitySet="encaissement">
+          <ScalarProperty Name="fraiscoupure" ColumnName="fraiscoupure" />
+          <ScalarProperty Name="Idpayment" ColumnName="Idpayment" />
+          <ScalarProperty Name="DatePaiement" ColumnName="DatePaiement" />
+          <ScalarProperty Name="MontantEncaisse" ColumnName="MontantEncaisse" />
+          <ScalarProperty Name="SoldeAnterieur" ColumnName="SoldeAnterieur" />
+          <ScalarProperty Name="SoldePostPay" ColumnName="SoldePostPay" />
+          <ScalarProperty Name="Idclient" ColumnName="Idclient" />
+          <ScalarProperty Name="idFacture" ColumnName="idFacture" />
+          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="village" ColumnName="village" />
+          <ScalarProperty Name="nivserv" ColumnName="nivserv" />
+          <ScalarProperty Name="periodefacture" ColumnName="periodefacture" />
+          <ScalarProperty Name="createby" ColumnName="createby" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="idfacture" ColumnName="idfacture" />
-          <ScalarProperty Name="refclient" ColumnName="refclient" />
-          <ScalarProperty Name="montantencaisee" ColumnName="montantencaisee" />
-          <ScalarProperty Name="soldeprepaiement" ColumnName="soldeprepaiement" />
-          <ScalarProperty Name="soldepostpaiement" ColumnName="soldepostpaiement" />
-          <ScalarProperty Name="dateencaissement" ColumnName="dateencaissement" />
-          <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
-          <ScalarProperty Name="commentaire" ColumnName="commentaire" />
-          <ScalarProperty Name="idbordereau" ColumnName="idbordereau" />
-          <ScalarProperty Name="numerorecue" ColumnName="numerorecue" />
-          <ScalarProperty Name="numerobordereau" ColumnName="numerobordereau" />
-          <ScalarProperty Name="periode" ColumnName="periode" />
-          <ScalarProperty Name="datesysteme" ColumnName="datesysteme" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -283,6 +265,18 @@
           <ScalarProperty Name="date" ColumnName="date" />
           <ScalarProperty Name="numero" ColumnName="numero" />
           <ScalarProperty Name="message" ColumnName="message" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="mevlist">
+      <EntityTypeMapping TypeName="PROERAModel.mevlist">
+        <MappingFragment StoreEntitySet="mevlist">
+          <ScalarProperty Name="dateMeV" ColumnName="dateMeV" />
+          <ScalarProperty Name="numbord" ColumnName="numbord" />
+          <ScalarProperty Name="montantbord" ColumnName="montantbord" />
+          <ScalarProperty Name="iduser" ColumnName="iduser" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="remarque" ColumnName="remarque" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -418,23 +412,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="reclamation">
-      <EntityTypeMapping TypeName="PROERAModel.reclamation">
-        <MappingFragment StoreEntitySet="reclamation">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="refclient" ColumnName="refclient" />
-          <ScalarProperty Name="date" ColumnName="date" />
-          <ScalarProperty Name="type" ColumnName="type" />
-          <ScalarProperty Name="priorite" ColumnName="priorite" />
-          <ScalarProperty Name="commentaire" ColumnName="commentaire" />
-          <ScalarProperty Name="nivintervention" ColumnName="nivintervention" />
-          <ScalarProperty Name="telephone" ColumnName="telephone" />
-          <ScalarProperty Name="localite" ColumnName="localite" />
-          <ScalarProperty Name="statut" ColumnName="statut" />
-          <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="recouvrements">
       <EntityTypeMapping TypeName="PROERAModel.recouvrements">
         <MappingFragment StoreEntitySet="recouvrements">
@@ -448,6 +425,21 @@
           <ScalarProperty Name="nbrFacturesPayees" ColumnName="nbrFacturesPayees" />
           <ScalarProperty Name="active" ColumnName="active" />
           <ScalarProperty Name="facturee" ColumnName="facturee" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="references">
+      <EntityTypeMapping TypeName="PROERAModel.references">
+        <MappingFragment StoreEntitySet="references">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="refclient" ColumnName="refclient" />
+          <ScalarProperty Name="numcompteur" ColumnName="numcompteur" />
+          <ScalarProperty Name="datepose" ColumnName="datepose" />
+          <ScalarProperty Name="indexpose" ColumnName="indexpose" />
+          <ScalarProperty Name="datedepose" ColumnName="datedepose" />
+          <ScalarProperty Name="pose" ColumnName="pose" />
+          <ScalarProperty Name="indexdepose" ColumnName="indexdepose" />
+          <ScalarProperty Name="technicien" ColumnName="technicien" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -490,6 +482,7 @@
     <EntitySetMapping Name="resiliation">
       <EntityTypeMapping TypeName="PROERAModel.resiliation">
         <MappingFragment StoreEntitySet="resiliation">
+          <ScalarProperty Name="datesysteme" ColumnName="datesysteme" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="refclient" ColumnName="refclient" />
           <ScalarProperty Name="date" ColumnName="date" />
@@ -532,6 +525,36 @@
           <ScalarProperty Name="createdate" ColumnName="createdate" />
           <ScalarProperty Name="index" ColumnName="index" />
           <ScalarProperty Name="periodedue" ColumnName="periodedue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sav_interface">
+      <EntityTypeMapping TypeName="PROERAModel.sav_interface">
+        <MappingFragment StoreEntitySet="sav_interface">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="refclient" ColumnName="refclient" />
+          <ScalarProperty Name="ancieninterface" ColumnName="ancieninterface" />
+          <ScalarProperty Name="indexpose" ColumnName="indexpose" />
+          <ScalarProperty Name="indexdepose" ColumnName="indexdepose" />
+          <ScalarProperty Name="newinterface" ColumnName="newinterface" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SoldeUPDT">
+      <EntityTypeMapping TypeName="PROERAModel.SoldeUPDT">
+        <MappingFragment StoreEntitySet="SoldeUPDT">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="REFERENCE" ColumnName="REFERENCE" />
+          <ScalarProperty Name="OLDSOLDE" ColumnName="OLDSOLDE" />
+          <ScalarProperty Name="NEWSOLDE" ColumnName="NEWSOLDE" />
+          <ScalarProperty Name="REMARQUE" ColumnName="REMARQUE" />
+          <ScalarProperty Name="NOM" ColumnName="NOM" />
+          <ScalarProperty Name="PRENOM" ColumnName="PRENOM" />
+          <ScalarProperty Name="VILLAGE" ColumnName="VILLAGE" />
+          <ScalarProperty Name="createby" ColumnName="createby" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -621,44 +644,132 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="villages">
-      <EntityTypeMapping TypeName="PROERAModel.villages">
-        <MappingFragment StoreEntitySet="villages">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="region" ColumnName="region" />
-          <ScalarProperty Name="departement" ColumnName="departement" />
-          <ScalarProperty Name="commune" ColumnName="commune" />
-          <ScalarProperty Name="village" ColumnName="village" />
-          <ScalarProperty Name="population" ColumnName="population" />
-          <ScalarProperty Name="menage" ColumnName="menage" />
-          <ScalarProperty Name="education" ColumnName="education" />
-          <ScalarProperty Name="sante" ColumnName="sante" />
-          <ScalarProperty Name="forage" ColumnName="forage" />
-          <ScalarProperty Name="antenne_bts" ColumnName="antenne_bts" />
-          <ScalarProperty Name="moulin" ColumnName="moulin" />
-          <ScalarProperty Name="longitude" ColumnName="longitude" />
-          <ScalarProperty Name="latitude" ColumnName="latitude" />
-          <ScalarProperty Name="code_village" ColumnName="code_village" />
-          <ScalarProperty Name="code_prog" ColumnName="code_prog" />
-          <ScalarProperty Name="idLocalite" ColumnName="idLocalite" />
-          <ScalarProperty Name="etattravaux" ColumnName="etattravaux" />
-          <ScalarProperty Name="technologie" ColumnName="technologie" />
-          <ScalarProperty Name="commercialise" ColumnName="commercialise" />
-          <ScalarProperty Name="nbrclients" ColumnName="nbrclients" />
-          <ScalarProperty Name="codemt" ColumnName="codemt" />
-          <ScalarProperty Name="neardist" ColumnName="neardist" />
+    <EntitySetMapping Name="AXEMT">
+      <EntityTypeMapping TypeName="PROERAModel.AXEMT">
+        <MappingFragment StoreEntitySet="AXEMT">
+          <ScalarProperty Name="codeMT" ColumnName="codeMT" />
+          <ScalarProperty Name="NomAXE" ColumnName="NomAXE" />
+          <ScalarProperty Name="long" ColumnName="long" />
+          <ScalarProperty Name="geom" ColumnName="geom" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="mevlist">
-      <EntityTypeMapping TypeName="PROERAModel.mevlist">
-        <MappingFragment StoreEntitySet="mevlist">
-          <ScalarProperty Name="dateMeV" ColumnName="dateMeV" />
-          <ScalarProperty Name="numbord" ColumnName="numbord" />
-          <ScalarProperty Name="montantbord" ColumnName="montantbord" />
-          <ScalarProperty Name="iduser" ColumnName="iduser" />
+    <EntitySetMapping Name="encaissementsreport">
+      <EntityTypeMapping TypeName="PROERAModel.encaissementsreport">
+        <MappingFragment StoreEntitySet="encaissementsreport">
+          <ScalarProperty Name="Nom1" ColumnName="Nom1" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="nom_region" ColumnName="nom_region" />
+          <ScalarProperty Name="nomcommune" ColumnName="nomcommune" />
+          <ScalarProperty Name="village" ColumnName="village" />
+          <ScalarProperty Name="netPayer" ColumnName="netPayer" />
+          <ScalarProperty Name="SoldeTotal" ColumnName="SoldeTotal" />
+          <ScalarProperty Name="PeriodeFacturee" ColumnName="PeriodeFacturee" />
+          <ScalarProperty Name="numero" ColumnName="numero" />
+          <ScalarProperty Name="montantencaisee" ColumnName="montantencaisee" />
+          <ScalarProperty Name="dateencaissement" ColumnName="dateencaissement" />
+          <ScalarProperty Name="idfacture" ColumnName="idfacture" />
+          <ScalarProperty Name="refclient" ColumnName="refclient" />
+          <ScalarProperty Name="codevillage" ColumnName="codevillage" />
+          <ScalarProperty Name="penalite" ColumnName="penalite" />
+          <ScalarProperty Name="datenecaisse" ColumnName="datenecaisse" />
+          <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
+          <ScalarProperty Name="numerorecue" ColumnName="numerorecue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="near_dist">
+      <EntityTypeMapping TypeName="PROERAModel.near_dist">
+        <MappingFragment StoreEntitySet="near_dist">
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="remarque" ColumnName="remarque" />
+          <ScalarProperty Name="codevillage" ColumnName="codevillage" />
+          <ScalarProperty Name="near_dist1" ColumnName="near_dist" />
+          <ScalarProperty Name="axe" ColumnName="axe" />
+          <ScalarProperty Name="code" ColumnName="code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Requête">
+      <EntityTypeMapping TypeName="PROERAModel.Requête">
+        <MappingFragment StoreEntitySet="Requête">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="PROERAModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="village">
+      <EntityTypeMapping TypeName="PROERAModel.village">
+        <MappingFragment StoreEntitySet="village">
+          <ScalarProperty Name="localite" ColumnName="localite" />
+          <ScalarProperty Name="id_localite" ColumnName="id_localite" />
+          <ScalarProperty Name="longitude" ColumnName="longitude" />
+          <ScalarProperty Name="latitude" ColumnName="latitude" />
+          <ScalarProperty Name="pop" ColumnName="pop" />
+          <ScalarProperty Name="menage" ColumnName="menage" />
+          <ScalarProperty Name="forage" ColumnName="forage" />
+          <ScalarProperty Name="ecole" ColumnName="ecole" />
+          <ScalarProperty Name="sante" ColumnName="sante" />
+          <ScalarProperty Name="gsm" ColumnName="gsm" />
+          <ScalarProperty Name="autreprod" ColumnName="autreprod" />
+          <ScalarProperty Name="code_MT" ColumnName="code_MT" />
+          <ScalarProperty Name="etat" ColumnName="etat" />
+          <ScalarProperty Name="Near_dist" ColumnName="Near_dist" />
+          <ScalarProperty Name="id_prog" ColumnName="id_prog" />
+          <ScalarProperty Name="geom" ColumnName="geom" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="wappler_migrations">
+      <EntityTypeMapping TypeName="PROERAModel.wappler_migrations">
+        <MappingFragment StoreEntitySet="wappler_migrations">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="batch" ColumnName="batch" />
+          <ScalarProperty Name="migration_time" ColumnName="migration_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="wappler_migrations_lock">
+      <EntityTypeMapping TypeName="PROERAModel.wappler_migrations_lock">
+        <MappingFragment StoreEntitySet="wappler_migrations_lock">
+          <ScalarProperty Name="index" ColumnName="index" />
+          <ScalarProperty Name="is_locked" ColumnName="is_locked" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="encaissements">
+      <EntityTypeMapping TypeName="PROERAModel.encaissements">
+        <MappingFragment StoreEntitySet="encaissements">
+          <ScalarProperty Name="fraiscoupure" ColumnName="fraiscoupure" />
+          <ScalarProperty Name="datesysteme" ColumnName="datesysteme" />
+          <ScalarProperty Name="periode" ColumnName="periode" />
+          <ScalarProperty Name="numerobordereau" ColumnName="numerobordereau" />
+          <ScalarProperty Name="numerorecue" ColumnName="numerorecue" />
+          <ScalarProperty Name="idbordereau" ColumnName="idbordereau" />
+          <ScalarProperty Name="commentaire" ColumnName="commentaire" />
+          <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
+          <ScalarProperty Name="dateencaissement" ColumnName="dateencaissement" />
+          <ScalarProperty Name="soldepostpaiement" ColumnName="soldepostpaiement" />
+          <ScalarProperty Name="soldeprepaiement" ColumnName="soldeprepaiement" />
+          <ScalarProperty Name="montantencaisee" ColumnName="montantencaisee" />
+          <ScalarProperty Name="refclient" ColumnName="refclient" />
+          <ScalarProperty Name="idfacture" ColumnName="idfacture" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -672,6 +783,121 @@
           <ScalarProperty Name="nbrenc" ColumnName="nbrenc" />
           <ScalarProperty Name="sommeenc" ColumnName="sommeenc" />
           <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="changemodefact">
+      <EntityTypeMapping TypeName="PROERAModel.changemodefact">
+        <MappingFragment StoreEntitySet="changemodefact">
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="solde" ColumnName="solde" />
+          <ScalarProperty Name="nouveaumode" ColumnName="nouveaumode" />
+          <ScalarProperty Name="ancienmode" ColumnName="ancienmode" />
+          <ScalarProperty Name="refclient" ColumnName="refclient" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="villages">
+      <EntityTypeMapping TypeName="PROERAModel.villages">
+        <MappingFragment StoreEntitySet="villages">
+          <ScalarProperty Name="neardist" ColumnName="neardist" />
+          <ScalarProperty Name="codemt" ColumnName="codemt" />
+          <ScalarProperty Name="nbrclients" ColumnName="nbrclients" />
+          <ScalarProperty Name="commercialise" ColumnName="commercialise" />
+          <ScalarProperty Name="technologie" ColumnName="technologie" />
+          <ScalarProperty Name="etattravaux" ColumnName="etattravaux" />
+          <ScalarProperty Name="idLocalite" ColumnName="idLocalite" />
+          <ScalarProperty Name="code_prog" ColumnName="code_prog" />
+          <ScalarProperty Name="code_village" ColumnName="code_village" />
+          <ScalarProperty Name="latitude" ColumnName="latitude" />
+          <ScalarProperty Name="longitude" ColumnName="longitude" />
+          <ScalarProperty Name="moulin" ColumnName="moulin" />
+          <ScalarProperty Name="antenne_bts" ColumnName="antenne_bts" />
+          <ScalarProperty Name="forage" ColumnName="forage" />
+          <ScalarProperty Name="sante" ColumnName="sante" />
+          <ScalarProperty Name="education" ColumnName="education" />
+          <ScalarProperty Name="menage" ColumnName="menage" />
+          <ScalarProperty Name="population" ColumnName="population" />
+          <ScalarProperty Name="village" ColumnName="village" />
+          <ScalarProperty Name="commune" ColumnName="commune" />
+          <ScalarProperty Name="departement" ColumnName="departement" />
+          <ScalarProperty Name="region" ColumnName="region" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="reclamation">
+      <EntityTypeMapping TypeName="PROERAModel.reclamation">
+        <MappingFragment StoreEntitySet="reclamation">
+          <ScalarProperty Name="nature" ColumnName="nature" />
+          <ScalarProperty Name="datecloture" ColumnName="datecloture" />
+          <ScalarProperty Name="numcompteur" ColumnName="numcompteur" />
+          <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
+          <ScalarProperty Name="statut" ColumnName="statut" />
+          <ScalarProperty Name="localite" ColumnName="localite" />
+          <ScalarProperty Name="telephone" ColumnName="telephone" />
+          <ScalarProperty Name="nivintervention" ColumnName="nivintervention" />
+          <ScalarProperty Name="commentaire" ColumnName="commentaire" />
+          <ScalarProperty Name="priorite" ColumnName="priorite" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="refclient" ColumnName="refclient" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="clients">
+      <EntityTypeMapping TypeName="PROERAModel.clients">
+        <MappingFragment StoreEntitySet="clients">
+          <ScalarProperty Name="NINEA" ColumnName="NINEA" />
+          <ScalarProperty Name="modefacturation" ColumnName="modefacturation" />
+          <ScalarProperty Name="usage" ColumnName="usage" />
+          <ScalarProperty Name="etat" ColumnName="etat" />
+          <ScalarProperty Name="TypeBranch" ColumnName="TypeBranch" />
+          <ScalarProperty Name="numeropaiement" ColumnName="numeropaiement" />
+          <ScalarProperty Name="modePaiement" ColumnName="modePaiement" />
+          <ScalarProperty Name="codevillage" ColumnName="codevillage" />
+          <ScalarProperty Name="refclient" ColumnName="refclient" />
+          <ScalarProperty Name="sqlstate" ColumnName="sqlstate" />
+          <ScalarProperty Name="activite" ColumnName="activite" />
+          <ScalarProperty Name="NivPuissance" ColumnName="NivPuissance" />
+          <ScalarProperty Name="idlastbill" ColumnName="idlastbill" />
+          <ScalarProperty Name="dateMeS" ColumnName="dateMeS" />
+          <ScalarProperty Name="dateAbonn" ColumnName="dateAbonn" />
+          <ScalarProperty Name="dateCoupure" ColumnName="dateCoupure" />
+          <ScalarProperty Name="periodeFacturee" ColumnName="periodeFacturee" />
+          <ScalarProperty Name="Créé_par" ColumnName="Créé par" />
+          <ScalarProperty Name="Créé" ColumnName="Créé" />
+          <ScalarProperty Name="Modifié" ColumnName="Modifié" />
+          <ScalarProperty Name="NbrEP" ColumnName="NbrEP" />
+          <ScalarProperty Name="Last_Bill" ColumnName="Last_Bill" />
+          <ScalarProperty Name="Prev_Bill" ColumnName="Prev_Bill" />
+          <ScalarProperty Name="IDPayment" ColumnName="IDPayment" />
+          <ScalarProperty Name="SoldeTotal" ColumnName="SoldeTotal" />
+          <ScalarProperty Name="Ancien_indexe" ColumnName="Ancien indexe" />
+          <ScalarProperty Name="numcompteur" ColumnName="numcompteur" />
+          <ScalarProperty Name="Contrat" ColumnName="Contrat" />
+          <ScalarProperty Name="Bordereau" ColumnName="Bordereau" />
+          <ScalarProperty Name="Y_GPS" ColumnName="Y_GPS" />
+          <ScalarProperty Name="X_GPS" ColumnName="X_GPS" />
+          <ScalarProperty Name="Date_Resiliation" ColumnName="Date Resiliation" />
+          <ScalarProperty Name="Date_Mise_en_Service" ColumnName="Date Mise en Service" />
+          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+          <ScalarProperty Name="Etat_Client" ColumnName="Etat Client" />
+          <ScalarProperty Name="Montant_Encaisse" ColumnName="Montant Encaisse" />
+          <ScalarProperty Name="Reference_Contrat" ColumnName="Reference Contrat" />
+          <ScalarProperty Name="calibre" ColumnName="calibre" />
+          <ScalarProperty Name="Type_Elect" ColumnName="Type Elect" />
+          <ScalarProperty Name="Niv_Service" ColumnName="Niv Service" />
+          <ScalarProperty Name="Village" ColumnName="Village" />
+          <ScalarProperty Name="Date_Abonnement" ColumnName="Date Abonnement" />
+          <ScalarProperty Name="Raison_Social" ColumnName="Raison Social" />
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="Num_ID" ColumnName="Num ID" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="Nom1" ColumnName="Nom1" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

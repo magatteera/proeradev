@@ -6,8 +6,8 @@
 
 <h2>Cloture Recouvrement</h2>
 
-@using (Html.BeginForm("validerCloture", "recouvrements", FormMethod.Post))
-{
+@*@using (Html.BeginForm("validerCloture", "recouvrements", FormMethod.Post))
+{*@
 
     <div class="col">
         <div class="form-group">
@@ -19,12 +19,13 @@
 
     </div>
 
-    <button type="submit" class="btn btn-warning">Cloturer</button>
-}
+    <button type="submit" id="btncloturer" class="btn btn-warning">Cloturer</button>
+@*}*@
 
 
     @*<h3 id="facturespayees">payees</h3>
     <h3 id="facturesimpayees">impayees</h3>*@
+<br/>
     Montant Ecaissé : <h3 id="montant"></h3>
 
 
@@ -37,11 +38,6 @@
                                   <div class="progress-bar bg-primary" id="progresspayees"></div>
                               </div>
                           </div>
-
-                          <div class="progress">
-                              <div class="progress-bar" role="progressbar" id="facturespayees1" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <!-- /.progress-group -->
 
                           <div class="progress-group">
                               Factures Impayees
@@ -80,14 +76,13 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
+            
             $("#periode").prepend("<option selected value=''>Selectionnez la Periode</option>")
             $("#periode").change(function () {
-
+                getetat($("#periode").val())
                 data = {
                     periode: $("#periode").val()
                 }
-
-
 
                 $.ajax({
                     type: "POST",
@@ -112,12 +107,48 @@
                             .append(data.factures)
                         $("#montant").html(data.montants)
 
-                        $("#progresspayees").css("width", data.progresspayees)
-                        $("#progressimpayees").css("width", data.progressimpayees)
+                        $("#progresspayees").css("width", data.progresspayees * 2)
+                        $("#progressimpayees").css("width", data.progressimpayees * 2)
                     },
                     error: function () {
                     }
                 });
             });
+
+            $("#btncloturer").click(function () {
+                data = {
+                    periode: $("#periode").val()
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "/recouvrements/cloturerperiode",
+                    data: data,
+                    success: function (data) {
+
+                    },
+                    error: function () {
+                    }
+                });
+            });
+
+            var getetat = function (periodee) {
+                alert(this.periodee)
+                data = {
+                    periode: this.periodee
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "/recouvrements/getetatcloture",
+                    data: data,
+                    success: function (data) {
+
+                    },
+                    error: function () {
+                    }
+                });
+            }
+
         });
     </script>

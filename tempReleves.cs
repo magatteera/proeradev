@@ -20,7 +20,7 @@ namespace proera
         public Nullable<int> Ancienindex { get; set; }
         public Nullable<int> Nouvelindex { get; set; }
         public Nullable<int> consommation { get; set; }
-        public Nullable<System.DateTime> datereleve { get; set; }
+        public string datereleve { get; set; }
         public string periode { get; set; }
         public Nullable<int> nombrejours { get; set; }
         public string type { get; set; }

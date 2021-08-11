@@ -18,6 +18,7 @@ namespace proera
         public clients()
         {
             this.migration = new HashSet<migration>();
+            this.miseenserviceclient = new HashSet<miseenserviceclient>();
             this.reclamation = new HashSet<reclamation>();
             this.releves = new HashSet<releves>();
             this.resiliation = new HashSet<resiliation>();
@@ -70,13 +71,16 @@ namespace proera
         public string etat { get; set; }
         public string usage { get; set; }
         public string modefacturation { get; set; }
+        public string NINEA { get; set; }
     
+        public virtual etatclient etatclient { get; set; }
         public virtual hnivpuissances hnivpuissances { get; set; }
         public virtual raisonsociale raisonsociale { get; set; }
         public virtual typepaiement typepaiement { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<migration> migration { get; set; }
-        public virtual miseenserviceclient miseenserviceclient { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<miseenserviceclient> miseenserviceclient { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<reclamation> reclamation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

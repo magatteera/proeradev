@@ -8,6 +8,24 @@
     <Property Name="activite" Type="varchar" MaxLength="50" />
     <Property Name="date" Type="date" />
   </EntityType>
+  <EntityType Name="agences">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="nom" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'PROERA.dbo.AXEMT' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+  <EntityType Name="AXEMT">
+    <Key>
+      <PropertyRef Name="codeMT" />
+    </Key>
+    <Property Name="codeMT" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="NomAXE" Type="varchar" MaxLength="100" />
+    <Property Name="long" Type="float" />
+    <Property Name="geom" Type="geography" />
+  </EntityType>
   <EntityType Name="bordereaux">
     <Key>
       <PropertyRef Name="id" />
@@ -34,6 +52,17 @@
     <Property Name="indexpose" Type="int" />
     <Property Name="utilisateur" Type="varchar" MaxLength="50" />
     <Property Name="refclient" Type="int" />
+  </EntityType>
+  <EntityType Name="changemodefact">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="refclient" Type="int" />
+    <Property Name="ancienmode" Type="varchar" MaxLength="50" />
+    <Property Name="nouveaumode" Type="varchar" MaxLength="50" />
+    <Property Name="solde" Type="float" />
+    <Property Name="date" Type="datetime" />
   </EntityType>
   <EntityType Name="clients">
     <Key>
@@ -86,6 +115,16 @@
     <Property Name="etat" Type="varchar" MaxLength="50" />
     <Property Name="usage" Type="varchar" MaxLength="50" />
     <Property Name="modefacturation" Type="varchar" MaxLength="50" />
+    <Property Name="NINEA" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="cloturerecouv">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="periode" Type="varchar" MaxLength="50" />
+    <Property Name="date" Type="varchar" MaxLength="50" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="communes">
     <Key>
@@ -114,8 +153,20 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="contrat" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="correctionreleve">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idreleve" Type="int" />
+    <Property Name="idfacture" Type="int" />
+    <Property Name="ancienneconso" Type="int" />
+    <Property Name="nouvelleconso" Type="int" />
+    <Property Name="date" Type="date" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="correctionsolde">
     <Key>
@@ -127,7 +178,7 @@
     <Property Name="soldepost" Type="float" Nullable="false" />
     <Property Name="date" Type="date" />
     <Property Name="referenceclient" Type="int" Nullable="false" />
-    <Property Name="motif" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="motif" Type="varchar" MaxLength="500" Nullable="false" />
   </EntityType>
   <EntityType Name="departements">
     <Key>
@@ -137,6 +188,29 @@
     <Property Name="code_departement" Type="int" Nullable="false" />
     <Property Name="geom" Type="geography" />
     <Property Name="idregion" Type="int" />
+    <Property Name="idagence" Type="varchar" MaxLength="3" />
+  </EntityType>
+  <EntityType Name="encaissement">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="Idpayment" Type="nvarchar" MaxLength="50" />
+    <Property Name="DatePaiement" Type="date" />
+    <Property Name="MontantEncaisse" Type="float" />
+    <Property Name="SoldeAnterieur" Type="nvarchar" MaxLength="50" />
+    <Property Name="SoldePostPay" Type="nvarchar" MaxLength="50" />
+    <Property Name="Idclient" Type="nvarchar" MaxLength="50" />
+    <Property Name="idFacture" Type="nvarchar" MaxLength="50" />
+    <Property Name="Commentaire" Type="text" />
+    <Property Name="Nom" Type="nvarchar" MaxLength="50" />
+    <Property Name="Prenom" Type="nvarchar" MaxLength="50" />
+    <Property Name="village" Type="nvarchar" MaxLength="50" />
+    <Property Name="nivserv" Type="nvarchar" MaxLength="50" />
+    <Property Name="periodefacture" Type="nvarchar" MaxLength="50" />
+    <Property Name="createby" Type="nchar" MaxLength="100" />
+    <Property Name="createdate" Type="datetime2" Precision="7" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fraiscoupure" Type="float" />
   </EntityType>
   <EntityType Name="encaissements">
     <Key>
@@ -156,6 +230,33 @@
     <Property Name="numerobordereau" Type="varchar" MaxLength="50" />
     <Property Name="periode" Type="varchar" MaxLength="50" />
     <Property Name="datesysteme" Type="date" />
+    <Property Name="fraiscoupure" Type="float" />
+  </EntityType>
+  <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'PROERA.dbo.encaissementsreport' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+  <EntityType Name="encaissementsreport">
+    <Key>
+      <PropertyRef Name="SoldeTotal" />
+    </Key>
+    <Property Name="Nom1" Type="nvarchar" MaxLength="255" />
+    <Property Name="Prenom" Type="nvarchar" MaxLength="255" />
+    <Property Name="nom" Type="varchar" MaxLength="25" />
+    <Property Name="nom_region" Type="varchar" MaxLength="25" />
+    <Property Name="nomcommune" Type="varchar" MaxLength="50" />
+    <Property Name="village" Type="varchar" MaxLength="50" />
+    <Property Name="netPayer" Type="int" />
+    <Property Name="SoldeTotal" Type="float" Nullable="false" />
+    <Property Name="PeriodeFacturee" Type="varchar" MaxLength="50" />
+    <Property Name="numero" Type="varchar" MaxLength="50" />
+    <Property Name="montantencaisee" Type="float" />
+    <Property Name="dateencaissement" Type="date" />
+    <Property Name="idfacture" Type="int" />
+    <Property Name="refclient" Type="int" />
+    <Property Name="codevillage" Type="int" />
+    <Property Name="penalite" Type="float" />
+    <Property Name="datenecaisse" Type="date" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+    <Property Name="numerorecue" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="entrepots">
     <Key>
@@ -170,7 +271,7 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="etat" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="facturationtrigger">
@@ -225,7 +326,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Puissance" Type="float" />
     <Property Name="Montant" Type="float" />
     <Property Name="NiveauPuissance" Type="int" />
@@ -237,21 +338,21 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Branch" Type="nvarchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="hcalibres">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Calibre" Type="nvarchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="hnivpuissances">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NivPuissance" Type="nvarchar" MaxLength="255" />
     <Property Name="Usage" Type="int" />
   </EntityType>
@@ -265,8 +366,6 @@
     <Property Name="numero" Type="varchar" MaxLength="50" />
     <Property Name="message" Type="varchar" MaxLength="200" />
   </EntityType>
-  <!--Erreurs détectées durant la génération :
-avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
   <EntityType Name="mevlist">
     <Key>
       <PropertyRef Name="id" />
@@ -295,7 +394,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
   </EntityType>
   <EntityType Name="miseenserviceclient">
     <Key>
-      <PropertyRef Name="referenceClient" />
+      <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="numcompteur" Type="varchar" MaxLength="50" />
@@ -319,7 +418,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
     <Key>
       <PropertyRef Name="ID_SERVICE" />
     </Key>
-    <Property Name="ID_SERVICE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_SERVICE" Type="int" Nullable="false" />
     <Property Name="REGION" Type="varchar" MaxLength="50" />
     <Property Name="DEPARTEMENT" Type="varchar" MaxLength="50" />
     <Property Name="COMMUNE" Type="varchar" MaxLength="50" />
@@ -363,6 +462,18 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="motif" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'PROERA.dbo.near_dist' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+  <EntityType Name="near_dist">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="codevillage" Type="int" />
+    <Property Name="near_dist" Type="varchar" MaxLength="50" />
+    <Property Name="axe" Type="varchar" MaxLength="50" />
+    <Property Name="code" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="pannes">
     <Key>
@@ -408,17 +519,20 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
     <Property Name="refclient" Type="int" />
     <Property Name="date" Type="date" />
     <Property Name="type" Type="int" />
-    <Property Name="priorite" Type="int" />
+    <Property Name="priorite" Type="varchar" MaxLength="200" />
     <Property Name="commentaire" Type="varchar" MaxLength="50" />
     <Property Name="nivintervention" Type="varchar" MaxLength="50" />
     <Property Name="telephone" Type="varchar" MaxLength="50" />
     <Property Name="localite" Type="int" />
     <Property Name="statut" Type="varchar" MaxLength="50" />
     <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+    <Property Name="numcompteur" Type="varchar" MaxLength="50" />
+    <Property Name="datecloture" Type="date" />
+    <Property Name="nature" Type="varchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="recouvrements">
     <Key>
-      <PropertyRef Name="periode" />
+      <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="opendate" Type="date" />
@@ -430,6 +544,20 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
     <Property Name="nbrFacturesPayees" Type="int" />
     <Property Name="active" Type="tinyint" />
     <Property Name="facturee" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="references">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="refclient" Type="varchar" MaxLength="50" />
+    <Property Name="numcompteur" Type="varchar" MaxLength="50" />
+    <Property Name="datepose" Type="date" />
+    <Property Name="indexpose" Type="int" />
+    <Property Name="datedepose" Type="date" />
+    <Property Name="pose" Type="tinyint" />
+    <Property Name="indexdepose" Type="int" />
+    <Property Name="technicien" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="regions">
     <Key>
@@ -465,6 +593,20 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
     <Property Name="facturee" Type="tinyint" />
     <Property Name="remarque" Type="varchar" MaxLength="50" />
   </EntityType>
+  <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'PROERA.dbo.Requête' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+  <EntityType Name="Requête">
+    <Key>
+      <PropertyRef Name="name" />
+      <PropertyRef Name="principal_id" />
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="image" />
+  </EntityType>
   <EntityType Name="resiliation">
     <Key>
       <PropertyRef Name="id" />
@@ -478,6 +620,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
     <Property Name="netapayer" Type="float" />
     <Property Name="indexdepose" Type="int" />
     <Property Name="interface" Type="varchar" MaxLength="50" />
+    <Property Name="datesysteme" Type="datetime" />
   </EntityType>
   <EntityType Name="retablissement">
     <Key>
@@ -510,9 +653,51 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
     <Property Name="index" Type="int" />
     <Property Name="periodedue" Type="varchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="sav_interface">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="refclient" Type="varchar" MaxLength="50" />
+    <Property Name="ancieninterface" Type="varchar" MaxLength="50" />
+    <Property Name="indexpose" Type="int" />
+    <Property Name="indexdepose" Type="int" />
+    <Property Name="newinterface" Type="varchar" MaxLength="50" />
+    <Property Name="date" Type="date" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="SoldeUPDT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="REFERENCE" Type="int" />
+    <Property Name="OLDSOLDE" Type="float" />
+    <Property Name="NEWSOLDE" Type="int" />
+    <Property Name="REMARQUE" Type="varchar" MaxLength="100" />
+    <Property Name="NOM" Type="nchar" MaxLength="50" />
+    <Property Name="PRENOM" Type="nchar" MaxLength="50" />
+    <Property Name="VILLAGE" Type="nchar" MaxLength="50" />
+    <Property Name="createby" Type="nchar" MaxLength="100" />
+    <Property Name="createdate" Type="datetime" />
+  </EntityType>
+  <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'PROERA.dbo.sysdiagrams' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="name" />
+      <PropertyRef Name="principal_id" />
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="tarifs">
     <Key>
-      <PropertyRef Name="nom" />
+      <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="categorie" Type="int" />
@@ -541,7 +726,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
     <Property Name="Ancienindex" Type="int" />
     <Property Name="Nouvelindex" Type="int" />
     <Property Name="consommation" Type="int" />
-    <Property Name="datereleve" Type="date" />
+    <Property Name="datereleve" Type="varchar" MaxLength="50" />
     <Property Name="periode" Type="varchar" MaxLength="50" />
     <Property Name="nombrejours" Type="int" />
     <Property Name="type" Type="varchar" MaxLength="50" />
@@ -588,6 +773,29 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="usage" Type="nchar" MaxLength="50" />
   </EntityType>
+  <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'PROERA.dbo.village' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+  <EntityType Name="village">
+    <Key>
+      <PropertyRef Name="id_localite" />
+    </Key>
+    <Property Name="localite" Type="varchar" MaxLength="50" />
+    <Property Name="id_localite" Type="int" Nullable="false" />
+    <Property Name="longitude" Type="float" />
+    <Property Name="latitude" Type="float" />
+    <Property Name="pop" Type="int" />
+    <Property Name="menage" Type="int" />
+    <Property Name="forage" Type="int" />
+    <Property Name="ecole" Type="int" />
+    <Property Name="sante" Type="int" />
+    <Property Name="gsm" Type="int" />
+    <Property Name="autreprod" Type="int" />
+    <Property Name="code_MT" Type="varchar" MaxLength="6" />
+    <Property Name="etat" Type="varchar" MaxLength="10" />
+    <Property Name="Near_dist" Type="float" />
+    <Property Name="id_prog" Type="int" />
+    <Property Name="geom" Type="geography" />
+  </EntityType>
   <EntityType Name="villages">
     <Key>
       <PropertyRef Name="code_village" />
@@ -617,6 +825,26 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
     <Property Name="neardist" Type="float" />
   </EntityType>
   <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'PROERA.dbo.wappler_migrations' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+  <EntityType Name="wappler_migrations">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="255" />
+    <Property Name="batch" Type="int" />
+    <Property Name="migration_time" Type="datetime2" Precision="7" />
+  </EntityType>
+  <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'PROERA.dbo.wappler_migrations_lock' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+  <EntityType Name="wappler_migrations_lock">
+    <Key>
+      <PropertyRef Name="index" />
+    </Key>
+    <Property Name="index" Type="int" Nullable="false" />
+    <Property Name="is_locked" Type="int" />
+  </EntityType>
+  <!--Erreurs détectées durant la génération :
 avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
   <EntityType Name="View_DetailsEncaissement">
     <Key>
@@ -630,6 +858,18 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
     <Property Name="utilisateur" Type="varchar" MaxLength="50" />
     <Property Name="datecreation" Type="varchar" MaxLength="30" />
   </EntityType>
+  <Association Name="FK_clients_etatclient">
+    <End Role="etatclient" Type="Self.etatclient" Multiplicity="0..1" />
+    <End Role="clients" Type="Self.clients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="etatclient">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="clients">
+        <PropertyRef Name="Etat Client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_clients_hnivpuissances">
     <End Role="hnivpuissances" Type="Self.hnivpuissances" Multiplicity="0..1" />
     <End Role="clients" Type="Self.clients" Multiplicity="*" />
@@ -678,18 +918,6 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_communes_departements1">
-    <End Role="departements" Type="Self.departements" Multiplicity="1" />
-    <End Role="communes" Type="Self.communes" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="departements">
-        <PropertyRef Name="code_departement" />
-      </Principal>
-      <Dependent Role="communes">
-        <PropertyRef Name="iddepartement" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_departements_regions">
     <End Role="regions" Type="Self.regions" Multiplicity="0..1" />
     <End Role="departements" Type="Self.departements" Multiplicity="*" />
@@ -702,7 +930,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_HBareme_HBranch">
+  <Association Name="FK_hbaremes_hbranches">
     <End Role="hbranches" Type="Self.hbranches" Multiplicity="0..1" />
     <End Role="hbaremes" Type="Self.hbaremes" Multiplicity="*" />
     <ReferentialConstraint>
@@ -714,7 +942,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_HBareme_HCalibre">
+  <Association Name="FK_hbaremes_hcalibres">
     <End Role="hcalibres" Type="Self.hcalibres" Multiplicity="0..1" />
     <End Role="hbaremes" Type="Self.hbaremes" Multiplicity="*" />
     <ReferentialConstraint>
@@ -726,7 +954,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_HBareme_HNivPuissance">
+  <Association Name="FK_hbaremes_hnivpuissances">
     <End Role="hnivpuissances" Type="Self.hnivpuissances" Multiplicity="0..1" />
     <End Role="hbaremes" Type="Self.hbaremes" Multiplicity="*" />
     <ReferentialConstraint>
@@ -750,7 +978,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_HNivPuissance_Usage">
+  <Association Name="FK_hnivpuissances_usages">
     <End Role="usages" Type="Self.usages" Multiplicity="0..1" />
     <End Role="hnivpuissances" Type="Self.hnivpuissances" Multiplicity="*" />
     <ReferentialConstraint>
@@ -776,7 +1004,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
   </Association>
   <Association Name="FK_miseenserviceclient_clients">
     <End Role="clients" Type="Self.clients" Multiplicity="1" />
-    <End Role="miseenserviceclient" Type="Self.miseenserviceclient" Multiplicity="0..1" />
+    <End Role="miseenserviceclient" Type="Self.miseenserviceclient" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="clients">
         <PropertyRef Name="Reference Contrat" />
@@ -795,6 +1023,18 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
       </Principal>
       <Dependent Role="MisEnServiceVillages">
         <PropertyRef Name="code_village" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_near_dist_villages">
+    <End Role="villages" Type="Self.villages" Multiplicity="0..1" />
+    <End Role="near_dist" Type="Self.near_dist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="villages">
+        <PropertyRef Name="code_village" />
+      </Principal>
+      <Dependent Role="near_dist">
+        <PropertyRef Name="codevillage" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -822,19 +1062,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_reclamation_villages">
-    <End Role="villages" Type="Self.villages" Multiplicity="0..1" />
-    <End Role="reclamation" Type="Self.reclamation" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="villages">
-        <PropertyRef Name="code_village" />
-      </Principal>
-      <Dependent Role="reclamation">
-        <PropertyRef Name="localite" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_releves_clients2">
+  <Association Name="FK_releves_clients">
     <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
     <End Role="releves" Type="Self.releves" Multiplicity="*" />
     <ReferentialConstraint>
@@ -896,14 +1124,19 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
   </Association>
   <EntityContainer Name="PROERAModelStoreContainer">
     <EntitySet Name="activite" EntityType="Self.activite" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="agences" EntityType="Self.agences" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="bordereaux" EntityType="Self.bordereaux" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="changementinterface" EntityType="Self.changementinterface" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="changemodefact" EntityType="Self.changemodefact" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="clients" EntityType="Self.clients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cloturerecouv" EntityType="Self.cloturerecouv" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="communes" EntityType="Self.communes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="compteurs" EntityType="Self.compteurs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="contrats" EntityType="Self.contrats" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="correctionreleve" EntityType="Self.correctionreleve" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="correctionsolde" EntityType="Self.correctionsolde" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="departements" EntityType="Self.departements" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="encaissement" EntityType="Self.encaissement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="encaissements" EntityType="Self.encaissements" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="entrepots" EntityType="Self.entrepots" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="etatclient" EntityType="Self.etatclient" Schema="dbo" store:Type="Tables" />
@@ -915,6 +1148,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
     <EntitySet Name="hcalibres" EntityType="Self.hcalibres" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="hnivpuissances" EntityType="Self.hnivpuissances" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="messages" EntityType="Self.messages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="mevlist" EntityType="Self.mevlist" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="migration" EntityType="Self.migration" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="miseenserviceclient" EntityType="Self.miseenserviceclient" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="miseenvigueur" EntityType="Self.miseenvigueur" Schema="dbo" store:Type="Tables" />
@@ -927,11 +1161,14 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
     <EntitySet Name="raisonsociale" EntityType="Self.raisonsociale" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="reclamation" EntityType="Self.reclamation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="recouvrements" EntityType="Self.recouvrements" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="references" EntityType="Self.references" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="regions" EntityType="Self.regions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="releves" EntityType="Self.releves" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="resiliation" EntityType="Self.resiliation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="retablissement" EntityType="Self.retablissement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SAV" EntityType="Self.SAV" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sav_interface" EntityType="Self.sav_interface" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SoldeUPDT" EntityType="Self.SoldeUPDT" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tarifs" EntityType="Self.tarifs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Technologies" EntityType="Self.Technologies" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tempReleves" EntityType="Self.tempReleves" Schema="dbo" store:Type="Tables" />
@@ -941,15 +1178,97 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
     <EntitySet Name="typereclamation" EntityType="Self.typereclamation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="usages" EntityType="Self.usages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="villages" EntityType="Self.villages" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="mevlist" EntityType="Self.mevlist" store:Type="Tables" store:Schema="dbo">
+    <EntitySet Name="AXEMT" EntityType="Self.AXEMT" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
-    [mevlist].[dateMeV] AS [dateMeV], 
-    [mevlist].[numbord] AS [numbord], 
-    [mevlist].[montantbord] AS [montantbord], 
-    [mevlist].[iduser] AS [iduser], 
-    [mevlist].[id] AS [id], 
-    [mevlist].[remarque] AS [remarque]
-    FROM [dbo].[mevlist] AS [mevlist]</DefiningQuery>
+    [AXEMT].[codeMT] AS [codeMT], 
+    [AXEMT].[NomAXE] AS [NomAXE], 
+    [AXEMT].[long] AS [long], 
+    [AXEMT].[geom] AS [geom]
+    FROM [dbo].[AXEMT] AS [AXEMT]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="encaissementsreport" EntityType="Self.encaissementsreport" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [encaissementsreport].[Nom1] AS [Nom1], 
+    [encaissementsreport].[Prenom] AS [Prenom], 
+    [encaissementsreport].[nom] AS [nom], 
+    [encaissementsreport].[nom_region] AS [nom_region], 
+    [encaissementsreport].[nomcommune] AS [nomcommune], 
+    [encaissementsreport].[village] AS [village], 
+    [encaissementsreport].[netPayer] AS [netPayer], 
+    [encaissementsreport].[SoldeTotal] AS [SoldeTotal], 
+    [encaissementsreport].[PeriodeFacturee] AS [PeriodeFacturee], 
+    [encaissementsreport].[numero] AS [numero], 
+    [encaissementsreport].[montantencaisee] AS [montantencaisee], 
+    [encaissementsreport].[dateencaissement] AS [dateencaissement], 
+    [encaissementsreport].[idfacture] AS [idfacture], 
+    [encaissementsreport].[refclient] AS [refclient], 
+    [encaissementsreport].[codevillage] AS [codevillage], 
+    [encaissementsreport].[penalite] AS [penalite], 
+    [encaissementsreport].[datenecaisse] AS [datenecaisse], 
+    [encaissementsreport].[utilisateur] AS [utilisateur], 
+    [encaissementsreport].[numerorecue] AS [numerorecue]
+    FROM [dbo].[encaissementsreport] AS [encaissementsreport]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="near_dist" EntityType="Self.near_dist" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [near_dist].[id] AS [id], 
+    [near_dist].[codevillage] AS [codevillage], 
+    [near_dist].[near_dist] AS [near_dist], 
+    [near_dist].[axe] AS [axe], 
+    [near_dist].[code] AS [code]
+    FROM [dbo].[near_dist] AS [near_dist]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Requête" EntityType="Self.Requête" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Requête].[name] AS [name], 
+    [Requête].[principal_id] AS [principal_id], 
+    [Requête].[diagram_id] AS [diagram_id], 
+    [Requête].[version] AS [version], 
+    [Requête].[definition] AS [definition]
+    FROM [dbo].[Requête] AS [Requête]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [sysdiagrams].[name] AS [name], 
+    [sysdiagrams].[principal_id] AS [principal_id], 
+    [sysdiagrams].[diagram_id] AS [diagram_id], 
+    [sysdiagrams].[version] AS [version], 
+    [sysdiagrams].[definition] AS [definition]
+    FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="village" EntityType="Self.village" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [village].[localite] AS [localite], 
+    [village].[id_localite] AS [id_localite], 
+    [village].[longitude] AS [longitude], 
+    [village].[latitude] AS [latitude], 
+    [village].[pop] AS [pop], 
+    [village].[menage] AS [menage], 
+    [village].[forage] AS [forage], 
+    [village].[ecole] AS [ecole], 
+    [village].[sante] AS [sante], 
+    [village].[gsm] AS [gsm], 
+    [village].[autreprod] AS [autreprod], 
+    [village].[code_MT] AS [code_MT], 
+    [village].[etat] AS [etat], 
+    [village].[Near_dist] AS [Near_dist], 
+    [village].[id_prog] AS [id_prog], 
+    [village].[geom] AS [geom]
+    FROM [dbo].[village] AS [village]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="wappler_migrations" EntityType="Self.wappler_migrations" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [wappler_migrations].[id] AS [id], 
+    [wappler_migrations].[name] AS [name], 
+    [wappler_migrations].[batch] AS [batch], 
+    [wappler_migrations].[migration_time] AS [migration_time]
+    FROM [dbo].[wappler_migrations] AS [wappler_migrations]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="wappler_migrations_lock" EntityType="Self.wappler_migrations_lock" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [wappler_migrations_lock].[index] AS [index], 
+    [wappler_migrations_lock].[is_locked] AS [is_locked]
+    FROM [dbo].[wappler_migrations_lock] AS [wappler_migrations_lock]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="View_DetailsEncaissement" EntityType="Self.View_DetailsEncaissement" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -962,6 +1281,10 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
     [View_DetailsEncaissement].[datecreation] AS [datecreation]
     FROM [dbo].[View_DetailsEncaissement] AS [View_DetailsEncaissement]</DefiningQuery>
     </EntitySet>
+    <AssociationSet Name="FK_clients_etatclient" Association="Self.FK_clients_etatclient">
+      <End Role="etatclient" EntitySet="etatclient" />
+      <End Role="clients" EntitySet="clients" />
+    </AssociationSet>
     <AssociationSet Name="FK_clients_hnivpuissances" Association="Self.FK_clients_hnivpuissances">
       <End Role="hnivpuissances" EntitySet="hnivpuissances" />
       <End Role="clients" EntitySet="clients" />
@@ -978,23 +1301,19 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
       <End Role="departements" EntitySet="departements" />
       <End Role="communes" EntitySet="communes" />
     </AssociationSet>
-    <AssociationSet Name="FK_communes_departements1" Association="Self.FK_communes_departements1">
-      <End Role="departements" EntitySet="departements" />
-      <End Role="communes" EntitySet="communes" />
-    </AssociationSet>
     <AssociationSet Name="FK_departements_regions" Association="Self.FK_departements_regions">
       <End Role="regions" EntitySet="regions" />
       <End Role="departements" EntitySet="departements" />
     </AssociationSet>
-    <AssociationSet Name="FK_HBareme_HBranch" Association="Self.FK_HBareme_HBranch">
+    <AssociationSet Name="FK_hbaremes_hbranches" Association="Self.FK_hbaremes_hbranches">
       <End Role="hbranches" EntitySet="hbranches" />
       <End Role="hbaremes" EntitySet="hbaremes" />
     </AssociationSet>
-    <AssociationSet Name="FK_HBareme_HCalibre" Association="Self.FK_HBareme_HCalibre">
+    <AssociationSet Name="FK_hbaremes_hcalibres" Association="Self.FK_hbaremes_hcalibres">
       <End Role="hcalibres" EntitySet="hcalibres" />
       <End Role="hbaremes" EntitySet="hbaremes" />
     </AssociationSet>
-    <AssociationSet Name="FK_HBareme_HNivPuissance" Association="Self.FK_HBareme_HNivPuissance">
+    <AssociationSet Name="FK_hbaremes_hnivpuissances" Association="Self.FK_hbaremes_hnivpuissances">
       <End Role="hnivpuissances" EntitySet="hnivpuissances" />
       <End Role="hbaremes" EntitySet="hbaremes" />
     </AssociationSet>
@@ -1002,7 +1321,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
       <End Role="usages" EntitySet="usages" />
       <End Role="hbaremes" EntitySet="hbaremes" />
     </AssociationSet>
-    <AssociationSet Name="FK_HNivPuissance_Usage" Association="Self.FK_HNivPuissance_Usage">
+    <AssociationSet Name="FK_hnivpuissances_usages" Association="Self.FK_hnivpuissances_usages">
       <End Role="usages" EntitySet="usages" />
       <End Role="hnivpuissances" EntitySet="hnivpuissances" />
     </AssociationSet>
@@ -1018,6 +1337,10 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
       <End Role="villages" EntitySet="villages" />
       <End Role="MisEnServiceVillages" EntitySet="MisEnServiceVillages" />
     </AssociationSet>
+    <AssociationSet Name="FK_near_dist_villages" Association="Self.FK_near_dist_villages">
+      <End Role="villages" EntitySet="villages" />
+      <End Role="near_dist" EntitySet="near_dist" />
+    </AssociationSet>
     <AssociationSet Name="FK_reclamation_clients" Association="Self.FK_reclamation_clients">
       <End Role="clients" EntitySet="clients" />
       <End Role="reclamation" EntitySet="reclamation" />
@@ -1026,11 +1349,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
       <End Role="typereclamation" EntitySet="typereclamation" />
       <End Role="reclamation" EntitySet="reclamation" />
     </AssociationSet>
-    <AssociationSet Name="FK_reclamation_villages" Association="Self.FK_reclamation_villages">
-      <End Role="villages" EntitySet="villages" />
-      <End Role="reclamation" EntitySet="reclamation" />
-    </AssociationSet>
-    <AssociationSet Name="FK_releves_clients2" Association="Self.FK_releves_clients2">
+    <AssociationSet Name="FK_releves_clients" Association="Self.FK_releves_clients">
       <End Role="clients" EntitySet="clients" />
       <End Role="releves" EntitySet="releves" />
     </AssociationSet>

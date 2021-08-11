@@ -9,7 +9,7 @@ namespace proera.Controllers
     
     public class HomeController : Controller
     {
-        private PROERAEntities db = new PROERAEntities();
+        private PROERAEntities1 db = new PROERAEntities1();
         public ActionResult Index()
         {
             ViewBag.nbrclients = db.clients.Count();

@@ -17,7 +17,7 @@
 
     </div>
 
-    <button type="button" id="btnArreterCaisse" class="btn btn-warning">Fermer la Caisse</button> <br /><br />
+    <button type="button" disabled id="btnArreterCaisse"  class="btn btn-warning">Fermer la Caisse</button> <br /><br />
 
 
 
@@ -56,7 +56,7 @@
     </div>
 
     <a target="_blank" id="btndetails">
-        <button class="btn btn-success btn-sm">Detailler Encaissements</button>
+        <button  class="btn btn-success btn-sm">Detailler Encaissements</button>
     </a>
 </div>
 
@@ -133,6 +133,18 @@
                         $("#caissede").html(data.util)
                         $("#datecreat").html(data.datecreat)
                         @*$("#nbrfacts").html(data.nbrfacts)*@
+
+                        if ($("#montantbordereau").html() != "") {
+                            if ($("#montantbordereau").html().length < 5) {
+                                alert("Le montant du bordereau n'est pas renseigné, vous ne pouvez cloturer la caisse.")
+                                $("#btnArreterCaisse").attr("disabled", true)
+                            }
+                            else
+                                $("#btnArreterCaisse").removeAttr("disabled")
+                        } else {
+                            alert("Le montant du bordereau n'est pas renseigné, vous ne pouvez cloturer la caisse.")
+                            $("#btnArreterCaisse").attr("disabled", true)
+                        }
                         
                         $("#btndetails").attr("href", "http://win-sqlsrv/ReportServer/Pages/ReportViewer.aspx?%2fERADEV%2fEncaissements&rs:Command=Render&numero=" + data.numbord)
 

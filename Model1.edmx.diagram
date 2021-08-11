@@ -4,78 +4,94 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2c9b2560c54d43d6bb37120eda8222d5" Name="Diagram1">
-        <EntityTypeShape EntityType="PROERAModel.activite" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.bordereaux" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.changementinterface" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.clients" Width="1.5" PointX="8.25" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.communes" Width="1.5" PointX="6" PointY="25.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.compteurs" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.contrats" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.correctionsolde" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.departements" Width="1.5" PointX="3.75" PointY="25.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.encaissements" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.entrepots" Width="1.5" PointX="6.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.etatclient" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.facturationtrigger" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.factures" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.forcermiseenvigueur" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.hbaremes" Width="1.5" PointX="5.25" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.hbranches" Width="1.5" PointX="3" PointY="14.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.hcalibres" Width="1.5" PointX="3" PointY="20.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.hnivpuissances" Width="1.5" PointX="3" PointY="17.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.messages" Width="1.5" PointX="4.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.migration" Width="1.5" PointX="10.5" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.miseenserviceclient" Width="1.5" PointX="10.5" PointY="14" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.miseenvigueur" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.MisEnServiceVillages" Width="1.5" PointX="10.5" PointY="31.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.modifencaissement" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.modiffacture" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.motifresiliation" Width="1.5" PointX="4.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.pannes" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.programmes" Width="1.5" PointX="6" PointY="29" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.raisonsociale" Width="1.5" PointX="6" PointY="19.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.reclamation" Width="1.5" PointX="10.5" PointY="17.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.recouvrements" Width="1.5" PointX="12.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.regions" Width="1.5" PointX="1.5" PointY="26" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.releves" Width="1.5" PointX="10.5" PointY="21.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.resiliation" Width="1.5" PointX="10.5" PointY="27.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.retablissement" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.SAV" Width="1.5" PointX="14.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.tarifs" Width="1.5" PointX="14.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.Technologies" Width="1.5" PointX="6" PointY="33.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.tempReleves" Width="1.5" PointX="14.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.triggerproc" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.typeelec" Width="1.5" PointX="16.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.typepaiement" Width="1.5" PointX="6" PointY="21.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.typereclamation" Width="1.5" PointX="8.25" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.usages" Width="1.5" PointX="0.75" PointY="13.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.villages" Width="1.5" PointX="8.25" PointY="27.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PROERAModel.mevlist" Width="1.5" PointX="16.75" PointY="7.75" IsExpanded="true" />
-        <AssociationConnector Association="PROERAModel.FK_clients_hnivpuissances" ManuallyRouted="false" />
-        <AssociationConnector Association="PROERAModel.FK_clients_raisonsociale" ManuallyRouted="false" />
-        <AssociationConnector Association="PROERAModel.FK_clients_typepaiement" ManuallyRouted="false" />
-        <AssociationConnector Association="PROERAModel.FK_migration_clients" ManuallyRouted="false" />
-        <AssociationConnector Association="PROERAModel.FK_miseenserviceclient_clients" ManuallyRouted="false" />
-        <AssociationConnector Association="PROERAModel.FK_reclamation_clients" ManuallyRouted="false" />
-        <AssociationConnector Association="PROERAModel.FK_releves_clients2" ManuallyRouted="false" />
-        <AssociationConnector Association="PROERAModel.FK_resiliation_clients" ManuallyRouted="false" />
+      <Diagram DiagramId="e513d8da39634ee7b8b1aef3ddc377c0" Name="Diagram1" ZoomLevel="85">
+        <EntityTypeShape EntityType="PROERAModel.activite" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.agences" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.bordereaux" Width="1.5" PointX="0.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.changementinterface" Width="1.5" PointX="2.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.cloturerecouv" Width="1.5" PointX="7.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.communes" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.compteurs" Width="1.5" PointX="11.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.contrats" Width="1.5" PointX="11.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.correctionreleve" Width="1.5" PointX="12.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.correctionsolde" Width="1.5" PointX="12.75" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.departements" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.encaissement" Width="1.5" PointX="13.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.entrepots" Width="1.5" PointX="14.75" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.etatclient" Width="1.5" PointX="6" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.facturationtrigger" Width="1.5" PointX="14.75" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.factures" Width="1.5" PointX="16.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.forcermiseenvigueur" Width="1.5" PointX="16.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.hbaremes" Width="1.5" PointX="5.25" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.hbranches" Width="1.5" PointX="3" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.hcalibres" Width="1.5" PointX="3" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.hnivpuissances" Width="1.5" PointX="3" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.messages" Width="1.5" PointX="16.75" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.mevlist" Width="1.5" PointX="16.75" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.migration" Width="1.5" PointX="10.5" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.miseenserviceclient" Width="1.5" PointX="10.5" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.miseenvigueur" Width="1.5" PointX="15.75" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.MisEnServiceVillages" Width="1.5" PointX="9.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.modifencaissement" Width="1.5" PointX="17.75" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.modiffacture" Width="1.5" PointX="18.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.motifresiliation" Width="1.5" PointX="18.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.pannes" Width="1.5" PointX="18.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.programmes" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.raisonsociale" Width="1.5" PointX="6" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.recouvrements" Width="1.5" PointX="18.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.references" Width="1.5" PointX="19.75" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.regions" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.releves" Width="1.5" PointX="10.5" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.resiliation" Width="1.5" PointX="10.5" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.retablissement" Width="1.5" PointX="19.75" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.SAV" Width="1.5" PointX="20.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.sav_interface" Width="1.5" PointX="20.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.SoldeUPDT" Width="1.5" PointX="20.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.tarifs" Width="1.5" PointX="12.75" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.Technologies" Width="1.5" PointX="5.25" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.tempReleves" Width="1.5" PointX="14.75" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.triggerproc" Width="1.5" PointX="16.75" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.typeelec" Width="1.5" PointX="18.75" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.typepaiement" Width="1.5" PointX="6" PointY="23.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.typereclamation" Width="1.5" PointX="11.25" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.usages" Width="1.5" PointX="0.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.AXEMT" Width="1.5" PointX="21.75" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.encaissementsreport" Width="1.5" PointX="22.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.near_dist" Width="1.5" PointX="9.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.Requête" Width="1.5" PointX="22.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.sysdiagrams" Width="1.5" PointX="22.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.village" Width="1.5" PointX="28.75" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.wappler_migrations" Width="1.5" PointX="28.75" PointY="31" IsExpanded="true" />
+        <EntityTypeShape EntityType="PROERAModel.wappler_migrations_lock" Width="1.5" PointX="0.75" PointY="32" IsExpanded="true" />
         <AssociationConnector Association="PROERAModel.FK_communes_departements" ManuallyRouted="false" />
-        <AssociationConnector Association="PROERAModel.FK_communes_departements1" ManuallyRouted="false" />
-        <AssociationConnector Association="PROERAModel.FK_villages_communes" ManuallyRouted="false" />
         <AssociationConnector Association="PROERAModel.FK_departements_regions" ManuallyRouted="false" />
-        <AssociationConnector Association="PROERAModel.FK_HBareme_HBranch" ManuallyRouted="false" />
-        <AssociationConnector Association="PROERAModel.FK_HBareme_HCalibre" ManuallyRouted="false" />
-        <AssociationConnector Association="PROERAModel.FK_HBareme_HNivPuissance" ManuallyRouted="false" />
+        <AssociationConnector Association="PROERAModel.FK_hbaremes_hbranches" ManuallyRouted="false" />
+        <AssociationConnector Association="PROERAModel.FK_hbaremes_hcalibres" ManuallyRouted="false" />
+        <AssociationConnector Association="PROERAModel.FK_hbaremes_hnivpuissances" ManuallyRouted="false" />
         <AssociationConnector Association="PROERAModel.FK_hbaremes_usages" ManuallyRouted="false" />
-        <AssociationConnector Association="PROERAModel.FK_HNivPuissance_Usage" ManuallyRouted="false" />
-        <AssociationConnector Association="PROERAModel.FK_MisEnServiceVillages_villages" ManuallyRouted="false" />
-        <AssociationConnector Association="PROERAModel.FK_villages_programmes" ManuallyRouted="false" />
-        <AssociationConnector Association="PROERAModel.FK_reclamation_typereclamation" ManuallyRouted="false" />
-        <AssociationConnector Association="PROERAModel.FK_reclamation_villages" ManuallyRouted="false" />
-        <AssociationConnector Association="PROERAModel.FK_villages_Technologies" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="PROERAModel.View_DetailsEncaissement" Width="1.5" PointX="13.375" PointY="16.75" />
-      </Diagram>
+        <AssociationConnector Association="PROERAModel.FK_hnivpuissances_usages" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PROERAModel.encaissements" Width="2.375" PointX="31" PointY="2.5" />
+        <EntityTypeShape EntityType="PROERAModel.View_DetailsEncaissement" Width="1.5" PointX="22.375" PointY="18.75" />
+        <EntityTypeShape EntityType="PROERAModel.changemodefact" Width="1.5" PointX="21.375" PointY="22.75" />
+        <EntityTypeShape EntityType="PROERAModel.villages" Width="1.5" PointX="7.5" PointY="2.625" />
+        <AssociationConnector Association="PROERAModel.FK_villages_communes" />
+        <AssociationConnector Association="PROERAModel.FK_MisEnServiceVillages_villages" />
+        <AssociationConnector Association="PROERAModel.FK_villages_programmes" />
+        <AssociationConnector Association="PROERAModel.FK_villages_Technologies" />
+        <AssociationConnector Association="PROERAModel.FK_near_dist_villages" />
+        <EntityTypeShape EntityType="PROERAModel.reclamation" Width="1.5" PointX="17.5" PointY="26.5" />
+        <AssociationConnector Association="PROERAModel.FK_reclamation_typereclamation" />
+        <EntityTypeShape EntityType="PROERAModel.clients" Width="1.5" PointX="8.25" PointY="13.875" />
+        <AssociationConnector Association="PROERAModel.FK_clients_etatclient" />
+        <AssociationConnector Association="PROERAModel.FK_clients_hnivpuissances" />
+        <AssociationConnector Association="PROERAModel.FK_clients_raisonsociale" />
+        <AssociationConnector Association="PROERAModel.FK_clients_typepaiement" />
+        <AssociationConnector Association="PROERAModel.FK_migration_clients" />
+        <AssociationConnector Association="PROERAModel.FK_miseenserviceclient_clients" />
+        <AssociationConnector Association="PROERAModel.FK_reclamation_clients" />
+        <AssociationConnector Association="PROERAModel.FK_releves_clients" />
+        <AssociationConnector Association="PROERAModel.FK_resiliation_clients" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

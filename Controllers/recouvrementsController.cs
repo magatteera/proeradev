@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -18,7 +20,7 @@ namespace proera.Controllers
     [Authorize(Roles = "Proera_REC, Proera_Admin")]
     public class recouvrementsController : Controller
     {
-        private PROERAEntities db = new PROERAEntities();
+        private PROERAEntities1 db = new PROERAEntities1();
 
         // GET: recouvrements
         public ActionResult Index(string id)
@@ -232,7 +234,7 @@ namespace proera.Controllers
                     //    else
                     //    {
 
-                    //        if (listeclients[listeclients.FindIndex(re => re.Reference_Contrat == Int32.Parse(r.ReferenceContrat))].Etat_Client != 1)
+                    //        if (listeclients[listeclients.FindIndex(re => re.Reference_Contrat == Int32.Parse(r.ReferenceContrat))].Etat_Client  != 1)
                     //        {
                     //            tempReleves temp = new tempReleves();
 
@@ -410,9 +412,26 @@ namespace proera.Controllers
             var recouv = db.recouvrements.Where(r => r.periode == recouvrements.periode).ToList();
             var rec = recouv[0];
             rec.active = 0;
+
             db.Entry(rec).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("cloturer");
+        }
+
+        
+        public ActionResult cloturerperiode([Bind(Include = "periode")] recouvrements recouvrements)
+        {
+            var factures = db.factures.Where(f => f.PeriodeFacturee == recouvrements.periode).ToList();
+            //var encaissements = db.encaissements.Where(f => f.idfacture.Contains(recouvrements.periode)).ToList();
+
+            var rec = db.recouvrements.Where(r => r.periode == recouvrements.periode).ToList()[0];
+            rec.active = 0;
+
+            db.Entry(rec).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return Json(new
+            {});
         }
 
         public ActionResult changementrecouvrements([Bind(Include = "periode")] recouvrements recouvrements)

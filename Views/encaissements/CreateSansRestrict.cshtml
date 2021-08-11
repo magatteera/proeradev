@@ -535,21 +535,22 @@
                 type: $("#typebordereau").val()
             }
 
-            if ($("#numerobordereau").val().length < 3 || $("#montantbordereau").val().length < 4) {
-                alert ("Veuillez creer un bordereaux en donnant un montant et un numero qui sont obligatoires.")
+            if ($("#numerobordereau").val().length < 3) {
+                @* alert($("#numerobordereau").val().length) *@
+                alert("Veuillez creer un bordereaux en donnant un numero")
             } else
-            $.ajax({
-                type: "POST",
-                url: "/encaissements/savebordereau",
-                data: data,
-                success: function (data) {
-                    $('#idbordereau').empty()
-                        .append(data)
-                },
-                error: function () {
-                    alert("Error occured!!")
-                }
-            });
+                $.ajax({
+                    type: "POST",
+                    url: "/encaissements/savebordereau",
+                    data: data,
+                    success: function (data) {
+                        $('#idbordereau').empty()
+                            .append(data)
+                    },
+                    error: function () {
+                        alert("Error occured!!")
+                    }
+                });
 
 
 

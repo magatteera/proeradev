@@ -18,8 +18,32 @@
 </div>
 
 <div class="row">
+    <div class="col-sm-6">
 
-    <table class="table table-bordered table-striped" id="table">
+        <table class="table table-bordered table-striped" id="table">
+            <thead>
+                <tr>
+                    <th>
+                        Village
+                    </th>
+                    <th>
+                        Commune
+                    </th>
+                    <th>
+                        Code Village
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody id="tablebody">
+            </tbody>
+
+        </table>
+    </div>
+    <div class="col-sm-6">
+
+    <table class="table table-bordered table-striped" id="tablein">
         <thead>
             <tr>
                 <th>
@@ -31,14 +55,14 @@
                 <th>
                     Code Village
                 </th>
-                <th></th>
             </tr>
         </thead>
 
-        <tbody id="tablebody">
+        <tbody id="tablebodyin">
         </tbody>
 
     </table>
+</div>
 
 </div>
 
@@ -61,11 +85,20 @@
                 data: datas,
                 url: "/programmes/listevillages",
                 success: function (data) {
+                    @*alert(data.id)*@
                     $('#tablebody').empty()
                         .append(data.villages)
 
+                    $('#tablebodyin').empty()
+                        .append(data.villagesin)
+
                     if (datatable == 0) {
                         $('#table').DataTable({
+                            "language": {
+                                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
+                            }
+                        });
+                        $('#tablein').DataTable({
                             "language": {
                                 "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
                             }

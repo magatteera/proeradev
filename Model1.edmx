@@ -13,6 +13,24 @@
           <Property Name="activite" Type="varchar" MaxLength="50" />
           <Property Name="date" Type="date" />
         </EntityType>
+        <EntityType Name="agences">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'PROERA.dbo.AXEMT' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="AXEMT">
+          <Key>
+            <PropertyRef Name="codeMT" />
+          </Key>
+          <Property Name="codeMT" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="NomAXE" Type="varchar" MaxLength="100" />
+          <Property Name="long" Type="float" />
+          <Property Name="geom" Type="geography" />
+        </EntityType>
         <EntityType Name="bordereaux">
           <Key>
             <PropertyRef Name="id" />
@@ -39,6 +57,17 @@
           <Property Name="indexpose" Type="int" />
           <Property Name="utilisateur" Type="varchar" MaxLength="50" />
           <Property Name="refclient" Type="int" />
+        </EntityType>
+        <EntityType Name="changemodefact">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="refclient" Type="int" />
+          <Property Name="ancienmode" Type="varchar" MaxLength="50" />
+          <Property Name="nouveaumode" Type="varchar" MaxLength="50" />
+          <Property Name="solde" Type="float" />
+          <Property Name="date" Type="datetime" />
         </EntityType>
         <EntityType Name="clients">
           <Key>
@@ -91,6 +120,16 @@
           <Property Name="etat" Type="varchar" MaxLength="50" />
           <Property Name="usage" Type="varchar" MaxLength="50" />
           <Property Name="modefacturation" Type="varchar" MaxLength="50" />
+          <Property Name="NINEA" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="cloturerecouv">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="periode" Type="varchar" MaxLength="50" />
+          <Property Name="date" Type="varchar" MaxLength="50" />
+          <Property Name="utilisateur" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="communes">
           <Key>
@@ -119,8 +158,20 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="contrat" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="correctionreleve">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idreleve" Type="int" />
+          <Property Name="idfacture" Type="int" />
+          <Property Name="ancienneconso" Type="int" />
+          <Property Name="nouvelleconso" Type="int" />
+          <Property Name="date" Type="date" />
+          <Property Name="utilisateur" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="correctionsolde">
           <Key>
@@ -132,7 +183,7 @@
           <Property Name="soldepost" Type="float" Nullable="false" />
           <Property Name="date" Type="date" />
           <Property Name="referenceclient" Type="int" Nullable="false" />
-          <Property Name="motif" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="motif" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <EntityType Name="departements">
           <Key>
@@ -142,6 +193,29 @@
           <Property Name="code_departement" Type="int" Nullable="false" />
           <Property Name="geom" Type="geography" />
           <Property Name="idregion" Type="int" />
+          <Property Name="idagence" Type="varchar" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="encaissement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Idpayment" Type="nvarchar" MaxLength="50" />
+          <Property Name="DatePaiement" Type="date" />
+          <Property Name="MontantEncaisse" Type="float" />
+          <Property Name="SoldeAnterieur" Type="nvarchar" MaxLength="50" />
+          <Property Name="SoldePostPay" Type="nvarchar" MaxLength="50" />
+          <Property Name="Idclient" Type="nvarchar" MaxLength="50" />
+          <Property Name="idFacture" Type="nvarchar" MaxLength="50" />
+          <Property Name="Commentaire" Type="text" />
+          <Property Name="Nom" Type="nvarchar" MaxLength="50" />
+          <Property Name="Prenom" Type="nvarchar" MaxLength="50" />
+          <Property Name="village" Type="nvarchar" MaxLength="50" />
+          <Property Name="nivserv" Type="nvarchar" MaxLength="50" />
+          <Property Name="periodefacture" Type="nvarchar" MaxLength="50" />
+          <Property Name="createby" Type="nchar" MaxLength="100" />
+          <Property Name="createdate" Type="datetime2" Precision="7" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fraiscoupure" Type="float" />
         </EntityType>
         <EntityType Name="encaissements">
           <Key>
@@ -161,6 +235,33 @@
           <Property Name="numerobordereau" Type="varchar" MaxLength="50" />
           <Property Name="periode" Type="varchar" MaxLength="50" />
           <Property Name="datesysteme" Type="date" />
+          <Property Name="fraiscoupure" Type="float" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'PROERA.dbo.encaissementsreport' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="encaissementsreport">
+          <Key>
+            <PropertyRef Name="SoldeTotal" />
+          </Key>
+          <Property Name="Nom1" Type="nvarchar" MaxLength="255" />
+          <Property Name="Prenom" Type="nvarchar" MaxLength="255" />
+          <Property Name="nom" Type="varchar" MaxLength="25" />
+          <Property Name="nom_region" Type="varchar" MaxLength="25" />
+          <Property Name="nomcommune" Type="varchar" MaxLength="50" />
+          <Property Name="village" Type="varchar" MaxLength="50" />
+          <Property Name="netPayer" Type="int" />
+          <Property Name="SoldeTotal" Type="float" Nullable="false" />
+          <Property Name="PeriodeFacturee" Type="varchar" MaxLength="50" />
+          <Property Name="numero" Type="varchar" MaxLength="50" />
+          <Property Name="montantencaisee" Type="float" />
+          <Property Name="dateencaissement" Type="date" />
+          <Property Name="idfacture" Type="int" />
+          <Property Name="refclient" Type="int" />
+          <Property Name="codevillage" Type="int" />
+          <Property Name="penalite" Type="float" />
+          <Property Name="datenecaisse" Type="date" />
+          <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+          <Property Name="numerorecue" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="entrepots">
           <Key>
@@ -175,7 +276,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="etat" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="facturationtrigger">
@@ -230,7 +331,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Puissance" Type="float" />
           <Property Name="Montant" Type="float" />
           <Property Name="NiveauPuissance" Type="int" />
@@ -242,21 +343,21 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Branch" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="hcalibres">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Calibre" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="hnivpuissances">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NivPuissance" Type="nvarchar" MaxLength="255" />
           <Property Name="Usage" Type="int" />
         </EntityType>
@@ -270,8 +371,6 @@
           <Property Name="numero" Type="varchar" MaxLength="50" />
           <Property Name="message" Type="varchar" MaxLength="200" />
         </EntityType>
-        <!--Erreurs détectées durant la génération :
-avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
         <EntityType Name="mevlist">
           <Key>
             <PropertyRef Name="id" />
@@ -300,7 +399,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
         </EntityType>
         <EntityType Name="miseenserviceclient">
           <Key>
-            <PropertyRef Name="referenceClient" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="numcompteur" Type="varchar" MaxLength="50" />
@@ -324,7 +423,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
           <Key>
             <PropertyRef Name="ID_SERVICE" />
           </Key>
-          <Property Name="ID_SERVICE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_SERVICE" Type="int" Nullable="false" />
           <Property Name="REGION" Type="varchar" MaxLength="50" />
           <Property Name="DEPARTEMENT" Type="varchar" MaxLength="50" />
           <Property Name="COMMUNE" Type="varchar" MaxLength="50" />
@@ -368,6 +467,18 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="motif" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'PROERA.dbo.near_dist' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="near_dist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="codevillage" Type="int" />
+          <Property Name="near_dist" Type="varchar" MaxLength="50" />
+          <Property Name="axe" Type="varchar" MaxLength="50" />
+          <Property Name="code" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="pannes">
           <Key>
@@ -413,17 +524,20 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
           <Property Name="refclient" Type="int" />
           <Property Name="date" Type="date" />
           <Property Name="type" Type="int" />
-          <Property Name="priorite" Type="int" />
+          <Property Name="priorite" Type="varchar" MaxLength="200" />
           <Property Name="commentaire" Type="varchar" MaxLength="50" />
           <Property Name="nivintervention" Type="varchar" MaxLength="50" />
           <Property Name="telephone" Type="varchar" MaxLength="50" />
           <Property Name="localite" Type="int" />
           <Property Name="statut" Type="varchar" MaxLength="50" />
           <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+          <Property Name="numcompteur" Type="varchar" MaxLength="50" />
+          <Property Name="datecloture" Type="date" />
+          <Property Name="nature" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="recouvrements">
           <Key>
-            <PropertyRef Name="periode" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="opendate" Type="date" />
@@ -435,6 +549,20 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
           <Property Name="nbrFacturesPayees" Type="int" />
           <Property Name="active" Type="tinyint" />
           <Property Name="facturee" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="references">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="refclient" Type="varchar" MaxLength="50" />
+          <Property Name="numcompteur" Type="varchar" MaxLength="50" />
+          <Property Name="datepose" Type="date" />
+          <Property Name="indexpose" Type="int" />
+          <Property Name="datedepose" Type="date" />
+          <Property Name="pose" Type="tinyint" />
+          <Property Name="indexdepose" Type="int" />
+          <Property Name="technicien" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="regions">
           <Key>
@@ -470,6 +598,20 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
           <Property Name="facturee" Type="tinyint" />
           <Property Name="remarque" Type="varchar" MaxLength="50" />
         </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'PROERA.dbo.Requête' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="Requête">
+          <Key>
+            <PropertyRef Name="name" />
+            <PropertyRef Name="principal_id" />
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="image" />
+        </EntityType>
         <EntityType Name="resiliation">
           <Key>
             <PropertyRef Name="id" />
@@ -483,6 +625,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
           <Property Name="netapayer" Type="float" />
           <Property Name="indexdepose" Type="int" />
           <Property Name="interface" Type="varchar" MaxLength="50" />
+          <Property Name="datesysteme" Type="datetime" />
         </EntityType>
         <EntityType Name="retablissement">
           <Key>
@@ -515,9 +658,51 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
           <Property Name="index" Type="int" />
           <Property Name="periodedue" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="sav_interface">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="refclient" Type="varchar" MaxLength="50" />
+          <Property Name="ancieninterface" Type="varchar" MaxLength="50" />
+          <Property Name="indexpose" Type="int" />
+          <Property Name="indexdepose" Type="int" />
+          <Property Name="newinterface" Type="varchar" MaxLength="50" />
+          <Property Name="date" Type="date" />
+          <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SoldeUPDT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="REFERENCE" Type="int" />
+          <Property Name="OLDSOLDE" Type="float" />
+          <Property Name="NEWSOLDE" Type="int" />
+          <Property Name="REMARQUE" Type="varchar" MaxLength="100" />
+          <Property Name="NOM" Type="nchar" MaxLength="50" />
+          <Property Name="PRENOM" Type="nchar" MaxLength="50" />
+          <Property Name="VILLAGE" Type="nchar" MaxLength="50" />
+          <Property Name="createby" Type="nchar" MaxLength="100" />
+          <Property Name="createdate" Type="datetime" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'PROERA.dbo.sysdiagrams' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="name" />
+            <PropertyRef Name="principal_id" />
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="tarifs">
           <Key>
-            <PropertyRef Name="nom" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="categorie" Type="int" />
@@ -546,7 +731,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
           <Property Name="Ancienindex" Type="int" />
           <Property Name="Nouvelindex" Type="int" />
           <Property Name="consommation" Type="int" />
-          <Property Name="datereleve" Type="date" />
+          <Property Name="datereleve" Type="varchar" MaxLength="50" />
           <Property Name="periode" Type="varchar" MaxLength="50" />
           <Property Name="nombrejours" Type="int" />
           <Property Name="type" Type="varchar" MaxLength="50" />
@@ -593,6 +778,29 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="usage" Type="nchar" MaxLength="50" />
         </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'PROERA.dbo.village' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="village">
+          <Key>
+            <PropertyRef Name="id_localite" />
+          </Key>
+          <Property Name="localite" Type="varchar" MaxLength="50" />
+          <Property Name="id_localite" Type="int" Nullable="false" />
+          <Property Name="longitude" Type="float" />
+          <Property Name="latitude" Type="float" />
+          <Property Name="pop" Type="int" />
+          <Property Name="menage" Type="int" />
+          <Property Name="forage" Type="int" />
+          <Property Name="ecole" Type="int" />
+          <Property Name="sante" Type="int" />
+          <Property Name="gsm" Type="int" />
+          <Property Name="autreprod" Type="int" />
+          <Property Name="code_MT" Type="varchar" MaxLength="6" />
+          <Property Name="etat" Type="varchar" MaxLength="10" />
+          <Property Name="Near_dist" Type="float" />
+          <Property Name="id_prog" Type="int" />
+          <Property Name="geom" Type="geography" />
+        </EntityType>
         <EntityType Name="villages">
           <Key>
             <PropertyRef Name="code_village" />
@@ -622,6 +830,26 @@ avertissement 6002: La table/vue 'PROERA.dbo.mevlist' n'a pas de clé primaire d
           <Property Name="neardist" Type="float" />
         </EntityType>
         <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'PROERA.dbo.wappler_migrations' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="wappler_migrations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" />
+          <Property Name="batch" Type="int" />
+          <Property Name="migration_time" Type="datetime2" Precision="7" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'PROERA.dbo.wappler_migrations_lock' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="wappler_migrations_lock">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="int" Nullable="false" />
+          <Property Name="is_locked" Type="int" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
 avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
         <EntityType Name="View_DetailsEncaissement">
           <Key>
@@ -635,6 +863,18 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="utilisateur" Type="varchar" MaxLength="50" />
           <Property Name="datecreation" Type="varchar" MaxLength="30" />
         </EntityType>
+        <Association Name="FK_clients_etatclient">
+          <End Role="etatclient" Type="Self.etatclient" Multiplicity="0..1" />
+          <End Role="clients" Type="Self.clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="etatclient">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="clients">
+              <PropertyRef Name="Etat Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_clients_hnivpuissances">
           <End Role="hnivpuissances" Type="Self.hnivpuissances" Multiplicity="0..1" />
           <End Role="clients" Type="Self.clients" Multiplicity="*" />
@@ -683,18 +923,6 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_communes_departements1">
-          <End Role="departements" Type="Self.departements" Multiplicity="1" />
-          <End Role="communes" Type="Self.communes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="departements">
-              <PropertyRef Name="code_departement" />
-            </Principal>
-            <Dependent Role="communes">
-              <PropertyRef Name="iddepartement" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_departements_regions">
           <End Role="regions" Type="Self.regions" Multiplicity="0..1" />
           <End Role="departements" Type="Self.departements" Multiplicity="*" />
@@ -707,7 +935,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_HBareme_HBranch">
+        <Association Name="FK_hbaremes_hbranches">
           <End Role="hbranches" Type="Self.hbranches" Multiplicity="0..1" />
           <End Role="hbaremes" Type="Self.hbaremes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -719,7 +947,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_HBareme_HCalibre">
+        <Association Name="FK_hbaremes_hcalibres">
           <End Role="hcalibres" Type="Self.hcalibres" Multiplicity="0..1" />
           <End Role="hbaremes" Type="Self.hbaremes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -731,7 +959,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_HBareme_HNivPuissance">
+        <Association Name="FK_hbaremes_hnivpuissances">
           <End Role="hnivpuissances" Type="Self.hnivpuissances" Multiplicity="0..1" />
           <End Role="hbaremes" Type="Self.hbaremes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -755,7 +983,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_HNivPuissance_Usage">
+        <Association Name="FK_hnivpuissances_usages">
           <End Role="usages" Type="Self.usages" Multiplicity="0..1" />
           <End Role="hnivpuissances" Type="Self.hnivpuissances" Multiplicity="*" />
           <ReferentialConstraint>
@@ -781,7 +1009,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
         </Association>
         <Association Name="FK_miseenserviceclient_clients">
           <End Role="clients" Type="Self.clients" Multiplicity="1" />
-          <End Role="miseenserviceclient" Type="Self.miseenserviceclient" Multiplicity="0..1" />
+          <End Role="miseenserviceclient" Type="Self.miseenserviceclient" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="clients">
               <PropertyRef Name="Reference Contrat" />
@@ -800,6 +1028,18 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
             </Principal>
             <Dependent Role="MisEnServiceVillages">
               <PropertyRef Name="code_village" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_near_dist_villages">
+          <End Role="villages" Type="Self.villages" Multiplicity="0..1" />
+          <End Role="near_dist" Type="Self.near_dist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="villages">
+              <PropertyRef Name="code_village" />
+            </Principal>
+            <Dependent Role="near_dist">
+              <PropertyRef Name="codevillage" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -827,19 +1067,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_reclamation_villages">
-          <End Role="villages" Type="Self.villages" Multiplicity="0..1" />
-          <End Role="reclamation" Type="Self.reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="villages">
-              <PropertyRef Name="code_village" />
-            </Principal>
-            <Dependent Role="reclamation">
-              <PropertyRef Name="localite" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_releves_clients2">
+        <Association Name="FK_releves_clients">
           <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
           <End Role="releves" Type="Self.releves" Multiplicity="*" />
           <ReferentialConstraint>
@@ -901,14 +1129,19 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
         </Association>
         <EntityContainer Name="PROERAModelStoreContainer">
           <EntitySet Name="activite" EntityType="Self.activite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="agences" EntityType="Self.agences" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="bordereaux" EntityType="Self.bordereaux" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="changementinterface" EntityType="Self.changementinterface" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="changemodefact" EntityType="Self.changemodefact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="clients" EntityType="Self.clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cloturerecouv" EntityType="Self.cloturerecouv" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="communes" EntityType="Self.communes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="compteurs" EntityType="Self.compteurs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="contrats" EntityType="Self.contrats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="correctionreleve" EntityType="Self.correctionreleve" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="correctionsolde" EntityType="Self.correctionsolde" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="departements" EntityType="Self.departements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="encaissement" EntityType="Self.encaissement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="encaissements" EntityType="Self.encaissements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="entrepots" EntityType="Self.entrepots" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="etatclient" EntityType="Self.etatclient" Schema="dbo" store:Type="Tables" />
@@ -920,6 +1153,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <EntitySet Name="hcalibres" EntityType="Self.hcalibres" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="hnivpuissances" EntityType="Self.hnivpuissances" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="messages" EntityType="Self.messages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="mevlist" EntityType="Self.mevlist" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="migration" EntityType="Self.migration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="miseenserviceclient" EntityType="Self.miseenserviceclient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="miseenvigueur" EntityType="Self.miseenvigueur" Schema="dbo" store:Type="Tables" />
@@ -932,11 +1166,14 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <EntitySet Name="raisonsociale" EntityType="Self.raisonsociale" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="reclamation" EntityType="Self.reclamation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="recouvrements" EntityType="Self.recouvrements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="references" EntityType="Self.references" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="regions" EntityType="Self.regions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="releves" EntityType="Self.releves" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="resiliation" EntityType="Self.resiliation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="retablissement" EntityType="Self.retablissement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SAV" EntityType="Self.SAV" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sav_interface" EntityType="Self.sav_interface" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SoldeUPDT" EntityType="Self.SoldeUPDT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tarifs" EntityType="Self.tarifs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Technologies" EntityType="Self.Technologies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tempReleves" EntityType="Self.tempReleves" Schema="dbo" store:Type="Tables" />
@@ -946,15 +1183,97 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <EntitySet Name="typereclamation" EntityType="Self.typereclamation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="usages" EntityType="Self.usages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="villages" EntityType="Self.villages" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="mevlist" EntityType="Self.mevlist" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="AXEMT" EntityType="Self.AXEMT" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [mevlist].[dateMeV] AS [dateMeV], 
-    [mevlist].[numbord] AS [numbord], 
-    [mevlist].[montantbord] AS [montantbord], 
-    [mevlist].[iduser] AS [iduser], 
-    [mevlist].[id] AS [id], 
-    [mevlist].[remarque] AS [remarque]
-    FROM [dbo].[mevlist] AS [mevlist]</DefiningQuery>
+    [AXEMT].[codeMT] AS [codeMT], 
+    [AXEMT].[NomAXE] AS [NomAXE], 
+    [AXEMT].[long] AS [long], 
+    [AXEMT].[geom] AS [geom]
+    FROM [dbo].[AXEMT] AS [AXEMT]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="encaissementsreport" EntityType="Self.encaissementsreport" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [encaissementsreport].[Nom1] AS [Nom1], 
+    [encaissementsreport].[Prenom] AS [Prenom], 
+    [encaissementsreport].[nom] AS [nom], 
+    [encaissementsreport].[nom_region] AS [nom_region], 
+    [encaissementsreport].[nomcommune] AS [nomcommune], 
+    [encaissementsreport].[village] AS [village], 
+    [encaissementsreport].[netPayer] AS [netPayer], 
+    [encaissementsreport].[SoldeTotal] AS [SoldeTotal], 
+    [encaissementsreport].[PeriodeFacturee] AS [PeriodeFacturee], 
+    [encaissementsreport].[numero] AS [numero], 
+    [encaissementsreport].[montantencaisee] AS [montantencaisee], 
+    [encaissementsreport].[dateencaissement] AS [dateencaissement], 
+    [encaissementsreport].[idfacture] AS [idfacture], 
+    [encaissementsreport].[refclient] AS [refclient], 
+    [encaissementsreport].[codevillage] AS [codevillage], 
+    [encaissementsreport].[penalite] AS [penalite], 
+    [encaissementsreport].[datenecaisse] AS [datenecaisse], 
+    [encaissementsreport].[utilisateur] AS [utilisateur], 
+    [encaissementsreport].[numerorecue] AS [numerorecue]
+    FROM [dbo].[encaissementsreport] AS [encaissementsreport]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="near_dist" EntityType="Self.near_dist" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [near_dist].[id] AS [id], 
+    [near_dist].[codevillage] AS [codevillage], 
+    [near_dist].[near_dist] AS [near_dist], 
+    [near_dist].[axe] AS [axe], 
+    [near_dist].[code] AS [code]
+    FROM [dbo].[near_dist] AS [near_dist]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Requête" EntityType="Self.Requête" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Requête].[name] AS [name], 
+    [Requête].[principal_id] AS [principal_id], 
+    [Requête].[diagram_id] AS [diagram_id], 
+    [Requête].[version] AS [version], 
+    [Requête].[definition] AS [definition]
+    FROM [dbo].[Requête] AS [Requête]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [sysdiagrams].[name] AS [name], 
+    [sysdiagrams].[principal_id] AS [principal_id], 
+    [sysdiagrams].[diagram_id] AS [diagram_id], 
+    [sysdiagrams].[version] AS [version], 
+    [sysdiagrams].[definition] AS [definition]
+    FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="village" EntityType="Self.village" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [village].[localite] AS [localite], 
+    [village].[id_localite] AS [id_localite], 
+    [village].[longitude] AS [longitude], 
+    [village].[latitude] AS [latitude], 
+    [village].[pop] AS [pop], 
+    [village].[menage] AS [menage], 
+    [village].[forage] AS [forage], 
+    [village].[ecole] AS [ecole], 
+    [village].[sante] AS [sante], 
+    [village].[gsm] AS [gsm], 
+    [village].[autreprod] AS [autreprod], 
+    [village].[code_MT] AS [code_MT], 
+    [village].[etat] AS [etat], 
+    [village].[Near_dist] AS [Near_dist], 
+    [village].[id_prog] AS [id_prog], 
+    [village].[geom] AS [geom]
+    FROM [dbo].[village] AS [village]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="wappler_migrations" EntityType="Self.wappler_migrations" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [wappler_migrations].[id] AS [id], 
+    [wappler_migrations].[name] AS [name], 
+    [wappler_migrations].[batch] AS [batch], 
+    [wappler_migrations].[migration_time] AS [migration_time]
+    FROM [dbo].[wappler_migrations] AS [wappler_migrations]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="wappler_migrations_lock" EntityType="Self.wappler_migrations_lock" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [wappler_migrations_lock].[index] AS [index], 
+    [wappler_migrations_lock].[is_locked] AS [is_locked]
+    FROM [dbo].[wappler_migrations_lock] AS [wappler_migrations_lock]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="View_DetailsEncaissement" EntityType="Self.View_DetailsEncaissement" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -967,6 +1286,10 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
     [View_DetailsEncaissement].[datecreation] AS [datecreation]
     FROM [dbo].[View_DetailsEncaissement] AS [View_DetailsEncaissement]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_clients_etatclient" Association="Self.FK_clients_etatclient">
+            <End Role="etatclient" EntitySet="etatclient" />
+            <End Role="clients" EntitySet="clients" />
+          </AssociationSet>
           <AssociationSet Name="FK_clients_hnivpuissances" Association="Self.FK_clients_hnivpuissances">
             <End Role="hnivpuissances" EntitySet="hnivpuissances" />
             <End Role="clients" EntitySet="clients" />
@@ -983,23 +1306,19 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
             <End Role="departements" EntitySet="departements" />
             <End Role="communes" EntitySet="communes" />
           </AssociationSet>
-          <AssociationSet Name="FK_communes_departements1" Association="Self.FK_communes_departements1">
-            <End Role="departements" EntitySet="departements" />
-            <End Role="communes" EntitySet="communes" />
-          </AssociationSet>
           <AssociationSet Name="FK_departements_regions" Association="Self.FK_departements_regions">
             <End Role="regions" EntitySet="regions" />
             <End Role="departements" EntitySet="departements" />
           </AssociationSet>
-          <AssociationSet Name="FK_HBareme_HBranch" Association="Self.FK_HBareme_HBranch">
+          <AssociationSet Name="FK_hbaremes_hbranches" Association="Self.FK_hbaremes_hbranches">
             <End Role="hbranches" EntitySet="hbranches" />
             <End Role="hbaremes" EntitySet="hbaremes" />
           </AssociationSet>
-          <AssociationSet Name="FK_HBareme_HCalibre" Association="Self.FK_HBareme_HCalibre">
+          <AssociationSet Name="FK_hbaremes_hcalibres" Association="Self.FK_hbaremes_hcalibres">
             <End Role="hcalibres" EntitySet="hcalibres" />
             <End Role="hbaremes" EntitySet="hbaremes" />
           </AssociationSet>
-          <AssociationSet Name="FK_HBareme_HNivPuissance" Association="Self.FK_HBareme_HNivPuissance">
+          <AssociationSet Name="FK_hbaremes_hnivpuissances" Association="Self.FK_hbaremes_hnivpuissances">
             <End Role="hnivpuissances" EntitySet="hnivpuissances" />
             <End Role="hbaremes" EntitySet="hbaremes" />
           </AssociationSet>
@@ -1007,7 +1326,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
             <End Role="usages" EntitySet="usages" />
             <End Role="hbaremes" EntitySet="hbaremes" />
           </AssociationSet>
-          <AssociationSet Name="FK_HNivPuissance_Usage" Association="Self.FK_HNivPuissance_Usage">
+          <AssociationSet Name="FK_hnivpuissances_usages" Association="Self.FK_hnivpuissances_usages">
             <End Role="usages" EntitySet="usages" />
             <End Role="hnivpuissances" EntitySet="hnivpuissances" />
           </AssociationSet>
@@ -1023,6 +1342,10 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
             <End Role="villages" EntitySet="villages" />
             <End Role="MisEnServiceVillages" EntitySet="MisEnServiceVillages" />
           </AssociationSet>
+          <AssociationSet Name="FK_near_dist_villages" Association="Self.FK_near_dist_villages">
+            <End Role="villages" EntitySet="villages" />
+            <End Role="near_dist" EntitySet="near_dist" />
+          </AssociationSet>
           <AssociationSet Name="FK_reclamation_clients" Association="Self.FK_reclamation_clients">
             <End Role="clients" EntitySet="clients" />
             <End Role="reclamation" EntitySet="reclamation" />
@@ -1031,11 +1354,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
             <End Role="typereclamation" EntitySet="typereclamation" />
             <End Role="reclamation" EntitySet="reclamation" />
           </AssociationSet>
-          <AssociationSet Name="FK_reclamation_villages" Association="Self.FK_reclamation_villages">
-            <End Role="villages" EntitySet="villages" />
-            <End Role="reclamation" EntitySet="reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_releves_clients2" Association="Self.FK_releves_clients2">
+          <AssociationSet Name="FK_releves_clients" Association="Self.FK_releves_clients">
             <End Role="clients" EntitySet="clients" />
             <End Role="releves" EntitySet="releves" />
           </AssociationSet>
@@ -1068,6 +1387,13 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="activite1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="date" Type="DateTime" Precision="0" />
         </EntityType>
+        <EntityType Name="agences">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="bordereaux">
           <Key>
             <PropertyRef Name="id" />
@@ -1095,65 +1421,14 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="refclient" Type="Int32" />
         </EntityType>
-        <EntityType Name="clients">
+        <EntityType Name="cloturerecouv">
           <Key>
-            <PropertyRef Name="Reference_Contrat" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Nom1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Prenom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Num_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Tel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Raison_Social" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Date_Abonnement" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Village" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Niv_Service" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Type_Elect" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="calibre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Reference_Contrat" Type="Int32" Nullable="false" />
-          <Property Name="Montant_Encaisse" Type="Double" />
-          <Property Name="Etat_Client" Type="Int32" />
-          <Property Name="Commentaire" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Date_Mise_en_Service" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Date_Resiliation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="X_GPS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Y_GPS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Bordereau" Type="Int32" />
-          <Property Name="Contrat" Type="Int32" />
-          <Property Name="numcompteur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Ancien_indexe" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="SoldeTotal" Type="Double" Nullable="false" />
-          <Property Name="IDPayment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Prev_Bill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Last_Bill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="NbrEP" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Modifié" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Créé" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Créé_par" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="periodeFacturee" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="dateCoupure" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="dateAbonn" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="dateMeS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="idlastbill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="NivPuissance" Type="Int32" />
-          <Property Name="activite" Type="Int32" />
-          <Property Name="sqlstate" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="refclient" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="codevillage" Type="Int32" />
-          <Property Name="modePaiement" Type="Int32" />
-          <Property Name="numeropaiement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TypeBranch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="etat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="usage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="modefacturation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="hnivpuissances" Relationship="Self.FK_clients_hnivpuissances" FromRole="clients" ToRole="hnivpuissances" />
-          <NavigationProperty Name="raisonsociale" Relationship="Self.FK_clients_raisonsociale" FromRole="clients" ToRole="raisonsociale" />
-          <NavigationProperty Name="typepaiement" Relationship="Self.FK_clients_typepaiement" FromRole="clients" ToRole="typepaiement" />
-          <NavigationProperty Name="migration" Relationship="Self.FK_migration_clients" FromRole="clients" ToRole="migration" />
-          <NavigationProperty Name="miseenserviceclient" Relationship="Self.FK_miseenserviceclient_clients" FromRole="clients" ToRole="miseenserviceclient" />
-          <NavigationProperty Name="reclamation" Relationship="Self.FK_reclamation_clients" FromRole="clients" ToRole="reclamation" />
-          <NavigationProperty Name="releves" Relationship="Self.FK_releves_clients2" FromRole="clients" ToRole="releves" />
-          <NavigationProperty Name="resiliation" Relationship="Self.FK_resiliation_clients" FromRole="clients" ToRole="resiliation" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="periode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="communes">
           <Key>
@@ -1165,8 +1440,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="geom" Type="Geography" />
           <Property Name="iddepartement" Type="Int32" Nullable="false" />
           <NavigationProperty Name="departements" Relationship="Self.FK_communes_departements" FromRole="communes" ToRole="departements" />
-          <NavigationProperty Name="departements1" Relationship="Self.FK_communes_departements1" FromRole="communes" ToRole="departements" />
-          <NavigationProperty Name="villages" Relationship="Self.FK_villages_communes" FromRole="communes" ToRole="villages" />
+          <NavigationProperty Name="villages" Relationship="PROERAModel.FK_villages_communes" FromRole="communes" ToRole="villages" />
         </EntityType>
         <EntityType Name="compteurs">
           <Key>
@@ -1185,8 +1459,20 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="contrat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="correctionreleve">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idreleve" Type="Int32" />
+          <Property Name="idfacture" Type="Int32" />
+          <Property Name="ancienneconso" Type="Int32" />
+          <Property Name="nouvelleconso" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="correctionsolde">
           <Key>
@@ -1198,7 +1484,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="soldepost" Type="Double" Nullable="false" />
           <Property Name="date" Type="DateTime" Precision="0" />
           <Property Name="referenceclient" Type="Int32" Nullable="false" />
-          <Property Name="motif" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="motif" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="departements">
           <Key>
@@ -1208,28 +1494,31 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="code_departement" Type="Int32" Nullable="false" />
           <Property Name="geom" Type="Geography" />
           <Property Name="idregion" Type="Int32" />
+          <Property Name="idagence" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="communes" Relationship="Self.FK_communes_departements" FromRole="departements" ToRole="communes" />
-          <NavigationProperty Name="communes1" Relationship="Self.FK_communes_departements1" FromRole="departements" ToRole="communes" />
           <NavigationProperty Name="regions" Relationship="Self.FK_departements_regions" FromRole="departements" ToRole="regions" />
         </EntityType>
-        <EntityType Name="encaissements">
+        <EntityType Name="encaissement">
           <Key>
             <PropertyRef Name="id" />
           </Key>
+          <Property Name="Idpayment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DatePaiement" Type="DateTime" Precision="0" />
+          <Property Name="MontantEncaisse" Type="Double" />
+          <Property Name="SoldeAnterieur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SoldePostPay" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Idclient" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idFacture" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Commentaire" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="village" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="nivserv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="periodefacture" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="createby" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="createdate" Type="DateTime" Precision="7" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idfacture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="refclient" Type="Int32" />
-          <Property Name="montantencaisee" Type="Double" />
-          <Property Name="soldeprepaiement" Type="Double" />
-          <Property Name="soldepostpaiement" Type="Double" />
-          <Property Name="dateencaissement" Type="DateTime" Precision="0" />
-          <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="commentaire" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="idbordereau" Type="Int32" />
-          <Property Name="numerorecue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="numerobordereau" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="periode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="datesysteme" Type="DateTime" Precision="0" />
+          <Property Name="fraiscoupure" Type="Double" />
         </EntityType>
         <EntityType Name="entrepots">
           <Key>
@@ -1244,8 +1533,9 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="etat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="clients" Relationship="PROERAModel.FK_clients_etatclient" FromRole="etatclient" ToRole="clients" />
         </EntityType>
         <EntityType Name="facturationtrigger">
           <Key>
@@ -1275,7 +1565,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="NouvIndex" Type="Double" />
           <Property Name="PeriodeFacturee" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ReportArr" Type="Double" />
-          <Property Name="IdFacture" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="IdFacture" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="solde" Type="Double" />
           <Property Name="penalite" Type="Double" />
           <Property Name="RefClient" Type="Int32" />
@@ -1299,44 +1589,44 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Puissance" Type="Double" />
           <Property Name="Montant" Type="Double" />
           <Property Name="NiveauPuissance" Type="Int32" />
           <Property Name="Calibre2" Type="Int32" />
           <Property Name="branch" Type="Int32" />
           <Property Name="Usage" Type="Int32" />
-          <NavigationProperty Name="hbranches" Relationship="Self.FK_HBareme_HBranch" FromRole="hbaremes" ToRole="hbranches" />
-          <NavigationProperty Name="hcalibres" Relationship="Self.FK_HBareme_HCalibre" FromRole="hbaremes" ToRole="hcalibres" />
-          <NavigationProperty Name="hnivpuissances" Relationship="Self.FK_HBareme_HNivPuissance" FromRole="hbaremes" ToRole="hnivpuissances" />
+          <NavigationProperty Name="hbranches" Relationship="Self.FK_hbaremes_hbranches" FromRole="hbaremes" ToRole="hbranches" />
+          <NavigationProperty Name="hcalibres" Relationship="Self.FK_hbaremes_hcalibres" FromRole="hbaremes" ToRole="hcalibres" />
+          <NavigationProperty Name="hnivpuissances" Relationship="Self.FK_hbaremes_hnivpuissances" FromRole="hbaremes" ToRole="hnivpuissances" />
           <NavigationProperty Name="usages" Relationship="Self.FK_hbaremes_usages" FromRole="hbaremes" ToRole="usages" />
         </EntityType>
         <EntityType Name="hbranches">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Branch" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="hbaremes" Relationship="Self.FK_HBareme_HBranch" FromRole="hbranches" ToRole="hbaremes" />
+          <NavigationProperty Name="hbaremes" Relationship="Self.FK_hbaremes_hbranches" FromRole="hbranches" ToRole="hbaremes" />
         </EntityType>
         <EntityType Name="hcalibres">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Calibre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="hbaremes" Relationship="Self.FK_HBareme_HCalibre" FromRole="hcalibres" ToRole="hbaremes" />
+          <NavigationProperty Name="hbaremes" Relationship="Self.FK_hbaremes_hcalibres" FromRole="hcalibres" ToRole="hbaremes" />
         </EntityType>
         <EntityType Name="hnivpuissances">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NivPuissance" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Usage" Type="Int32" />
-          <NavigationProperty Name="clients" Relationship="Self.FK_clients_hnivpuissances" FromRole="hnivpuissances" ToRole="clients" />
-          <NavigationProperty Name="hbaremes" Relationship="Self.FK_HBareme_HNivPuissance" FromRole="hnivpuissances" ToRole="hbaremes" />
-          <NavigationProperty Name="usages" Relationship="Self.FK_HNivPuissance_Usage" FromRole="hnivpuissances" ToRole="usages" />
+          <NavigationProperty Name="hbaremes" Relationship="Self.FK_hbaremes_hnivpuissances" FromRole="hnivpuissances" ToRole="hbaremes" />
+          <NavigationProperty Name="usages" Relationship="Self.FK_hnivpuissances_usages" FromRole="hnivpuissances" ToRole="usages" />
+          <NavigationProperty Name="clients" Relationship="PROERAModel.FK_clients_hnivpuissances" FromRole="hnivpuissances" ToRole="clients" />
         </EntityType>
         <EntityType Name="messages">
           <Key>
@@ -1347,6 +1637,17 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="date" Type="DateTime" Precision="0" />
           <Property Name="numero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="message" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="mevlist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="dateMeV" Type="DateTime" Precision="3" />
+          <Property Name="numbord" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="montantbord" Type="Int32" />
+          <Property Name="iduser" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="remarque" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="migration">
           <Key>
@@ -1362,11 +1663,11 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="index" Type="Int32" />
           <Property Name="motif" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="date" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="clients" Relationship="Self.FK_migration_clients" FromRole="migration" ToRole="clients" />
+          <NavigationProperty Name="clients" Relationship="PROERAModel.FK_migration_clients" FromRole="migration" ToRole="clients" />
         </EntityType>
         <EntityType Name="miseenserviceclient">
           <Key>
-            <PropertyRef Name="referenceClient" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="numcompteur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1375,7 +1676,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="referenceClient" Type="Int32" Nullable="false" />
           <Property Name="statut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="clients" Relationship="Self.FK_miseenserviceclient_clients" FromRole="miseenserviceclient" ToRole="clients" />
+          <NavigationProperty Name="clients" Relationship="PROERAModel.FK_miseenserviceclient_clients" FromRole="miseenserviceclient" ToRole="clients" />
         </EntityType>
         <EntityType Name="miseenvigueur">
           <Key>
@@ -1391,7 +1692,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Key>
             <PropertyRef Name="ID_SERVICE" />
           </Key>
-          <Property Name="ID_SERVICE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_SERVICE" Type="Int32" Nullable="false" />
           <Property Name="REGION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DEPARTEMENT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="COMMUNE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1404,7 +1705,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="nombreSupport" Type="Int32" />
           <Property Name="LineaireBT" Type="Double" />
           <Property Name="datemiseenservice" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="villages" Relationship="Self.FK_MisEnServiceVillages_villages" FromRole="MisEnServiceVillages" ToRole="villages" />
+          <NavigationProperty Name="villages" Relationship="PROERAModel.FK_MisEnServiceVillages_villages" FromRole="MisEnServiceVillages" ToRole="villages" />
         </EntityType>
         <EntityType Name="modifencaissement">
           <Key>
@@ -1465,7 +1766,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="descriptProg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="remarque" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="operateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="villages" Relationship="Self.FK_villages_programmes" FromRole="programmes" ToRole="villages" />
+          <NavigationProperty Name="villages" Relationship="PROERAModel.FK_villages_programmes" FromRole="programmes" ToRole="villages" />
         </EntityType>
         <EntityType Name="raisonsociale">
           <Key>
@@ -1473,30 +1774,11 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="raison" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="clients" Relationship="Self.FK_clients_raisonsociale" FromRole="raisonsociale" ToRole="clients" />
-        </EntityType>
-        <EntityType Name="reclamation">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="refclient" Type="Int32" />
-          <Property Name="date" Type="DateTime" Precision="0" />
-          <Property Name="type" Type="Int32" />
-          <Property Name="priorite" Type="Int32" />
-          <Property Name="commentaire" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="nivintervention" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="localite" Type="Int32" />
-          <Property Name="statut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="clients" Relationship="Self.FK_reclamation_clients" FromRole="reclamation" ToRole="clients" />
-          <NavigationProperty Name="typereclamation" Relationship="Self.FK_reclamation_typereclamation" FromRole="reclamation" ToRole="typereclamation" />
-          <NavigationProperty Name="villages" Relationship="Self.FK_reclamation_villages" FromRole="reclamation" ToRole="villages" />
+          <NavigationProperty Name="clients" Relationship="PROERAModel.FK_clients_raisonsociale" FromRole="raisonsociale" ToRole="clients" />
         </EntityType>
         <EntityType Name="recouvrements">
           <Key>
-            <PropertyRef Name="periode" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="opendate" Type="DateTime" Precision="0" />
@@ -1508,6 +1790,20 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="nbrFacturesPayees" Type="Int32" />
           <Property Name="active" Type="Byte" />
           <Property Name="facturee" Type="Byte" />
+        </EntityType>
+        <EntityType Name="references">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="refclient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="numcompteur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="datepose" Type="DateTime" Precision="0" />
+          <Property Name="indexpose" Type="Int32" />
+          <Property Name="datedepose" Type="DateTime" Precision="0" />
+          <Property Name="pose" Type="Byte" />
+          <Property Name="indexdepose" Type="Int32" />
+          <Property Name="technicien" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="regions">
           <Key>
@@ -1543,7 +1839,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="nivservice" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
           <Property Name="facturee" Type="Byte" />
           <Property Name="remarque" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="clients" Relationship="Self.FK_releves_clients2" FromRole="releves" ToRole="clients" />
+          <NavigationProperty Name="clients" Relationship="PROERAModel.FK_releves_clients" FromRole="releves" ToRole="clients" />
         </EntityType>
         <EntityType Name="resiliation">
           <Key>
@@ -1558,7 +1854,8 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="netapayer" Type="Double" />
           <Property Name="indexdepose" Type="Int32" />
           <Property Name="interface" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="clients" Relationship="Self.FK_resiliation_clients" FromRole="resiliation" ToRole="clients" />
+          <Property Name="datesysteme" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="clients" Relationship="PROERAModel.FK_resiliation_clients" FromRole="resiliation" ToRole="clients" />
         </EntityType>
         <EntityType Name="retablissement">
           <Key>
@@ -1591,9 +1888,37 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="index" Type="Int32" />
           <Property Name="periodedue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="sav_interface">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="refclient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ancieninterface" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="indexpose" Type="Int32" />
+          <Property Name="indexdepose" Type="Int32" />
+          <Property Name="newinterface" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SoldeUPDT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="REFERENCE" Type="Int32" />
+          <Property Name="OLDSOLDE" Type="Double" />
+          <Property Name="NEWSOLDE" Type="Int32" />
+          <Property Name="REMARQUE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NOM" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="PRENOM" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="VILLAGE" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="createby" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="createdate" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="tarifs">
           <Key>
-            <PropertyRef Name="nom" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="categorie" Type="Int32" />
@@ -1611,7 +1936,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="technologie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="villages" Relationship="Self.FK_villages_Technologies" FromRole="Technologies" ToRole="villages" />
+          <NavigationProperty Name="villages" Relationship="PROERAModel.FK_villages_Technologies" FromRole="Technologies" ToRole="villages" />
         </EntityType>
         <EntityType Name="tempReleves">
           <Key>
@@ -1623,7 +1948,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="Ancienindex" Type="Int32" />
           <Property Name="Nouvelindex" Type="Int32" />
           <Property Name="consommation" Type="Int32" />
-          <Property Name="datereleve" Type="DateTime" Precision="0" />
+          <Property Name="datereleve" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="periode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="nombrejours" Type="Int32" />
           <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1655,7 +1980,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="date" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="clients" Relationship="Self.FK_clients_typepaiement" FromRole="typepaiement" ToRole="clients" />
+          <NavigationProperty Name="clients" Relationship="PROERAModel.FK_clients_typepaiement" FromRole="typepaiement" ToRole="clients" />
         </EntityType>
         <EntityType Name="typereclamation">
           <Key>
@@ -1663,7 +1988,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="reclamation" Relationship="Self.FK_reclamation_typereclamation" FromRole="typereclamation" ToRole="reclamation" />
+          <NavigationProperty Name="reclamation" Relationship="PROERAModel.FK_reclamation_typereclamation" FromRole="typereclamation" ToRole="reclamation" />
         </EntityType>
         <EntityType Name="usages">
           <Key>
@@ -1672,7 +1997,393 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="usage" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="hbaremes" Relationship="Self.FK_hbaremes_usages" FromRole="usages" ToRole="hbaremes" />
-          <NavigationProperty Name="hnivpuissances" Relationship="Self.FK_HNivPuissance_Usage" FromRole="usages" ToRole="hnivpuissances" />
+          <NavigationProperty Name="hnivpuissances" Relationship="Self.FK_hnivpuissances_usages" FromRole="usages" ToRole="hnivpuissances" />
+        </EntityType>
+        <EntityType Name="AXEMT">
+          <Key>
+            <PropertyRef Name="codeMT" />
+          </Key>
+          <Property Name="codeMT" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NomAXE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="long" Type="Double" />
+          <Property Name="geom" Type="Geography" />
+        </EntityType>
+        <EntityType Name="encaissementsreport">
+          <Key>
+            <PropertyRef Name="SoldeTotal" />
+          </Key>
+          <Property Name="Nom1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Prenom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="nom" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="nom_region" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="nomcommune" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="village" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="netPayer" Type="Int32" />
+          <Property Name="SoldeTotal" Type="Double" Nullable="false" />
+          <Property Name="PeriodeFacturee" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="numero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="montantencaisee" Type="Double" />
+          <Property Name="dateencaissement" Type="DateTime" Precision="0" />
+          <Property Name="idfacture" Type="Int32" />
+          <Property Name="refclient" Type="Int32" />
+          <Property Name="codevillage" Type="Int32" />
+          <Property Name="penalite" Type="Double" />
+          <Property Name="datenecaisse" Type="DateTime" Precision="0" />
+          <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="numerorecue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="near_dist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="codevillage" Type="Int32" />
+          <Property Name="near_dist1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="axe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="villages" Relationship="PROERAModel.FK_near_dist_villages" FromRole="near_dist" ToRole="villages" />
+        </EntityType>
+        <EntityType Name="Requête">
+          <Key>
+            <PropertyRef Name="name" />
+            <PropertyRef Name="principal_id" />
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="name" />
+            <PropertyRef Name="principal_id" />
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="village">
+          <Key>
+            <PropertyRef Name="id_localite" />
+          </Key>
+          <Property Name="localite" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id_localite" Type="Int32" Nullable="false" />
+          <Property Name="longitude" Type="Double" />
+          <Property Name="latitude" Type="Double" />
+          <Property Name="pop" Type="Int32" />
+          <Property Name="menage" Type="Int32" />
+          <Property Name="forage" Type="Int32" />
+          <Property Name="ecole" Type="Int32" />
+          <Property Name="sante" Type="Int32" />
+          <Property Name="gsm" Type="Int32" />
+          <Property Name="autreprod" Type="Int32" />
+          <Property Name="code_MT" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="etat" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Near_dist" Type="Double" />
+          <Property Name="id_prog" Type="Int32" />
+          <Property Name="geom" Type="Geography" />
+        </EntityType>
+        <EntityType Name="wappler_migrations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="batch" Type="Int32" />
+          <Property Name="migration_time" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="wappler_migrations_lock">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="Int32" Nullable="false" />
+          <Property Name="is_locked" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_communes_departements">
+          <End Role="departements" Type="Self.departements" Multiplicity="1" />
+          <End Role="communes" Type="Self.communes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="departements">
+              <PropertyRef Name="code_departement" />
+            </Principal>
+            <Dependent Role="communes">
+              <PropertyRef Name="iddepartement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_departements_regions">
+          <End Role="regions" Type="Self.regions" Multiplicity="0..1" />
+          <End Role="departements" Type="Self.departements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="regions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="departements">
+              <PropertyRef Name="idregion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_hbaremes_hbranches">
+          <End Role="hbranches" Type="Self.hbranches" Multiplicity="0..1" />
+          <End Role="hbaremes" Type="Self.hbaremes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hbranches">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="hbaremes">
+              <PropertyRef Name="branch" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_hbaremes_hcalibres">
+          <End Role="hcalibres" Type="Self.hcalibres" Multiplicity="0..1" />
+          <End Role="hbaremes" Type="Self.hbaremes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hcalibres">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="hbaremes">
+              <PropertyRef Name="Calibre2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_hbaremes_hnivpuissances">
+          <End Role="hnivpuissances" Type="Self.hnivpuissances" Multiplicity="0..1" />
+          <End Role="hbaremes" Type="Self.hbaremes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hnivpuissances">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="hbaremes">
+              <PropertyRef Name="NiveauPuissance" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_hbaremes_usages">
+          <End Role="usages" Type="Self.usages" Multiplicity="0..1" />
+          <End Role="hbaremes" Type="Self.hbaremes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usages">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="hbaremes">
+              <PropertyRef Name="Usage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_hnivpuissances_usages">
+          <End Role="usages" Type="Self.usages" Multiplicity="0..1" />
+          <End Role="hnivpuissances" Type="Self.hnivpuissances" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usages">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="hnivpuissances">
+              <PropertyRef Name="Usage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PROERAEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="activite" EntityType="Self.activite" />
+          <EntitySet Name="agences" EntityType="Self.agences" />
+          <EntitySet Name="bordereaux" EntityType="Self.bordereaux" />
+          <EntitySet Name="changementinterface" EntityType="Self.changementinterface" />
+          <EntitySet Name="cloturerecouv" EntityType="Self.cloturerecouv" />
+          <EntitySet Name="communes" EntityType="Self.communes" />
+          <EntitySet Name="compteurs" EntityType="Self.compteurs" />
+          <EntitySet Name="contrats" EntityType="Self.contrats" />
+          <EntitySet Name="correctionreleve" EntityType="Self.correctionreleve" />
+          <EntitySet Name="correctionsolde" EntityType="Self.correctionsolde" />
+          <EntitySet Name="departements" EntityType="Self.departements" />
+          <EntitySet Name="encaissement" EntityType="Self.encaissement" />
+          <EntitySet Name="entrepots" EntityType="Self.entrepots" />
+          <EntitySet Name="etatclient" EntityType="Self.etatclient" />
+          <EntitySet Name="facturationtrigger" EntityType="Self.facturationtrigger" />
+          <EntitySet Name="factures" EntityType="Self.factures" />
+          <EntitySet Name="forcermiseenvigueur" EntityType="Self.forcermiseenvigueur" />
+          <EntitySet Name="hbaremes" EntityType="Self.hbaremes" />
+          <EntitySet Name="hbranches" EntityType="Self.hbranches" />
+          <EntitySet Name="hcalibres" EntityType="Self.hcalibres" />
+          <EntitySet Name="hnivpuissances" EntityType="Self.hnivpuissances" />
+          <EntitySet Name="messages" EntityType="Self.messages" />
+          <EntitySet Name="mevlist" EntityType="Self.mevlist" />
+          <EntitySet Name="migration" EntityType="Self.migration" />
+          <EntitySet Name="miseenserviceclient" EntityType="Self.miseenserviceclient" />
+          <EntitySet Name="miseenvigueur" EntityType="Self.miseenvigueur" />
+          <EntitySet Name="MisEnServiceVillages" EntityType="Self.MisEnServiceVillages" />
+          <EntitySet Name="modifencaissement" EntityType="Self.modifencaissement" />
+          <EntitySet Name="modiffacture" EntityType="Self.modiffacture" />
+          <EntitySet Name="motifresiliation" EntityType="Self.motifresiliation" />
+          <EntitySet Name="pannes" EntityType="Self.pannes" />
+          <EntitySet Name="programmes" EntityType="Self.programmes" />
+          <EntitySet Name="raisonsociale" EntityType="Self.raisonsociale" />
+          <EntitySet Name="recouvrements" EntityType="Self.recouvrements" />
+          <EntitySet Name="references" EntityType="Self.references" />
+          <EntitySet Name="regions" EntityType="Self.regions" />
+          <EntitySet Name="releves" EntityType="Self.releves" />
+          <EntitySet Name="resiliation" EntityType="Self.resiliation" />
+          <EntitySet Name="retablissement" EntityType="Self.retablissement" />
+          <EntitySet Name="SAV" EntityType="Self.SAV" />
+          <EntitySet Name="sav_interface" EntityType="Self.sav_interface" />
+          <EntitySet Name="SoldeUPDT" EntityType="Self.SoldeUPDT" />
+          <EntitySet Name="tarifs" EntityType="Self.tarifs" />
+          <EntitySet Name="Technologies" EntityType="Self.Technologies" />
+          <EntitySet Name="tempReleves" EntityType="Self.tempReleves" />
+          <EntitySet Name="triggerproc" EntityType="Self.triggerproc" />
+          <EntitySet Name="typeelec" EntityType="Self.typeelec" />
+          <EntitySet Name="typepaiement" EntityType="Self.typepaiement" />
+          <EntitySet Name="typereclamation" EntityType="Self.typereclamation" />
+          <EntitySet Name="usages" EntityType="Self.usages" />
+          <EntitySet Name="AXEMT" EntityType="Self.AXEMT" />
+          <EntitySet Name="encaissementsreport" EntityType="Self.encaissementsreport" />
+          <EntitySet Name="near_dist" EntityType="Self.near_dist" />
+          <EntitySet Name="Requête" EntityType="Self.Requête" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="village" EntityType="Self.village" />
+          <EntitySet Name="wappler_migrations" EntityType="Self.wappler_migrations" />
+          <EntitySet Name="wappler_migrations_lock" EntityType="Self.wappler_migrations_lock" />
+          <AssociationSet Name="FK_communes_departements" Association="Self.FK_communes_departements">
+            <End Role="departements" EntitySet="departements" />
+            <End Role="communes" EntitySet="communes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_departements_regions" Association="Self.FK_departements_regions">
+            <End Role="regions" EntitySet="regions" />
+            <End Role="departements" EntitySet="departements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_hbaremes_hbranches" Association="Self.FK_hbaremes_hbranches">
+            <End Role="hbranches" EntitySet="hbranches" />
+            <End Role="hbaremes" EntitySet="hbaremes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_hbaremes_hcalibres" Association="Self.FK_hbaremes_hcalibres">
+            <End Role="hcalibres" EntitySet="hcalibres" />
+            <End Role="hbaremes" EntitySet="hbaremes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_hbaremes_hnivpuissances" Association="Self.FK_hbaremes_hnivpuissances">
+            <End Role="hnivpuissances" EntitySet="hnivpuissances" />
+            <End Role="hbaremes" EntitySet="hbaremes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_hbaremes_usages" Association="Self.FK_hbaremes_usages">
+            <End Role="usages" EntitySet="usages" />
+            <End Role="hbaremes" EntitySet="hbaremes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_hnivpuissances_usages" Association="Self.FK_hnivpuissances_usages">
+            <End Role="usages" EntitySet="usages" />
+            <End Role="hnivpuissances" EntitySet="hnivpuissances" />
+          </AssociationSet>
+          <EntitySet Name="encaissements" EntityType="PROERAModel.encaissements" />
+          <EntitySet Name="View_DetailsEncaissement" EntityType="PROERAModel.View_DetailsEncaissement" />
+          <EntitySet Name="changemodefact" EntityType="PROERAModel.changemodefact" />
+          <EntitySet Name="villages" EntityType="PROERAModel.villages" />
+          <AssociationSet Name="FK_villages_communes" Association="PROERAModel.FK_villages_communes">
+            <End Role="communes" EntitySet="communes" />
+            <End Role="villages" EntitySet="villages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MisEnServiceVillages_villages" Association="PROERAModel.FK_MisEnServiceVillages_villages">
+            <End Role="villages" EntitySet="villages" />
+            <End Role="MisEnServiceVillages" EntitySet="MisEnServiceVillages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_villages_programmes" Association="PROERAModel.FK_villages_programmes">
+            <End Role="programmes" EntitySet="programmes" />
+            <End Role="villages" EntitySet="villages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_villages_Technologies" Association="PROERAModel.FK_villages_Technologies">
+            <End Role="Technologies" EntitySet="Technologies" />
+            <End Role="villages" EntitySet="villages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_near_dist_villages" Association="PROERAModel.FK_near_dist_villages">
+            <End Role="villages" EntitySet="villages" />
+            <End Role="near_dist" EntitySet="near_dist" />
+          </AssociationSet>
+          <EntitySet Name="reclamation" EntityType="PROERAModel.reclamation" />
+          <AssociationSet Name="FK_reclamation_typereclamation" Association="PROERAModel.FK_reclamation_typereclamation">
+            <End Role="typereclamation" EntitySet="typereclamation" />
+            <End Role="reclamation" EntitySet="reclamation" />
+          </AssociationSet>
+          <EntitySet Name="clients" EntityType="PROERAModel.clients" />
+          <AssociationSet Name="FK_clients_etatclient" Association="PROERAModel.FK_clients_etatclient">
+            <End Role="etatclient" EntitySet="etatclient" />
+            <End Role="clients" EntitySet="clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_clients_hnivpuissances" Association="PROERAModel.FK_clients_hnivpuissances">
+            <End Role="hnivpuissances" EntitySet="hnivpuissances" />
+            <End Role="clients" EntitySet="clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_clients_raisonsociale" Association="PROERAModel.FK_clients_raisonsociale">
+            <End Role="raisonsociale" EntitySet="raisonsociale" />
+            <End Role="clients" EntitySet="clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_clients_typepaiement" Association="PROERAModel.FK_clients_typepaiement">
+            <End Role="typepaiement" EntitySet="typepaiement" />
+            <End Role="clients" EntitySet="clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_migration_clients" Association="PROERAModel.FK_migration_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="migration" EntitySet="migration" />
+          </AssociationSet>
+          <AssociationSet Name="FK_miseenserviceclient_clients" Association="PROERAModel.FK_miseenserviceclient_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="miseenserviceclient" EntitySet="miseenserviceclient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reclamation_clients" Association="PROERAModel.FK_reclamation_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="reclamation" EntitySet="reclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_releves_clients" Association="PROERAModel.FK_releves_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="releves" EntitySet="releves" />
+          </AssociationSet>
+          <AssociationSet Name="FK_resiliation_clients" Association="PROERAModel.FK_resiliation_clients">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="resiliation" EntitySet="resiliation" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="encaissements">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idfacture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="refclient" Type="Int32" />
+          <Property Name="montantencaisee" Type="Double" />
+          <Property Name="soldeprepaiement" Type="Double" />
+          <Property Name="soldepostpaiement" Type="Double" />
+          <Property Name="dateencaissement" Type="DateTime" Precision="0" />
+          <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="commentaire" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="idbordereau" Type="Int32" />
+          <Property Name="numerorecue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="numerobordereau" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="periode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="datesysteme" Type="DateTime" Precision="0" />
+          <Property Name="fraiscoupure" Type="Double" />
+        </EntityType>
+        <EntityType Name="View_DetailsEncaissement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="sommeenc" Type="Double" />
+          <Property Name="nbrenc" Type="Int32" />
+          <Property Name="montant" Type="Double" />
+          <Property Name="numero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="datecreation" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="changemodefact">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="refclient" Type="Int32" />
+          <Property Name="ancienmode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nouveaumode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="solde" Type="Double" />
+          <Property Name="date" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="villages">
           <Key>
@@ -1701,146 +2412,15 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <Property Name="nbrclients" Type="Int32" />
           <Property Name="codemt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="neardist" Type="Double" />
-          <NavigationProperty Name="communes" Relationship="Self.FK_villages_communes" FromRole="villages" ToRole="communes" />
-          <NavigationProperty Name="MisEnServiceVillages" Relationship="Self.FK_MisEnServiceVillages_villages" FromRole="villages" ToRole="MisEnServiceVillages" />
-          <NavigationProperty Name="programmes" Relationship="Self.FK_villages_programmes" FromRole="villages" ToRole="programmes" />
-          <NavigationProperty Name="reclamation" Relationship="Self.FK_reclamation_villages" FromRole="villages" ToRole="reclamation" />
-          <NavigationProperty Name="Technologies" Relationship="Self.FK_villages_Technologies" FromRole="villages" ToRole="Technologies" />
+          <NavigationProperty Name="communes" Relationship="PROERAModel.FK_villages_communes" FromRole="villages" ToRole="communes" />
+          <NavigationProperty Name="MisEnServiceVillages" Relationship="PROERAModel.FK_MisEnServiceVillages_villages" FromRole="villages" ToRole="MisEnServiceVillages" />
+          <NavigationProperty Name="programmes" Relationship="PROERAModel.FK_villages_programmes" FromRole="villages" ToRole="programmes" />
+          <NavigationProperty Name="Technologies" Relationship="PROERAModel.FK_villages_Technologies" FromRole="villages" ToRole="Technologies" />
+          <NavigationProperty Name="near_dist" Relationship="PROERAModel.FK_near_dist_villages" FromRole="villages" ToRole="near_dist" />
         </EntityType>
-        <EntityType Name="mevlist">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="dateMeV" Type="DateTime" Precision="3" />
-          <Property Name="numbord" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-          <Property Name="montantbord" Type="Int32" />
-          <Property Name="iduser" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="remarque" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <Association Name="FK_clients_hnivpuissances">
-          <End Role="hnivpuissances" Type="Self.hnivpuissances" Multiplicity="0..1" />
-          <End Role="clients" Type="Self.clients" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="hnivpuissances">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="clients">
-              <PropertyRef Name="NivPuissance" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_clients_raisonsociale">
-          <End Role="raisonsociale" Type="Self.raisonsociale" Multiplicity="0..1" />
-          <End Role="clients" Type="Self.clients" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="raisonsociale">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="clients">
-              <PropertyRef Name="activite" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_clients_typepaiement">
-          <End Role="typepaiement" Type="Self.typepaiement" Multiplicity="0..1" />
-          <End Role="clients" Type="Self.clients" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="typepaiement">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="clients">
-              <PropertyRef Name="modePaiement" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_migration_clients">
-          <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
-          <End Role="migration" Type="Self.migration" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="clients">
-              <PropertyRef Name="Reference_Contrat" />
-            </Principal>
-            <Dependent Role="migration">
-              <PropertyRef Name="referenceclient" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_miseenserviceclient_clients">
-          <End Role="clients" Type="Self.clients" Multiplicity="1" />
-          <End Role="miseenserviceclient" Type="Self.miseenserviceclient" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="clients">
-              <PropertyRef Name="Reference_Contrat" />
-            </Principal>
-            <Dependent Role="miseenserviceclient">
-              <PropertyRef Name="referenceClient" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_reclamation_clients">
-          <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
-          <End Role="reclamation" Type="Self.reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="clients">
-              <PropertyRef Name="Reference_Contrat" />
-            </Principal>
-            <Dependent Role="reclamation">
-              <PropertyRef Name="refclient" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_releves_clients2">
-          <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
-          <End Role="releves" Type="Self.releves" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="clients">
-              <PropertyRef Name="Reference_Contrat" />
-            </Principal>
-            <Dependent Role="releves">
-              <PropertyRef Name="Reference_Contrat" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_resiliation_clients">
-          <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
-          <End Role="resiliation" Type="Self.resiliation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="clients">
-              <PropertyRef Name="Reference_Contrat" />
-            </Principal>
-            <Dependent Role="resiliation">
-              <PropertyRef Name="refclient" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_communes_departements">
-          <End Role="departements" Type="Self.departements" Multiplicity="1" />
-          <End Role="communes" Type="Self.communes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="departements">
-              <PropertyRef Name="code_departement" />
-            </Principal>
-            <Dependent Role="communes">
-              <PropertyRef Name="iddepartement" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_communes_departements1">
-          <End Role="departements" Type="Self.departements" Multiplicity="1" />
-          <End Role="communes" Type="Self.communes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="departements">
-              <PropertyRef Name="code_departement" />
-            </Principal>
-            <Dependent Role="communes">
-              <PropertyRef Name="iddepartement" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_villages_communes">
-          <End Role="communes" Type="Self.communes" Multiplicity="0..1" />
-          <End Role="villages" Type="Self.villages" Multiplicity="*" />
+          <End Type="PROERAModel.communes" Role="communes" Multiplicity="0..1" />
+          <End Type="PROERAModel.villages" Role="villages" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="communes">
               <PropertyRef Name="code_com" />
@@ -1850,81 +2430,9 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_departements_regions">
-          <End Role="regions" Type="Self.regions" Multiplicity="0..1" />
-          <End Role="departements" Type="Self.departements" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="regions">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="departements">
-              <PropertyRef Name="idregion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HBareme_HBranch">
-          <End Role="hbranches" Type="Self.hbranches" Multiplicity="0..1" />
-          <End Role="hbaremes" Type="Self.hbaremes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="hbranches">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="hbaremes">
-              <PropertyRef Name="branch" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HBareme_HCalibre">
-          <End Role="hcalibres" Type="Self.hcalibres" Multiplicity="0..1" />
-          <End Role="hbaremes" Type="Self.hbaremes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="hcalibres">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="hbaremes">
-              <PropertyRef Name="Calibre2" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HBareme_HNivPuissance">
-          <End Role="hnivpuissances" Type="Self.hnivpuissances" Multiplicity="0..1" />
-          <End Role="hbaremes" Type="Self.hbaremes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="hnivpuissances">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="hbaremes">
-              <PropertyRef Name="NiveauPuissance" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_hbaremes_usages">
-          <End Role="usages" Type="Self.usages" Multiplicity="0..1" />
-          <End Role="hbaremes" Type="Self.hbaremes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="usages">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="hbaremes">
-              <PropertyRef Name="Usage" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HNivPuissance_Usage">
-          <End Role="usages" Type="Self.usages" Multiplicity="0..1" />
-          <End Role="hnivpuissances" Type="Self.hnivpuissances" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="usages">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="hnivpuissances">
-              <PropertyRef Name="Usage" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_MisEnServiceVillages_villages">
-          <End Role="villages" Type="Self.villages" Multiplicity="0..1" />
-          <End Role="MisEnServiceVillages" Type="Self.MisEnServiceVillages" Multiplicity="*" />
+          <End Type="PROERAModel.villages" Role="villages" Multiplicity="0..1" />
+          <End Type="PROERAModel.MisEnServiceVillages" Role="MisEnServiceVillages" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="villages">
               <PropertyRef Name="code_village" />
@@ -1935,8 +2443,8 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_villages_programmes">
-          <End Role="programmes" Type="Self.programmes" Multiplicity="0..1" />
-          <End Role="villages" Type="Self.villages" Multiplicity="*" />
+          <End Type="PROERAModel.programmes" Role="programmes" Multiplicity="0..1" />
+          <End Type="PROERAModel.villages" Role="villages" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="programmes">
               <PropertyRef Name="ID" />
@@ -1946,33 +2454,9 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_reclamation_typereclamation">
-          <End Role="typereclamation" Type="Self.typereclamation" Multiplicity="0..1" />
-          <End Role="reclamation" Type="Self.reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="typereclamation">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="reclamation">
-              <PropertyRef Name="type" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_reclamation_villages">
-          <End Role="villages" Type="Self.villages" Multiplicity="0..1" />
-          <End Role="reclamation" Type="Self.reclamation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="villages">
-              <PropertyRef Name="code_village" />
-            </Principal>
-            <Dependent Role="reclamation">
-              <PropertyRef Name="localite" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_villages_Technologies">
-          <End Role="Technologies" Type="Self.Technologies" Multiplicity="0..1" />
-          <End Role="villages" Type="Self.villages" Multiplicity="*" />
+          <End Type="PROERAModel.Technologies" Role="Technologies" Multiplicity="0..1" />
+          <End Type="PROERAModel.villages" Role="villages" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Technologies">
               <PropertyRef Name="id" />
@@ -1982,168 +2466,241 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PROERAEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="activite" EntityType="Self.activite" />
-          <EntitySet Name="bordereaux" EntityType="Self.bordereaux" />
-          <EntitySet Name="changementinterface" EntityType="Self.changementinterface" />
-          <EntitySet Name="clients" EntityType="Self.clients" />
-          <EntitySet Name="communes" EntityType="Self.communes" />
-          <EntitySet Name="compteurs" EntityType="Self.compteurs" />
-          <EntitySet Name="contrats" EntityType="Self.contrats" />
-          <EntitySet Name="correctionsolde" EntityType="Self.correctionsolde" />
-          <EntitySet Name="departements" EntityType="Self.departements" />
-          <EntitySet Name="encaissements" EntityType="Self.encaissements" />
-          <EntitySet Name="entrepots" EntityType="Self.entrepots" />
-          <EntitySet Name="etatclient" EntityType="Self.etatclient" />
-          <EntitySet Name="facturationtrigger" EntityType="Self.facturationtrigger" />
-          <EntitySet Name="factures" EntityType="Self.factures" />
-          <EntitySet Name="forcermiseenvigueur" EntityType="Self.forcermiseenvigueur" />
-          <EntitySet Name="hbaremes" EntityType="Self.hbaremes" />
-          <EntitySet Name="hbranches" EntityType="Self.hbranches" />
-          <EntitySet Name="hcalibres" EntityType="Self.hcalibres" />
-          <EntitySet Name="hnivpuissances" EntityType="Self.hnivpuissances" />
-          <EntitySet Name="messages" EntityType="Self.messages" />
-          <EntitySet Name="migration" EntityType="Self.migration" />
-          <EntitySet Name="miseenserviceclient" EntityType="Self.miseenserviceclient" />
-          <EntitySet Name="miseenvigueur" EntityType="Self.miseenvigueur" />
-          <EntitySet Name="MisEnServiceVillages" EntityType="Self.MisEnServiceVillages" />
-          <EntitySet Name="modifencaissement" EntityType="Self.modifencaissement" />
-          <EntitySet Name="modiffacture" EntityType="Self.modiffacture" />
-          <EntitySet Name="motifresiliation" EntityType="Self.motifresiliation" />
-          <EntitySet Name="pannes" EntityType="Self.pannes" />
-          <EntitySet Name="programmes" EntityType="Self.programmes" />
-          <EntitySet Name="raisonsociale" EntityType="Self.raisonsociale" />
-          <EntitySet Name="reclamation" EntityType="Self.reclamation" />
-          <EntitySet Name="recouvrements" EntityType="Self.recouvrements" />
-          <EntitySet Name="regions" EntityType="Self.regions" />
-          <EntitySet Name="releves" EntityType="Self.releves" />
-          <EntitySet Name="resiliation" EntityType="Self.resiliation" />
-          <EntitySet Name="retablissement" EntityType="Self.retablissement" />
-          <EntitySet Name="SAV" EntityType="Self.SAV" />
-          <EntitySet Name="tarifs" EntityType="Self.tarifs" />
-          <EntitySet Name="Technologies" EntityType="Self.Technologies" />
-          <EntitySet Name="tempReleves" EntityType="Self.tempReleves" />
-          <EntitySet Name="triggerproc" EntityType="Self.triggerproc" />
-          <EntitySet Name="typeelec" EntityType="Self.typeelec" />
-          <EntitySet Name="typepaiement" EntityType="Self.typepaiement" />
-          <EntitySet Name="typereclamation" EntityType="Self.typereclamation" />
-          <EntitySet Name="usages" EntityType="Self.usages" />
-          <EntitySet Name="villages" EntityType="Self.villages" />
-          <EntitySet Name="mevlist" EntityType="Self.mevlist" />
-          <AssociationSet Name="FK_clients_hnivpuissances" Association="Self.FK_clients_hnivpuissances">
-            <End Role="hnivpuissances" EntitySet="hnivpuissances" />
-            <End Role="clients" EntitySet="clients" />
-          </AssociationSet>
-          <AssociationSet Name="FK_clients_raisonsociale" Association="Self.FK_clients_raisonsociale">
-            <End Role="raisonsociale" EntitySet="raisonsociale" />
-            <End Role="clients" EntitySet="clients" />
-          </AssociationSet>
-          <AssociationSet Name="FK_clients_typepaiement" Association="Self.FK_clients_typepaiement">
-            <End Role="typepaiement" EntitySet="typepaiement" />
-            <End Role="clients" EntitySet="clients" />
-          </AssociationSet>
-          <AssociationSet Name="FK_migration_clients" Association="Self.FK_migration_clients">
-            <End Role="clients" EntitySet="clients" />
-            <End Role="migration" EntitySet="migration" />
-          </AssociationSet>
-          <AssociationSet Name="FK_miseenserviceclient_clients" Association="Self.FK_miseenserviceclient_clients">
-            <End Role="clients" EntitySet="clients" />
-            <End Role="miseenserviceclient" EntitySet="miseenserviceclient" />
-          </AssociationSet>
-          <AssociationSet Name="FK_reclamation_clients" Association="Self.FK_reclamation_clients">
-            <End Role="clients" EntitySet="clients" />
-            <End Role="reclamation" EntitySet="reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_releves_clients2" Association="Self.FK_releves_clients2">
-            <End Role="clients" EntitySet="clients" />
-            <End Role="releves" EntitySet="releves" />
-          </AssociationSet>
-          <AssociationSet Name="FK_resiliation_clients" Association="Self.FK_resiliation_clients">
-            <End Role="clients" EntitySet="clients" />
-            <End Role="resiliation" EntitySet="resiliation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_communes_departements" Association="Self.FK_communes_departements">
-            <End Role="departements" EntitySet="departements" />
-            <End Role="communes" EntitySet="communes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_communes_departements1" Association="Self.FK_communes_departements1">
-            <End Role="departements" EntitySet="departements" />
-            <End Role="communes" EntitySet="communes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_villages_communes" Association="Self.FK_villages_communes">
-            <End Role="communes" EntitySet="communes" />
-            <End Role="villages" EntitySet="villages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_departements_regions" Association="Self.FK_departements_regions">
-            <End Role="regions" EntitySet="regions" />
-            <End Role="departements" EntitySet="departements" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HBareme_HBranch" Association="Self.FK_HBareme_HBranch">
-            <End Role="hbranches" EntitySet="hbranches" />
-            <End Role="hbaremes" EntitySet="hbaremes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HBareme_HCalibre" Association="Self.FK_HBareme_HCalibre">
-            <End Role="hcalibres" EntitySet="hcalibres" />
-            <End Role="hbaremes" EntitySet="hbaremes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HBareme_HNivPuissance" Association="Self.FK_HBareme_HNivPuissance">
-            <End Role="hnivpuissances" EntitySet="hnivpuissances" />
-            <End Role="hbaremes" EntitySet="hbaremes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_hbaremes_usages" Association="Self.FK_hbaremes_usages">
-            <End Role="usages" EntitySet="usages" />
-            <End Role="hbaremes" EntitySet="hbaremes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HNivPuissance_Usage" Association="Self.FK_HNivPuissance_Usage">
-            <End Role="usages" EntitySet="usages" />
-            <End Role="hnivpuissances" EntitySet="hnivpuissances" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MisEnServiceVillages_villages" Association="Self.FK_MisEnServiceVillages_villages">
-            <End Role="villages" EntitySet="villages" />
-            <End Role="MisEnServiceVillages" EntitySet="MisEnServiceVillages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_villages_programmes" Association="Self.FK_villages_programmes">
-            <End Role="programmes" EntitySet="programmes" />
-            <End Role="villages" EntitySet="villages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_reclamation_typereclamation" Association="Self.FK_reclamation_typereclamation">
-            <End Role="typereclamation" EntitySet="typereclamation" />
-            <End Role="reclamation" EntitySet="reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_reclamation_villages" Association="Self.FK_reclamation_villages">
-            <End Role="villages" EntitySet="villages" />
-            <End Role="reclamation" EntitySet="reclamation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_villages_Technologies" Association="Self.FK_villages_Technologies">
-            <End Role="Technologies" EntitySet="Technologies" />
-            <End Role="villages" EntitySet="villages" />
-          </AssociationSet>
-          <EntitySet Name="View_DetailsEncaissement" EntityType="PROERAModel.View_DetailsEncaissement" />
-        </EntityContainer>
-        <EntityType Name="View_DetailsEncaissement">
+        <Association Name="FK_near_dist_villages">
+          <End Type="PROERAModel.villages" Role="villages" Multiplicity="0..1" />
+          <End Type="PROERAModel.near_dist" Role="near_dist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="villages">
+              <PropertyRef Name="code_village" />
+            </Principal>
+            <Dependent Role="near_dist">
+              <PropertyRef Name="codevillage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="reclamation">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="sommeenc" Type="Double" />
-          <Property Name="nbrenc" Type="Int32" />
-          <Property Name="montant" Type="Double" />
-          <Property Name="numero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="refclient" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="type" Type="Int32" />
+          <Property Name="priorite" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="commentaire" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nivintervention" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="localite" Type="Int32" />
+          <Property Name="statut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="datecreation" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="numcompteur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="datecloture" Type="DateTime" Precision="0" />
+          <Property Name="nature" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="typereclamation" Relationship="PROERAModel.FK_reclamation_typereclamation" FromRole="reclamation" ToRole="typereclamation" />
+          <NavigationProperty Name="clients" Relationship="PROERAModel.FK_reclamation_clients" FromRole="reclamation" ToRole="clients" />
         </EntityType>
-      </Schema>
+        <Association Name="FK_reclamation_typereclamation">
+          <End Type="PROERAModel.typereclamation" Role="typereclamation" Multiplicity="0..1" />
+          <End Type="PROERAModel.reclamation" Role="reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typereclamation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="reclamation">
+              <PropertyRef Name="type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="clients">
+          <Key>
+            <PropertyRef Name="Reference_Contrat" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Nom1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Prenom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Num_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Tel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Raison_Social" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Date_Abonnement" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Village" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Niv_Service" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Elect" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="calibre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Reference_Contrat" Type="Int32" Nullable="false" />
+          <Property Name="Montant_Encaisse" Type="Double" />
+          <Property Name="Etat_Client" Type="Int32" />
+          <Property Name="Commentaire" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Date_Mise_en_Service" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Date_Resiliation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="X_GPS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Y_GPS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Bordereau" Type="Int32" />
+          <Property Name="Contrat" Type="Int32" />
+          <Property Name="numcompteur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Ancien_indexe" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SoldeTotal" Type="Double" Nullable="false" />
+          <Property Name="IDPayment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Prev_Bill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Last_Bill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NbrEP" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Modifié" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Créé" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Créé_par" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="periodeFacturee" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="dateCoupure" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="dateAbonn" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="dateMeS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="idlastbill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NivPuissance" Type="Int32" />
+          <Property Name="activite" Type="Int32" />
+          <Property Name="sqlstate" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="refclient" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="codevillage" Type="Int32" />
+          <Property Name="modePaiement" Type="Int32" />
+          <Property Name="numeropaiement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TypeBranch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="etat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="usage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="modefacturation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NINEA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="etatclient" Relationship="PROERAModel.FK_clients_etatclient" FromRole="clients" ToRole="etatclient" />
+          <NavigationProperty Name="hnivpuissances" Relationship="PROERAModel.FK_clients_hnivpuissances" FromRole="clients" ToRole="hnivpuissances" />
+          <NavigationProperty Name="raisonsociale" Relationship="PROERAModel.FK_clients_raisonsociale" FromRole="clients" ToRole="raisonsociale" />
+          <NavigationProperty Name="typepaiement" Relationship="PROERAModel.FK_clients_typepaiement" FromRole="clients" ToRole="typepaiement" />
+          <NavigationProperty Name="migration" Relationship="PROERAModel.FK_migration_clients" FromRole="clients" ToRole="migration" />
+          <NavigationProperty Name="miseenserviceclient" Relationship="PROERAModel.FK_miseenserviceclient_clients" FromRole="clients" ToRole="miseenserviceclient" />
+          <NavigationProperty Name="reclamation" Relationship="PROERAModel.FK_reclamation_clients" FromRole="clients" ToRole="reclamation" />
+          <NavigationProperty Name="releves" Relationship="PROERAModel.FK_releves_clients" FromRole="clients" ToRole="releves" />
+          <NavigationProperty Name="resiliation" Relationship="PROERAModel.FK_resiliation_clients" FromRole="clients" ToRole="resiliation" />
+        </EntityType>
+        <Association Name="FK_clients_etatclient">
+          <End Type="PROERAModel.etatclient" Role="etatclient" Multiplicity="0..1" />
+          <End Type="PROERAModel.clients" Role="clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="etatclient">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="clients">
+              <PropertyRef Name="Etat_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_clients_hnivpuissances">
+          <End Type="PROERAModel.hnivpuissances" Role="hnivpuissances" Multiplicity="0..1" />
+          <End Type="PROERAModel.clients" Role="clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hnivpuissances">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="clients">
+              <PropertyRef Name="NivPuissance" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_clients_raisonsociale">
+          <End Type="PROERAModel.raisonsociale" Role="raisonsociale" Multiplicity="0..1" />
+          <End Type="PROERAModel.clients" Role="clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="raisonsociale">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="clients">
+              <PropertyRef Name="activite" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_clients_typepaiement">
+          <End Type="PROERAModel.typepaiement" Role="typepaiement" Multiplicity="0..1" />
+          <End Type="PROERAModel.clients" Role="clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="typepaiement">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="clients">
+              <PropertyRef Name="modePaiement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_migration_clients">
+          <End Type="PROERAModel.clients" Role="clients" Multiplicity="0..1" />
+          <End Type="PROERAModel.migration" Role="migration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="Reference_Contrat" />
+            </Principal>
+            <Dependent Role="migration">
+              <PropertyRef Name="referenceclient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_miseenserviceclient_clients">
+          <End Type="PROERAModel.clients" Role="clients" Multiplicity="1" />
+          <End Type="PROERAModel.miseenserviceclient" Role="miseenserviceclient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="Reference_Contrat" />
+            </Principal>
+            <Dependent Role="miseenserviceclient">
+              <PropertyRef Name="referenceClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_reclamation_clients">
+          <End Type="PROERAModel.clients" Role="clients" Multiplicity="0..1" />
+          <End Type="PROERAModel.reclamation" Role="reclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="Reference_Contrat" />
+            </Principal>
+            <Dependent Role="reclamation">
+              <PropertyRef Name="refclient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_releves_clients">
+          <End Type="PROERAModel.clients" Role="clients" Multiplicity="0..1" />
+          <End Type="PROERAModel.releves" Role="releves" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="Reference_Contrat" />
+            </Principal>
+            <Dependent Role="releves">
+              <PropertyRef Name="Reference_Contrat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_resiliation_clients">
+          <End Type="PROERAModel.clients" Role="clients" Multiplicity="0..1" />
+          <End Type="PROERAModel.resiliation" Role="resiliation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="Reference_Contrat" />
+            </Principal>
+            <Dependent Role="resiliation">
+              <PropertyRef Name="refclient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PROERAModelStoreContainer" CdmEntityContainer="PROERAEntities">
+        <EntityContainerMapping StorageEntityContainer="PROERAModelStoreContainer" CdmEntityContainer="PROERAEntities1">
           <EntitySetMapping Name="activite">
             <EntityTypeMapping TypeName="PROERAModel.activite">
               <MappingFragment StoreEntitySet="activite">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="activite1" ColumnName="activite" />
                 <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="agences">
+            <EntityTypeMapping TypeName="PROERAModel.agences">
+              <MappingFragment StoreEntitySet="agences">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2176,56 +2733,13 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="clients">
-            <EntityTypeMapping TypeName="PROERAModel.clients">
-              <MappingFragment StoreEntitySet="clients">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Nom1" ColumnName="Nom1" />
-                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
-                <ScalarProperty Name="Num_ID" ColumnName="Num ID" />
-                <ScalarProperty Name="Tel" ColumnName="Tel" />
-                <ScalarProperty Name="Raison_Social" ColumnName="Raison Social" />
-                <ScalarProperty Name="Date_Abonnement" ColumnName="Date Abonnement" />
-                <ScalarProperty Name="Village" ColumnName="Village" />
-                <ScalarProperty Name="Niv_Service" ColumnName="Niv Service" />
-                <ScalarProperty Name="Type_Elect" ColumnName="Type Elect" />
-                <ScalarProperty Name="calibre" ColumnName="calibre" />
-                <ScalarProperty Name="Reference_Contrat" ColumnName="Reference Contrat" />
-                <ScalarProperty Name="Montant_Encaisse" ColumnName="Montant Encaisse" />
-                <ScalarProperty Name="Etat_Client" ColumnName="Etat Client" />
-                <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
-                <ScalarProperty Name="Date_Mise_en_Service" ColumnName="Date Mise en Service" />
-                <ScalarProperty Name="Date_Resiliation" ColumnName="Date Resiliation" />
-                <ScalarProperty Name="X_GPS" ColumnName="X_GPS" />
-                <ScalarProperty Name="Y_GPS" ColumnName="Y_GPS" />
-                <ScalarProperty Name="Bordereau" ColumnName="Bordereau" />
-                <ScalarProperty Name="Contrat" ColumnName="Contrat" />
-                <ScalarProperty Name="numcompteur" ColumnName="numcompteur" />
-                <ScalarProperty Name="Ancien_indexe" ColumnName="Ancien indexe" />
-                <ScalarProperty Name="SoldeTotal" ColumnName="SoldeTotal" />
-                <ScalarProperty Name="IDPayment" ColumnName="IDPayment" />
-                <ScalarProperty Name="Prev_Bill" ColumnName="Prev_Bill" />
-                <ScalarProperty Name="Last_Bill" ColumnName="Last_Bill" />
-                <ScalarProperty Name="NbrEP" ColumnName="NbrEP" />
-                <ScalarProperty Name="Modifié" ColumnName="Modifié" />
-                <ScalarProperty Name="Créé" ColumnName="Créé" />
-                <ScalarProperty Name="Créé_par" ColumnName="Créé par" />
-                <ScalarProperty Name="periodeFacturee" ColumnName="periodeFacturee" />
-                <ScalarProperty Name="dateCoupure" ColumnName="dateCoupure" />
-                <ScalarProperty Name="dateAbonn" ColumnName="dateAbonn" />
-                <ScalarProperty Name="dateMeS" ColumnName="dateMeS" />
-                <ScalarProperty Name="idlastbill" ColumnName="idlastbill" />
-                <ScalarProperty Name="NivPuissance" ColumnName="NivPuissance" />
-                <ScalarProperty Name="activite" ColumnName="activite" />
-                <ScalarProperty Name="sqlstate" ColumnName="sqlstate" />
-                <ScalarProperty Name="refclient" ColumnName="refclient" />
-                <ScalarProperty Name="codevillage" ColumnName="codevillage" />
-                <ScalarProperty Name="modePaiement" ColumnName="modePaiement" />
-                <ScalarProperty Name="numeropaiement" ColumnName="numeropaiement" />
-                <ScalarProperty Name="TypeBranch" ColumnName="TypeBranch" />
-                <ScalarProperty Name="etat" ColumnName="etat" />
-                <ScalarProperty Name="usage" ColumnName="usage" />
-                <ScalarProperty Name="modefacturation" ColumnName="modefacturation" />
+          <EntitySetMapping Name="cloturerecouv">
+            <EntityTypeMapping TypeName="PROERAModel.cloturerecouv">
+              <MappingFragment StoreEntitySet="cloturerecouv">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="periode" ColumnName="periode" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2262,6 +2776,19 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="correctionreleve">
+            <EntityTypeMapping TypeName="PROERAModel.correctionreleve">
+              <MappingFragment StoreEntitySet="correctionreleve">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idreleve" ColumnName="idreleve" />
+                <ScalarProperty Name="idfacture" ColumnName="idfacture" />
+                <ScalarProperty Name="ancienneconso" ColumnName="ancienneconso" />
+                <ScalarProperty Name="nouvelleconso" ColumnName="nouvelleconso" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="correctionsolde">
             <EntityTypeMapping TypeName="PROERAModel.correctionsolde">
               <MappingFragment StoreEntitySet="correctionsolde">
@@ -2282,26 +2809,30 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
                 <ScalarProperty Name="code_departement" ColumnName="code_departement" />
                 <ScalarProperty Name="geom" ColumnName="geom" />
                 <ScalarProperty Name="idregion" ColumnName="idregion" />
+                <ScalarProperty Name="idagence" ColumnName="idagence" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="encaissements">
-            <EntityTypeMapping TypeName="PROERAModel.encaissements">
-              <MappingFragment StoreEntitySet="encaissements">
+          <EntitySetMapping Name="encaissement">
+            <EntityTypeMapping TypeName="PROERAModel.encaissement">
+              <MappingFragment StoreEntitySet="encaissement">
+                <ScalarProperty Name="fraiscoupure" ColumnName="fraiscoupure" />
+                <ScalarProperty Name="Idpayment" ColumnName="Idpayment" />
+                <ScalarProperty Name="DatePaiement" ColumnName="DatePaiement" />
+                <ScalarProperty Name="MontantEncaisse" ColumnName="MontantEncaisse" />
+                <ScalarProperty Name="SoldeAnterieur" ColumnName="SoldeAnterieur" />
+                <ScalarProperty Name="SoldePostPay" ColumnName="SoldePostPay" />
+                <ScalarProperty Name="Idclient" ColumnName="Idclient" />
+                <ScalarProperty Name="idFacture" ColumnName="idFacture" />
+                <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="village" ColumnName="village" />
+                <ScalarProperty Name="nivserv" ColumnName="nivserv" />
+                <ScalarProperty Name="periodefacture" ColumnName="periodefacture" />
+                <ScalarProperty Name="createby" ColumnName="createby" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="idfacture" ColumnName="idfacture" />
-                <ScalarProperty Name="refclient" ColumnName="refclient" />
-                <ScalarProperty Name="montantencaisee" ColumnName="montantencaisee" />
-                <ScalarProperty Name="soldeprepaiement" ColumnName="soldeprepaiement" />
-                <ScalarProperty Name="soldepostpaiement" ColumnName="soldepostpaiement" />
-                <ScalarProperty Name="dateencaissement" ColumnName="dateencaissement" />
-                <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
-                <ScalarProperty Name="commentaire" ColumnName="commentaire" />
-                <ScalarProperty Name="idbordereau" ColumnName="idbordereau" />
-                <ScalarProperty Name="numerorecue" ColumnName="numerorecue" />
-                <ScalarProperty Name="numerobordereau" ColumnName="numerobordereau" />
-                <ScalarProperty Name="periode" ColumnName="periode" />
-                <ScalarProperty Name="datesysteme" ColumnName="datesysteme" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2420,6 +2951,18 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="numero" ColumnName="numero" />
                 <ScalarProperty Name="message" ColumnName="message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mevlist">
+            <EntityTypeMapping TypeName="PROERAModel.mevlist">
+              <MappingFragment StoreEntitySet="mevlist">
+                <ScalarProperty Name="dateMeV" ColumnName="dateMeV" />
+                <ScalarProperty Name="numbord" ColumnName="numbord" />
+                <ScalarProperty Name="montantbord" ColumnName="montantbord" />
+                <ScalarProperty Name="iduser" ColumnName="iduser" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="remarque" ColumnName="remarque" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2555,23 +3098,6 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="reclamation">
-            <EntityTypeMapping TypeName="PROERAModel.reclamation">
-              <MappingFragment StoreEntitySet="reclamation">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="refclient" ColumnName="refclient" />
-                <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="priorite" ColumnName="priorite" />
-                <ScalarProperty Name="commentaire" ColumnName="commentaire" />
-                <ScalarProperty Name="nivintervention" ColumnName="nivintervention" />
-                <ScalarProperty Name="telephone" ColumnName="telephone" />
-                <ScalarProperty Name="localite" ColumnName="localite" />
-                <ScalarProperty Name="statut" ColumnName="statut" />
-                <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="recouvrements">
             <EntityTypeMapping TypeName="PROERAModel.recouvrements">
               <MappingFragment StoreEntitySet="recouvrements">
@@ -2585,6 +3111,21 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
                 <ScalarProperty Name="nbrFacturesPayees" ColumnName="nbrFacturesPayees" />
                 <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="facturee" ColumnName="facturee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="references">
+            <EntityTypeMapping TypeName="PROERAModel.references">
+              <MappingFragment StoreEntitySet="references">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="refclient" ColumnName="refclient" />
+                <ScalarProperty Name="numcompteur" ColumnName="numcompteur" />
+                <ScalarProperty Name="datepose" ColumnName="datepose" />
+                <ScalarProperty Name="indexpose" ColumnName="indexpose" />
+                <ScalarProperty Name="datedepose" ColumnName="datedepose" />
+                <ScalarProperty Name="pose" ColumnName="pose" />
+                <ScalarProperty Name="indexdepose" ColumnName="indexdepose" />
+                <ScalarProperty Name="technicien" ColumnName="technicien" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2627,6 +3168,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
           <EntitySetMapping Name="resiliation">
             <EntityTypeMapping TypeName="PROERAModel.resiliation">
               <MappingFragment StoreEntitySet="resiliation">
+                <ScalarProperty Name="datesysteme" ColumnName="datesysteme" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="refclient" ColumnName="refclient" />
                 <ScalarProperty Name="date" ColumnName="date" />
@@ -2669,6 +3211,36 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
                 <ScalarProperty Name="createdate" ColumnName="createdate" />
                 <ScalarProperty Name="index" ColumnName="index" />
                 <ScalarProperty Name="periodedue" ColumnName="periodedue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sav_interface">
+            <EntityTypeMapping TypeName="PROERAModel.sav_interface">
+              <MappingFragment StoreEntitySet="sav_interface">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="refclient" ColumnName="refclient" />
+                <ScalarProperty Name="ancieninterface" ColumnName="ancieninterface" />
+                <ScalarProperty Name="indexpose" ColumnName="indexpose" />
+                <ScalarProperty Name="indexdepose" ColumnName="indexdepose" />
+                <ScalarProperty Name="newinterface" ColumnName="newinterface" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SoldeUPDT">
+            <EntityTypeMapping TypeName="PROERAModel.SoldeUPDT">
+              <MappingFragment StoreEntitySet="SoldeUPDT">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="REFERENCE" ColumnName="REFERENCE" />
+                <ScalarProperty Name="OLDSOLDE" ColumnName="OLDSOLDE" />
+                <ScalarProperty Name="NEWSOLDE" ColumnName="NEWSOLDE" />
+                <ScalarProperty Name="REMARQUE" ColumnName="REMARQUE" />
+                <ScalarProperty Name="NOM" ColumnName="NOM" />
+                <ScalarProperty Name="PRENOM" ColumnName="PRENOM" />
+                <ScalarProperty Name="VILLAGE" ColumnName="VILLAGE" />
+                <ScalarProperty Name="createby" ColumnName="createby" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2758,44 +3330,132 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="villages">
-            <EntityTypeMapping TypeName="PROERAModel.villages">
-              <MappingFragment StoreEntitySet="villages">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="region" ColumnName="region" />
-                <ScalarProperty Name="departement" ColumnName="departement" />
-                <ScalarProperty Name="commune" ColumnName="commune" />
-                <ScalarProperty Name="village" ColumnName="village" />
-                <ScalarProperty Name="population" ColumnName="population" />
-                <ScalarProperty Name="menage" ColumnName="menage" />
-                <ScalarProperty Name="education" ColumnName="education" />
-                <ScalarProperty Name="sante" ColumnName="sante" />
-                <ScalarProperty Name="forage" ColumnName="forage" />
-                <ScalarProperty Name="antenne_bts" ColumnName="antenne_bts" />
-                <ScalarProperty Name="moulin" ColumnName="moulin" />
-                <ScalarProperty Name="longitude" ColumnName="longitude" />
-                <ScalarProperty Name="latitude" ColumnName="latitude" />
-                <ScalarProperty Name="code_village" ColumnName="code_village" />
-                <ScalarProperty Name="code_prog" ColumnName="code_prog" />
-                <ScalarProperty Name="idLocalite" ColumnName="idLocalite" />
-                <ScalarProperty Name="etattravaux" ColumnName="etattravaux" />
-                <ScalarProperty Name="technologie" ColumnName="technologie" />
-                <ScalarProperty Name="commercialise" ColumnName="commercialise" />
-                <ScalarProperty Name="nbrclients" ColumnName="nbrclients" />
-                <ScalarProperty Name="codemt" ColumnName="codemt" />
-                <ScalarProperty Name="neardist" ColumnName="neardist" />
+          <EntitySetMapping Name="AXEMT">
+            <EntityTypeMapping TypeName="PROERAModel.AXEMT">
+              <MappingFragment StoreEntitySet="AXEMT">
+                <ScalarProperty Name="codeMT" ColumnName="codeMT" />
+                <ScalarProperty Name="NomAXE" ColumnName="NomAXE" />
+                <ScalarProperty Name="long" ColumnName="long" />
+                <ScalarProperty Name="geom" ColumnName="geom" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="mevlist">
-            <EntityTypeMapping TypeName="PROERAModel.mevlist">
-              <MappingFragment StoreEntitySet="mevlist">
-                <ScalarProperty Name="dateMeV" ColumnName="dateMeV" />
-                <ScalarProperty Name="numbord" ColumnName="numbord" />
-                <ScalarProperty Name="montantbord" ColumnName="montantbord" />
-                <ScalarProperty Name="iduser" ColumnName="iduser" />
+          <EntitySetMapping Name="encaissementsreport">
+            <EntityTypeMapping TypeName="PROERAModel.encaissementsreport">
+              <MappingFragment StoreEntitySet="encaissementsreport">
+                <ScalarProperty Name="Nom1" ColumnName="Nom1" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="nom_region" ColumnName="nom_region" />
+                <ScalarProperty Name="nomcommune" ColumnName="nomcommune" />
+                <ScalarProperty Name="village" ColumnName="village" />
+                <ScalarProperty Name="netPayer" ColumnName="netPayer" />
+                <ScalarProperty Name="SoldeTotal" ColumnName="SoldeTotal" />
+                <ScalarProperty Name="PeriodeFacturee" ColumnName="PeriodeFacturee" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="montantencaisee" ColumnName="montantencaisee" />
+                <ScalarProperty Name="dateencaissement" ColumnName="dateencaissement" />
+                <ScalarProperty Name="idfacture" ColumnName="idfacture" />
+                <ScalarProperty Name="refclient" ColumnName="refclient" />
+                <ScalarProperty Name="codevillage" ColumnName="codevillage" />
+                <ScalarProperty Name="penalite" ColumnName="penalite" />
+                <ScalarProperty Name="datenecaisse" ColumnName="datenecaisse" />
+                <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
+                <ScalarProperty Name="numerorecue" ColumnName="numerorecue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="near_dist">
+            <EntityTypeMapping TypeName="PROERAModel.near_dist">
+              <MappingFragment StoreEntitySet="near_dist">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="remarque" ColumnName="remarque" />
+                <ScalarProperty Name="codevillage" ColumnName="codevillage" />
+                <ScalarProperty Name="near_dist1" ColumnName="near_dist" />
+                <ScalarProperty Name="axe" ColumnName="axe" />
+                <ScalarProperty Name="code" ColumnName="code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Requête">
+            <EntityTypeMapping TypeName="PROERAModel.Requête">
+              <MappingFragment StoreEntitySet="Requête">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PROERAModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="village">
+            <EntityTypeMapping TypeName="PROERAModel.village">
+              <MappingFragment StoreEntitySet="village">
+                <ScalarProperty Name="localite" ColumnName="localite" />
+                <ScalarProperty Name="id_localite" ColumnName="id_localite" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="pop" ColumnName="pop" />
+                <ScalarProperty Name="menage" ColumnName="menage" />
+                <ScalarProperty Name="forage" ColumnName="forage" />
+                <ScalarProperty Name="ecole" ColumnName="ecole" />
+                <ScalarProperty Name="sante" ColumnName="sante" />
+                <ScalarProperty Name="gsm" ColumnName="gsm" />
+                <ScalarProperty Name="autreprod" ColumnName="autreprod" />
+                <ScalarProperty Name="code_MT" ColumnName="code_MT" />
+                <ScalarProperty Name="etat" ColumnName="etat" />
+                <ScalarProperty Name="Near_dist" ColumnName="Near_dist" />
+                <ScalarProperty Name="id_prog" ColumnName="id_prog" />
+                <ScalarProperty Name="geom" ColumnName="geom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="wappler_migrations">
+            <EntityTypeMapping TypeName="PROERAModel.wappler_migrations">
+              <MappingFragment StoreEntitySet="wappler_migrations">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="batch" ColumnName="batch" />
+                <ScalarProperty Name="migration_time" ColumnName="migration_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="wappler_migrations_lock">
+            <EntityTypeMapping TypeName="PROERAModel.wappler_migrations_lock">
+              <MappingFragment StoreEntitySet="wappler_migrations_lock">
+                <ScalarProperty Name="index" ColumnName="index" />
+                <ScalarProperty Name="is_locked" ColumnName="is_locked" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="encaissements">
+            <EntityTypeMapping TypeName="PROERAModel.encaissements">
+              <MappingFragment StoreEntitySet="encaissements">
+                <ScalarProperty Name="fraiscoupure" ColumnName="fraiscoupure" />
+                <ScalarProperty Name="datesysteme" ColumnName="datesysteme" />
+                <ScalarProperty Name="periode" ColumnName="periode" />
+                <ScalarProperty Name="numerobordereau" ColumnName="numerobordereau" />
+                <ScalarProperty Name="numerorecue" ColumnName="numerorecue" />
+                <ScalarProperty Name="idbordereau" ColumnName="idbordereau" />
+                <ScalarProperty Name="commentaire" ColumnName="commentaire" />
+                <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
+                <ScalarProperty Name="dateencaissement" ColumnName="dateencaissement" />
+                <ScalarProperty Name="soldepostpaiement" ColumnName="soldepostpaiement" />
+                <ScalarProperty Name="soldeprepaiement" ColumnName="soldeprepaiement" />
+                <ScalarProperty Name="montantencaisee" ColumnName="montantencaisee" />
+                <ScalarProperty Name="refclient" ColumnName="refclient" />
+                <ScalarProperty Name="idfacture" ColumnName="idfacture" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2809,6 +3469,121 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
                 <ScalarProperty Name="nbrenc" ColumnName="nbrenc" />
                 <ScalarProperty Name="sommeenc" ColumnName="sommeenc" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="changemodefact">
+            <EntityTypeMapping TypeName="PROERAModel.changemodefact">
+              <MappingFragment StoreEntitySet="changemodefact">
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="solde" ColumnName="solde" />
+                <ScalarProperty Name="nouveaumode" ColumnName="nouveaumode" />
+                <ScalarProperty Name="ancienmode" ColumnName="ancienmode" />
+                <ScalarProperty Name="refclient" ColumnName="refclient" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="villages">
+            <EntityTypeMapping TypeName="PROERAModel.villages">
+              <MappingFragment StoreEntitySet="villages">
+                <ScalarProperty Name="neardist" ColumnName="neardist" />
+                <ScalarProperty Name="codemt" ColumnName="codemt" />
+                <ScalarProperty Name="nbrclients" ColumnName="nbrclients" />
+                <ScalarProperty Name="commercialise" ColumnName="commercialise" />
+                <ScalarProperty Name="technologie" ColumnName="technologie" />
+                <ScalarProperty Name="etattravaux" ColumnName="etattravaux" />
+                <ScalarProperty Name="idLocalite" ColumnName="idLocalite" />
+                <ScalarProperty Name="code_prog" ColumnName="code_prog" />
+                <ScalarProperty Name="code_village" ColumnName="code_village" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="moulin" ColumnName="moulin" />
+                <ScalarProperty Name="antenne_bts" ColumnName="antenne_bts" />
+                <ScalarProperty Name="forage" ColumnName="forage" />
+                <ScalarProperty Name="sante" ColumnName="sante" />
+                <ScalarProperty Name="education" ColumnName="education" />
+                <ScalarProperty Name="menage" ColumnName="menage" />
+                <ScalarProperty Name="population" ColumnName="population" />
+                <ScalarProperty Name="village" ColumnName="village" />
+                <ScalarProperty Name="commune" ColumnName="commune" />
+                <ScalarProperty Name="departement" ColumnName="departement" />
+                <ScalarProperty Name="region" ColumnName="region" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reclamation">
+            <EntityTypeMapping TypeName="PROERAModel.reclamation">
+              <MappingFragment StoreEntitySet="reclamation">
+                <ScalarProperty Name="nature" ColumnName="nature" />
+                <ScalarProperty Name="datecloture" ColumnName="datecloture" />
+                <ScalarProperty Name="numcompteur" ColumnName="numcompteur" />
+                <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
+                <ScalarProperty Name="statut" ColumnName="statut" />
+                <ScalarProperty Name="localite" ColumnName="localite" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="nivintervention" ColumnName="nivintervention" />
+                <ScalarProperty Name="commentaire" ColumnName="commentaire" />
+                <ScalarProperty Name="priorite" ColumnName="priorite" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="refclient" ColumnName="refclient" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clients">
+            <EntityTypeMapping TypeName="PROERAModel.clients">
+              <MappingFragment StoreEntitySet="clients">
+                <ScalarProperty Name="NINEA" ColumnName="NINEA" />
+                <ScalarProperty Name="modefacturation" ColumnName="modefacturation" />
+                <ScalarProperty Name="usage" ColumnName="usage" />
+                <ScalarProperty Name="etat" ColumnName="etat" />
+                <ScalarProperty Name="TypeBranch" ColumnName="TypeBranch" />
+                <ScalarProperty Name="numeropaiement" ColumnName="numeropaiement" />
+                <ScalarProperty Name="modePaiement" ColumnName="modePaiement" />
+                <ScalarProperty Name="codevillage" ColumnName="codevillage" />
+                <ScalarProperty Name="refclient" ColumnName="refclient" />
+                <ScalarProperty Name="sqlstate" ColumnName="sqlstate" />
+                <ScalarProperty Name="activite" ColumnName="activite" />
+                <ScalarProperty Name="NivPuissance" ColumnName="NivPuissance" />
+                <ScalarProperty Name="idlastbill" ColumnName="idlastbill" />
+                <ScalarProperty Name="dateMeS" ColumnName="dateMeS" />
+                <ScalarProperty Name="dateAbonn" ColumnName="dateAbonn" />
+                <ScalarProperty Name="dateCoupure" ColumnName="dateCoupure" />
+                <ScalarProperty Name="periodeFacturee" ColumnName="periodeFacturee" />
+                <ScalarProperty Name="Créé_par" ColumnName="Créé par" />
+                <ScalarProperty Name="Créé" ColumnName="Créé" />
+                <ScalarProperty Name="Modifié" ColumnName="Modifié" />
+                <ScalarProperty Name="NbrEP" ColumnName="NbrEP" />
+                <ScalarProperty Name="Last_Bill" ColumnName="Last_Bill" />
+                <ScalarProperty Name="Prev_Bill" ColumnName="Prev_Bill" />
+                <ScalarProperty Name="IDPayment" ColumnName="IDPayment" />
+                <ScalarProperty Name="SoldeTotal" ColumnName="SoldeTotal" />
+                <ScalarProperty Name="Ancien_indexe" ColumnName="Ancien indexe" />
+                <ScalarProperty Name="numcompteur" ColumnName="numcompteur" />
+                <ScalarProperty Name="Contrat" ColumnName="Contrat" />
+                <ScalarProperty Name="Bordereau" ColumnName="Bordereau" />
+                <ScalarProperty Name="Y_GPS" ColumnName="Y_GPS" />
+                <ScalarProperty Name="X_GPS" ColumnName="X_GPS" />
+                <ScalarProperty Name="Date_Resiliation" ColumnName="Date Resiliation" />
+                <ScalarProperty Name="Date_Mise_en_Service" ColumnName="Date Mise en Service" />
+                <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+                <ScalarProperty Name="Etat_Client" ColumnName="Etat Client" />
+                <ScalarProperty Name="Montant_Encaisse" ColumnName="Montant Encaisse" />
+                <ScalarProperty Name="Reference_Contrat" ColumnName="Reference Contrat" />
+                <ScalarProperty Name="calibre" ColumnName="calibre" />
+                <ScalarProperty Name="Type_Elect" ColumnName="Type Elect" />
+                <ScalarProperty Name="Niv_Service" ColumnName="Niv Service" />
+                <ScalarProperty Name="Village" ColumnName="Village" />
+                <ScalarProperty Name="Date_Abonnement" ColumnName="Date Abonnement" />
+                <ScalarProperty Name="Raison_Social" ColumnName="Raison Social" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Num_ID" ColumnName="Num ID" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="Nom1" ColumnName="Nom1" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

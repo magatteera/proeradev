@@ -36,9 +36,11 @@
 
                 <div class="col">
                     <div class="form-group">
-                        <label class="control-label col">Montant Facture</label>
                         <div class="col-md-10">
-                            <input type="number" required disabled name="montantfacture" id="montantfacture" class="form-control" />
+                            <input type="number" hidden required disabled name="montantfacture" id="montantfacture" class="form-control" />
+
+
+                            <input type="number" hidden required disabled name="soldefacture" id="soldefacture" class="form-control" />
                         </div>
                     </div>
                 </div>
@@ -50,7 +52,7 @@
 
                     <li class="list-group-item">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-2">
 
                                 <dt>
                                     NOM
@@ -62,7 +64,7 @@
                             </div>
 
 
-                            <div class="col-4">
+                            <div class="col-2">
                                 <dt>
                                     Prenom
                                 </dt>
@@ -72,13 +74,45 @@
                                 </dd>
                             </div>
 
-                            <div class="col-4">
+                            <div class="col-2">
 
                                 <dt>
                                     Village
                                 </dt>
                                 <dd>
                                     <p id="villageClient"></p>
+                                </dd>
+                            </div>
+
+                            <div class="col-2">
+
+                                <dt>
+                                    Net a Payer
+                                </dt>
+
+                                <dd>
+                                    <p id="netpayeraffiche"></p>
+                                </dd>
+                            </div>
+
+
+                            <div class="col-2">
+                                <dt>
+                                    Penalite
+                                </dt>
+
+                                <dd>
+                                    <p id="penaliteaffiche"></p>
+                                </dd>
+                            </div>
+
+                            <div class="col-2">
+
+                                <dt>
+                                    Solde
+                                </dt>
+                                <dd>
+                                    <p id="soldeaffiche"></p>
                                 </dd>
                             </div>
                         </div>
@@ -97,25 +131,45 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.montantencaisee, "Montant Encaissé", htmlAttributes: new { @class = "control-label col" })
                         <div class="col-md-10">
-                            <input type="text" required name="montantencaisee" id="montantencaisee" class="form-control" />
+                            <input type="number" required name="montantencaisee" id="montantencaisee" class="form-control" />
                             @Html.ValidationMessageFor(model => model.montantencaisee, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
 
                 <div class="col">
+
+
                     <div class="form-group">
-                        @Html.LabelFor(model => model.soldeprepaiement, "Solde Prépaiement", htmlAttributes: new { @class = "control-label col" })
+                        @Html.LabelFor(model => model.fraiscoupure, "Frais de Coupure / Retablissement", htmlAttributes: new { @class = "control-label col" })
                         <div class="col-md-10">
-                            <input type="number" required disabled name="soldeprepaiement" id="soldeprepaiement" class="form-control" />
+                            <select name="fraiscoupure" id="fraiscoupure" class="form-control">
+                                <option value="0">0</option>
+                                <option value="2000">2000</option>
+                                <option value="4000">4000</option>
+                            </select>
                         </div>
                     </div>
+
+
                 </div>
 
             </div>
             <br />
 
+
+            
+
+
             <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.dateencaissement, "Solde Prepaiement", htmlAttributes: new { @class = "control-label col" })
+                        <div class="col-md-10">
+                            <input type="number" required disabled name="soldeprepaiement" id="soldeprepaiement" class="form-control" />
+                        </div>
+                    </div>
+                </div>
                 <div class="col">
                     <div class="form-group">
                         @Html.LabelFor(model => model.soldepostpaiement, "Solde PostPaiement", htmlAttributes: new { @class = "control-label col" })
@@ -125,15 +179,6 @@
                     </div>
                 </div>
 
-                <div class="col">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.dateencaissement, "Date Encaissement", htmlAttributes: new { @class = "control-label col" })
-                        <div class="col-md-10">
-                            <input type="date" id="dateencaissement" required name="dateencaissement" class="form-control" />
-                            @Html.ValidationMessageFor(model => model.dateencaissement, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
             </div>
             <br />
 
@@ -161,15 +206,27 @@
                 </div>
             </div>
 
+            <div class="form-row">
 
-                <input type="hidden" id="periodefacture" name="periodefacture" />
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="button" value="Enregistrer" id="enregistrer" class="btn btn-outline-success" />
+                <div class="col">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.dateencaissement, "Date Encaissement", htmlAttributes: new { @class = "control-label col" })
+                        <div class="col-md-10">
+                            <input type="date" id="dateencaissement" required name="dateencaissement" class="form-control" />
+                            @Html.ValidationMessageFor(model => model.dateencaissement, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <input type="hidden" id="periodefacture" name="periodefacture" />
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="button" value="Enregistrer" id="enregistrer" class="btn btn-outline-success" />
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="col-sm-4">
@@ -246,6 +303,9 @@
                     <th>
                         Facture
                     </th>
+                    <th>
+                        Periode
+                    </th>
                 </tr>
             </thead>
 
@@ -261,9 +321,6 @@
 
 
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -287,6 +344,7 @@
                         <label class="control-label col">Numero</label>
                         <div class="col-md-10">
                             <input type="text" name="numero" id="numerobordereau" class="form-control" />
+                            <p>Veuillez entrer un numero de boprdereau avec ce format : Ex : BV0000</p>
                         </div>
                     </div>
 
@@ -328,7 +386,8 @@
         var datatable = 0;
 
         $("#montantencaisee").change(function () {
-            if (parseFloat($("#montantencaisee").val()) < parseFloat($("#montantfacture").val()) - 500) {
+            if (parseFloat($("#montantencaisee").val()) < parseFloat($("#montantfacture").val()) - 500
+                && parseFloat($("#montantencaisee").val()) < parseFloat($("#soldefacture").val()) - 500) {
 
                 if (parseFloat($("#soldeprepaiement").val()) -500 > parseFloat($("#montantencaisee").val())) {
 
@@ -337,12 +396,34 @@
                     $("#soldepostpaiement").val("")
                 } else {
 
-                    $("#soldepostpaiement").val(Math.round(($("#soldeprepaiement").val() - $("#montantencaisee").val())))
+                    $("#soldepostpaiement").val(Math.round(parseFloat($("#soldeprepaiement").val()) - parseFloat($("#montantencaisee").val()) + parseFloat($("#fraiscoupure").val())))
                 }
 
             } else {
 
-                $("#soldepostpaiement").val(Math.round(($("#soldeprepaiement").val() - $("#montantencaisee").val())))
+                $("#soldepostpaiement").val(Math.round(parseFloat($("#soldeprepaiement").val()) - parseFloat($("#montantencaisee").val()) + parseFloat($("#fraiscoupure").val())))
+            }
+        })
+
+        $("#fraiscoupure").change(function () {
+            @*alert(parseFloat($("#soldeprepaiement").val()) - parseFloat($("#montantencaisee").val()) + parseFloat($("#fraiscoupure").val())  )*@
+            @*alert("change")*@
+            if (parseFloat($("#montantencaisee").val()) < parseFloat($("#montantfacture").val()) - 500
+                && parseFloat($("#montantencaisee").val()) < parseFloat($("#soldefacture").val()) - 500) {
+
+                if (parseFloat($("#soldeprepaiement").val()) - 500 > parseFloat($("#montantencaisee").val())) {
+
+                    swal("Erreur", "Le Montant encaissé ne peut etre inferieur au montant de la facture!", "error")
+
+                    $("#soldepostpaiement").val("")
+                } else {
+
+                    $("#soldepostpaiement").val(Math.round(parseFloat($("#soldeprepaiement").val()) -parseFloat( $("#montantencaisee").val)() + parseFloat($("#fraiscoupure").val())))
+                }
+
+            } else {
+
+                $("#soldepostpaiement").val(Math.round(parseFloat($("#soldeprepaiement").val()) - parseFloat($("#montantencaisee").val()) + parseFloat($("#fraiscoupure").val())))
             }
         })
 
@@ -364,8 +445,16 @@
                     $("#idfacture").removeClass("is-invalid")
                     $("#enregistrer").attr("disabled", false)
 
+                    $("#soldefacture").val(data.soldefacture)
+
+                    $("#soldeaffiche").html(data.soldefacture)
+                    $("#penaliteaffiche").html(data.penalite)
+                    $("#netpayeraffiche").html(data.montant)
+
                     $("#montantencaisee").val("")
                     $("#soldepostpaiement").val("")
+
+                    
                 },
                 error: function () {
                     alert("Error occured!!")
@@ -495,7 +584,8 @@
                 commentaire: $("#commentaire").val(),
                 idbordereau: $("#idbordereau").val(),
                 numerorecue: $("#numerorecue").val(),
-                periode: $("#periodefacture").val()
+                periode: $("#periodefacture").val(),
+                fraiscoupure: $("#fraiscoupure").val()
             }
 
             // alert($("#idfacture").val())
@@ -520,6 +610,12 @@
                             $("#commentaire").val("")
                             $("#montantfacture").val("")
                             $("#numerorecue").val("")
+                            $("#fraiscoupure").val("")
+
+
+                            $("#soldeaffiche").val("")
+                            $("#penaliteaffiche").val("")
+                            $("#netpayeraffiche").val("")
 
                             $("#nomClient").html("")
                             $("#prenomClient").html("")
@@ -547,8 +643,9 @@
                 type: $("#typebordereau").val()
             }
 
-            if ($("#numerobordereau").val().length < 3) {
-                alert ("Veuillez creer un bordereaux en donnant un montant et un numero qui sont obligatoires.")
+            if ($("#numerobordereau").val().length < 3 || !$("#numerobordereau").val().startsWith("BV")) {
+                @*alert($("#numerobordereau").val().length)*@
+                alert("Veuillez creer un bordereaux en donnant un numero qui commence par BV")
             } else
             $.ajax({
                 type: "POST",

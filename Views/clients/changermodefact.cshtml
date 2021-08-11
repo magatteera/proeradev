@@ -1,0 +1,209 @@
+﻿@model proera.clients
+
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+<h2>Mise en Service De Clients</h2>
+
+
+@*<p>Mise en Service : </p>
+
+
+    <div class="form-row">
+
+        <div class="col">
+            <div class="form-group">
+                @Html.Label("Region", htmlAttributes: new { @class = "control-label col" })
+                <div class="col">
+                    @Html.DropDownList("regions", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="col">
+            <div class="form-group">
+                @Html.Label("Departement", htmlAttributes: new { @class = "control-label col" })
+                <div class="col">
+                    @Html.DropDownList("departements", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    <br />
+    <br />
+    <div class="form-row">
+        <div class="col">
+            <div class="form-group">
+                @Html.Label("Commune", htmlAttributes: new { @class = "control-label col" })
+                <div class="col">
+                    @Html.DropDownList("COMMUNE", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+
+        </div>
+        <div class="col">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col">Selectionnez le Village</label>
+                    <div class="col">
+                        @Html.DropDownList("villages", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+
+
+<div class="card-body">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- /.form-group -->
+            <div class="form-group">
+                <label>Reference du client</label>
+
+                @Html.EditorFor(model => model.Reference_Contrat, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <!-- /.form-group -->
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+
+
+
+
+
+<br />
+
+
+
+
+
+
+
+<div class="modal fade" id="modalmiseenservice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Changement mode facturation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <hr />
+
+                    <div class="form-group">
+                        <label class="control-label col">Mode Actuel</label>
+                        <div class="col">
+                            <input type="text" disabled class="form-control" name="modeactuel" id="modeactuel" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col">Prenom</label>
+                        <div class="col">
+                            <input type="text" disabled class="form-control" name="prenomcl" id="prenomcl" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col">Nom</label>
+                        <div class="col">
+                            <input type="text" disabled class="form-control" name="nomcl" id="nomcl" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col">Modification </label>
+                        <div class="col">
+                            <select name="modefact" id="modefact" class="form-control">
+                                <option value="FORFAIT">FORFAIT</option>
+                                <option value="FACTURE">FACTURE</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="savemiseenservice" data-dismiss="modal" class="btn btn-primary">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.min.js" integrity="sha512-TToQDr91fBeG4RE5RjMl/tqNAo35hSRR4cbIFasiV2AAMQ6yKXXYhdSdEpUcRE6bqsTiB+FPLPls4ZAFMoK5WA==" crossorigin="anonymous"></script>*@
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>*@
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.11/jquery.autocomplete.js" integrity="sha512-JwPA+oZ5uRgh1AATPhLKeByWbXcsRnMMSBpvhuAGQp+CWISl/fHecOshbRcPPgKWau9Wy1H5LhiwAa4QFiQKYw==" crossorigin="anonymous"></script>*@
+<script>
+    $(document).ready(function () {
+
+
+
+        $("#Reference_Contrat").change(function () {
+            data = {
+                Reference_Contrat: $("#Reference_Contrat").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/getModeActuel",
+                data: data,
+                success: function (data2) {
+                    if (data.trouve == "non")
+                        alert("clients non trouvé")
+                    else {
+                        $("#modeactuel").val(data2.mode)
+                        $("#prenomcl").val(data2.prenomcl)
+                        $("#nomcl").val(data2.nomcl)
+                        $("#modalmiseenservice").modal('show')
+                    }
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+
+
+
+        $("#savemiseenservice").click(function () {
+            data = {
+                Reference_Contrat: $("#Reference_Contrat").val(),
+                modefacturation: $("#modefact").val(),
+            }
+
+
+            $.ajax({
+                type: "POST",
+                url: "/clients/changerMode",
+                data: data,
+                success: function (data) {
+
+                    swal(data)
+
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+
+        })
+
+
+    });
+</script>

@@ -18,18 +18,16 @@ namespace proera
         public departements()
         {
             this.communes = new HashSet<communes>();
-            this.communes1 = new HashSet<communes>();
         }
     
         public string nom { get; set; }
         public int code_departement { get; set; }
         public System.Data.Entity.Spatial.DbGeography geom { get; set; }
         public Nullable<int> idregion { get; set; }
+        public string idagence { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<communes> communes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<communes> communes1 { get; set; }
         public virtual regions regions { get; set; }
     }
 }

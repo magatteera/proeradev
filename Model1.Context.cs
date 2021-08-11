@@ -13,10 +13,10 @@ namespace proera
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PROERAEntities : DbContext
+    public partial class PROERAEntities1 : DbContext
     {
-        public PROERAEntities()
-            : base("name=PROERAEntities")
+        public PROERAEntities1()
+            : base("name=PROERAEntities1")
         {
         }
     
@@ -26,15 +26,17 @@ namespace proera
         }
     
         public virtual DbSet<activite> activite { get; set; }
+        public virtual DbSet<agences> agences { get; set; }
         public virtual DbSet<bordereaux> bordereaux { get; set; }
         public virtual DbSet<changementinterface> changementinterface { get; set; }
-        public virtual DbSet<clients> clients { get; set; }
+        public virtual DbSet<cloturerecouv> cloturerecouv { get; set; }
         public virtual DbSet<communes> communes { get; set; }
         public virtual DbSet<compteurs> compteurs { get; set; }
         public virtual DbSet<contrats> contrats { get; set; }
+        public virtual DbSet<correctionreleve> correctionreleve { get; set; }
         public virtual DbSet<correctionsolde> correctionsolde { get; set; }
         public virtual DbSet<departements> departements { get; set; }
-        public virtual DbSet<encaissements> encaissements { get; set; }
+        public virtual DbSet<encaissement> encaissement { get; set; }
         public virtual DbSet<entrepots> entrepots { get; set; }
         public virtual DbSet<etatclient> etatclient { get; set; }
         public virtual DbSet<facturationtrigger> facturationtrigger { get; set; }
@@ -45,6 +47,7 @@ namespace proera
         public virtual DbSet<hcalibres> hcalibres { get; set; }
         public virtual DbSet<hnivpuissances> hnivpuissances { get; set; }
         public virtual DbSet<messages> messages { get; set; }
+        public virtual DbSet<mevlist> mevlist { get; set; }
         public virtual DbSet<migration> migration { get; set; }
         public virtual DbSet<miseenserviceclient> miseenserviceclient { get; set; }
         public virtual DbSet<miseenvigueur> miseenvigueur { get; set; }
@@ -55,13 +58,15 @@ namespace proera
         public virtual DbSet<pannes> pannes { get; set; }
         public virtual DbSet<programmes> programmes { get; set; }
         public virtual DbSet<raisonsociale> raisonsociale { get; set; }
-        public virtual DbSet<reclamation> reclamation { get; set; }
         public virtual DbSet<recouvrements> recouvrements { get; set; }
+        public virtual DbSet<references> references { get; set; }
         public virtual DbSet<regions> regions { get; set; }
         public virtual DbSet<releves> releves { get; set; }
         public virtual DbSet<resiliation> resiliation { get; set; }
         public virtual DbSet<retablissement> retablissement { get; set; }
         public virtual DbSet<SAV> SAV { get; set; }
+        public virtual DbSet<sav_interface> sav_interface { get; set; }
+        public virtual DbSet<SoldeUPDT> SoldeUPDT { get; set; }
         public virtual DbSet<tarifs> tarifs { get; set; }
         public virtual DbSet<Technologies> Technologies { get; set; }
         public virtual DbSet<tempReleves> tempReleves { get; set; }
@@ -70,8 +75,19 @@ namespace proera
         public virtual DbSet<typepaiement> typepaiement { get; set; }
         public virtual DbSet<typereclamation> typereclamation { get; set; }
         public virtual DbSet<usages> usages { get; set; }
-        public virtual DbSet<villages> villages { get; set; }
-        public virtual DbSet<mevlist> mevlist { get; set; }
+        public virtual DbSet<AXEMT> AXEMT { get; set; }
+        public virtual DbSet<encaissementsreport> encaissementsreport { get; set; }
+        public virtual DbSet<near_dist> near_dist { get; set; }
+        public virtual DbSet<Requête> Requête { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<village> village { get; set; }
+        public virtual DbSet<wappler_migrations> wappler_migrations { get; set; }
+        public virtual DbSet<wappler_migrations_lock> wappler_migrations_lock { get; set; }
+        public virtual DbSet<encaissements> encaissements { get; set; }
         public virtual DbSet<View_DetailsEncaissement> View_DetailsEncaissement { get; set; }
+        public virtual DbSet<changemodefact> changemodefact { get; set; }
+        public virtual DbSet<villages> villages { get; set; }
+        public virtual DbSet<reclamation> reclamation { get; set; }
+        public virtual DbSet<clients> clients { get; set; }
     }
 }

@@ -12,12 +12,12 @@ namespace proera.Controllers
 {
     public class villagesController : Controller
     {
-        private PROERAEntities db = new PROERAEntities();
+        private PROERAEntities1 db = new PROERAEntities1();
 
         // GET: villages
         public ActionResult Index()
         {
-            var villages = db.villages.Include(v => v.communes).Include(v => v.programmes);
+            var villages = db.villages.Include(v => v.communes).Include(v => v.programmes); 
             return View(villages.ToList());
         }
 
@@ -44,11 +44,13 @@ namespace proera.Controllers
 
             var region = db.regions.ToList();
             var idregion = region[0].id;
-            ViewBag.region = new SelectList(region, "id", "nom_region");
+            ViewBag.region = new SelectList(region, "nom_region", "nom_region");
             var depts = db.departements.Where(d => d.idregion == idregion).ToList();
-            ViewBag.departement = new SelectList(depts, "code_departement", "nom");
+            ViewBag.departement = new SelectList(depts, "nom", "nom");
             var iddepts = depts[0].code_departement;
             var coms = db.communes.Where(c => c.iddepartement == iddepts).ToList();
+
+            ViewBag.technologie = new SelectList(db.Technologies, "id", "technologie");
 
             ViewBag.idLocalite = new SelectList(coms, "code_com", "nom");
             return View();
@@ -59,12 +61,21 @@ namespace proera.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,region,departement,commune,village,population,menage,education,sante,forage,antenne_bts,moulin,longitude,latitude,code_village,code_prog,idLocalite")] villages villages)
+        public ActionResult Create([Bind(Include = "region,departement,commune,village,population,menage,education,sante,forage,antenne_bts,moulin,longitude,latitude,code_prog,idLocalite,etattravaux,technologie,commercialise,nbrclients,codemt,neardist")] villages villages)
         {
             if (ModelState.IsValid)
             {
                 villages.menage = villages.population / 8;
+                villages.code_village = 1;
+                villages.commune = db.communes.Find(villages.idLocalite).nom;
                 db.villages.Add(villages);
+
+
+                db.SaveChanges();
+
+                villages villages2 = db.villages.Find(1);
+                db.villages.Remove(villages2);
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -113,10 +124,10 @@ namespace proera.Controllers
             }
             var region = db.regions.ToList();
             var idregion = (villages.idLocalite + "").Substring(1, 1);
-            ViewBag.region = new SelectList(region, "id", "nom_region", Int32.Parse(idregion));
+            ViewBag.region = new SelectList(region, "nom_region", "nom_region", Int32.Parse(idregion));
             var depts = db.departements.Where(d => d.idregion + "" == idregion).ToList();
             var iddepts = (villages.idLocalite + "").Substring(1, 2);
-            ViewBag.departement = new SelectList(depts, "code_departement", "nom", Int32.Parse(iddepts));
+            ViewBag.departement = new SelectList(depts, "nom", "nom", Int32.Parse(iddepts));
 
             var coms = db.communes.Where(c => c.iddepartement + "" == iddepts).ToList();
             var idcom = villages.idLocalite;
@@ -142,9 +153,9 @@ namespace proera.Controllers
         {
             var region = db.regions.ToList();
             var idregion = region[0].id;
-            ViewBag.region = new SelectList(region, "id", "nom_region");
+            ViewBag.region = new SelectList(region, "nom_region", "nom_region");
             var depts = db.departements.Where(d => d.idregion  == idregion).ToList();
-            ViewBag.departement = new SelectList(depts, "code_departement", "nom");
+            ViewBag.departement = new SelectList(depts, "nom", "nom");
             var iddept = depts[0].code_departement;
             var coms = db.communes.Where(c => c.iddepartement  == iddept).ToList();
             ViewBag.idLocalite = new SelectList(db.communes, "code_com", "nom");
@@ -166,6 +177,7 @@ namespace proera.Controllers
             if (ModelState.IsValid)
             {
                 villages.menage = villages.population / 8;
+                villages.commune = db.communes.Find(villages.idLocalite).nom;
                 db.Entry(villages).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -195,8 +207,9 @@ namespace proera.Controllers
                 v.etattravaux = villages.etattravaux;
                 v.code_prog = villages.code_prog;
                 v.technologie = villages.technologie;
-                //villages.menage = villages.population / 8;
-                db.Entry(v).State = EntityState.Modified;
+                villages.commune = db.communes.Find(villages.idLocalite).nom;
+            //villages.menage = villages.population / 8;
+            db.Entry(v).State = EntityState.Modified;
                 db.SaveChanges();
             //    return RedirectToAction("Index");
             //}

@@ -12,6 +12,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.id)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.date)
         </th>
         <th>
@@ -41,46 +44,65 @@
         <th>
             @Html.DisplayNameFor(model => model.typereclamation.type)
         </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.refclient)
+        </th>
+
+
+        <th>
+            @Html.DisplayNameFor(model => model.numcompteur)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.priorite)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.commentaire)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nivintervention)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.telephone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.localite)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.statut)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.utilisateur)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.clients.Nom1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.typereclamation.type)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.id)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.date)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.priorite)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.commentaire)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.nivintervention)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.telephone)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.localite)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.statut)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.utilisateur)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.clients.Nom1)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.typereclamation.type)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.refclient)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.numcompteur)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.id })
+    </td>
+</tr>
 }
 
 </table>

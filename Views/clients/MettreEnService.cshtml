@@ -10,54 +10,54 @@
 @*<p>Mise en Service : </p>
 
 
-<div class="form-row">
+    <div class="form-row">
 
-    <div class="col">
-        <div class="form-group">
-            @Html.Label("Region", htmlAttributes: new { @class = "control-label col" })
-            <div class="col">
-                @Html.DropDownList("regions", null, htmlAttributes: new { @class = "form-control" })
-            </div>
-        </div>
-
-    </div>
-
-
-    <div class="col">
-        <div class="form-group">
-            @Html.Label("Departement", htmlAttributes: new { @class = "control-label col" })
-            <div class="col">
-                @Html.DropDownList("departements", null, htmlAttributes: new { @class = "form-control" })
-            </div>
-        </div>
-
-    </div>
-
-
-</div>
-<br />
-<br />
-<div class="form-row">
-    <div class="col">
-        <div class="form-group">
-            @Html.Label("Commune", htmlAttributes: new { @class = "control-label col" })
-            <div class="col">
-                @Html.DropDownList("COMMUNE", null, htmlAttributes: new { @class = "form-control" })
-            </div>
-        </div>
-
-    </div>
-    <div class="col">
-        <div class="form-horizontal">
+        <div class="col">
             <div class="form-group">
-                <label class="control-label col">Selectionnez le Village</label>
+                @Html.Label("Region", htmlAttributes: new { @class = "control-label col" })
                 <div class="col">
-                    @Html.DropDownList("villages", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("regions", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="col">
+            <div class="form-group">
+                @Html.Label("Departement", htmlAttributes: new { @class = "control-label col" })
+                <div class="col">
+                    @Html.DropDownList("departements", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    <br />
+    <br />
+    <div class="form-row">
+        <div class="col">
+            <div class="form-group">
+                @Html.Label("Commune", htmlAttributes: new { @class = "control-label col" })
+                <div class="col">
+                    @Html.DropDownList("COMMUNE", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+
+        </div>
+        <div class="col">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col">Selectionnez le Village</label>
+                    <div class="col">
+                        @Html.DropDownList("villages", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 
 
@@ -122,12 +122,12 @@
 
 
 
-<table class="table table-bordered table-striped"  id="serviceTable">
+<table class="table table-bordered table-striped" id="serviceTable">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Nom1)
-            </th>   
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Prenom)
             </th>
@@ -247,6 +247,10 @@
 
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.min.js" integrity="sha512-TToQDr91fBeG4RE5RjMl/tqNAo35hSRR4cbIFasiV2AAMQ6yKXXYhdSdEpUcRE6bqsTiB+FPLPls4ZAFMoK5WA==" crossorigin="anonymous"></script>*@
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>*@
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.11/jquery.autocomplete.js" integrity="sha512-JwPA+oZ5uRgh1AATPhLKeByWbXcsRnMMSBpvhuAGQp+CWISl/fHecOshbRcPPgKWau9Wy1H5LhiwAa4QFiQKYw==" crossorigin="anonymous"></script>*@
 <script>
     $(document).ready(function () {
 
@@ -311,10 +315,129 @@
                         append(data.village)
                 },
                 error: function () {
-                    swal("Erreur", "Une erreur s'est produite", "error")  
+                    swal("Erreur", "Une erreur s'est produite", "error")
                 }
             });
         })
+
+        function autocomplete(inp, arr) {
+            /*the autocomplete function takes two arguments,
+            the text field element and an array of possible autocompleted values:*/
+            var currentFocus;
+            /*execute a function when someone writes in the text field:*/
+            inp.addEventListener("input", function (e) {
+                var a, b, i, val = this.value;
+                /*close any already open lists of autocompleted values*/
+                closeAllLists();
+                if (!val) { return false; }
+                currentFocus = -1;
+                /*create a DIV element that will contain the items (values):*/
+                a = document.createElement("DIV");
+                a.setAttribute("id", this.id + "autocomplete-list");
+                a.setAttribute("class", "autocomplete-items");
+                /*append the DIV element as a child of the autocomplete container:*/
+                this.parentNode.appendChild(a);
+                /*for each item in the array...*/
+                for (i = 0; i < arr.length; i++) {
+                    /*check if the item starts with the same letters as the text field value:*/
+                    if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                        /*create a DIV element for each matching element:*/
+                        b = document.createElement("DIV");
+                        /*make the matching letters bold:*/
+                        b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                        b.innerHTML += arr[i].substr(val.length);
+                        /*insert a input field that will hold the current array item's value:*/
+                        b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                        /*execute a function when someone clicks on the item value (DIV element):*/
+                        b.addEventListener("click", function (e) {
+                            /*insert the value for the autocomplete text field:*/
+                            inp.value = this.getElementsByTagName("input")[0].value;
+                            /*close the list of autocompleted values,
+                            (or any other open lists of autocompleted values:*/
+                            closeAllLists();
+                        });
+                        a.appendChild(b);
+                    }
+                }
+            });
+            /*execute a function presses a key on the keyboard:*/
+            inp.addEventListener("keydown", function (e) {
+                var x = document.getElementById(this.id + "autocomplete-list");
+                if (x) x = x.getElementsByTagName("div");
+                if (e.keyCode == 40) {
+                    /*If the arrow DOWN key is pressed,
+                    increase the currentFocus variable:*/
+                    currentFocus++;
+                    /*and and make the current item more visible:*/
+                    addActive(x);
+                } else if (e.keyCode == 38) { //up
+                    /*If the arrow UP key is pressed,
+                    decrease the currentFocus variable:*/
+                    currentFocus--;
+                    /*and and make the current item more visible:*/
+                    addActive(x);
+                } else if (e.keyCode == 13) {
+                    /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                    e.preventDefault();
+                    if (currentFocus > -1) {
+                        /*and simulate a click on the "active" item:*/
+                        if (x) x[currentFocus].click();
+                    }
+                }
+            });
+            function addActive(x) {
+                /*a function to classify an item as "active":*/
+                if (!x) return false;
+                /*start by removing the "active" class on all items:*/
+                removeActive(x);
+                if (currentFocus >= x.length) currentFocus = 0;
+                if (currentFocus < 0) currentFocus = (x.length - 1);
+                /*add class "autocomplete-active":*/
+                x[currentFocus].classList.add("autocomplete-active");
+            }
+            function removeActive(x) {
+                /*a function to remove the "active" class from all autocomplete items:*/
+                for (var i = 0; i < x.length; i++) {
+                    x[i].classList.remove("autocomplete-active");
+                }
+            }
+            function closeAllLists(elmnt) {
+                /*close all autocomplete lists in the document,
+                except the one passed as an argument:*/
+                var x = document.getElementsByClassName("autocomplete-items");
+                for (var i = 0; i < x.length; i++) {
+                    if (elmnt != x[i] && elmnt != inp) {
+                        x[i].parentNode.removeChild(x[i]);
+                    }
+                }
+            }
+            /*execute a function when someone clicks in the document:*/
+            document.addEventListener("click", function (e) {
+                closeAllLists(e.target);
+            });
+        }
+
+        /* var auto = document.getElementById("numcompteur")
+        var TAB = ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby"]
+            autocomplete(document.getElementById("numcompteur"),TAB)
+
+        $("#numcompteur").keyup(function () {
+            data = {
+                numerointerface: $("#numcompteur").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/getAutoNum",
+                data: data,
+                success: function (data) {-->
+                    var auto = document.getElementById("numcompteur")
+                    autocomplete(auto, ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby"])
+                },
+                error: function () {
+
+                }
+            });
+        }) */
 
 
         $("#numcompteur").change(function () {
@@ -331,11 +454,11 @@
                         $("#savemiseenservice").attr("disabled", false)
                     }
                     if (data == "occupe") {
-                        swal("Erreur", "Ce compteur n'est pas libre", "error") 
+                        swal("Erreur", "Ce compteur n'est pas libre", "error")
                         $("#savemiseenservice").attr("disabled", true)
                     }
                     if (data == "inexistant") {
-                        swal("Erreur", "Ce numero de compteur est inexistant", "error") 
+                        swal("Erreur", "Ce numero de compteur est inexistant", "error")
                         $("#savemiseenservice").attr("disabled", true)
                     }
                 },
@@ -361,7 +484,7 @@
                         append(data.village)
                 },
                 error: function () {
-                    swal("Erreur", "Une erreur s'est produite", "error") 
+                    swal("Erreur", "Une erreur s'est produite", "error")
                 }
             });
         })
@@ -445,7 +568,7 @@
                 data: data,
                 success: function (data) {
 
-                    swal(data) 
+                    swal(data)
 
                     $("#numcompteur").val("")
 

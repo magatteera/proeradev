@@ -23,6 +23,7 @@ namespace proera
         public Nullable<double> netapayer { get; set; }
         public Nullable<int> indexdepose { get; set; }
         public string @interface { get; set; }
+        public Nullable<System.DateTime> datesysteme { get; set; }
     
         public virtual clients clients { get; set; }
     }

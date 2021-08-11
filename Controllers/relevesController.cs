@@ -12,7 +12,7 @@ namespace proera.Controllers
 {
     public class relevesController : Controller
     {
-        private PROERAEntities db = new PROERAEntities();
+        private PROERAEntities1 db = new PROERAEntities1();
 
         // GET: releves
         public ActionResult Index()

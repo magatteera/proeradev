@@ -14,7 +14,16 @@ namespace proera
     
     public partial class etatclient
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public etatclient()
+        {
+            this.clients = new HashSet<clients>();
+        }
+    
         public int id { get; set; }
         public string etat { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<clients> clients { get; set; }
     }
 }
