@@ -1,0 +1,175 @@
+﻿@model proera.MisEnServiceVillages
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Mise en Service - Reseau</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.code_village, "Code Village", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.code_village, new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                @Html.ValidationMessageFor(model => model.code_village, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.datemiseenservice, "Date Mise en Service", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.(model => model.dateRaccPremierClient, new { htmlAttributes = new { @class = "form-control" } })*@
+                <input type="date" name="datemiseenservice" id="datemiseenservice" class="form-control" />
+                @Html.ValidationMessageFor(model => model.datemiseenservice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CapaciteTransformateur, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CapaciteTransformateur, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CapaciteTransformateur, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PuissanceDHP, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PuissanceDHP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PuissanceDHP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.nombreSupport, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nombreSupport, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.nombreSupport, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LineaireBT, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LineaireBT, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LineaireBT, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $("#idLocalite").prepend("<option value='0' selected='true'>Selectionnez la commune</option>")
+
+        $("#region").change(function () {
+            data = {
+                id: $("#region").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/changementregion",
+                data: data,
+                success: function (data) {
+                    $("#departement").empty().
+                        append(data.departement)
+                    $("#idLocalite").empty().
+                        append(data.commune)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+
+
+        $("#departement").change(function () {
+            data = {
+                code_departement: $("#departement").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/changementdepartement",
+                data: data,
+                success: function (data) {
+                    $("#idLocalite").empty().
+                        append(data.commune)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+
+
+        $("#idLocalite").change(function () {
+            data = {
+                code_com: $("#idLocalite").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/clients/changementcommune",
+                data: data,
+                success: function (data) {
+                    $("#code_village").empty().
+                        append(data.village)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+
+
+
+        /* $("#code_village").change(function () {
+            data = {
+                code_village: $("#code_village").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/villages/changementvillage",
+                data: data,
+                success: function (data) {-->
+                    <!--$("#village").val(data.nomvillage)
+                    $("#population").val(data.pop)
+                    $("#education").val(data.educ)
+                    $("input[name='sante'][value='" + data.sant + "']").prop('checked', true);
+                    $("input[name='forage'][value='" + data.forages + "']").prop('checked', true);
+                    $("input[name='antenne_bts'][value='" + data.antbts + "']").prop('checked', true);
+                    $("input[name='moulin'][value='" + data.moul + "']").prop('checked', true);
+                    $("#longitude").val(data.longi)
+                    $("#latitude").val(data.lati)
+                    $("input[name='etattravaux'][value='" + data.etattra + "']").prop('selected', true);
+                    $("input[name='code_prog'][value='" + data.code + "']").prop('selected', true);
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        }) */
+
+    });
+</script>

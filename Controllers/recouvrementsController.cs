@@ -20,7 +20,7 @@ namespace proera.Controllers
     [Authorize(Roles = "Proera_REC, Proera_Admin")]
     public class recouvrementsController : Controller
     {
-        private PROERAEntities1 db = new PROERAEntities1();
+        private PROERAEntities db = new PROERAEntities();
 
         // GET: recouvrements
         public ActionResult Index(string id)
@@ -421,17 +421,26 @@ namespace proera.Controllers
         
         public ActionResult cloturerperiode([Bind(Include = "periode")] recouvrements recouvrements)
         {
-            var factures = db.factures.Where(f => f.PeriodeFacturee == recouvrements.periode).ToList();
+            //var factures = db.factures.Where(f => f.PeriodeFacturee == recouvrements.periode).ToList();
             //var encaissements = db.encaissements.Where(f => f.idfacture.Contains(recouvrements.periode)).ToList();
-
             var rec = db.recouvrements.Where(r => r.periode == recouvrements.periode).ToList()[0];
             rec.active = 0;
+            try
+            {
+                
 
-            db.Entry(rec).State = EntityState.Modified;
-            db.SaveChanges();
+                db.Entry(rec).State = EntityState.Modified;
+                db.SaveChanges();
+            } catch (Exception e)
+            {
+                return Json(new
+                { message = "une erreur s'est produite." });
+            }
+            var factpayes = db.factures.Count(c => (c.Paiement == 1) && (c.PeriodeFacturee == rec.periode));
+            var factimpayes = db.factures.Count(c => (c.Paiement == 0) && (c.PeriodeFacturee == rec.periode));
 
             return Json(new
-            {});
+            {message = "Periode cloturee avec "+factpayes+" factures payees et "+factimpayes+" factures impayess."});
         }
 
         public ActionResult changementrecouvrements([Bind(Include = "periode")] recouvrements recouvrements)

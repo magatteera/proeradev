@@ -29,7 +29,7 @@ namespace proera
         public Nullable<System.DateTime> datecloture { get; set; }
         public string nature { get; set; }
     
-        public virtual typereclamation typereclamation { get; set; }
         public virtual clients clients { get; set; }
+        public virtual typereclamation typereclamation { get; set; }
     }
 }

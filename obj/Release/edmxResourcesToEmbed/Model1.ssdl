@@ -15,6 +15,21 @@
     <Property Name="id" Type="varchar" MaxLength="3" Nullable="false" />
     <Property Name="nom" Type="varchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="audit">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="operation" Type="varchar" MaxLength="50" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
+    <Property Name="refeclient" Type="int" />
+    <Property Name="montantfacture" Type="float" />
+    <Property Name="montantencaissement" Type="float" />
+    <Property Name="anciensolde" Type="float" />
+    <Property Name="soldeclient" Type="float" />
+    <Property Name="dateoperation" Type="datetime" />
+    <Property Name="codevillage" Type="int" />
+  </EntityType>
   <!--Erreurs détectées durant la génération :
 avertissement 6002: La table/vue 'PROERA.dbo.AXEMT' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
   <EntityType Name="AXEMT">
@@ -63,6 +78,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.AXEMT' n'a pas de clé primaire dé
     <Property Name="nouveaumode" Type="varchar" MaxLength="50" />
     <Property Name="solde" Type="float" />
     <Property Name="date" Type="datetime" />
+    <Property Name="utilisateur" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="clients">
     <Key>
@@ -179,6 +195,83 @@ avertissement 6002: La table/vue 'PROERA.dbo.AXEMT' n'a pas de clé primaire dé
     <Property Name="date" Type="date" />
     <Property Name="referenceclient" Type="int" Nullable="false" />
     <Property Name="motif" Type="varchar" MaxLength="500" Nullable="false" />
+  </EntityType>
+  <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'PROERA.dbo.cust_sandbox' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+  <EntityType Name="cust_sandbox">
+    <Key>
+      <PropertyRef Name="N°" />
+      <PropertyRef Name="Reference Contrat" />
+      <PropertyRef Name="SoldeTotal" />
+    </Key>
+    <Property Name="N°" Type="int" Nullable="false" />
+    <Property Name="ID1" Type="int" />
+    <Property Name="ID" Type="float" />
+    <Property Name="Nom1" Type="nvarchar" MaxLength="255" />
+    <Property Name="Prenom" Type="nvarchar" MaxLength="255" />
+    <Property Name="Num ID" Type="nvarchar" MaxLength="255" />
+    <Property Name="Tel" Type="nvarchar" MaxLength="255" />
+    <Property Name="Raison Social" Type="nvarchar" MaxLength="255" />
+    <Property Name="Usage" Type="nvarchar" MaxLength="255" />
+    <Property Name="Date Abonnement" Type="nvarchar" MaxLength="10" />
+    <Property Name="Village" Type="nvarchar" MaxLength="255" />
+    <Property Name="Region" Type="nvarchar" MaxLength="255" />
+    <Property Name="Departement" Type="nvarchar" MaxLength="255" />
+    <Property Name="Commune" Type="nvarchar" MaxLength="255" />
+    <Property Name="Niv Service" Type="nvarchar" MaxLength="255" />
+    <Property Name="Type Elect" Type="nvarchar" MaxLength="255" />
+    <Property Name="TypeBranch" Type="nvarchar" MaxLength="255" />
+    <Property Name="calibre" Type="nvarchar" MaxLength="255" />
+    <Property Name="FraisAbonn" Type="nvarchar" MaxLength="255" />
+    <Property Name="Reference Contrat" Type="int" Nullable="false" />
+    <Property Name="Montant Encaisse" Type="float" />
+    <Property Name="Solde" Type="nvarchar" MaxLength="255" />
+    <Property Name="Frais NET" Type="nvarchar" MaxLength="255" />
+    <Property Name="Etat Client" Type="nvarchar" MaxLength="255" />
+    <Property Name="Commentaire" Type="nvarchar" MaxLength="255" />
+    <Property Name="Evolution Statut" Type="nvarchar" MaxLength="255" />
+    <Property Name="Date Mise en Service" Type="nvarchar" MaxLength="10" />
+    <Property Name="Date Resiliation" Type="nvarchar" MaxLength="255" />
+    <Property Name="X_GPS" Type="nvarchar" MaxLength="255" />
+    <Property Name="Y_GPS" Type="nvarchar" MaxLength="255" />
+    <Property Name="Bordereau" Type="nvarchar" MaxLength="255" />
+    <Property Name="Contrat" Type="nvarchar" MaxLength="255" />
+    <Property Name="interface" Type="nvarchar" MaxLength="255" />
+    <Property Name="Ancien indexe" Type="nvarchar" MaxLength="255" />
+    <Property Name="Arriere" Type="nvarchar" MaxLength="255" />
+    <Property Name="Penalite" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoisEnCours" Type="nvarchar" MaxLength="255" />
+    <Property Name="SoldeTotal" Type="float" Nullable="false" />
+    <Property Name="ModeFacturation" Type="nvarchar" MaxLength="255" />
+    <Property Name="Encaissement" Type="float" />
+    <Property Name="DateEncaissement" Type="nvarchar" MaxLength="230" />
+    <Property Name="IDPayment" Type="nvarchar" MaxLength="255" />
+    <Property Name="Prev_Bill" Type="nvarchar" MaxLength="255" />
+    <Property Name="Last_Bill" Type="nvarchar" MaxLength="255" />
+    <Property Name="NbrEP" Type="nvarchar" MaxLength="255" />
+    <Property Name="Type de contenu" Type="nvarchar" MaxLength="255" />
+    <Property Name="Application créée par" Type="nvarchar" MaxLength="255" />
+    <Property Name="Application modifiée par" Type="nvarchar" MaxLength="255" />
+    <Property Name="Pièces jointes" Type="nvarchar" MaxLength="255" />
+    <Property Name="ID de l_instance du flux de travail" Type="nvarchar" MaxLength="255" />
+    <Property Name="Type de fichier" Type="nvarchar" MaxLength="255" />
+    <Property Name="Modifié" Type="nvarchar" MaxLength="230" />
+    <Property Name="Créé" Type="nvarchar" MaxLength="230" />
+    <Property Name="Créé par" Type="nvarchar" MaxLength="255" />
+    <Property Name="Modifié par" Type="nvarchar" MaxLength="255" />
+    <Property Name="Chemin d_URL" Type="nvarchar" MaxLength="255" />
+    <Property Name="Chemin d_accès" Type="nvarchar" MaxLength="255" />
+    <Property Name="Type d_élément" Type="nvarchar" MaxLength="255" />
+    <Property Name="URL absolue codée" Type="nvarchar" MaxLength="255" />
+    <Property Name="index" Type="float" />
+    <Property Name="dateReleve" Type="nvarchar" MaxLength="100" />
+    <Property Name="NewIndex" Type="float" />
+    <Property Name="periodeFacturee" Type="nvarchar" MaxLength="220" />
+    <Property Name="dateCoupure" Type="nvarchar" MaxLength="100" />
+    <Property Name="dateAbonn" Type="datetime" />
+    <Property Name="dateMeS" Type="datetime" />
+    <Property Name="idlastbill" Type="nvarchar" MaxLength="50" />
+    <Property Name="NivPuissance" Type="nchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="departements">
     <Key>
@@ -309,6 +402,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.encaissementsreport' n'a pas de cl�
     <Property Name="Paiement" Type="tinyint" Nullable="false" />
     <Property Name="NbreJours" Type="int" />
     <Property Name="fraiscoupure" Type="float" />
+    <Property Name="datesysteme" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="forcermiseenvigueur">
     <Key>
@@ -1125,6 +1219,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
   <EntityContainer Name="PROERAModelStoreContainer">
     <EntitySet Name="activite" EntityType="Self.activite" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="agences" EntityType="Self.agences" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="audit" EntityType="Self.audit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="bordereaux" EntityType="Self.bordereaux" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="changementinterface" EntityType="Self.changementinterface" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="changemodefact" EntityType="Self.changemodefact" Schema="dbo" store:Type="Tables" />
@@ -1185,6 +1280,78 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
     [AXEMT].[long] AS [long], 
     [AXEMT].[geom] AS [geom]
     FROM [dbo].[AXEMT] AS [AXEMT]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="cust_sandbox" EntityType="Self.cust_sandbox" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [cust_sandbox].[N°] AS [N°], 
+    [cust_sandbox].[ID1] AS [ID1], 
+    [cust_sandbox].[ID] AS [ID], 
+    [cust_sandbox].[Nom1] AS [Nom1], 
+    [cust_sandbox].[Prenom] AS [Prenom], 
+    [cust_sandbox].[Num ID] AS [Num ID], 
+    [cust_sandbox].[Tel] AS [Tel], 
+    [cust_sandbox].[Raison Social] AS [Raison Social], 
+    [cust_sandbox].[Usage] AS [Usage], 
+    [cust_sandbox].[Date Abonnement] AS [Date Abonnement], 
+    [cust_sandbox].[Village] AS [Village], 
+    [cust_sandbox].[Region] AS [Region], 
+    [cust_sandbox].[Departement] AS [Departement], 
+    [cust_sandbox].[Commune] AS [Commune], 
+    [cust_sandbox].[Niv Service] AS [Niv Service], 
+    [cust_sandbox].[Type Elect] AS [Type Elect], 
+    [cust_sandbox].[TypeBranch] AS [TypeBranch], 
+    [cust_sandbox].[calibre] AS [calibre], 
+    [cust_sandbox].[FraisAbonn] AS [FraisAbonn], 
+    [cust_sandbox].[Reference Contrat] AS [Reference Contrat], 
+    [cust_sandbox].[Montant Encaisse] AS [Montant Encaisse], 
+    [cust_sandbox].[Solde] AS [Solde], 
+    [cust_sandbox].[Frais NET] AS [Frais NET], 
+    [cust_sandbox].[Etat Client] AS [Etat Client], 
+    [cust_sandbox].[Commentaire] AS [Commentaire], 
+    [cust_sandbox].[Evolution Statut] AS [Evolution Statut], 
+    [cust_sandbox].[Date Mise en Service] AS [Date Mise en Service], 
+    [cust_sandbox].[Date Resiliation] AS [Date Resiliation], 
+    [cust_sandbox].[X_GPS] AS [X_GPS], 
+    [cust_sandbox].[Y_GPS] AS [Y_GPS], 
+    [cust_sandbox].[Bordereau] AS [Bordereau], 
+    [cust_sandbox].[Contrat] AS [Contrat], 
+    [cust_sandbox].[interface] AS [interface], 
+    [cust_sandbox].[Ancien indexe] AS [Ancien indexe], 
+    [cust_sandbox].[Arriere] AS [Arriere], 
+    [cust_sandbox].[Penalite] AS [Penalite], 
+    [cust_sandbox].[MoisEnCours] AS [MoisEnCours], 
+    [cust_sandbox].[SoldeTotal] AS [SoldeTotal], 
+    [cust_sandbox].[ModeFacturation] AS [ModeFacturation], 
+    [cust_sandbox].[Encaissement] AS [Encaissement], 
+    [cust_sandbox].[DateEncaissement] AS [DateEncaissement], 
+    [cust_sandbox].[IDPayment] AS [IDPayment], 
+    [cust_sandbox].[Prev_Bill] AS [Prev_Bill], 
+    [cust_sandbox].[Last_Bill] AS [Last_Bill], 
+    [cust_sandbox].[NbrEP] AS [NbrEP], 
+    [cust_sandbox].[Type de contenu] AS [Type de contenu], 
+    [cust_sandbox].[Application créée par] AS [Application créée par], 
+    [cust_sandbox].[Application modifiée par] AS [Application modifiée par], 
+    [cust_sandbox].[Pièces jointes] AS [Pièces jointes], 
+    [cust_sandbox].[ID de l_instance du flux de travail] AS [ID de l_instance du flux de travail], 
+    [cust_sandbox].[Type de fichier] AS [Type de fichier], 
+    [cust_sandbox].[Modifié] AS [Modifié], 
+    [cust_sandbox].[Créé] AS [Créé], 
+    [cust_sandbox].[Créé par] AS [Créé par], 
+    [cust_sandbox].[Modifié par] AS [Modifié par], 
+    [cust_sandbox].[Chemin d_URL] AS [Chemin d_URL], 
+    [cust_sandbox].[Chemin d_accès] AS [Chemin d_accès], 
+    [cust_sandbox].[Type d_élément] AS [Type d_élément], 
+    [cust_sandbox].[URL absolue codée] AS [URL absolue codée], 
+    [cust_sandbox].[index] AS [index], 
+    [cust_sandbox].[dateReleve] AS [dateReleve], 
+    [cust_sandbox].[NewIndex] AS [NewIndex], 
+    [cust_sandbox].[periodeFacturee] AS [periodeFacturee], 
+    [cust_sandbox].[dateCoupure] AS [dateCoupure], 
+    [cust_sandbox].[dateAbonn] AS [dateAbonn], 
+    [cust_sandbox].[dateMeS] AS [dateMeS], 
+    [cust_sandbox].[idlastbill] AS [idlastbill], 
+    [cust_sandbox].[NivPuissance] AS [NivPuissance]
+    FROM [dbo].[cust_sandbox] AS [cust_sandbox]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="encaissementsreport" EntityType="Self.encaissementsreport" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 

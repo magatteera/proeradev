@@ -14,7 +14,7 @@ namespace proera.Controllers
     [Authorize(Roles = "Proera_ADMIN, Proera_SIG")]
     public class communesController : Controller
     {
-        private PROERAEntities1 db = new PROERAEntities1();
+        private PROERAEntities db = new PROERAEntities();
 
         // GET: communes
         public ActionResult Index()

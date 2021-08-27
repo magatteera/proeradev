@@ -1,0 +1,397 @@
+﻿@model proera.clients
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>clients</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <hr />
+        <h3>Identification</h3>
+        <hr />
+
+
+        <div class="form-row">
+
+            <div class="col">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Type_Elect, "Type Electrification", htmlAttributes: new { @class = "control-label col" })
+                    <div class="col-md-10">
+                        <select class="form-control">
+                            <option value="RESEAU">RESEAU</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.calibre, "Calibre", htmlAttributes: new { @class = "control-label col" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("calibres", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.calibre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NivPuissance, "Niveau de Puissance", htmlAttributes: new { @class = "control-label col" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("nivpuissance", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.NivPuissance, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NivPuissance, "Type Branchement", htmlAttributes: new { @class = "control-label col" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("branchements", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NivPuissance, "Frais Abonnement", htmlAttributes: new { @class = "control-label col" })
+                    <div class="col-md-10">
+                        <select id="fraisabonnement" name="fraisabonnement" class="form-control">
+                        </select>
+                        @Html.ValidationMessageFor(model => model.NivPuissance, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Montant_Encaisse, "Montant Ecaissé", htmlAttributes: new { @class = "control-label col" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Montant_Encaisse, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Montant_Encaisse, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+
+            <div class="col">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Bordereau, htmlAttributes: new { @class = "control-label col" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("bordereau", null, htmlAttributes: new { @class = "form-control" })
+                        <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#exampleModal">
+                            Nouveau Bordereau
+                        </button>
+                        @Html.ValidationMessageFor(model => model.Bordereau, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SoldeTotal, "Solde Total", htmlAttributes: new { @class = "control-label col" })
+                    <div class="col-md-10">
+                        <input type="number" readonly name="SoldeTotal" id="SoldeTotal" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.SoldeTotal, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Modifier" class="btn btn-warning" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        data = {
+            nivpuissance: $("#nivpuissance").val(),
+            calibre: $("#calibres").val(),
+            typeelec: $("#typeelec").val(),
+            typebranchement: $("#branchements").val()
+        }
+
+
+
+        $.ajax({
+            type: "POST",
+            url: "/clients/changement",
+            data: data,
+            success: function (data) {
+                // alert(data)
+                $('#fraisabonnement').empty()
+                    .append(data)
+
+                if ($('#fraisabonnement').val > 0) {
+
+                    $("#Montant_Encaisse").prop("disabled", false)
+                    $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
+
+                } else {
+                    $("#SoldeTotal").val("")
+                    $("#Montant_Encaisse").val("")
+                }
+            },
+            error: function () {
+                alert("Error occured!!")
+            }
+        });
+
+
+        $("#savebordereau").click(function () {
+            //alert($("#nivpuissance").val())
+            data = {
+                numero: $("#numerobordereau").val(),
+                datecreation: $("#datecreationbordereau").val(),
+                montant: $("#montantbordereau").val(),
+                ouvert: $("#ouvert").val(),
+                datevalidation: $("#datevalidationbordereau").val(),
+                type: $("#typebordereau").val()
+            }
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "/clients/savebordereau",
+                data: data,
+                success: function (data) {
+                    $('#bordereau').empty()
+                        .append(data)
+
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+
+
+
+        });
+        $("#nivpuissance").change(function () {
+            //alert($("#nivpuissance").val())
+            data = {
+                nivpuissance: $("#nivpuissance").val(),
+                calibre: $("#calibres").val(),
+                typeelec: $("#typeelec").val(),
+                typebranchement: $("#branchements").val()
+            }
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "/clients/changementnivpuissance",
+                data: data,
+                success: function (data) {
+                    //alert(data)
+                    $('#fraisabonnement').empty()
+                        .append(data.baremes)
+
+                    $('#branchements').empty()
+                        .append(data.branches)
+
+                    $('#calibres').empty()
+                        .append(data.calibres)
+
+                    if ($('#fraisabonnement').val > 0) {
+
+                        $("#Montant_Encaisse").prop("disabled", false)
+                        $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
+
+                    } else {
+                        $("#SoldeTotal").val("")
+                        $("#Montant_Encaisse").val("")
+                    }
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+
+
+
+        });
+        $("#calibres").change(function () {
+            //alert($("#nivpuissance").val())
+            data = {
+                nivpuissance: $("#nivpuissance").val(),
+                calibre: $("#calibres").val(),
+                typeelec: $("#typeelec").val(),
+                typebranchement: $("#branchements").val()
+            }
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "/clients/changement",
+                data: data,
+                success: function (data) {
+                    //alert(data)
+                    $('#fraisabonnement').empty()
+                        .append(data)
+
+                    if ($('#fraisabonnement').val > 0) {
+
+                        $("#Montant_Encaisse").prop("disabled", false)
+                        $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
+
+                    } else {
+                        $("#SoldeTotal").val("")
+                        $("#Montant_Encaisse").val("")
+                    }
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+
+
+
+        });
+
+        $("#typeelec").change(function () {
+            //alert($("#nivpuissance").val())
+            data = {
+                nivpuissance: $("#nivpuissance").val(),
+                calibre: $("#calibres").val(),
+                typeelec: $("#typeelec").val(),
+                typebranchement: $("#branchements").val()
+            }
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "/clients/changement",
+                data: data,
+                success: function (data) {
+                    //alert(data)
+                    $('#fraisabonnement').empty()
+                        .append(data)
+
+                    if ($('#fraisabonnement').val > 0) {
+
+                        $("#Montant_Encaisse").prop("disabled", false)
+                        $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
+
+                    } else {
+                        $("#SoldeTotal").val("")
+                        $("#Montant_Encaisse").val("")
+                    }
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+
+
+
+        });
+
+        $("#branchements").change(function () {
+            //alert($("#nivpuissance").val())
+            data = {
+                nivpuissance: $("#nivpuissance").val(),
+                calibre: $("#calibres").val(),
+                typeelec: $("#typeelec").val(),
+                typebranchement: $("#branchements").val()
+            }
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "/clients/changement",
+                data: data,
+                success: function (data) {
+                    //alert(data)
+                    $('#fraisabonnement').empty()
+                        .append(data)
+
+                    if ($('#fraisabonnement').val > 0) {
+
+                        $("#Montant_Encaisse").prop("disabled", false)
+                        $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
+
+                    } else {
+                        $("#SoldeTotal").val("")
+                        $("#Montant_Encaisse").val("")
+                    }
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+
+
+
+        }); $("#Montant_Encaisse").change(function () {
+            if ($('#fraisabonnement').val() > 0) {
+                //alert($("#Montant_Encaisse").val())
+                $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
+            }
+        })
+
+        $("#fraisabonnement").change(function () {
+            if ($('#fraisabonnement').val > 0) {
+
+                $("#Montant_Encaisse").prop("disabled", false)
+                $("#SoldeTotal").val($("#Montant_Encaisse").val() - $('#fraisabonnement').val())
+
+            } else {
+                $("#SoldeTotal").val("")
+                $("#Montant_Encaisse").val("")
+            }
+        })
+
+        if ($('#fraisabonnement').val > 0) { } else {
+            //$("#Montant_Encaisse").prop("disabled", true)
+        }
+
+
+    });
+</script>
+

@@ -1,0 +1,150 @@
+﻿@model proera.programmes
+
+@{
+    ViewBag.Title = "Attribuer villages";
+}
+
+<h2>Attribution Villages</h2>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            @Html.Label("Programme", htmlAttributes: new { @class = "control-label col" })
+            <div class="col-md-10">
+                @Html.DropDownList("programmes", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+
+        <table class="table table-bordered table-striped" id="table">
+            <thead>
+                <tr>
+                    <th>
+                        Village
+                    </th>
+                    <th>
+                        Commune
+                    </th>
+                    <th>
+                        Code Village
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody id="tablebody">
+            </tbody>
+
+        </table>
+    </div>
+    <div class="col-sm-6">
+
+    <table class="table table-bordered table-striped" id="tablein">
+        <thead>
+            <tr>
+                <th>
+                    Village
+                </th>
+                <th>
+                    Commune
+                </th>
+                <th>
+                    Code Village
+                </th>
+            </tr>
+        </thead>
+
+        <tbody id="tablebodyin">
+        </tbody>
+
+    </table>
+</div>
+
+</div>
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        var datatable = 0
+        
+
+        var chargervillages = () => {
+            datas = {
+                ID: $("#programmes").val()
+            }
+            $.ajax({
+                type: "POST",
+                data: datas,
+                url: "/programmes/listevillages",
+                success: function (data) {
+                    @*alert(data.id)*@
+                    $('#tablebody').empty()
+                        .append(data.villages)
+
+                    $('#tablebodyin').empty()
+                        .append(data.villagesin)
+
+                    if (datatable == 0) {
+                        $('#table').DataTable({
+                            "language": {
+                                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
+                            }
+                        });
+                        $('#tablein').DataTable({
+                            "language": {
+                                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
+                            }
+                        });
+                        datatable = 1;
+                    }
+                    $('[id^=btnmodifier]').click(function () {
+
+                        @* $("#idbordmodif").val($(this).attr("idbord"))
+                        $("#montant").val($(this).attr("montant"))
+                        $("#exampleModal").modal("show") *@
+
+                    @*alert($("#programmes").val() + "   " + $(this).attr("code"))*@
+                        datas2 = {
+                            code_prog: $("#programmes").val(),
+                            code_village: $(this).attr("code")
+                        }
+                        $.ajax({
+                            type: "POST",
+                            data: datas2,
+                            url: "/programmes/changerprogramme",
+                            success: function (data) {
+                                alert(data.message)
+                            },
+                            error: function () {
+                                alert("Error occured!!")
+                            }
+                        });
+                    });
+
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            })
+        }
+
+
+        chargervillages()
+
+
+        $("#programmes").change(function () {
+            chargervillages()
+        })
+
+
+
+    });
+</script>

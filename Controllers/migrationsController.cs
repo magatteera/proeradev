@@ -12,7 +12,7 @@ namespace proera.Controllers
 {
     public class migrationsController : Controller
     {
-        private PROERAEntities1 db = new PROERAEntities1();
+        private PROERAEntities db = new PROERAEntities();
 
         // GET: migrations
         public ActionResult Index()

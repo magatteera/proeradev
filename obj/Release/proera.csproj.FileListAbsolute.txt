@@ -161,7 +161,9 @@ C:\Users\m.war\source\repos\proera\obj\Release\EFCoreSqlServerNetTopologySuite.c
 C:\Users\m.war\source\repos\proera\obj\Release\proera.csproj.CopyComplete
 C:\Users\m.war\source\repos\proera\obj\Release\proera.dll
 C:\Users\m.war\source\repos\proera\obj\Release\proera.pdb
-C:\Users\m.war\Documents\proera\bin\IronPython.xml
+C:\Users\m.war\Documents\proera\bin\Microsoft.EntityFrameworkCore.Relational.xml
+C:\Users\m.war\Documents\proera\bin\fr\System.Web.WebPages.Deployment.resources.dll
+C:\Users\m.war\Documents\proera\bin\fr\System.Web.WebPages.Razor.resources.dll
 C:\Users\m.war\Documents\proera\bin\SqlServerTypes\x64\msvcr120.dll
 C:\Users\m.war\Documents\proera\bin\SqlServerTypes\x64\SqlServerSpatial140.dll
 C:\Users\m.war\Documents\proera\bin\SqlServerTypes\x86\msvcr120.dll
@@ -236,6 +238,7 @@ C:\Users\m.war\Documents\proera\bin\CsvHelper.xml
 C:\Users\m.war\Documents\proera\bin\EntityFramework.xml
 C:\Users\m.war\Documents\proera\bin\EntityFramework.SqlServer.xml
 C:\Users\m.war\Documents\proera\bin\Extreme.Numerics.xml
+C:\Users\m.war\Documents\proera\bin\IronPython.xml
 C:\Users\m.war\Documents\proera\bin\IronPython.Modules.xml
 C:\Users\m.war\Documents\proera\bin\IronPython.SQLite.xml
 C:\Users\m.war\Documents\proera\bin\IronPython.Wpf.xml
@@ -246,7 +249,6 @@ C:\Users\m.war\Documents\proera\bin\Microsoft.Data.SqlClient.xml
 C:\Users\m.war\Documents\proera\bin\Microsoft.Dynamic.xml
 C:\Users\m.war\Documents\proera\bin\Microsoft.EntityFrameworkCore.xml
 C:\Users\m.war\Documents\proera\bin\Microsoft.EntityFrameworkCore.Abstractions.xml
-C:\Users\m.war\Documents\proera\bin\Microsoft.EntityFrameworkCore.Relational.xml
 C:\Users\m.war\Documents\proera\bin\Microsoft.EntityFrameworkCore.SqlServer.xml
 C:\Users\m.war\Documents\proera\bin\Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite.xml
 C:\Users\m.war\Documents\proera\bin\Microsoft.Extensions.Caching.Abstractions.xml
@@ -304,11 +306,8 @@ C:\Users\m.war\Documents\proera\bin\fr\System.Web.Mvc.resources.dll
 C:\Users\m.war\Documents\proera\bin\fr\System.Web.Optimization.resources.dll
 C:\Users\m.war\Documents\proera\bin\fr\System.Web.Razor.resources.dll
 C:\Users\m.war\Documents\proera\bin\fr\System.Web.WebPages.resources.dll
-C:\Users\m.war\Documents\proera\bin\fr\System.Web.WebPages.Deployment.resources.dll
-C:\Users\m.war\Documents\proera\bin\fr\System.Web.WebPages.Razor.resources.dll
 C:\Users\m.war\Documents\proera\obj\Release\proera.csproj.CoreCompileInputs.cache
 C:\Users\m.war\Documents\proera\obj\Release\EFCoreSqlServerNetTopologySuite.cs
 C:\Users\m.war\Documents\proera\obj\Release\proera.csproj.CopyComplete
 C:\Users\m.war\Documents\proera\obj\Release\proera.dll
 C:\Users\m.war\Documents\proera\obj\Release\proera.pdb
-C:\Users\m.war\Documents\proera\obj\Release\proera.csprojAssemblyReference.cache

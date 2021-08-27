@@ -15,6 +15,21 @@
     <Property Name="id" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="audit">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="operation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="refeclient" Type="Int32" />
+    <Property Name="montantfacture" Type="Double" />
+    <Property Name="montantencaissement" Type="Double" />
+    <Property Name="anciensolde" Type="Double" />
+    <Property Name="soldeclient" Type="Double" />
+    <Property Name="dateoperation" Type="DateTime" Precision="3" />
+    <Property Name="codevillage" Type="Int32" />
+  </EntityType>
   <EntityType Name="bordereaux">
     <Key>
       <PropertyRef Name="id" />
@@ -42,6 +57,80 @@
     <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="refclient" Type="Int32" />
   </EntityType>
+  <EntityType Name="changemodefact">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="refclient" Type="Int32" />
+    <Property Name="ancienmode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="nouveaumode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="solde" Type="Double" />
+    <Property Name="date" Type="DateTime" Precision="3" />
+    <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="clients">
+    <Key>
+      <PropertyRef Name="Reference_Contrat" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Nom1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Prenom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Num_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Tel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Raison_Social" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Date_Abonnement" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Village" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Niv_Service" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Type_Elect" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="calibre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Reference_Contrat" Type="Int32" Nullable="false" />
+    <Property Name="Montant_Encaisse" Type="Double" />
+    <Property Name="Etat_Client" Type="Int32" />
+    <Property Name="Commentaire" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Date_Mise_en_Service" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Date_Resiliation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="X_GPS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Y_GPS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Bordereau" Type="Int32" />
+    <Property Name="Contrat" Type="Int32" />
+    <Property Name="numcompteur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Ancien_indexe" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="SoldeTotal" Type="Double" Nullable="false" />
+    <Property Name="IDPayment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Prev_Bill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Last_Bill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="NbrEP" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Modifié" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Créé" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Créé_par" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="periodeFacturee" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="dateCoupure" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="dateAbonn" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="dateMeS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="idlastbill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="NivPuissance" Type="Int32" />
+    <Property Name="activite" Type="Int32" />
+    <Property Name="sqlstate" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="refclient" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="codevillage" Type="Int32" />
+    <Property Name="modePaiement" Type="Int32" />
+    <Property Name="numeropaiement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TypeBranch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="etat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="usage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="modefacturation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NINEA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="etatclient" Relationship="Self.FK_clients_etatclient" FromRole="clients" ToRole="etatclient" />
+    <NavigationProperty Name="hnivpuissances" Relationship="Self.FK_clients_hnivpuissances" FromRole="clients" ToRole="hnivpuissances" />
+    <NavigationProperty Name="raisonsociale" Relationship="Self.FK_clients_raisonsociale" FromRole="clients" ToRole="raisonsociale" />
+    <NavigationProperty Name="typepaiement" Relationship="Self.FK_clients_typepaiement" FromRole="clients" ToRole="typepaiement" />
+    <NavigationProperty Name="migration" Relationship="Self.FK_migration_clients" FromRole="clients" ToRole="migration" />
+    <NavigationProperty Name="miseenserviceclient" Relationship="Self.FK_miseenserviceclient_clients" FromRole="clients" ToRole="miseenserviceclient" />
+    <NavigationProperty Name="reclamation" Relationship="Self.FK_reclamation_clients" FromRole="clients" ToRole="reclamation" />
+    <NavigationProperty Name="releves" Relationship="Self.FK_releves_clients" FromRole="clients" ToRole="releves" />
+    <NavigationProperty Name="resiliation" Relationship="Self.FK_resiliation_clients" FromRole="clients" ToRole="resiliation" />
+  </EntityType>
   <EntityType Name="cloturerecouv">
     <Key>
       <PropertyRef Name="id" />
@@ -61,7 +150,7 @@
     <Property Name="geom" Type="Geography" />
     <Property Name="iddepartement" Type="Int32" Nullable="false" />
     <NavigationProperty Name="departements" Relationship="Self.FK_communes_departements" FromRole="communes" ToRole="departements" />
-    <NavigationProperty Name="villages" Relationship="PROERAModel.FK_villages_communes" FromRole="communes" ToRole="villages" />
+    <NavigationProperty Name="villages" Relationship="Self.FK_villages_communes" FromRole="communes" ToRole="villages" />
   </EntityType>
   <EntityType Name="compteurs">
     <Key>
@@ -141,6 +230,26 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="fraiscoupure" Type="Double" />
   </EntityType>
+  <EntityType Name="encaissements">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idfacture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="refclient" Type="Int32" />
+    <Property Name="montantencaisee" Type="Double" />
+    <Property Name="soldeprepaiement" Type="Double" />
+    <Property Name="soldepostpaiement" Type="Double" />
+    <Property Name="dateencaissement" Type="DateTime" Precision="0" />
+    <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="commentaire" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="idbordereau" Type="Int32" />
+    <Property Name="numerorecue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="numerobordereau" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="periode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="datesysteme" Type="DateTime" Precision="0" />
+    <Property Name="fraiscoupure" Type="Double" />
+  </EntityType>
   <EntityType Name="entrepots">
     <Key>
       <PropertyRef Name="id" />
@@ -156,7 +265,7 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="etat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="clients" Relationship="PROERAModel.FK_clients_etatclient" FromRole="etatclient" ToRole="clients" />
+    <NavigationProperty Name="clients" Relationship="Self.FK_clients_etatclient" FromRole="etatclient" ToRole="clients" />
   </EntityType>
   <EntityType Name="facturationtrigger">
     <Key>
@@ -186,13 +295,14 @@
     <Property Name="NouvIndex" Type="Double" />
     <Property Name="PeriodeFacturee" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ReportArr" Type="Double" />
-    <Property Name="IdFacture" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdFacture" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
     <Property Name="solde" Type="Double" />
     <Property Name="penalite" Type="Double" />
     <Property Name="RefClient" Type="Int32" />
     <Property Name="Paiement" Type="Byte" Nullable="false" />
     <Property Name="NbreJours" Type="Int32" />
     <Property Name="fraiscoupure" Type="Double" />
+    <Property Name="datesysteme" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="forcermiseenvigueur">
     <Key>
@@ -245,9 +355,9 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="NivPuissance" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="Usage" Type="Int32" />
+    <NavigationProperty Name="clients" Relationship="Self.FK_clients_hnivpuissances" FromRole="hnivpuissances" ToRole="clients" />
     <NavigationProperty Name="hbaremes" Relationship="Self.FK_hbaremes_hnivpuissances" FromRole="hnivpuissances" ToRole="hbaremes" />
     <NavigationProperty Name="usages" Relationship="Self.FK_hnivpuissances_usages" FromRole="hnivpuissances" ToRole="usages" />
-    <NavigationProperty Name="clients" Relationship="PROERAModel.FK_clients_hnivpuissances" FromRole="hnivpuissances" ToRole="clients" />
   </EntityType>
   <EntityType Name="messages">
     <Key>
@@ -284,7 +394,7 @@
     <Property Name="index" Type="Int32" />
     <Property Name="motif" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="date" Type="DateTime" Precision="0" />
-    <NavigationProperty Name="clients" Relationship="PROERAModel.FK_migration_clients" FromRole="migration" ToRole="clients" />
+    <NavigationProperty Name="clients" Relationship="Self.FK_migration_clients" FromRole="migration" ToRole="clients" />
   </EntityType>
   <EntityType Name="miseenserviceclient">
     <Key>
@@ -297,7 +407,7 @@
     <Property Name="referenceClient" Type="Int32" Nullable="false" />
     <Property Name="statut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="clients" Relationship="PROERAModel.FK_miseenserviceclient_clients" FromRole="miseenserviceclient" ToRole="clients" />
+    <NavigationProperty Name="clients" Relationship="Self.FK_miseenserviceclient_clients" FromRole="miseenserviceclient" ToRole="clients" />
   </EntityType>
   <EntityType Name="miseenvigueur">
     <Key>
@@ -326,7 +436,7 @@
     <Property Name="nombreSupport" Type="Int32" />
     <Property Name="LineaireBT" Type="Double" />
     <Property Name="datemiseenservice" Type="DateTime" Precision="0" />
-    <NavigationProperty Name="villages" Relationship="PROERAModel.FK_MisEnServiceVillages_villages" FromRole="MisEnServiceVillages" ToRole="villages" />
+    <NavigationProperty Name="villages" Relationship="Self.FK_MisEnServiceVillages_villages" FromRole="MisEnServiceVillages" ToRole="villages" />
   </EntityType>
   <EntityType Name="modifencaissement">
     <Key>
@@ -387,7 +497,7 @@
     <Property Name="descriptProg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="remarque" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="operateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="villages" Relationship="PROERAModel.FK_villages_programmes" FromRole="programmes" ToRole="villages" />
+    <NavigationProperty Name="villages" Relationship="Self.FK_villages_programmes" FromRole="programmes" ToRole="villages" />
   </EntityType>
   <EntityType Name="raisonsociale">
     <Key>
@@ -395,7 +505,28 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="raison" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="clients" Relationship="PROERAModel.FK_clients_raisonsociale" FromRole="raisonsociale" ToRole="clients" />
+    <NavigationProperty Name="clients" Relationship="Self.FK_clients_raisonsociale" FromRole="raisonsociale" ToRole="clients" />
+  </EntityType>
+  <EntityType Name="reclamation">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="refclient" Type="Int32" />
+    <Property Name="date" Type="DateTime" Precision="0" />
+    <Property Name="type" Type="Int32" />
+    <Property Name="priorite" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="commentaire" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="nivintervention" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="localite" Type="Int32" />
+    <Property Name="statut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="numcompteur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="datecloture" Type="DateTime" Precision="0" />
+    <Property Name="nature" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="clients" Relationship="Self.FK_reclamation_clients" FromRole="reclamation" ToRole="clients" />
+    <NavigationProperty Name="typereclamation" Relationship="Self.FK_reclamation_typereclamation" FromRole="reclamation" ToRole="typereclamation" />
   </EntityType>
   <EntityType Name="recouvrements">
     <Key>
@@ -460,7 +591,7 @@
     <Property Name="nivservice" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
     <Property Name="facturee" Type="Byte" />
     <Property Name="remarque" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="clients" Relationship="PROERAModel.FK_releves_clients" FromRole="releves" ToRole="clients" />
+    <NavigationProperty Name="clients" Relationship="Self.FK_releves_clients" FromRole="releves" ToRole="clients" />
   </EntityType>
   <EntityType Name="resiliation">
     <Key>
@@ -476,7 +607,7 @@
     <Property Name="indexdepose" Type="Int32" />
     <Property Name="interface" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="datesysteme" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="clients" Relationship="PROERAModel.FK_resiliation_clients" FromRole="resiliation" ToRole="clients" />
+    <NavigationProperty Name="clients" Relationship="Self.FK_resiliation_clients" FromRole="resiliation" ToRole="clients" />
   </EntityType>
   <EntityType Name="retablissement">
     <Key>
@@ -557,7 +688,7 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="technologie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="villages" Relationship="PROERAModel.FK_villages_Technologies" FromRole="Technologies" ToRole="villages" />
+    <NavigationProperty Name="villages" Relationship="Self.FK_villages_Technologies" FromRole="Technologies" ToRole="villages" />
   </EntityType>
   <EntityType Name="tempReleves">
     <Key>
@@ -601,7 +732,7 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="date" Type="DateTime" Precision="0" />
-    <NavigationProperty Name="clients" Relationship="PROERAModel.FK_clients_typepaiement" FromRole="typepaiement" ToRole="clients" />
+    <NavigationProperty Name="clients" Relationship="Self.FK_clients_typepaiement" FromRole="typepaiement" ToRole="clients" />
   </EntityType>
   <EntityType Name="typereclamation">
     <Key>
@@ -609,7 +740,7 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="reclamation" Relationship="PROERAModel.FK_reclamation_typereclamation" FromRole="typereclamation" ToRole="reclamation" />
+    <NavigationProperty Name="reclamation" Relationship="Self.FK_reclamation_typereclamation" FromRole="typereclamation" ToRole="reclamation" />
   </EntityType>
   <EntityType Name="usages">
     <Key>
@@ -620,6 +751,39 @@
     <NavigationProperty Name="hbaremes" Relationship="Self.FK_hbaremes_usages" FromRole="usages" ToRole="hbaremes" />
     <NavigationProperty Name="hnivpuissances" Relationship="Self.FK_hnivpuissances_usages" FromRole="usages" ToRole="hnivpuissances" />
   </EntityType>
+  <EntityType Name="villages">
+    <Key>
+      <PropertyRef Name="code_village" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="departement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="commune" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="village" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="population" Type="Int32" />
+    <Property Name="menage" Type="Double" />
+    <Property Name="education" Type="Byte" />
+    <Property Name="sante" Type="Byte" />
+    <Property Name="forage" Type="Byte" />
+    <Property Name="antenne_bts" Type="Byte" />
+    <Property Name="moulin" Type="Byte" />
+    <Property Name="longitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="latitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="code_village" Type="Int32" Nullable="false" />
+    <Property Name="code_prog" Type="Int32" />
+    <Property Name="idLocalite" Type="Int32" />
+    <Property Name="etattravaux" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="technologie" Type="Int32" />
+    <Property Name="commercialise" Type="Byte" />
+    <Property Name="nbrclients" Type="Int32" />
+    <Property Name="codemt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="neardist" Type="Double" />
+    <NavigationProperty Name="communes" Relationship="Self.FK_villages_communes" FromRole="villages" ToRole="communes" />
+    <NavigationProperty Name="MisEnServiceVillages" Relationship="Self.FK_MisEnServiceVillages_villages" FromRole="villages" ToRole="MisEnServiceVillages" />
+    <NavigationProperty Name="programmes" Relationship="Self.FK_villages_programmes" FromRole="villages" ToRole="programmes" />
+    <NavigationProperty Name="Technologies" Relationship="Self.FK_villages_Technologies" FromRole="villages" ToRole="Technologies" />
+    <NavigationProperty Name="near_dist" Relationship="Self.FK_near_dist_villages" FromRole="villages" ToRole="near_dist" />
+  </EntityType>
   <EntityType Name="AXEMT">
     <Key>
       <PropertyRef Name="codeMT" />
@@ -628,6 +792,81 @@
     <Property Name="NomAXE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="long" Type="Double" />
     <Property Name="geom" Type="Geography" />
+  </EntityType>
+  <EntityType Name="cust_sandbox">
+    <Key>
+      <PropertyRef Name="N_" />
+      <PropertyRef Name="Reference_Contrat" />
+      <PropertyRef Name="SoldeTotal" />
+    </Key>
+    <Property Name="N_" Type="Int32" Nullable="false" />
+    <Property Name="ID1" Type="Int32" />
+    <Property Name="ID" Type="Double" />
+    <Property Name="Nom1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Prenom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Num_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Tel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Raison_Social" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Usage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Date_Abonnement" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Village" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Region" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Departement" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Commune" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Niv_Service" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Type_Elect" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="TypeBranch" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="calibre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="FraisAbonn" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Reference_Contrat" Type="Int32" Nullable="false" />
+    <Property Name="Montant_Encaisse" Type="Double" />
+    <Property Name="Solde" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Frais_NET" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Etat_Client" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Commentaire" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Evolution_Statut" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Date_Mise_en_Service" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Date_Resiliation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="X_GPS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Y_GPS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Bordereau" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Contrat" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="interface" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Ancien_indexe" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Arriere" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Penalite" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoisEnCours" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="SoldeTotal" Type="Double" Nullable="false" />
+    <Property Name="ModeFacturation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Encaissement" Type="Double" />
+    <Property Name="DateEncaissement" Type="String" MaxLength="230" FixedLength="false" Unicode="true" />
+    <Property Name="IDPayment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Prev_Bill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Last_Bill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="NbrEP" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Type_de_contenu" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Application_créée_par" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Application_modifiée_par" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Pièces_jointes" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ID_de_l_instance_du_flux_de_travail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Type_de_fichier" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Modifié" Type="String" MaxLength="230" FixedLength="false" Unicode="true" />
+    <Property Name="Créé" Type="String" MaxLength="230" FixedLength="false" Unicode="true" />
+    <Property Name="Créé_par" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Modifié_par" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Chemin_d_URL" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Chemin_d_accès" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Type_d_élément" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="URL_absolue_codée" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="index" Type="Double" />
+    <Property Name="dateReleve" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="NewIndex" Type="Double" />
+    <Property Name="periodeFacturee" Type="String" MaxLength="220" FixedLength="false" Unicode="true" />
+    <Property Name="dateCoupure" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="dateAbonn" Type="DateTime" Precision="3" />
+    <Property Name="dateMeS" Type="DateTime" Precision="3" />
+    <Property Name="idlastbill" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NivPuissance" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
   </EntityType>
   <EntityType Name="encaissementsreport">
     <Key>
@@ -662,7 +901,7 @@
     <Property Name="near_dist1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="axe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="villages" Relationship="PROERAModel.FK_near_dist_villages" FromRole="near_dist" ToRole="villages" />
+    <NavigationProperty Name="villages" Relationship="Self.FK_near_dist_villages" FromRole="near_dist" ToRole="villages" />
   </EntityType>
   <EntityType Name="Requête">
     <Key>
@@ -725,6 +964,114 @@
     <Property Name="index" Type="Int32" Nullable="false" />
     <Property Name="is_locked" Type="Int32" />
   </EntityType>
+  <Association Name="FK_clients_etatclient">
+    <End Role="etatclient" Type="Self.etatclient" Multiplicity="0..1" />
+    <End Role="clients" Type="Self.clients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="etatclient">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="clients">
+        <PropertyRef Name="Etat_Client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_clients_hnivpuissances">
+    <End Role="hnivpuissances" Type="Self.hnivpuissances" Multiplicity="0..1" />
+    <End Role="clients" Type="Self.clients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hnivpuissances">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="clients">
+        <PropertyRef Name="NivPuissance" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_clients_raisonsociale">
+    <End Role="raisonsociale" Type="Self.raisonsociale" Multiplicity="0..1" />
+    <End Role="clients" Type="Self.clients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="raisonsociale">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="clients">
+        <PropertyRef Name="activite" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_clients_typepaiement">
+    <End Role="typepaiement" Type="Self.typepaiement" Multiplicity="0..1" />
+    <End Role="clients" Type="Self.clients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="typepaiement">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="clients">
+        <PropertyRef Name="modePaiement" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_migration_clients">
+    <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
+    <End Role="migration" Type="Self.migration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clients">
+        <PropertyRef Name="Reference_Contrat" />
+      </Principal>
+      <Dependent Role="migration">
+        <PropertyRef Name="referenceclient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_miseenserviceclient_clients">
+    <End Role="clients" Type="Self.clients" Multiplicity="1" />
+    <End Role="miseenserviceclient" Type="Self.miseenserviceclient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clients">
+        <PropertyRef Name="Reference_Contrat" />
+      </Principal>
+      <Dependent Role="miseenserviceclient">
+        <PropertyRef Name="referenceClient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reclamation_clients">
+    <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
+    <End Role="reclamation" Type="Self.reclamation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clients">
+        <PropertyRef Name="Reference_Contrat" />
+      </Principal>
+      <Dependent Role="reclamation">
+        <PropertyRef Name="refclient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_releves_clients">
+    <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
+    <End Role="releves" Type="Self.releves" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clients">
+        <PropertyRef Name="Reference_Contrat" />
+      </Principal>
+      <Dependent Role="releves">
+        <PropertyRef Name="Reference_Contrat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_resiliation_clients">
+    <End Role="clients" Type="Self.clients" Multiplicity="0..1" />
+    <End Role="resiliation" Type="Self.resiliation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clients">
+        <PropertyRef Name="Reference_Contrat" />
+      </Principal>
+      <Dependent Role="resiliation">
+        <PropertyRef Name="refclient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_communes_departements">
     <End Role="departements" Type="Self.departements" Multiplicity="1" />
     <End Role="communes" Type="Self.communes" Multiplicity="*" />
@@ -734,6 +1081,18 @@
       </Principal>
       <Dependent Role="communes">
         <PropertyRef Name="iddepartement" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_villages_communes">
+    <End Role="communes" Type="Self.communes" Multiplicity="0..1" />
+    <End Role="villages" Type="Self.villages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="communes">
+        <PropertyRef Name="code_com" />
+      </Principal>
+      <Dependent Role="villages">
+        <PropertyRef Name="idLocalite" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -809,11 +1168,74 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="PROERAEntities1" annotation:LazyLoadingEnabled="true">
+  <Association Name="FK_MisEnServiceVillages_villages">
+    <End Role="villages" Type="Self.villages" Multiplicity="0..1" />
+    <End Role="MisEnServiceVillages" Type="Self.MisEnServiceVillages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="villages">
+        <PropertyRef Name="code_village" />
+      </Principal>
+      <Dependent Role="MisEnServiceVillages">
+        <PropertyRef Name="code_village" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_villages_programmes">
+    <End Role="programmes" Type="Self.programmes" Multiplicity="0..1" />
+    <End Role="villages" Type="Self.villages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="programmes">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="villages">
+        <PropertyRef Name="code_prog" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reclamation_typereclamation">
+    <End Role="typereclamation" Type="Self.typereclamation" Multiplicity="0..1" />
+    <End Role="reclamation" Type="Self.reclamation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="typereclamation">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="reclamation">
+        <PropertyRef Name="type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_villages_Technologies">
+    <End Role="Technologies" Type="Self.Technologies" Multiplicity="0..1" />
+    <End Role="villages" Type="Self.villages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Technologies">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="villages">
+        <PropertyRef Name="technologie" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_near_dist_villages">
+    <End Role="villages" Type="Self.villages" Multiplicity="0..1" />
+    <End Role="near_dist" Type="Self.near_dist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="villages">
+        <PropertyRef Name="code_village" />
+      </Principal>
+      <Dependent Role="near_dist">
+        <PropertyRef Name="codevillage" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PROERAEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="activite" EntityType="Self.activite" />
     <EntitySet Name="agences" EntityType="Self.agences" />
+    <EntitySet Name="audit" EntityType="Self.audit" />
     <EntitySet Name="bordereaux" EntityType="Self.bordereaux" />
     <EntitySet Name="changementinterface" EntityType="Self.changementinterface" />
+    <EntitySet Name="changemodefact" EntityType="Self.changemodefact" />
+    <EntitySet Name="clients" EntityType="Self.clients" />
     <EntitySet Name="cloturerecouv" EntityType="Self.cloturerecouv" />
     <EntitySet Name="communes" EntityType="Self.communes" />
     <EntitySet Name="compteurs" EntityType="Self.compteurs" />
@@ -822,6 +1244,7 @@
     <EntitySet Name="correctionsolde" EntityType="Self.correctionsolde" />
     <EntitySet Name="departements" EntityType="Self.departements" />
     <EntitySet Name="encaissement" EntityType="Self.encaissement" />
+    <EntitySet Name="encaissements" EntityType="Self.encaissements" />
     <EntitySet Name="entrepots" EntityType="Self.entrepots" />
     <EntitySet Name="etatclient" EntityType="Self.etatclient" />
     <EntitySet Name="facturationtrigger" EntityType="Self.facturationtrigger" />
@@ -843,6 +1266,7 @@
     <EntitySet Name="pannes" EntityType="Self.pannes" />
     <EntitySet Name="programmes" EntityType="Self.programmes" />
     <EntitySet Name="raisonsociale" EntityType="Self.raisonsociale" />
+    <EntitySet Name="reclamation" EntityType="Self.reclamation" />
     <EntitySet Name="recouvrements" EntityType="Self.recouvrements" />
     <EntitySet Name="references" EntityType="Self.references" />
     <EntitySet Name="regions" EntityType="Self.regions" />
@@ -860,7 +1284,9 @@
     <EntitySet Name="typepaiement" EntityType="Self.typepaiement" />
     <EntitySet Name="typereclamation" EntityType="Self.typereclamation" />
     <EntitySet Name="usages" EntityType="Self.usages" />
+    <EntitySet Name="villages" EntityType="Self.villages" />
     <EntitySet Name="AXEMT" EntityType="Self.AXEMT" />
+    <EntitySet Name="cust_sandbox" EntityType="Self.cust_sandbox" />
     <EntitySet Name="encaissementsreport" EntityType="Self.encaissementsreport" />
     <EntitySet Name="near_dist" EntityType="Self.near_dist" />
     <EntitySet Name="Requête" EntityType="Self.Requête" />
@@ -868,9 +1294,49 @@
     <EntitySet Name="village" EntityType="Self.village" />
     <EntitySet Name="wappler_migrations" EntityType="Self.wappler_migrations" />
     <EntitySet Name="wappler_migrations_lock" EntityType="Self.wappler_migrations_lock" />
+    <AssociationSet Name="FK_clients_etatclient" Association="Self.FK_clients_etatclient">
+      <End Role="etatclient" EntitySet="etatclient" />
+      <End Role="clients" EntitySet="clients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_clients_hnivpuissances" Association="Self.FK_clients_hnivpuissances">
+      <End Role="hnivpuissances" EntitySet="hnivpuissances" />
+      <End Role="clients" EntitySet="clients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_clients_raisonsociale" Association="Self.FK_clients_raisonsociale">
+      <End Role="raisonsociale" EntitySet="raisonsociale" />
+      <End Role="clients" EntitySet="clients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_clients_typepaiement" Association="Self.FK_clients_typepaiement">
+      <End Role="typepaiement" EntitySet="typepaiement" />
+      <End Role="clients" EntitySet="clients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_migration_clients" Association="Self.FK_migration_clients">
+      <End Role="clients" EntitySet="clients" />
+      <End Role="migration" EntitySet="migration" />
+    </AssociationSet>
+    <AssociationSet Name="FK_miseenserviceclient_clients" Association="Self.FK_miseenserviceclient_clients">
+      <End Role="clients" EntitySet="clients" />
+      <End Role="miseenserviceclient" EntitySet="miseenserviceclient" />
+    </AssociationSet>
+    <AssociationSet Name="FK_reclamation_clients" Association="Self.FK_reclamation_clients">
+      <End Role="clients" EntitySet="clients" />
+      <End Role="reclamation" EntitySet="reclamation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_releves_clients" Association="Self.FK_releves_clients">
+      <End Role="clients" EntitySet="clients" />
+      <End Role="releves" EntitySet="releves" />
+    </AssociationSet>
+    <AssociationSet Name="FK_resiliation_clients" Association="Self.FK_resiliation_clients">
+      <End Role="clients" EntitySet="clients" />
+      <End Role="resiliation" EntitySet="resiliation" />
+    </AssociationSet>
     <AssociationSet Name="FK_communes_departements" Association="Self.FK_communes_departements">
       <End Role="departements" EntitySet="departements" />
       <End Role="communes" EntitySet="communes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_villages_communes" Association="Self.FK_villages_communes">
+      <End Role="communes" EntitySet="communes" />
+      <End Role="villages" EntitySet="villages" />
     </AssociationSet>
     <AssociationSet Name="FK_departements_regions" Association="Self.FK_departements_regions">
       <End Role="regions" EntitySet="regions" />
@@ -896,93 +1362,28 @@
       <End Role="usages" EntitySet="usages" />
       <End Role="hnivpuissances" EntitySet="hnivpuissances" />
     </AssociationSet>
-    <EntitySet Name="encaissements" EntityType="PROERAModel.encaissements" />
-    <EntitySet Name="View_DetailsEncaissement" EntityType="PROERAModel.View_DetailsEncaissement" />
-    <EntitySet Name="changemodefact" EntityType="PROERAModel.changemodefact" />
-    <EntitySet Name="villages" EntityType="PROERAModel.villages" />
-    <AssociationSet Name="FK_villages_communes" Association="PROERAModel.FK_villages_communes">
-      <End Role="communes" EntitySet="communes" />
-      <End Role="villages" EntitySet="villages" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MisEnServiceVillages_villages" Association="PROERAModel.FK_MisEnServiceVillages_villages">
+    <AssociationSet Name="FK_MisEnServiceVillages_villages" Association="Self.FK_MisEnServiceVillages_villages">
       <End Role="villages" EntitySet="villages" />
       <End Role="MisEnServiceVillages" EntitySet="MisEnServiceVillages" />
     </AssociationSet>
-    <AssociationSet Name="FK_villages_programmes" Association="PROERAModel.FK_villages_programmes">
+    <AssociationSet Name="FK_villages_programmes" Association="Self.FK_villages_programmes">
       <End Role="programmes" EntitySet="programmes" />
       <End Role="villages" EntitySet="villages" />
     </AssociationSet>
-    <AssociationSet Name="FK_villages_Technologies" Association="PROERAModel.FK_villages_Technologies">
-      <End Role="Technologies" EntitySet="Technologies" />
-      <End Role="villages" EntitySet="villages" />
-    </AssociationSet>
-    <AssociationSet Name="FK_near_dist_villages" Association="PROERAModel.FK_near_dist_villages">
-      <End Role="villages" EntitySet="villages" />
-      <End Role="near_dist" EntitySet="near_dist" />
-    </AssociationSet>
-    <EntitySet Name="reclamation" EntityType="PROERAModel.reclamation" />
-    <AssociationSet Name="FK_reclamation_typereclamation" Association="PROERAModel.FK_reclamation_typereclamation">
+    <AssociationSet Name="FK_reclamation_typereclamation" Association="Self.FK_reclamation_typereclamation">
       <End Role="typereclamation" EntitySet="typereclamation" />
       <End Role="reclamation" EntitySet="reclamation" />
     </AssociationSet>
-    <EntitySet Name="clients" EntityType="PROERAModel.clients" />
-    <AssociationSet Name="FK_clients_etatclient" Association="PROERAModel.FK_clients_etatclient">
-      <End Role="etatclient" EntitySet="etatclient" />
-      <End Role="clients" EntitySet="clients" />
+    <AssociationSet Name="FK_villages_Technologies" Association="Self.FK_villages_Technologies">
+      <End Role="Technologies" EntitySet="Technologies" />
+      <End Role="villages" EntitySet="villages" />
     </AssociationSet>
-    <AssociationSet Name="FK_clients_hnivpuissances" Association="PROERAModel.FK_clients_hnivpuissances">
-      <End Role="hnivpuissances" EntitySet="hnivpuissances" />
-      <End Role="clients" EntitySet="clients" />
+    <AssociationSet Name="FK_near_dist_villages" Association="Self.FK_near_dist_villages">
+      <End Role="villages" EntitySet="villages" />
+      <End Role="near_dist" EntitySet="near_dist" />
     </AssociationSet>
-    <AssociationSet Name="FK_clients_raisonsociale" Association="PROERAModel.FK_clients_raisonsociale">
-      <End Role="raisonsociale" EntitySet="raisonsociale" />
-      <End Role="clients" EntitySet="clients" />
-    </AssociationSet>
-    <AssociationSet Name="FK_clients_typepaiement" Association="PROERAModel.FK_clients_typepaiement">
-      <End Role="typepaiement" EntitySet="typepaiement" />
-      <End Role="clients" EntitySet="clients" />
-    </AssociationSet>
-    <AssociationSet Name="FK_migration_clients" Association="PROERAModel.FK_migration_clients">
-      <End Role="clients" EntitySet="clients" />
-      <End Role="migration" EntitySet="migration" />
-    </AssociationSet>
-    <AssociationSet Name="FK_miseenserviceclient_clients" Association="PROERAModel.FK_miseenserviceclient_clients">
-      <End Role="clients" EntitySet="clients" />
-      <End Role="miseenserviceclient" EntitySet="miseenserviceclient" />
-    </AssociationSet>
-    <AssociationSet Name="FK_reclamation_clients" Association="PROERAModel.FK_reclamation_clients">
-      <End Role="clients" EntitySet="clients" />
-      <End Role="reclamation" EntitySet="reclamation" />
-    </AssociationSet>
-    <AssociationSet Name="FK_releves_clients" Association="PROERAModel.FK_releves_clients">
-      <End Role="clients" EntitySet="clients" />
-      <End Role="releves" EntitySet="releves" />
-    </AssociationSet>
-    <AssociationSet Name="FK_resiliation_clients" Association="PROERAModel.FK_resiliation_clients">
-      <End Role="clients" EntitySet="clients" />
-      <End Role="resiliation" EntitySet="resiliation" />
-    </AssociationSet>
+    <EntitySet Name="View_DetailsEncaissement" EntityType="PROERAModel.View_DetailsEncaissement" />
   </EntityContainer>
-  <EntityType Name="encaissements">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="idfacture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="refclient" Type="Int32" />
-    <Property Name="montantencaisee" Type="Double" />
-    <Property Name="soldeprepaiement" Type="Double" />
-    <Property Name="soldepostpaiement" Type="Double" />
-    <Property Name="dateencaissement" Type="DateTime" Precision="0" />
-    <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="commentaire" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="idbordereau" Type="Int32" />
-    <Property Name="numerorecue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="numerobordereau" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="periode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="datesysteme" Type="DateTime" Precision="0" />
-    <Property Name="fraiscoupure" Type="Double" />
-  </EntityType>
   <EntityType Name="View_DetailsEncaissement">
     <Key>
       <PropertyRef Name="id" />
@@ -995,311 +1396,4 @@
     <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="datecreation" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
   </EntityType>
-  <EntityType Name="changemodefact">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="refclient" Type="Int32" />
-    <Property Name="ancienmode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="nouveaumode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="solde" Type="Double" />
-    <Property Name="date" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="villages">
-    <Key>
-      <PropertyRef Name="code_village" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="departement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="commune" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="village" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="population" Type="Int32" />
-    <Property Name="menage" Type="Double" />
-    <Property Name="education" Type="Byte" />
-    <Property Name="sante" Type="Byte" />
-    <Property Name="forage" Type="Byte" />
-    <Property Name="antenne_bts" Type="Byte" />
-    <Property Name="moulin" Type="Byte" />
-    <Property Name="longitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="latitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="code_village" Type="Int32" Nullable="false" />
-    <Property Name="code_prog" Type="Int32" />
-    <Property Name="idLocalite" Type="Int32" />
-    <Property Name="etattravaux" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="technologie" Type="Int32" />
-    <Property Name="commercialise" Type="Byte" />
-    <Property Name="nbrclients" Type="Int32" />
-    <Property Name="codemt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="neardist" Type="Double" />
-    <NavigationProperty Name="communes" Relationship="PROERAModel.FK_villages_communes" FromRole="villages" ToRole="communes" />
-    <NavigationProperty Name="MisEnServiceVillages" Relationship="PROERAModel.FK_MisEnServiceVillages_villages" FromRole="villages" ToRole="MisEnServiceVillages" />
-    <NavigationProperty Name="programmes" Relationship="PROERAModel.FK_villages_programmes" FromRole="villages" ToRole="programmes" />
-    <NavigationProperty Name="Technologies" Relationship="PROERAModel.FK_villages_Technologies" FromRole="villages" ToRole="Technologies" />
-    <NavigationProperty Name="near_dist" Relationship="PROERAModel.FK_near_dist_villages" FromRole="villages" ToRole="near_dist" />
-  </EntityType>
-  <Association Name="FK_villages_communes">
-    <End Type="PROERAModel.communes" Role="communes" Multiplicity="0..1" />
-    <End Type="PROERAModel.villages" Role="villages" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="communes">
-        <PropertyRef Name="code_com" />
-      </Principal>
-      <Dependent Role="villages">
-        <PropertyRef Name="idLocalite" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_MisEnServiceVillages_villages">
-    <End Type="PROERAModel.villages" Role="villages" Multiplicity="0..1" />
-    <End Type="PROERAModel.MisEnServiceVillages" Role="MisEnServiceVillages" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="villages">
-        <PropertyRef Name="code_village" />
-      </Principal>
-      <Dependent Role="MisEnServiceVillages">
-        <PropertyRef Name="code_village" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_villages_programmes">
-    <End Type="PROERAModel.programmes" Role="programmes" Multiplicity="0..1" />
-    <End Type="PROERAModel.villages" Role="villages" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="programmes">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="villages">
-        <PropertyRef Name="code_prog" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_villages_Technologies">
-    <End Type="PROERAModel.Technologies" Role="Technologies" Multiplicity="0..1" />
-    <End Type="PROERAModel.villages" Role="villages" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Technologies">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="villages">
-        <PropertyRef Name="technologie" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_near_dist_villages">
-    <End Type="PROERAModel.villages" Role="villages" Multiplicity="0..1" />
-    <End Type="PROERAModel.near_dist" Role="near_dist" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="villages">
-        <PropertyRef Name="code_village" />
-      </Principal>
-      <Dependent Role="near_dist">
-        <PropertyRef Name="codevillage" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="reclamation">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="refclient" Type="Int32" />
-    <Property Name="date" Type="DateTime" Precision="0" />
-    <Property Name="type" Type="Int32" />
-    <Property Name="priorite" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="commentaire" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="nivintervention" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="localite" Type="Int32" />
-    <Property Name="statut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="numcompteur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="datecloture" Type="DateTime" Precision="0" />
-    <Property Name="nature" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="typereclamation" Relationship="PROERAModel.FK_reclamation_typereclamation" FromRole="reclamation" ToRole="typereclamation" />
-    <NavigationProperty Name="clients" Relationship="PROERAModel.FK_reclamation_clients" FromRole="reclamation" ToRole="clients" />
-  </EntityType>
-  <Association Name="FK_reclamation_typereclamation">
-    <End Type="PROERAModel.typereclamation" Role="typereclamation" Multiplicity="0..1" />
-    <End Type="PROERAModel.reclamation" Role="reclamation" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="typereclamation">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="reclamation">
-        <PropertyRef Name="type" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="clients">
-    <Key>
-      <PropertyRef Name="Reference_Contrat" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" />
-    <Property Name="Nom1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Prenom" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Num_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Tel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Raison_Social" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Date_Abonnement" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="Village" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Niv_Service" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Type_Elect" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="calibre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Reference_Contrat" Type="Int32" Nullable="false" />
-    <Property Name="Montant_Encaisse" Type="Double" />
-    <Property Name="Etat_Client" Type="Int32" />
-    <Property Name="Commentaire" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Date_Mise_en_Service" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Date_Resiliation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="X_GPS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Y_GPS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Bordereau" Type="Int32" />
-    <Property Name="Contrat" Type="Int32" />
-    <Property Name="numcompteur" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Ancien_indexe" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="SoldeTotal" Type="Double" Nullable="false" />
-    <Property Name="IDPayment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Prev_Bill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Last_Bill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="NbrEP" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Modifié" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Créé" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Créé_par" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="periodeFacturee" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="dateCoupure" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="dateAbonn" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="dateMeS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="idlastbill" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="NivPuissance" Type="Int32" />
-    <Property Name="activite" Type="Int32" />
-    <Property Name="sqlstate" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="refclient" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="codevillage" Type="Int32" />
-    <Property Name="modePaiement" Type="Int32" />
-    <Property Name="numeropaiement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="TypeBranch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="etat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="usage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="modefacturation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="NINEA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="etatclient" Relationship="PROERAModel.FK_clients_etatclient" FromRole="clients" ToRole="etatclient" />
-    <NavigationProperty Name="hnivpuissances" Relationship="PROERAModel.FK_clients_hnivpuissances" FromRole="clients" ToRole="hnivpuissances" />
-    <NavigationProperty Name="raisonsociale" Relationship="PROERAModel.FK_clients_raisonsociale" FromRole="clients" ToRole="raisonsociale" />
-    <NavigationProperty Name="typepaiement" Relationship="PROERAModel.FK_clients_typepaiement" FromRole="clients" ToRole="typepaiement" />
-    <NavigationProperty Name="migration" Relationship="PROERAModel.FK_migration_clients" FromRole="clients" ToRole="migration" />
-    <NavigationProperty Name="miseenserviceclient" Relationship="PROERAModel.FK_miseenserviceclient_clients" FromRole="clients" ToRole="miseenserviceclient" />
-    <NavigationProperty Name="reclamation" Relationship="PROERAModel.FK_reclamation_clients" FromRole="clients" ToRole="reclamation" />
-    <NavigationProperty Name="releves" Relationship="PROERAModel.FK_releves_clients" FromRole="clients" ToRole="releves" />
-    <NavigationProperty Name="resiliation" Relationship="PROERAModel.FK_resiliation_clients" FromRole="clients" ToRole="resiliation" />
-  </EntityType>
-  <Association Name="FK_clients_etatclient">
-    <End Type="PROERAModel.etatclient" Role="etatclient" Multiplicity="0..1" />
-    <End Type="PROERAModel.clients" Role="clients" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="etatclient">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="clients">
-        <PropertyRef Name="Etat_Client" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_clients_hnivpuissances">
-    <End Type="PROERAModel.hnivpuissances" Role="hnivpuissances" Multiplicity="0..1" />
-    <End Type="PROERAModel.clients" Role="clients" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="hnivpuissances">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="clients">
-        <PropertyRef Name="NivPuissance" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_clients_raisonsociale">
-    <End Type="PROERAModel.raisonsociale" Role="raisonsociale" Multiplicity="0..1" />
-    <End Type="PROERAModel.clients" Role="clients" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="raisonsociale">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="clients">
-        <PropertyRef Name="activite" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_clients_typepaiement">
-    <End Type="PROERAModel.typepaiement" Role="typepaiement" Multiplicity="0..1" />
-    <End Type="PROERAModel.clients" Role="clients" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="typepaiement">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="clients">
-        <PropertyRef Name="modePaiement" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_migration_clients">
-    <End Type="PROERAModel.clients" Role="clients" Multiplicity="0..1" />
-    <End Type="PROERAModel.migration" Role="migration" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="clients">
-        <PropertyRef Name="Reference_Contrat" />
-      </Principal>
-      <Dependent Role="migration">
-        <PropertyRef Name="referenceclient" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_miseenserviceclient_clients">
-    <End Type="PROERAModel.clients" Role="clients" Multiplicity="1" />
-    <End Type="PROERAModel.miseenserviceclient" Role="miseenserviceclient" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="clients">
-        <PropertyRef Name="Reference_Contrat" />
-      </Principal>
-      <Dependent Role="miseenserviceclient">
-        <PropertyRef Name="referenceClient" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_reclamation_clients">
-    <End Type="PROERAModel.clients" Role="clients" Multiplicity="0..1" />
-    <End Type="PROERAModel.reclamation" Role="reclamation" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="clients">
-        <PropertyRef Name="Reference_Contrat" />
-      </Principal>
-      <Dependent Role="reclamation">
-        <PropertyRef Name="refclient" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_releves_clients">
-    <End Type="PROERAModel.clients" Role="clients" Multiplicity="0..1" />
-    <End Type="PROERAModel.releves" Role="releves" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="clients">
-        <PropertyRef Name="Reference_Contrat" />
-      </Principal>
-      <Dependent Role="releves">
-        <PropertyRef Name="Reference_Contrat" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_resiliation_clients">
-    <End Type="PROERAModel.clients" Role="clients" Multiplicity="0..1" />
-    <End Type="PROERAModel.resiliation" Role="resiliation" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="clients">
-        <PropertyRef Name="Reference_Contrat" />
-      </Principal>
-      <Dependent Role="resiliation">
-        <PropertyRef Name="refclient" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema>

@@ -34,7 +34,7 @@ namespace proera.Controllers
 
 	public class clientsController : Controller
 	{
-		private PROERAEntities1 db = new PROERAEntities1();
+		private PROERAEntities db = new PROERAEntities();
 
 		// GET: clients
 		public ActionResult Index(string message = "")

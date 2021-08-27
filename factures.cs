@@ -36,5 +36,6 @@ namespace proera
         public byte Paiement { get; set; }
         public Nullable<int> NbreJours { get; set; }
         public Nullable<double> fraiscoupure { get; set; }
+        public string datesysteme { get; set; }
     }
 }

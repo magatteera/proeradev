@@ -1,0 +1,164 @@
+﻿
+
+<h2>Liste des Bordereaux</h2>
+
+<br />
+<br />
+<hr />
+
+<button class="btn btn-success" id="ouvert">Ouverts</button>
+
+<button class="btn btn-warning" id="ferme">Fermés</button>
+
+<br />
+
+<table class="table table-bordered table-striped" id="table">
+    <thead>
+        <tr>
+            <th>
+                Numero
+            </th>
+            <th>
+                Créé Par
+            </th>
+            <th>
+                Montant Encaissements
+            </th>
+            <th>
+                Montant Bordereau
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody id="tablebody">
+    </tbody>
+
+</table>
+
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @using (Html.BeginForm("edit", "bordereaux", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>bordereaux</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <input type="hidden" name="id" id="idbordmodif" />
+                    <input type="hidden" name="type" value="caisse" />
+
+
+                    <div class="form-group">
+                        @Html.Label("Montant Bordereau", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.Editor("montant", new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Enregistrer" class="btn btn-outline-primary" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        var datatable = 0;
+
+        $("#ouvert").click(function () {
+            //alert($("#nivpuissance").val())
+            data = {
+                ouvert: 1
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/bordereaux/chargerbordereauxcaisse",
+                data: data,
+                success: function (data) {
+                    $('#tablebody').empty()
+                        .append(data.listebrs)
+                  
+
+
+                    if (datatable == 0) {
+                        $('#table').DataTable({
+                            "language": {
+                                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
+                            }
+                        });
+                        datatable = 1;
+                    }
+
+
+                    $("#ouvert").attr("disabled", true)
+                    $("#ferme").removeAttr("disabled")
+                    $('[id^=btnmodifier]').click(function () {
+
+                        $("#idbordmodif").val($(this).attr("idbord"))
+                        $("#montant").val($(this).attr("montant"))
+                        $("#exampleModal").modal("show")
+                    });
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        });
+
+        $("#ferme").click(function () {
+            //alert($("#nivpuissance").val())
+            data = {
+                ouvert: 0
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/bordereaux/chargerbordereauxcaisse",
+                data: data,
+                success: function (data) {
+                    $('#tablebody').empty()
+                        .append(data.listebrs)
+
+                    if (datatable == 0) {
+                        $('#table').DataTable({
+                            "language": {
+                                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"
+                            }
+                        });
+                        datatable = 1;
+                    }
+                    $("#ferme").attr("disabled", true)
+                    $("#ouvert").removeAttr("disabled")
+                    $('[id^=btnmodifier]').click(function () {
+
+                        $("#idbordmodif").val($(this).attr("idbord"))
+                        $("#montant").val($(this).attr("montant"))
+                        $("#exampleModal").modal("show")
+                    });
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        });
+
+
+
+
+    });
+</script>

@@ -14,7 +14,7 @@ namespace proera.Controllers
     [Authorize(Roles = "Proera_BackOffice, Proera_ADMIN")]
     public class correctionsoldesController : Controller
     {
-        private PROERAEntities1 db = new PROERAEntities1();
+        private PROERAEntities db = new PROERAEntities();
 
         // GET: correctionsoldes
         public ActionResult Index()

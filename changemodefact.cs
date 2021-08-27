@@ -20,5 +20,6 @@ namespace proera
         public string nouveaumode { get; set; }
         public Nullable<double> solde { get; set; }
         public Nullable<System.DateTime> date { get; set; }
+        public string utilisateur { get; set; }
     }
 }

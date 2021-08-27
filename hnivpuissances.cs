@@ -17,8 +17,8 @@ namespace proera
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public hnivpuissances()
         {
-            this.hbaremes = new HashSet<hbaremes>();
             this.clients = new HashSet<clients>();
+            this.hbaremes = new HashSet<hbaremes>();
         }
     
         public int Id { get; set; }
@@ -26,9 +26,9 @@ namespace proera
         public Nullable<int> Usage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<clients> clients { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<hbaremes> hbaremes { get; set; }
         public virtual usages usages { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<clients> clients { get; set; }
     }
 }

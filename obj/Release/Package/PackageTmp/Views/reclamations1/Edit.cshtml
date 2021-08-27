@@ -1,0 +1,275 @@
+﻿@model proera.reclamation
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>reclamation</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.id)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.refclient, "Reference Client", htmlAttributes: new { @class = "control-label col" })
+        <div class="col-md-10">
+            @* <input type="number" name="refclient" id="refclient" class="form-control" />*@
+            @Html.EditorFor(model => model.refclient, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+
+            @Html.ValidationMessageFor(model => model.refclient, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.type, "type", htmlAttributes: new { @class = "control-label col" })
+        <div class="col-md-10">
+            @Html.DropDownList("type", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.nature, "Nature", htmlAttributes: new { @class = "control-label col" })
+        <div class="col-md-6">
+            <select name="nature" class="form-control">
+                <option value="Haute">Haute</option>
+                <option value="Moyenne">Moyenne</option>
+                <option value="Non Prioritaire">Non Prioritaire</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.nivintervention, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.priorite, "Priorité", htmlAttributes: new { @class = "control-label col" })
+        <div class="col-md-6">
+            <select name="priorite" class="form-control">
+                <option value="Problème sur la distribution (Poste ,Central PV ; MT ;BT)">Problème sur la distribution (Poste ,Central PV ; MT ;BT)</option>
+                <option value="Absence de tension (chez le client)">Absence de tension (chez le client)</option>
+                <option value="Raccordement tardive">Raccordement tardive</option>
+                <option value="Facture non reçue">Facture non reçue</option>
+                <option value="Problème de solde">Problème de solde</option>
+                <option value="Problème de code de recharge (client au prépaiement)">Problème de code de recharge (client au prépaiement)</option>
+                <option value="Renseignement">Renseignement</option>
+                <option value="Divers">Divers</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.nivintervention, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.commentaire, htmlAttributes: new { @class = "control-label col" })
+        <div class="col-md-10">
+            @*<textarea rows="3" name="commentaire" id="commentaire" class="form-control"></textarea>*@
+            @Html.EditorFor(model => model.commentaire, new { htmlAttributes = new { @class = "form-control", @type = "textarea", @rows = "3" } })
+
+            @Html.ValidationMessageFor(model => model.commentaire, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.nivintervention, "Niveau Intervention", htmlAttributes: new { @class = "control-label col" })
+        <div class="col-md-10">
+            <select name="nivintervention" class="form-control">
+                <option value="Critique">Critique</option>
+                <option value="Moyen">Moyen</option>
+                <option value="Moindre">Moindre</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.nivintervention, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.telephone, htmlAttributes: new { @class = "control-label col" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.telephone, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.telephone, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.datecloture, htmlAttributes: new { @class = "control-label col" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.datecloture, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+
+            @Html.ValidationMessageFor(model => model.datecloture, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @*<div class="form-row">
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.Label("Region", htmlAttributes: new { @class = "control-label col" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("regions", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.Label("Departement", htmlAttributes: new { @class = "control-label col" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("departements", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+        <div class="form-row">
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.Label("Commune", htmlAttributes: new { @class = "control-label col" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("communes", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.localite, "Village", htmlAttributes: new { @class = "control-label col" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("localite", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.localite, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.statut, htmlAttributes: new { @class = "control-label col" })
+        <div class="col-md-10">
+            <select name="statut" class="form-control">
+                <option value="En cours">En cours</option>
+                <option value="Termine">Termine</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.statut, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" id="btncreate" value="Modifier" class="btn btn-warning" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+
+        $("#refclient").change(function () {
+            data = {
+                refclient: $("#refclient").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/reclamations1/verifrefclient",
+                data: data,
+                success: function (data) {
+
+                    if (data.message == "existe") {
+
+                    }
+                    else {
+                        $("#btncreate").attr("disabled", true)
+                        swal("Erreur", "Reference de client inexistante", "error")
+                    }
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+
+
+
+        $("#regions").change(function () {
+            data = {
+                id: $("#regions").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/reclamations1/changementregion",
+                data: data,
+                success: function (data) {
+                    $("#departements").empty().
+                        append(data.departement)
+                    $("#communes").empty().
+                        append(data.commune)
+                    $("#localite").empty().
+                        append(data.village)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+
+
+        $("#departements").change(function () {
+            data = {
+                code_departement: $("#departements").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/reclamations1/changementdepartement",
+                data: data,
+                success: function (data) {
+                    $("#communes").empty().
+                        append(data.commune)
+                    $("#localite").empty().
+                        append(data.village)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+
+
+        $("#communes").change(function () {
+            data = {
+                code_com: $("#communes").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/reclamations1/changementcommune",
+                data: data,
+                success: function (data) {
+                    $("#localite").empty().
+                        append(data.village)
+                },
+                error: function () {
+                    alert("Error occured!!")
+                }
+            });
+        })
+
+
+    });
+</script>

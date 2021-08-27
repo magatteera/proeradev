@@ -1,0 +1,142 @@
+﻿@model proera.changemodefact
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>changemodefact</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.refclient, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.refclient, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.refclient, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="col" id="divinfos">
+        <ul class="list-group list-group-flush">
+
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-4">
+
+                        <dt>
+                            NOM
+                        </dt>
+
+                        <dd>
+                            <p id="nomClient"></p>
+                        </dd>
+                    </div>
+
+
+                    <div class="col-4">
+                        <dt>
+                            Prenom
+                        </dt>
+
+                        <dd>
+                            <p id="prenomClient"></p>
+                        </dd>
+                    </div>
+
+                </div>
+
+
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ancienmode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text" name="ancienmode" id="ancienmode" class="form-control" readonly />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.nouveaumode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <select name="nouveaumode" class="form-control" id="nouveaumode">
+                <option value="FACTURE">FACTURE</option>
+                <option value="FORFAIT">FORFAIT</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.solde, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text" name="solde" id="solde" class="form-control" readonly required />
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.date, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="date" name="date" id="date" class="form-control"  required />
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+        $(document).ready(function () {
+
+            $("#refclient").change(function () {
+                data = {
+                    refclient: $("#refclient").val()
+                }
+                // alert($("#idfacture").val())
+                $.ajax({
+                    type: "POST",
+                    url: "/changemodefacts/changement",
+                    data: data,
+                    success: function (data) {
+                        if (data.message == "existe") {
+
+                            $("#solde").val(data.solde)
+                            $("#ancienmode").val(data.mode)
+                            $("#nomClient").html(data.nom)
+                            $("#prenomClient").html(data.prenom)
+
+                        }
+                        else if (data.message == "client inexistant") {
+                            alert("Client Inexistant")
+
+                            $("#solde").html("")
+                        }
+                    },
+                    error: function () {
+                        alert("Error occured!!")
+                    }
+                });
+            })
+
+        });
+</script>

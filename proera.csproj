@@ -293,6 +293,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="audit.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="AXEMT.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -352,6 +355,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="correctionsolde.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cust_sandbox.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="departements.cs">

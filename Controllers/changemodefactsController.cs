@@ -12,7 +12,7 @@ namespace proera.Controllers
 {
     public class changemodefactsController : Controller
     {
-        private PROERAEntities1 db = new PROERAEntities1();
+        private PROERAEntities db = new PROERAEntities();
 
         // GET: changemodefacts
         public ActionResult Index()
@@ -50,6 +50,7 @@ namespace proera.Controllers
         {
             if (ModelState.IsValid)
             {
+                changemodefact.utilisateur = User.Identity.Name;
                 db.changemodefact.Add(changemodefact);
                 db.SaveChanges();
                 return RedirectToAction("Index");
