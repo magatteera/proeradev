@@ -144,9 +144,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.education, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    Oui : @Html.RadioButtonFor(model => model.education, "1", new { htmlAttributes = new { @class = "form-control" } })
-                    Non : @Html.RadioButtonFor(model => model.education, "0", new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.education, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.education, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
         </div>
@@ -154,9 +152,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.sante, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    Oui : @Html.RadioButtonFor(model => model.sante, "1", new { htmlAttributes = new { @class = "form-control" } })
-                    Non : @Html.RadioButtonFor(model => model.sante, "0", new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.sante, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.sante, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
         </div>
@@ -164,9 +160,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.forage, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    Oui : @Html.RadioButtonFor(model => model.forage, "1", new { htmlAttributes = new { @class = "form-control" } })
-                    Non : @Html.RadioButtonFor(model => model.forage, "0", new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.forage, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.forage, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
         </div>
@@ -176,9 +170,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.antenne_bts, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    Oui : @Html.RadioButtonFor(model => model.antenne_bts, "1", new { htmlAttributes = new { @class = "form-control" } })
-                    Non : @Html.RadioButtonFor(model => model.antenne_bts, "0", new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.antenne_bts, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.antenne_bts, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
         </div>
@@ -186,14 +178,19 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.moulin, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    Oui : @Html.RadioButtonFor(model => model.moulin, "1", new { htmlAttributes = new { @class = "form-control" } })
-                    Non : @Html.RadioButtonFor(model => model.moulin, "0", new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.moulin, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.moulin, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
         </div>
         <div class="col">
 
+            <div class="form-group">
+                @Html.LabelFor(model => model.source, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.source, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.source, "", new { @class = "text-danger" })
+                </div>
+            </div>
         </div>
     </div>
 
@@ -302,10 +299,11 @@
                     $("#village").val(data.nomvillage)
                     $("#population").val(data.pop)
                     $("input[name='education'][value='" + data.educ + "']").prop('checked', true);
-                    $("input[name='sante'][value='" + data.sant + "']").prop('checked', true);
-                    $("input[name='forage'][value='" + data.forages + "']").prop('checked', true);
-                    $("input[name='antenne_bts'][value='" + data.antbts + "']").prop('checked', true);
-                    $("input[name='moulin'][value='" + data.moul + "']").prop('checked', true);
+                    $("#sante").val(data.sant)
+                    $("#forage").val(data.forages)
+                    $("#antenne_bts").val(data.antbts)
+                    $("#moulin").val(data.moul)
+                    $("#forage").val(data.forage)
                     $("#longitude").val(data.longi)
                     $("#latitude").val(data.lati)
                     $("option[value='" + data.etattra + "']").prop('selected', true);

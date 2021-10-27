@@ -28,11 +28,11 @@ namespace proera
         public string village { get; set; }
         public Nullable<int> population { get; set; }
         public Nullable<double> menage { get; set; }
-        public Nullable<byte> education { get; set; }
-        public Nullable<byte> sante { get; set; }
-        public Nullable<byte> forage { get; set; }
-        public Nullable<byte> antenne_bts { get; set; }
-        public Nullable<byte> moulin { get; set; }
+        public string education { get; set; }
+        public string sante { get; set; }
+        public string forage { get; set; }
+        public string antenne_bts { get; set; }
+        public string moulin { get; set; }
         public string longitude { get; set; }
         public string latitude { get; set; }
         public int code_village { get; set; }
@@ -44,6 +44,7 @@ namespace proera
         public Nullable<int> nbrclients { get; set; }
         public string codemt { get; set; }
         public Nullable<double> neardist { get; set; }
+        public string source { get; set; }
     
         public virtual communes communes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

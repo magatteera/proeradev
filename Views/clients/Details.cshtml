@@ -109,6 +109,32 @@
 </li>
 
 
+<li class="list-group-item">
+    <div class="">
+        <dt>
+            Derniere Periode Facturée
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Last_Bill)
+        </dd>
+    </div>
+</li>
+
+
+<li class="list-group-item">
+    <div class="">
+
+        <dt>
+            Bordereau
+        </dt>
+
+        <dd>
+            @ViewBag.bordereau
+        </dd>
+    </div>
+</li>
+
 </ul>
 </div>
 
@@ -218,6 +244,8 @@
                 </dd>
             </div>
         </li>
+
+
     </ul>
 </div>
 
@@ -232,7 +260,7 @@
 
     @if (Model.Etat_Client == 1)
     {
-    @Html.ActionLink("Migrer", "MigrerClient", new { id = Model.Reference_Contrat })
+        @Html.ActionLink("Migrer", "MigrerClient", new { id = Model.Reference_Contrat })
     }
     @Html.ActionLink("Retour", "Index")
     <br />

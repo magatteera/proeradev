@@ -29,6 +29,8 @@
     <Property Name="soldeclient" Type="float" />
     <Property Name="dateoperation" Type="datetime" />
     <Property Name="codevillage" Type="int" />
+    <Property Name="ancienetat" Type="int" />
+    <Property Name="nouveletat" Type="int" />
   </EntityType>
   <!--Erreurs détectées durant la génération :
 avertissement 6002: La table/vue 'PROERA.dbo.AXEMT' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
@@ -124,7 +126,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.AXEMT' n'a pas de clé primaire dé
     <Property Name="activite" Type="int" />
     <Property Name="sqlstate" Type="nvarchar" MaxLength="255" />
     <Property Name="refclient" Type="nvarchar" MaxLength="255" />
-    <Property Name="codevillage" Type="int" />
+    <Property Name="codevillage" Type="int" Nullable="false" />
     <Property Name="modePaiement" Type="int" />
     <Property Name="numeropaiement" Type="varchar" MaxLength="50" />
     <Property Name="TypeBranch" Type="varchar" MaxLength="50" />
@@ -282,28 +284,6 @@ avertissement 6002: La table/vue 'PROERA.dbo.cust_sandbox' n'a pas de clé prima
     <Property Name="geom" Type="geography" />
     <Property Name="idregion" Type="int" />
     <Property Name="idagence" Type="varchar" MaxLength="3" />
-  </EntityType>
-  <EntityType Name="encaissement">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="Idpayment" Type="nvarchar" MaxLength="50" />
-    <Property Name="DatePaiement" Type="date" />
-    <Property Name="MontantEncaisse" Type="float" />
-    <Property Name="SoldeAnterieur" Type="nvarchar" MaxLength="50" />
-    <Property Name="SoldePostPay" Type="nvarchar" MaxLength="50" />
-    <Property Name="Idclient" Type="nvarchar" MaxLength="50" />
-    <Property Name="idFacture" Type="nvarchar" MaxLength="50" />
-    <Property Name="Commentaire" Type="text" />
-    <Property Name="Nom" Type="nvarchar" MaxLength="50" />
-    <Property Name="Prenom" Type="nvarchar" MaxLength="50" />
-    <Property Name="village" Type="nvarchar" MaxLength="50" />
-    <Property Name="nivserv" Type="nvarchar" MaxLength="50" />
-    <Property Name="periodefacture" Type="nvarchar" MaxLength="50" />
-    <Property Name="createby" Type="nchar" MaxLength="100" />
-    <Property Name="createdate" Type="datetime2" Precision="7" />
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="fraiscoupure" Type="float" />
   </EntityType>
   <EntityType Name="encaissements">
     <Key>
@@ -901,11 +881,11 @@ avertissement 6002: La table/vue 'PROERA.dbo.village' n'a pas de clé primaire d
     <Property Name="village" Type="varchar" MaxLength="50" />
     <Property Name="population" Type="int" />
     <Property Name="menage" Type="float" />
-    <Property Name="education" Type="tinyint" />
-    <Property Name="sante" Type="tinyint" />
-    <Property Name="forage" Type="tinyint" />
-    <Property Name="antenne_bts" Type="tinyint" />
-    <Property Name="moulin" Type="tinyint" />
+    <Property Name="education" Type="varchar" MaxLength="50" />
+    <Property Name="sante" Type="varchar" MaxLength="50" />
+    <Property Name="forage" Type="varchar" MaxLength="50" />
+    <Property Name="antenne_bts" Type="varchar" MaxLength="50" />
+    <Property Name="moulin" Type="varchar" MaxLength="50" />
     <Property Name="longitude" Type="varchar" MaxLength="50" />
     <Property Name="latitude" Type="varchar" MaxLength="50" />
     <Property Name="code_village" Type="int" Nullable="false" />
@@ -917,6 +897,7 @@ avertissement 6002: La table/vue 'PROERA.dbo.village' n'a pas de clé primaire d
     <Property Name="nbrclients" Type="int" />
     <Property Name="codemt" Type="varchar" MaxLength="50" />
     <Property Name="neardist" Type="float" />
+    <Property Name="source" Type="varchar" MaxLength="200" />
   </EntityType>
   <!--Erreurs détectées durant la génération :
 avertissement 6002: La table/vue 'PROERA.dbo.wappler_migrations' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
@@ -1231,7 +1212,6 @@ avertissement 6002: La table/vue 'PROERA.dbo.View_DetailsEncaissement' n'a pas d
     <EntitySet Name="correctionreleve" EntityType="Self.correctionreleve" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="correctionsolde" EntityType="Self.correctionsolde" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="departements" EntityType="Self.departements" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="encaissement" EntityType="Self.encaissement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="encaissements" EntityType="Self.encaissements" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="entrepots" EntityType="Self.entrepots" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="etatclient" EntityType="Self.etatclient" Schema="dbo" store:Type="Tables" />

@@ -36,32 +36,18 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.nature, "Nature", htmlAttributes: new { @class = "control-label col" })
+        @Html.LabelFor(model => model.priorite, "Priorité", htmlAttributes: new { @class = "control-label col" })
         <div class="col-md-6">
-            <select name="nature" class="form-control">
-                <option value="Haute">Haute</option>
-                <option value="Moyenne">Moyenne</option>
-                <option value="Non Prioritaire">Non Prioritaire</option>
-            </select>
-            @Html.ValidationMessageFor(model => model.nivintervention, "", new { @class = "text-danger" })
+
+            @Html.DropDownList("priorite", null, htmlAttributes: new { @class = "form-control" })
         </div>
     </div>
 
 
     <div class="form-group">
-        @Html.LabelFor(model => model.priorite, "Priorité", htmlAttributes: new { @class = "control-label col" })
+        @Html.LabelFor(model => model.nature, "Nature", htmlAttributes: new { @class = "control-label col" })
         <div class="col-md-6">
-            <select name="priorite" class="form-control">
-                <option value="Problème sur la distribution (Poste ,Central PV ; MT ;BT)">Problème sur la distribution (Poste ,Central PV ; MT ;BT)</option>
-                <option value="Absence de tension (chez le client)">Absence de tension (chez le client)</option>
-                <option value="Raccordement tardive">Raccordement tardive</option>
-                <option value="Facture non reçue">Facture non reçue</option>
-                <option value="Problème de solde">Problème de solde</option>
-                <option value="Problème de code de recharge (client au prépaiement)">Problème de code de recharge (client au prépaiement)</option>
-                <option value="Renseignement">Renseignement</option>
-                <option value="Divers">Divers</option>
-            </select>
-            @Html.ValidationMessageFor(model => model.nivintervention, "", new { @class = "text-danger" })
+            @Html.DropDownList("nature", null, htmlAttributes: new { @class = "form-control" })
         </div>
     </div>
 
@@ -78,11 +64,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.nivintervention, "Niveau Intervention", htmlAttributes: new { @class = "control-label col" })
         <div class="col-md-10">
-            <select name="nivintervention" class="form-control">
-                <option value="Critique">Critique</option>
-                <option value="Moyen">Moyen</option>
-                <option value="Moindre">Moindre</option>
-            </select>
+            @Html.DropDownList("nivintervention", null, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.nivintervention, "", new { @class = "text-danger" })
         </div>
     </div>

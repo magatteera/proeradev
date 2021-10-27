@@ -64,7 +64,7 @@ namespace proera
         public Nullable<int> activite { get; set; }
         public string sqlstate { get; set; }
         public string refclient { get; set; }
-        public Nullable<int> codevillage { get; set; }
+        public int codevillage { get; set; }
         public Nullable<int> modePaiement { get; set; }
         public string numeropaiement { get; set; }
         public string TypeBranch { get; set; }

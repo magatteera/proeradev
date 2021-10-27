@@ -24,5 +24,7 @@ namespace proera
         public Nullable<double> soldeclient { get; set; }
         public Nullable<System.DateTime> dateoperation { get; set; }
         public Nullable<int> codevillage { get; set; }
+        public Nullable<int> ancienetat { get; set; }
+        public Nullable<int> nouveletat { get; set; }
     }
 }

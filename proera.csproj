@@ -363,9 +363,6 @@
     <Compile Include="departements.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="encaissement.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="encaissements.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

@@ -6,8 +6,8 @@
 
 <h2>Cloture Recouvrement</h2>
 
-@*@using (Html.BeginForm("validerCloture", "recouvrements", FormMethod.Post))
-{*@
+@using (Html.BeginForm("validerCloture", "recouvrements", FormMethod.Post))
+{
 
     <div class="col">
         <div class="form-group">
@@ -20,7 +20,7 @@
     </div>
 
     <button type="submit" id="btncloturer" class="btn btn-warning">Cloturer</button>
-@*}*@
+}
 
 
     @*<h3 id="facturespayees">payees</h3>
@@ -115,7 +115,7 @@
                 });
             });
 
-            $("#btncloturer").click(function () {
+            @*$("#btncloturer").click(function () {
                 data = {
                     periode: $("#periode").val()
                 }
@@ -130,7 +130,7 @@
                     error: function () {
                     }
                 });
-            });
+            });*@
 
             @*var getetat = function (periodee) {
                 alert(this.periodee)

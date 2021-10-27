@@ -101,6 +101,9 @@ namespace proera.Controllers
 				ViewBag.contrat = db.contrats.Find(clients.Contrat).contrat;
 			if(clients.NivPuissance!=null)
 			ViewBag.nivpui = db.hnivpuissances.Find(clients.NivPuissance).NivPuissance;
+
+
+			ViewBag.bordereau = db.bordereaux.Find(clients.Bordereau).numero;
 			return View("Details", clients);
 		}
 
@@ -1336,6 +1339,9 @@ namespace proera.Controllers
 				client.Raison_Social = clients.Raison_Social;
 				client.codevillage = clients.codevillage;
 				client.activite = clients.activite;
+				var village = db.villages.Find(clients.codevillage);
+				client.Village = village.village;
+				
 				db.Entry(client).State = EntityState.Modified;
 				db.SaveChanges();
 				return RedirectToAction("Details", new { id = clients.Reference_Contrat });
@@ -1965,6 +1971,9 @@ namespace proera.Controllers
 				client.Type_Elect = clients.Type_Elect;
 				client.activite = clients.activite;
 				client.Raison_Social = clients.Raison_Social;
+
+				var village = db.villages.Find(clients.codevillage);
+				client.Village = village.village;
 				db.Entry(client).State = EntityState.Modified;
 				db.SaveChanges();
 				return RedirectToAction("Details", new { id = clients.Reference_Contrat });

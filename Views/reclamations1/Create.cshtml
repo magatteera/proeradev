@@ -168,7 +168,6 @@
                         <option value="Moyen">Moyen</option>
                         <option value="Moindre">Moindre</option>
                     </select>
-                    @Html.ValidationMessageFor(model => model.nivintervention, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
@@ -176,22 +175,21 @@
     <div class="row">
         <div class="col">
             <div class="form-group">
-                @Html.LabelFor(model => model.nature, "Nature", htmlAttributes: new { @class = "control-label col" })
+                @Html.LabelFor(model => model.priorite, "Priorite", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-6">
-                    <select name="nature" class="form-control">
+                    <select name="priorite" class="form-control">
                         <option value="Haute">Haute</option>
                         <option value="Moyenne">Moyenne</option>
                         <option value="Non Prioritaire">Non Prioritaire</option>
                     </select>
-                    @Html.ValidationMessageFor(model => model.nivintervention, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
         <div class="col">
             <div class="form-group">
-                @Html.LabelFor(model => model.priorite, "Priorité", htmlAttributes: new { @class = "control-label col" })
+                @Html.LabelFor(model => model.nature, "Nature", htmlAttributes: new { @class = "control-label col" })
                 <div class="col-md-6">
-                    <select name="priorite" class="form-control">
+                    <select name="nature" class="form-control">
                         <option value="Problème sur la distribution (Poste ,Central PV ; MT ;BT)">Problème sur la distribution (Poste ,Central PV ; MT ;BT)</option>
                         <option value="Absence de tension (chez le client)">Absence de tension (chez le client)</option>
                         <option value="Raccordement tardive">Raccordement tardive</option>
@@ -201,7 +199,6 @@
                         <option value="Renseignement">Renseignement</option>
                         <option value="Divers">Divers</option>
                     </select>
-                    @Html.ValidationMessageFor(model => model.nivintervention, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>

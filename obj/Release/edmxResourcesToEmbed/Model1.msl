@@ -21,6 +21,8 @@
     <EntitySetMapping Name="audit">
       <EntityTypeMapping TypeName="PROERAModel.audit">
         <MappingFragment StoreEntitySet="audit">
+          <ScalarProperty Name="nouveletat" ColumnName="nouveletat" />
+          <ScalarProperty Name="ancienetat" ColumnName="ancienetat" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="operation" ColumnName="operation" />
           <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
@@ -207,29 +209,6 @@
           <ScalarProperty Name="geom" ColumnName="geom" />
           <ScalarProperty Name="idregion" ColumnName="idregion" />
           <ScalarProperty Name="idagence" ColumnName="idagence" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="encaissement">
-      <EntityTypeMapping TypeName="PROERAModel.encaissement">
-        <MappingFragment StoreEntitySet="encaissement">
-          <ScalarProperty Name="Idpayment" ColumnName="Idpayment" />
-          <ScalarProperty Name="DatePaiement" ColumnName="DatePaiement" />
-          <ScalarProperty Name="MontantEncaisse" ColumnName="MontantEncaisse" />
-          <ScalarProperty Name="SoldeAnterieur" ColumnName="SoldeAnterieur" />
-          <ScalarProperty Name="SoldePostPay" ColumnName="SoldePostPay" />
-          <ScalarProperty Name="Idclient" ColumnName="Idclient" />
-          <ScalarProperty Name="idFacture" ColumnName="idFacture" />
-          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
-          <ScalarProperty Name="Nom" ColumnName="Nom" />
-          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
-          <ScalarProperty Name="village" ColumnName="village" />
-          <ScalarProperty Name="nivserv" ColumnName="nivserv" />
-          <ScalarProperty Name="periodefacture" ColumnName="periodefacture" />
-          <ScalarProperty Name="createby" ColumnName="createby" />
-          <ScalarProperty Name="createdate" ColumnName="createdate" />
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="fraiscoupure" ColumnName="fraiscoupure" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -769,35 +748,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="villages">
-      <EntityTypeMapping TypeName="PROERAModel.villages">
-        <MappingFragment StoreEntitySet="villages">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="region" ColumnName="region" />
-          <ScalarProperty Name="departement" ColumnName="departement" />
-          <ScalarProperty Name="commune" ColumnName="commune" />
-          <ScalarProperty Name="village" ColumnName="village" />
-          <ScalarProperty Name="population" ColumnName="population" />
-          <ScalarProperty Name="menage" ColumnName="menage" />
-          <ScalarProperty Name="education" ColumnName="education" />
-          <ScalarProperty Name="sante" ColumnName="sante" />
-          <ScalarProperty Name="forage" ColumnName="forage" />
-          <ScalarProperty Name="antenne_bts" ColumnName="antenne_bts" />
-          <ScalarProperty Name="moulin" ColumnName="moulin" />
-          <ScalarProperty Name="longitude" ColumnName="longitude" />
-          <ScalarProperty Name="latitude" ColumnName="latitude" />
-          <ScalarProperty Name="code_village" ColumnName="code_village" />
-          <ScalarProperty Name="code_prog" ColumnName="code_prog" />
-          <ScalarProperty Name="idLocalite" ColumnName="idLocalite" />
-          <ScalarProperty Name="etattravaux" ColumnName="etattravaux" />
-          <ScalarProperty Name="technologie" ColumnName="technologie" />
-          <ScalarProperty Name="commercialise" ColumnName="commercialise" />
-          <ScalarProperty Name="nbrclients" ColumnName="nbrclients" />
-          <ScalarProperty Name="codemt" ColumnName="codemt" />
-          <ScalarProperty Name="neardist" ColumnName="neardist" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="AXEMT">
       <EntityTypeMapping TypeName="PROERAModel.AXEMT">
         <MappingFragment StoreEntitySet="AXEMT">
@@ -989,6 +939,36 @@
           <ScalarProperty Name="montant" ColumnName="montant" />
           <ScalarProperty Name="nbrenc" ColumnName="nbrenc" />
           <ScalarProperty Name="sommeenc" ColumnName="sommeenc" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="villages">
+      <EntityTypeMapping TypeName="PROERAModel.villages">
+        <MappingFragment StoreEntitySet="villages">
+          <ScalarProperty Name="source" ColumnName="source" />
+          <ScalarProperty Name="neardist" ColumnName="neardist" />
+          <ScalarProperty Name="codemt" ColumnName="codemt" />
+          <ScalarProperty Name="nbrclients" ColumnName="nbrclients" />
+          <ScalarProperty Name="commercialise" ColumnName="commercialise" />
+          <ScalarProperty Name="technologie" ColumnName="technologie" />
+          <ScalarProperty Name="etattravaux" ColumnName="etattravaux" />
+          <ScalarProperty Name="idLocalite" ColumnName="idLocalite" />
+          <ScalarProperty Name="code_prog" ColumnName="code_prog" />
+          <ScalarProperty Name="code_village" ColumnName="code_village" />
+          <ScalarProperty Name="latitude" ColumnName="latitude" />
+          <ScalarProperty Name="longitude" ColumnName="longitude" />
+          <ScalarProperty Name="moulin" ColumnName="moulin" />
+          <ScalarProperty Name="antenne_bts" ColumnName="antenne_bts" />
+          <ScalarProperty Name="forage" ColumnName="forage" />
+          <ScalarProperty Name="sante" ColumnName="sante" />
+          <ScalarProperty Name="education" ColumnName="education" />
+          <ScalarProperty Name="menage" ColumnName="menage" />
+          <ScalarProperty Name="population" ColumnName="population" />
+          <ScalarProperty Name="village" ColumnName="village" />
+          <ScalarProperty Name="commune" ColumnName="commune" />
+          <ScalarProperty Name="departement" ColumnName="departement" />
+          <ScalarProperty Name="region" ColumnName="region" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

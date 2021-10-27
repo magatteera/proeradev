@@ -39,7 +39,6 @@ namespace proera
         public virtual DbSet<correctionreleve> correctionreleve { get; set; }
         public virtual DbSet<correctionsolde> correctionsolde { get; set; }
         public virtual DbSet<departements> departements { get; set; }
-        public virtual DbSet<encaissement> encaissement { get; set; }
         public virtual DbSet<encaissements> encaissements { get; set; }
         public virtual DbSet<entrepots> entrepots { get; set; }
         public virtual DbSet<etatclient> etatclient { get; set; }
@@ -80,7 +79,6 @@ namespace proera
         public virtual DbSet<typepaiement> typepaiement { get; set; }
         public virtual DbSet<typereclamation> typereclamation { get; set; }
         public virtual DbSet<usages> usages { get; set; }
-        public virtual DbSet<villages> villages { get; set; }
         public virtual DbSet<AXEMT> AXEMT { get; set; }
         public virtual DbSet<cust_sandbox> cust_sandbox { get; set; }
         public virtual DbSet<encaissementsreport> encaissementsreport { get; set; }
@@ -91,5 +89,6 @@ namespace proera
         public virtual DbSet<wappler_migrations> wappler_migrations { get; set; }
         public virtual DbSet<wappler_migrations_lock> wappler_migrations_lock { get; set; }
         public virtual DbSet<View_DetailsEncaissement> View_DetailsEncaissement { get; set; }
+        public virtual DbSet<villages> villages { get; set; }
     }
 }

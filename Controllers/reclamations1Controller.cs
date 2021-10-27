@@ -18,8 +18,29 @@ namespace proera.Controllers
         public ActionResult Index()
         {
             var reclamation = db.reclamation.Include(r => r.clients).Include(r => r.typereclamation);
-            return View(reclamation.ToList());
+            var region = db.regions.ToList();
+            ViewBag.region = region;
+            ViewBag.region = new SelectList(region, "id", "nom_region");
+            ViewBag.departement = "";
+            ViewBag.commune = "";
+            ViewBag.village = "";
+            return View("Index", reclamation.ToList());
         }
+
+        public ActionResult changementVillage([Bind(Include = "id,refclient,date,type,priorite,commentaire,nivintervention,telephone,localite,statut,utilisateur, numcompteur, datecloture, nature")] reclamation reclamation)
+
+        {
+            var reclamations = db.reclamation.Where(r=> r.localite == reclamation.localite).Include(r => r.clients).Include(r => r.typereclamation);
+
+            var region = db.regions.ToList();
+            ViewBag.region = region;
+            ViewBag.region = new SelectList(region, "id", "nom_region");
+            ViewBag.departement = "";
+            ViewBag.commune = "";
+            ViewBag.village = "";
+            return View("Index",reclamations.ToList());
+        }
+
 
 
 
@@ -83,7 +104,8 @@ namespace proera.Controllers
                 reclamation.utilisateur = User.Identity.Name;
                 db.reclamation.Add(reclamation);
                 db.SaveChanges();
-                return Redirect("http://nodec-winserv1:8081/ReportServer/Pages/ReportViewer.aspx?%2freclamations&rs:Command=Render");
+                //var site = this.HttpContext.Request.
+                //return Redirect("http://nodec-winserv1:8081/ReportServer/Pages/ReportViewer.aspx?%2freclamations&rs:Command=Render");
                 return RedirectToAction("Index");
             }
             /*
@@ -246,6 +268,23 @@ namespace proera.Controllers
             ViewBag.localite = new SelectList(villagefilt, "code_village", "village", reclamation.localite);
             //ViewBag.refclient = new SelectList(db.clients, "Reference_Contrat", "Nom1", reclamation.refclient);
             ViewBag.type = new SelectList(db.typereclamation, "id", "type", reclamation.type);
+
+            string[] priorite = { "Haute", "Moyenne", "Non Prioritaire" };
+            string[] nature = { "Problème sur la distribution (Poste ,Central PV ; MT ;BT)",
+                "Absence de tension (chez le client)",
+                "Raccordement tardif",
+                "Facture non reçue",
+                "Problème de solde",
+                "Problème de code de recharge (client au prépaiement)",
+                "Renseignement",
+                "Divers"};
+            string[] nivintervention = { "Critique", "Moyen", "Moindre" };
+
+            ViewBag.priorite = priorite.Select(x => new SelectListItem() { Value = x, Text = x, Selected = reclamation.priorite == x }).ToList();
+            ViewBag.nature = nature.Select(x => new SelectListItem() { Value = x, Text = x, Selected = reclamation.nature == x }).ToList();
+            ViewBag.nivintervention = nivintervention.Select(x => new SelectListItem() { Value = x, Text = x, Selected = reclamation.nivintervention == x }).ToList();
+
+
             return View(reclamation);
         }
 
@@ -268,6 +307,7 @@ namespace proera.Controllers
                 rec.nivintervention = reclamation.nivintervention;
                 rec.telephone = reclamation.telephone;
                 rec.datecloture = reclamation.datecloture;
+                rec.statut = reclamation.statut;
                 db.Entry(rec).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

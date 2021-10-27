@@ -29,6 +29,8 @@
     <Property Name="soldeclient" Type="Double" />
     <Property Name="dateoperation" Type="DateTime" Precision="3" />
     <Property Name="codevillage" Type="Int32" />
+    <Property Name="ancienetat" Type="Int32" />
+    <Property Name="nouveletat" Type="Int32" />
   </EntityType>
   <EntityType Name="bordereaux">
     <Key>
@@ -113,7 +115,7 @@
     <Property Name="activite" Type="Int32" />
     <Property Name="sqlstate" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="refclient" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="codevillage" Type="Int32" />
+    <Property Name="codevillage" Type="Int32" Nullable="false" />
     <Property Name="modePaiement" Type="Int32" />
     <Property Name="numeropaiement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="TypeBranch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -150,7 +152,7 @@
     <Property Name="geom" Type="Geography" />
     <Property Name="iddepartement" Type="Int32" Nullable="false" />
     <NavigationProperty Name="departements" Relationship="Self.FK_communes_departements" FromRole="communes" ToRole="departements" />
-    <NavigationProperty Name="villages" Relationship="Self.FK_villages_communes" FromRole="communes" ToRole="villages" />
+    <NavigationProperty Name="villages" Relationship="PROERAModel.FK_villages_communes" FromRole="communes" ToRole="villages" />
   </EntityType>
   <EntityType Name="compteurs">
     <Key>
@@ -207,28 +209,6 @@
     <Property Name="idagence" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="communes" Relationship="Self.FK_communes_departements" FromRole="departements" ToRole="communes" />
     <NavigationProperty Name="regions" Relationship="Self.FK_departements_regions" FromRole="departements" ToRole="regions" />
-  </EntityType>
-  <EntityType Name="encaissement">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="Idpayment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="DatePaiement" Type="DateTime" Precision="0" />
-    <Property Name="MontantEncaisse" Type="Double" />
-    <Property Name="SoldeAnterieur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="SoldePostPay" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Idclient" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="idFacture" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Commentaire" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="village" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="nivserv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="periodefacture" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="createby" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-    <Property Name="createdate" Type="DateTime" Precision="7" />
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="fraiscoupure" Type="Double" />
   </EntityType>
   <EntityType Name="encaissements">
     <Key>
@@ -436,7 +416,7 @@
     <Property Name="nombreSupport" Type="Int32" />
     <Property Name="LineaireBT" Type="Double" />
     <Property Name="datemiseenservice" Type="DateTime" Precision="0" />
-    <NavigationProperty Name="villages" Relationship="Self.FK_MisEnServiceVillages_villages" FromRole="MisEnServiceVillages" ToRole="villages" />
+    <NavigationProperty Name="villages" Relationship="PROERAModel.FK_MisEnServiceVillages_villages" FromRole="MisEnServiceVillages" ToRole="villages" />
   </EntityType>
   <EntityType Name="modifencaissement">
     <Key>
@@ -497,7 +477,7 @@
     <Property Name="descriptProg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="remarque" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="operateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="villages" Relationship="Self.FK_villages_programmes" FromRole="programmes" ToRole="villages" />
+    <NavigationProperty Name="villages" Relationship="PROERAModel.FK_villages_programmes" FromRole="programmes" ToRole="villages" />
   </EntityType>
   <EntityType Name="raisonsociale">
     <Key>
@@ -688,7 +668,7 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="technologie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="villages" Relationship="Self.FK_villages_Technologies" FromRole="Technologies" ToRole="villages" />
+    <NavigationProperty Name="villages" Relationship="PROERAModel.FK_villages_Technologies" FromRole="Technologies" ToRole="villages" />
   </EntityType>
   <EntityType Name="tempReleves">
     <Key>
@@ -750,39 +730,6 @@
     <Property Name="usage" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="hbaremes" Relationship="Self.FK_hbaremes_usages" FromRole="usages" ToRole="hbaremes" />
     <NavigationProperty Name="hnivpuissances" Relationship="Self.FK_hnivpuissances_usages" FromRole="usages" ToRole="hnivpuissances" />
-  </EntityType>
-  <EntityType Name="villages">
-    <Key>
-      <PropertyRef Name="code_village" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="departement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="commune" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="village" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="population" Type="Int32" />
-    <Property Name="menage" Type="Double" />
-    <Property Name="education" Type="Byte" />
-    <Property Name="sante" Type="Byte" />
-    <Property Name="forage" Type="Byte" />
-    <Property Name="antenne_bts" Type="Byte" />
-    <Property Name="moulin" Type="Byte" />
-    <Property Name="longitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="latitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="code_village" Type="Int32" Nullable="false" />
-    <Property Name="code_prog" Type="Int32" />
-    <Property Name="idLocalite" Type="Int32" />
-    <Property Name="etattravaux" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="technologie" Type="Int32" />
-    <Property Name="commercialise" Type="Byte" />
-    <Property Name="nbrclients" Type="Int32" />
-    <Property Name="codemt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="neardist" Type="Double" />
-    <NavigationProperty Name="communes" Relationship="Self.FK_villages_communes" FromRole="villages" ToRole="communes" />
-    <NavigationProperty Name="MisEnServiceVillages" Relationship="Self.FK_MisEnServiceVillages_villages" FromRole="villages" ToRole="MisEnServiceVillages" />
-    <NavigationProperty Name="programmes" Relationship="Self.FK_villages_programmes" FromRole="villages" ToRole="programmes" />
-    <NavigationProperty Name="Technologies" Relationship="Self.FK_villages_Technologies" FromRole="villages" ToRole="Technologies" />
-    <NavigationProperty Name="near_dist" Relationship="Self.FK_near_dist_villages" FromRole="villages" ToRole="near_dist" />
   </EntityType>
   <EntityType Name="AXEMT">
     <Key>
@@ -901,7 +848,7 @@
     <Property Name="near_dist1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="axe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="villages" Relationship="Self.FK_near_dist_villages" FromRole="near_dist" ToRole="villages" />
+    <NavigationProperty Name="villages" Relationship="PROERAModel.FK_near_dist_villages" FromRole="near_dist" ToRole="villages" />
   </EntityType>
   <EntityType Name="Requête">
     <Key>
@@ -1084,18 +1031,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_villages_communes">
-    <End Role="communes" Type="Self.communes" Multiplicity="0..1" />
-    <End Role="villages" Type="Self.villages" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="communes">
-        <PropertyRef Name="code_com" />
-      </Principal>
-      <Dependent Role="villages">
-        <PropertyRef Name="idLocalite" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_departements_regions">
     <End Role="regions" Type="Self.regions" Multiplicity="0..1" />
     <End Role="departements" Type="Self.departements" Multiplicity="*" />
@@ -1168,30 +1103,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_MisEnServiceVillages_villages">
-    <End Role="villages" Type="Self.villages" Multiplicity="0..1" />
-    <End Role="MisEnServiceVillages" Type="Self.MisEnServiceVillages" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="villages">
-        <PropertyRef Name="code_village" />
-      </Principal>
-      <Dependent Role="MisEnServiceVillages">
-        <PropertyRef Name="code_village" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_villages_programmes">
-    <End Role="programmes" Type="Self.programmes" Multiplicity="0..1" />
-    <End Role="villages" Type="Self.villages" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="programmes">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="villages">
-        <PropertyRef Name="code_prog" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_reclamation_typereclamation">
     <End Role="typereclamation" Type="Self.typereclamation" Multiplicity="0..1" />
     <End Role="reclamation" Type="Self.reclamation" Multiplicity="*" />
@@ -1201,30 +1112,6 @@
       </Principal>
       <Dependent Role="reclamation">
         <PropertyRef Name="type" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_villages_Technologies">
-    <End Role="Technologies" Type="Self.Technologies" Multiplicity="0..1" />
-    <End Role="villages" Type="Self.villages" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Technologies">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="villages">
-        <PropertyRef Name="technologie" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_near_dist_villages">
-    <End Role="villages" Type="Self.villages" Multiplicity="0..1" />
-    <End Role="near_dist" Type="Self.near_dist" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="villages">
-        <PropertyRef Name="code_village" />
-      </Principal>
-      <Dependent Role="near_dist">
-        <PropertyRef Name="codevillage" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1243,7 +1130,6 @@
     <EntitySet Name="correctionreleve" EntityType="Self.correctionreleve" />
     <EntitySet Name="correctionsolde" EntityType="Self.correctionsolde" />
     <EntitySet Name="departements" EntityType="Self.departements" />
-    <EntitySet Name="encaissement" EntityType="Self.encaissement" />
     <EntitySet Name="encaissements" EntityType="Self.encaissements" />
     <EntitySet Name="entrepots" EntityType="Self.entrepots" />
     <EntitySet Name="etatclient" EntityType="Self.etatclient" />
@@ -1284,7 +1170,6 @@
     <EntitySet Name="typepaiement" EntityType="Self.typepaiement" />
     <EntitySet Name="typereclamation" EntityType="Self.typereclamation" />
     <EntitySet Name="usages" EntityType="Self.usages" />
-    <EntitySet Name="villages" EntityType="Self.villages" />
     <EntitySet Name="AXEMT" EntityType="Self.AXEMT" />
     <EntitySet Name="cust_sandbox" EntityType="Self.cust_sandbox" />
     <EntitySet Name="encaissementsreport" EntityType="Self.encaissementsreport" />
@@ -1334,10 +1219,6 @@
       <End Role="departements" EntitySet="departements" />
       <End Role="communes" EntitySet="communes" />
     </AssociationSet>
-    <AssociationSet Name="FK_villages_communes" Association="Self.FK_villages_communes">
-      <End Role="communes" EntitySet="communes" />
-      <End Role="villages" EntitySet="villages" />
-    </AssociationSet>
     <AssociationSet Name="FK_departements_regions" Association="Self.FK_departements_regions">
       <End Role="regions" EntitySet="regions" />
       <End Role="departements" EntitySet="departements" />
@@ -1362,27 +1243,32 @@
       <End Role="usages" EntitySet="usages" />
       <End Role="hnivpuissances" EntitySet="hnivpuissances" />
     </AssociationSet>
-    <AssociationSet Name="FK_MisEnServiceVillages_villages" Association="Self.FK_MisEnServiceVillages_villages">
-      <End Role="villages" EntitySet="villages" />
-      <End Role="MisEnServiceVillages" EntitySet="MisEnServiceVillages" />
-    </AssociationSet>
-    <AssociationSet Name="FK_villages_programmes" Association="Self.FK_villages_programmes">
-      <End Role="programmes" EntitySet="programmes" />
-      <End Role="villages" EntitySet="villages" />
-    </AssociationSet>
     <AssociationSet Name="FK_reclamation_typereclamation" Association="Self.FK_reclamation_typereclamation">
       <End Role="typereclamation" EntitySet="typereclamation" />
       <End Role="reclamation" EntitySet="reclamation" />
     </AssociationSet>
-    <AssociationSet Name="FK_villages_Technologies" Association="Self.FK_villages_Technologies">
+    <EntitySet Name="View_DetailsEncaissement" EntityType="PROERAModel.View_DetailsEncaissement" />
+    <EntitySet Name="villages" EntityType="PROERAModel.villages" />
+    <AssociationSet Name="FK_villages_communes" Association="PROERAModel.FK_villages_communes">
+      <End Role="communes" EntitySet="communes" />
+      <End Role="villages" EntitySet="villages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MisEnServiceVillages_villages" Association="PROERAModel.FK_MisEnServiceVillages_villages">
+      <End Role="villages" EntitySet="villages" />
+      <End Role="MisEnServiceVillages" EntitySet="MisEnServiceVillages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_villages_programmes" Association="PROERAModel.FK_villages_programmes">
+      <End Role="programmes" EntitySet="programmes" />
+      <End Role="villages" EntitySet="villages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_villages_Technologies" Association="PROERAModel.FK_villages_Technologies">
       <End Role="Technologies" EntitySet="Technologies" />
       <End Role="villages" EntitySet="villages" />
     </AssociationSet>
-    <AssociationSet Name="FK_near_dist_villages" Association="Self.FK_near_dist_villages">
+    <AssociationSet Name="FK_near_dist_villages" Association="PROERAModel.FK_near_dist_villages">
       <End Role="villages" EntitySet="villages" />
       <End Role="near_dist" EntitySet="near_dist" />
     </AssociationSet>
-    <EntitySet Name="View_DetailsEncaissement" EntityType="PROERAModel.View_DetailsEncaissement" />
   </EntityContainer>
   <EntityType Name="View_DetailsEncaissement">
     <Key>
@@ -1396,4 +1282,98 @@
     <Property Name="utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="datecreation" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="villages">
+    <Key>
+      <PropertyRef Name="code_village" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="departement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="commune" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="village" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="population" Type="Int32" />
+    <Property Name="menage" Type="Double" />
+    <Property Name="education" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="sante" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="forage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="antenne_bts" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="moulin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="longitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="latitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="code_village" Type="Int32" Nullable="false" />
+    <Property Name="code_prog" Type="Int32" />
+    <Property Name="idLocalite" Type="Int32" />
+    <Property Name="etattravaux" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="technologie" Type="Int32" />
+    <Property Name="commercialise" Type="Byte" />
+    <Property Name="nbrclients" Type="Int32" />
+    <Property Name="codemt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="neardist" Type="Double" />
+    <Property Name="source" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="communes" Relationship="PROERAModel.FK_villages_communes" FromRole="villages" ToRole="communes" />
+    <NavigationProperty Name="MisEnServiceVillages" Relationship="PROERAModel.FK_MisEnServiceVillages_villages" FromRole="villages" ToRole="MisEnServiceVillages" />
+    <NavigationProperty Name="programmes" Relationship="PROERAModel.FK_villages_programmes" FromRole="villages" ToRole="programmes" />
+    <NavigationProperty Name="Technologies" Relationship="PROERAModel.FK_villages_Technologies" FromRole="villages" ToRole="Technologies" />
+    <NavigationProperty Name="near_dist" Relationship="PROERAModel.FK_near_dist_villages" FromRole="villages" ToRole="near_dist" />
+  </EntityType>
+  <Association Name="FK_villages_communes">
+    <End Type="PROERAModel.communes" Role="communes" Multiplicity="0..1" />
+    <End Type="PROERAModel.villages" Role="villages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="communes">
+        <PropertyRef Name="code_com" />
+      </Principal>
+      <Dependent Role="villages">
+        <PropertyRef Name="idLocalite" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MisEnServiceVillages_villages">
+    <End Type="PROERAModel.villages" Role="villages" Multiplicity="0..1" />
+    <End Type="PROERAModel.MisEnServiceVillages" Role="MisEnServiceVillages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="villages">
+        <PropertyRef Name="code_village" />
+      </Principal>
+      <Dependent Role="MisEnServiceVillages">
+        <PropertyRef Name="code_village" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_villages_programmes">
+    <End Type="PROERAModel.programmes" Role="programmes" Multiplicity="0..1" />
+    <End Type="PROERAModel.villages" Role="villages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="programmes">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="villages">
+        <PropertyRef Name="code_prog" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_villages_Technologies">
+    <End Type="PROERAModel.Technologies" Role="Technologies" Multiplicity="0..1" />
+    <End Type="PROERAModel.villages" Role="villages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Technologies">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="villages">
+        <PropertyRef Name="technologie" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_near_dist_villages">
+    <End Type="PROERAModel.villages" Role="villages" Multiplicity="0..1" />
+    <End Type="PROERAModel.near_dist" Role="near_dist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="villages">
+        <PropertyRef Name="code_village" />
+      </Principal>
+      <Dependent Role="near_dist">
+        <PropertyRef Name="codevillage" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

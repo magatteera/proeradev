@@ -21,6 +21,7 @@ namespace proera.Controllers
     public class recouvrementsController : Controller
     {
         private PROERAEntities db = new PROERAEntities();
+        //db.
 
         // GET: recouvrements
         public ActionResult Index(string id)

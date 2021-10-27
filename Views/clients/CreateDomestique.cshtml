@@ -454,6 +454,12 @@
 
 
 
+            if ($("#numerobordereau").val().length < 3 || !$("#numerobordereau").val().startsWith("BV")) {
+                @* alert($("#numerobordereau").val().length) *@
+                alert("Veuillez creer un bordereaux en donnant un numero qui commence par BV")
+            } else if ($("#montantbordereau").val().length < 1)
+                alert("Veuillez creer un bordereaux en renseignant le montant")
+            else
             $.ajax({
                 type: "POST",
                 url: "/clients/savebordereau",
